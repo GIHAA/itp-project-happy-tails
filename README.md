@@ -7,7 +7,7 @@ Please go under edit and edit this file as needed for your project
 ### Member 3 - 
 ### Member 4 - 
 ### Member 5 - 
-### Member 6 - 
+### Member 6 - IT21165498 - Perera W.H.T.H (It21165498)
 ### Member 7 - 
 ### Member 8 - 
 
