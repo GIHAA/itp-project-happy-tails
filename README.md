@@ -3,7 +3,7 @@ Please go under edit and edit this file as needed for your project
 # Project Name - 
 # Batch - 
 ### Group Leader - IT21165252 - Kuruppu K.A.G.S.R (GIHAA)
-### Member 2 - 
+### Member 2 - IT21187278 - Palliyaguru P.N.A. (NipunPalliyaguru)
 ### Member 3 - 
 ### Member 4 - 
 ### Member 5 - 
