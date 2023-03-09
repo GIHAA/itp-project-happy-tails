@@ -2,7 +2,7 @@ Please go under edit and edit this file as needed for your project
 
 # Project Name - 
 # Batch - 
-### Group Leader - IT20212232 - Mr. Asiri Gamage (asiriRepos)
+### Group Leader - IT21165252 - Kuruppu K.A.G.S.R (GIHAA)
 ### Member 2 - 
 ### Member 3 - 
 ### Member 4 - 
