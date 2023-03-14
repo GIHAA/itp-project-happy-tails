@@ -8,7 +8,7 @@ Please go under edit and edit this file as needed for your project
 ### Member 4 - IT21188404 - sandarujayathilaka
 ### Member 5 - IT21224034 (Denojan)
 ### Member 6 - IT21165498 - Perera W.H.T.H (It21165498)
-### Member 7 - 
+### Member 7 - IT21181924 - Sandeepani E.A. (IT21181924)
 ### Member 8 - IT21181856 - Kandambige S.T.(IT21181856)
 
 #### Brief Description of Project - 
