@@ -55,7 +55,7 @@ const getEvents=(async (req,res) => {
     }
   });
 
-//get one event
+//get one event by id
 
 const getEvent = (async(req,res)=>{
 
