@@ -9,8 +9,6 @@ const Supplier = require('../models/supplierModel')
    //console.log(req.body);
    const{fname,lname,phone,email,address,type} = req.body
 
-
-  
    const supplier = await Supplier.create({
     fname,
     lname,
