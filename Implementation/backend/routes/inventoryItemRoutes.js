@@ -7,7 +7,7 @@ const {
     updateItem,
     deleteItem
 
-} = require('../controller/inventoryController');
+} = require('../controller/inventoryItemController');
 
 const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware');
 
