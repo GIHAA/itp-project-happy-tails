@@ -11,10 +11,10 @@ const {
 
 const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware');
 
-router.post('/items', protect, addItem);
-router.get('/items', protect, readAllItems);
-router.put('/items/:id', protect, updateItem);
-router.delete('/items/:id', protect, deleteItem);
+router.post('/items', addItem);
+router.get('/items', readAllItems);
+router.put('/items/:id', updateItem);
+router.delete('/items/:id', deleteItem);
 
 
 module.exports = router;

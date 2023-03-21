@@ -7,6 +7,7 @@ const addItem = asyncHandler(async (req, res) => {
 
     const { item_code, item_name, item_brand, category, qty } = req.body;
 
+    console.log("called")
     const inventoryItem = await InventoryItem.create({
         item_code,
         item_name,

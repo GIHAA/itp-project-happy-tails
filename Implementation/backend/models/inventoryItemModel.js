@@ -20,7 +20,6 @@ const inventoryItemSchema  = mongoose.Schema(
 
         category: {
             type: String,
-            enum: ['FOOD', 'MEDICINE', 'TOYS', 'BATHROOM ESSENCIALS', 'GROOMING EQUIPMENTS', 'EVENT ITEMS', 'OTHER'],
             default : 'FOOD',
             required: [true, 'Please select an item category']
         },
