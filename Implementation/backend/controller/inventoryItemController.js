@@ -7,7 +7,22 @@ const addItem = asyncHandler(async (req, res) => {
 
     const { item_code, item_name, item_brand, category, qty } = req.body;
 
-    console.log("called")
+    //check whether all values exists
+    if (!item_code || !item_name || !item_brand || !category || !qty) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+
+    // Check if item already exists
+    const itemExists = await InventoryItem.findOne({ item_code })
+
+    if (itemExists) {
+        res.status(409)
+        throw new Error('Item already exists')
+        
+    }
+
+    //create item
     const inventoryItem = await InventoryItem.create({
         item_code,
         item_name,

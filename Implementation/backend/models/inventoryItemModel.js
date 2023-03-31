@@ -6,6 +6,7 @@ const inventoryItemSchema  = mongoose.Schema(
         item_code: {
             type: String,
             required: [true, 'Please add an item ID'],
+            
         }, 
 
         item_name: {
