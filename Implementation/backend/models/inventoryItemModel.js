@@ -27,7 +27,7 @@ const inventoryItemSchema  = mongoose.Schema(
 
         qty: {
             type: Number,
-            required: [true, 'Please add an item quantity'],
+            default : 0,
         },
 
         

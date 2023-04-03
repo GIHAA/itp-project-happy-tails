@@ -5,10 +5,10 @@ const InventoryItem = require('../models/inventoryItemModel');
 //post - add item
 const addItem = asyncHandler(async (req, res) => {
 
-    const { item_code, item_name, item_brand, category, qty } = req.body;
+    const { item_code, item_name, item_brand, category } = req.body;
 
     //check whether all values exists
-    if (!item_code || !item_name || !item_brand || !category || !qty) {
+    if (!item_code || !item_name || !item_brand || !category ) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -28,7 +28,6 @@ const addItem = asyncHandler(async (req, res) => {
         item_name,
         item_brand,
         category,
-        qty
         
     });
 
@@ -55,6 +54,13 @@ const updateItem = asyncHandler(async (req, res) => {
 
     const id = req.params.id;
     const { item_code, item_name, item_brand, category, qty } = req.body;
+
+    //check whether all values exists
+    if (!item_code || !item_name || !item_brand || !category || !qty) {
+        res.status(400)
+        throw new Error('Please add all fields')
+    }
+
 
     const inventoryItem = await InventoryItem.findByIdAndUpdate(id, {
         item_code,
