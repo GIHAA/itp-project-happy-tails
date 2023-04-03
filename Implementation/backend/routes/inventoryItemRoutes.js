@@ -4,6 +4,7 @@ const router = express.Router();
 const {
     addItem,
     readAllItems,
+    getOneItem,
     updateItem,
     deleteItem
 
@@ -13,6 +14,7 @@ const { protect , userProtect , adminProtect} = require('../middleware/authMiddl
 
 router.post('/items', addItem);
 router.get('/items', readAllItems);
+router.get('/items/:id', getOneItem);
 router.put('/items/:id', updateItem);
 router.delete('/items/:id', deleteItem);
 

@@ -48,6 +48,8 @@ const readAllItems = asyncHandler(async (req, res) => {
 
 
 
+
+
 //put - update
 const updateItem = asyncHandler(async (req, res) => {
 
@@ -80,9 +82,38 @@ const deleteItem = asyncHandler(async (req, res) => {
 
 
 
+//get one item
+const getOneItem = (async(req,res)=>{
+
+    const { id } = req.params;
+  
+    let item = null;
+  
+    try {
+        item = await InventoryItem.findOne({_id : id});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            error: 'Internal server error'
+        });
+    }
+
+    // check if item exists
+    if (!item) {
+        return res.status(404).json({
+            error: 'item not found'
+        });
+    }
+    res.status(200).json({item})
+  })
+
+
+
+
 module.exports = {
     addItem,
     readAllItems,
+    getOneItem,
     updateItem,
     deleteItem
 
