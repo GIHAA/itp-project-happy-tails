@@ -24,7 +24,6 @@ app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
 app.use('/api/vehicle/', require('./routes/vehicleRoutes.js'))
 app.use('/api/transport/', require('./routes/transportRoutes.js'))
 app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
-app.use('/api/employee', require('./route/employee.route'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
