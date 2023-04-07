@@ -21,6 +21,7 @@ const inventoryItemSchema  = mongoose.Schema(
 
         category: {
             type: String,
+            lowercase: true,
             default : 'FOOD',
             required: [true, 'Please select an item category']
         },

@@ -21,6 +21,7 @@ const stockRequestSchema  = mongoose.Schema(
 
         category: {
             type: String,
+            lowercase: true,
             default : 'FOOD',
             required: [true, 'Please select an item category']
         },
@@ -33,9 +34,10 @@ const stockRequestSchema  = mongoose.Schema(
 
         status: {
             type: String,
-            enum: ['PENDING', 'ACCEPTED', 'REJECTED',],
+            //enum: ['PENDING', 'ACCEPTED', 'RECIEVED',],
+            lowercase: true,
             default: 'PENDING',
-            required: [true],
+            required: true,
           },
 
         

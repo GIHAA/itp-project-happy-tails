@@ -115,12 +115,44 @@ const getOneItem = (async(req,res)=>{
 
 
 
+  const updateQuantity = asyncHandler(async (req, res) => {
+
+    try {
+        
+        const itemcode = req.params.itemcode;
+        const qty = req.params.qty;
+        const newqty = parseInt(qty);
+        console.log("item qty :" + newqty)
+
+
+         // Get the document to update and access the previous quantity value
+        const itemToUpdate = await InventoryItem.findOne({ item_code: itemcode });
+        const previousQty = itemToUpdate.qty;
+        
+        const updatedQty = previousQty + newqty;
+
+        // Update the quantity field with the new value
+        await InventoryItem.updateOne({ item_code: itemcode }, { $set: { qty: updatedQty } });
+
+        // Log the update result and the previous and new quantity values
+        console.log(`Updated item ${itemcode} quantity from ${previousQty} to ${updatedQty} by adding ${newqty}`);
+    
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+      }
+
+});
+
+
+
 
 module.exports = {
     addItem,
     readAllItems,
     getOneItem,
     updateItem,
-    deleteItem
+    deleteItem,
+    updateQuantity
 
 }
