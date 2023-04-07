@@ -4,17 +4,21 @@ const router = express.Router();
 const {
     addItem,
     readAllItems,
+    getOneItem,
     updateItem,
-    deleteItem
+    deleteItem,
+    updateQuantity
 
 } = require('../controller/inventoryItemController');
 
 const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware');
 
-router.post('/items', protect, addItem);
-router.get('/items', protect, readAllItems);
-router.put('/items/:id', protect, updateItem);
-router.delete('/items/:id', protect, deleteItem);
+router.post('/items', addItem);
+router.get('/items', readAllItems);
+router.get('/items/:id', getOneItem);
+router.put('/items/:id', updateItem);
+router.delete('/items/:id', deleteItem);
+router.put('/items/:itemcode/:qty', updateQuantity);
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const express = require('express');
 const efeedback = require('../models/eventFeedbackModel')
 const Joi = require('joi');
 const mongoose = require('mongoose')
-const{validateFedReqBody}=require('../validations/eventFeedbackValidation')
+//const{validateFedReqBody}=require('../validations/eventFeedbackValidation')
 
 
 //add feedback
