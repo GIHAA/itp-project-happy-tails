@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const InventoryItem = require('../models/inventoryItemModel');
 
+
 //post - add item
 const addItem = asyncHandler(async (req, res) => {
 
@@ -150,13 +151,15 @@ const subtractQuantity = asyncHandler(async (req, res) => {
         const availableQty = itemToUpdate.qty;
 
         const updatedQty = availableQty - release_qty;
-        
-
+      
         // Update the quantity field with the new value
         await InventoryItem.updateOne({ item_code: item_code }, { $set: { qty: updatedQty } });
+        res.status(200).json({ message: 'Item qty updated' });
+
 
         // Log the update result and the previous and new quantity values
         console.log(`Updated item ${item_code} quantity from ${availableQty} to ${updatedQty} by substracting ${release_qty}`);
+
     
       } catch (error) {
         console.error(error);
