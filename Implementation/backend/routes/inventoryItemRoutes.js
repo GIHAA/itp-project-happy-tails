@@ -7,7 +7,8 @@ const {
     getOneItem,
     updateItem,
     deleteItem,
-    updateQuantity
+    addQuantity,
+    subtractQuantity
 
 } = require('../controller/inventoryItemController');
 
@@ -16,9 +17,12 @@ const { protect , userProtect , adminProtect} = require('../middleware/authMiddl
 router.post('/items', addItem);
 router.get('/items', readAllItems);
 router.get('/items/:id', getOneItem);
+router.put('/items/subtractqty', subtractQuantity);
 router.put('/items/:id', updateItem);
 router.delete('/items/:id', deleteItem);
-router.put('/items/:itemcode/:qty', updateQuantity);
+router.put('/items/:itemcode/:qty', addQuantity);
+
+
 
 
 module.exports = router;
