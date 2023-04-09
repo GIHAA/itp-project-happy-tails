@@ -2,7 +2,7 @@ const express = require('express');
 const event = require('../models/eventModel')
 const Joi = require('joi');
 const mongoose = require('mongoose')
-const{validateReqBody}=require('../validations/eventValidation')
+//const{validateReqBody}=require('../validations/eventValidation')
 
 
 //add event
