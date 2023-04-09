@@ -6,7 +6,6 @@ const Supplier = require('../models/supplierModel')
  //post-create
  const addSuppliers =asyncHandler(async (req, res) => {
 
-  console.log(req.body);
    const{name,phone,email,address,type} = req.body
 
    const supplier = await Supplier.create({
