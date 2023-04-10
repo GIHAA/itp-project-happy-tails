@@ -3,13 +3,15 @@ const router = express.Router();
 
 
 const {
-    addRelease
+    addRelease,
+    readAllReleases
 
 
 } = require('../controller/stockReleaseController');
 
 
 router.post('/releasestock', addRelease);
+router.get( '/readreleasestock' , readAllReleases);
 
 
 

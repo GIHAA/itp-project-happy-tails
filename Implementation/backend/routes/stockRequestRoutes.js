@@ -5,6 +5,7 @@ const {
     requestStock,
     getAllRequests,
     updateRequestField,
+    getReceivedRequests
     
 
 } = require('../controller/stockRequestController');
@@ -12,6 +13,7 @@ const {
 
 router.post('/stockrequest', requestStock);
 router.get('/stockrequest', getAllRequests);
+router.get('/stockrequestreceived', getReceivedRequests);
 router.put('/stockrequest/:id', updateRequestField)
 
 

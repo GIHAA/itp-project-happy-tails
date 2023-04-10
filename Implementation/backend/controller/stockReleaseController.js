@@ -38,6 +38,14 @@ const addRelease = asyncHandler(async (req, res) => {
 });
 
 
+//get - read all items 
+const readAllReleases = asyncHandler(async (req, res) => {
+
+    const stockrelease = await stockRelease.find({});
+
+    res.status(200).json(stockrelease);
+
+});
 
 
 
@@ -48,6 +56,7 @@ const addRelease = asyncHandler(async (req, res) => {
 
 module.exports = {
     addRelease,
+    readAllReleases
 
 
 }
