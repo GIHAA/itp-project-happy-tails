@@ -169,6 +169,35 @@ const subtractQuantity = asyncHandler(async (req, res) => {
 });
 
 
+//process stock in data
+const groupByCategory = async (req, res) => {
+
+    try {
+
+      const stockIn = await InventoryItem.aggregate([
+        {
+          $match: {
+            qty: { $gt: 0 } // filter documents based on qty > 0
+          }
+        },
+        {
+          $group: {
+            _id: "$category",
+            total_qty_in: { $sum: "$qty" }
+          }
+        }
+      ]);
+
+        res.status(200).json(stockIn);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server Error" });
+    }
+  };
+  
+
+
 
 module.exports = {
     addItem,
@@ -177,6 +206,7 @@ module.exports = {
     updateItem,
     deleteItem,
     addQuantity,
-    subtractQuantity
+    subtractQuantity,
+    groupByCategory
 
 }

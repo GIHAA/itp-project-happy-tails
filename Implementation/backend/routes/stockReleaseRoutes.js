@@ -4,7 +4,8 @@ const router = express.Router();
 
 const {
     addRelease,
-    readAllReleases
+    readAllReleases,
+    groupByCategory
 
 
 } = require('../controller/stockReleaseController');
@@ -12,6 +13,7 @@ const {
 
 router.post('/releasestock', addRelease);
 router.get( '/readreleasestock' , readAllReleases);
+router.get( '/releasestockprocessed' , groupByCategory);
 
 
 
