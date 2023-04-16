@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import updateUser from "../../services/user";
+import updateUser from "../../services/api/user";
 import { logout, reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";

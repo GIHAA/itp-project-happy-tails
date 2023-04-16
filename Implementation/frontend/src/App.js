@@ -11,12 +11,12 @@ import Home from './components/Home';
 // import UpdatePetProfile from './components/UpdatePetProfile';
 // import AdoptPet from './components/adoptPetPage/AdoptPet';
 import Footer from './components/common/Footer';
-// import ShelterPet from './components/shelterPetPage/ShelterPet';
-// import UserPortal from './components/User/UserProtal';
-// import Booking from './components/User/Booking';
-// import Events from './components/User/Events';
-// import Pets from './components/User/Pets';
-// import Profile from './components/User/Profile';
+import ShelterPet from './components/User/ShelterPet';
+import UserPortal from './components/User/UserProtal';
+import Booking from './components/User/Booking';
+import Events from './components/User/Events';
+import Pets from './components/User/Pets';
+import Profile from './components/User/Profile';
 
 
 function App() {
@@ -29,14 +29,15 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
+            <Route path='shelterpet' element={<ShelterPet />} />
             
 
             //user
-            {/* <Route path='user' element={<UserPortal />} />
+            <Route path='user' element={<UserPortal />} />
               <Route path='profile' element={<Profile />} />
               <Route path='booking' element={<Booking />} />
               <Route path='pets' element={<Pets />} />
-              <Route path='Events' element={<Events />} /> */}
+              <Route path='Events' element={<Events />} />
 
           </Routes>
       <Footer />

@@ -5,27 +5,27 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import bookingServices from "../../services/api/booking";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const useStyles = makeStyles({
-  root: {
-    width: 400,
-    margin: "auto",
-  },
-  customColor: {
-    color: "#808080",
-    "& .MuiSlider-thumb": {
-      backgroundColor: "#808080",
-    },
-    "& .MuiSlider-track": {
-      backgroundColor: "#808080",
-    },
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     width: 400,
+//     margin: "auto",
+//   },
+//   customColor: {
+//     color: "#808080",
+//     "& .MuiSlider-thumb": {
+//       backgroundColor: "#808080",
+//     },
+//     "& .MuiSlider-track": {
+//       backgroundColor: "#808080",
+//     },
+//   },
+// });
 
 function ShelterPet() {
   const { user } = useSelector((state) => state.auth);
@@ -101,7 +101,7 @@ function ShelterPet() {
     }
   };
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const calculateTotal = () => {
     const startDate = new Date(formData.startDate);
@@ -170,9 +170,8 @@ function ShelterPet() {
             </div>
             {<h2>Number of pets: {formData.petCount}</h2>}
 
-            <div className={classes.root}>
+            <div>
               <Slider
-                className={classes.customColor}
                 aria-label="Temperature"
                 defaultValue={0}
                 valueLabelDisplay="auto"
