@@ -6,9 +6,9 @@ const petSchema = mongoose.Schema(
         type: String,
         required: [true, 'Please add a name'],
     },
-    petId:{
+    owenerId: {
         type: String,
-        required: [true, 'Please add a petid'],
+        required: false,
     },
     species: {
         type: String,
@@ -39,17 +39,11 @@ const petSchema = mongoose.Schema(
         required: [true, 'Please add a color'],
     },
      
-    date:{
-        type:Date,
-        required: [true, 'Please add check in date'],
-    },
-
     petStatus:{
         type:String,
         required: [true, 'Please add a status'],
-    },
-
-    qrCode: { type: String, required: true }
+        enum: ['Available', 'paid', 'Booked'],
+    }
 
   }
 )

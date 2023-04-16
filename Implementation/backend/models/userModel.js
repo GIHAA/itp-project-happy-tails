@@ -33,17 +33,6 @@ const userSchema = mongoose.Schema(
       type : String,
       required: false,
     },
-    pets: {
-      type: [
-        {
-          pets_id: {
-            type: String,
-            required: [true, 'Please add a pet_id'],
-          },
-        }
-      ],
-      required: [false],
-    },
   },
   {
     timestamps: true,
