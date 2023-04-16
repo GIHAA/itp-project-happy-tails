@@ -1,8 +1,8 @@
 import React from "react";
-import Booking from "./Booking";
-import Pets from "./Pets";
-import Profile from "./Profile";
-import Events from "./Events";
+import Booking from "./myBooking";
+import Pets from "./myPets";
+import Profile from "./myProfile";
+import Events from "./myEvents";
 import { useState } from "react";
 
 const UserPortal = (props) => {
@@ -39,17 +39,18 @@ const UserPortal = (props) => {
 
         <button
           class="inline-flex items-center justify-center ml-3 rounded-full w-[120px] px-4 py-2 bg-secondary  text-[15px] hover:bg-gray-400 text-white pb-[10px] font-bold"
+          onClick={setPetPage}
+        >
+          my pets
+        </button>
+
+        <button
+          class="inline-flex items-center justify-center ml-3 rounded-full w-[120px] px-4 py-2 bg-secondary  text-[15px] hover:bg-gray-400 text-white pb-[10px] font-bold"
           onClick={setEventPage}
         >
           my event
         </button>
 
-        <button
-          class="inline-flex items-center justify-center ml-3 rounded-full w-[120px] px-4 py-2 bg-secondary  text-[15px] hover:bg-gray-400 text-white pb-[10px] font-bold"
-          onClick={setPetPage}
-        >
-          my pets
-        </button>
       </div>
       {choice === "profile" ? (
         <Profile />

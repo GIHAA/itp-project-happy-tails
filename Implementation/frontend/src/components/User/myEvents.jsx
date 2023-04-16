@@ -1,7 +1,7 @@
 import React from 'react';
 import temp from "../../assets/temp.jpg";
 
-const Pets = (props) => {
+const Events = (props) => {
   return (
     <div>
       <div className="w-full bg-bgsec">
@@ -18,4 +18,4 @@ const Pets = (props) => {
   );
 }
 
-export default Pets;
+export default Events;

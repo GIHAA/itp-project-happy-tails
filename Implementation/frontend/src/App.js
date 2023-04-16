@@ -13,10 +13,10 @@ import AdoptPet from './components/User/AdoptPet';
 import Footer from './components/common/Footer';
 import ShelterPet from './components/User/ShelterPet';
 import UserPortal from './components/User/UserProtal';
-import Booking from './components/User/Booking';
+import Booking from './components/User/myBooking';
 import Events from './components/User/Events';
-import Pets from './components/User/Pets';
-import Profile from './components/User/Profile';
+import Pets from './components/User/myPets';
+import Profile from './components/User/myProfile';
 
 
 import Spinner from './components/common/Spinner';
@@ -41,7 +41,7 @@ function App() {
               <Route path='profile' element={<Profile />} />
               <Route path='booking' element={<Booking />} />
               <Route path='pets' element={<Pets />} />
-              <Route path='Events' element={<Events />} />
+              <Route path='events' element={<Events />} />
 
 
               <Route path='test' element={<Spinner />} />

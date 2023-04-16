@@ -43,8 +43,8 @@ function Adoptpet() {
           <input
             id="search"
             type="text"
-            placeholder="Search for pets..."
-            className="border-b-[1px] w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary"
+            placeholder="   Search for pets... ex: dog, cat, pet name etc"
+            className="border-b-[1px] w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
 
           <button onClick={handleSearch} className="ml-5 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white">Search</button>   

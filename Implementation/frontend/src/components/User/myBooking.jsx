@@ -1,11 +1,10 @@
 import React from "react";
-import temp from "../../assets/temp.jpg";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import bookingServices from "../../services/api/booking";
 import TextField from "@mui/material/TextField";
 import { toast } from "react-toastify";
+import Spinner from "../common/Spinner";
 
 const Booking = (props) => {
   const [data, setData] = useState([]);
@@ -14,6 +13,7 @@ const Booking = (props) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDescriptonModal, setShowDescriptonModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     bookingServices.getAllBookings(user).then((res) => {
@@ -24,10 +24,10 @@ const Booking = (props) => {
       ...prevFormData,
       token: user.token,
     }));
+    setIsLoading(false);
   }, []);
 
   const handleEdit = (booking) => {
-    // Redirect to edit booking page with the ID
     setSelectedBooking(booking);
     setShowEditModal(true);
   };
@@ -70,6 +70,10 @@ const Booking = (props) => {
             <h1 className="text-center text-[20px] font-bold mb-5">
               My Bookings
             </h1>
+
+            {isLoading ? ( 
+        <Spinner />
+      ) : (
 
             <table className="w-full bg-bgsec rounded-[10px]" id="myTable">
               <thead className="bg-secondary rounded-[10px] text-white">
@@ -125,7 +129,7 @@ const Booking = (props) => {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table> )}
           </div>
         </div>
       </div>
