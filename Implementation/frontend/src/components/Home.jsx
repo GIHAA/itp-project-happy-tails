@@ -1,17 +1,11 @@
 import React, {useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import AdminPortal from "./portals/AdminPortal";
-import EventManagerPortal from "./portals/EventManagerPortal";
-import ShelterManagerPortal from "./portals/ShelterManagerPortal";
 import bg from "../assets/Image.png";
 import { Link } from "react-router-dom";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 
 function Home() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.auth);
 
   const [value, onChange] = useState('10:00');
@@ -19,11 +13,11 @@ function Home() {
   const renderPortals = (param) => {
     switch (param) {
       case "ADMIN":
-        return <AdminPortal />;
+        return <></>;
       case "EVENT_MANAGER":
-        return <EventManagerPortal />;
+        return <></>;
       case "SHELTER_MANAGER":
-        return <ShelterManagerPortal />;
+        return <></>;
       default:
         return <></>;
     }
