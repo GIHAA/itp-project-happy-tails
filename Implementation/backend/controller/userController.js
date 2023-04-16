@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
-const Userimg = require('../models/userimgModel')
-const multer = require("multer");
 
 //register user
 const registerUser = asyncHandler(async (req, res) => {
