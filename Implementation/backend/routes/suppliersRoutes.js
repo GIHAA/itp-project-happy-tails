@@ -4,13 +4,15 @@ const {
  readSuppliers,
  addSuppliers,
  updateSuppliers,
- deleteSuppliers
+ deleteSuppliers,
+ getProfile
 } = require('../controller/suppliersController')
 const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware')
 
 router.post('/',addSuppliers )
 router.get('/' ,readSuppliers )
 router.put('/:id' , updateSuppliers)
+router.get('/:id' , getProfile)
 router.delete('/:id' ,deleteSuppliers )
 
 
