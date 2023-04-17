@@ -17,7 +17,7 @@ import Footer from './components/common/Footer';
 // import Events from './components/User/Events';
 // import Pets from './components/User/Pets';
 // import Profile from './components/User/Profile';
-
+import InvDashboard from './components/InvDashboard';
 
 function App() {
   return (
@@ -38,7 +38,12 @@ function App() {
               <Route path='pets' element={<Pets />} />
               <Route path='Events' element={<Events />} /> */}
 
+            //inventory
+            <Route path='/inventory' element={<InvDashboard />} />
+
           </Routes>
+
+          
       <Footer />
       </div>
     </Router>
