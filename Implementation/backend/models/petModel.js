@@ -12,11 +12,11 @@ const petSchema = mongoose.Schema(
     },
     species: {
         type: String,
-        required: [true, 'Please add an email'],
+        required: [true, 'Please add an species'],
     },
     breed: {
         type: String,
-        required: [true, 'Please add a password'],
+        required: [true, 'Please add a breed'],
     },
   
     gender:{
@@ -24,14 +24,14 @@ const petSchema = mongoose.Schema(
         required: [true, 'Please add a gender'],
 
     },
-    age:{
+    birth:{
         type:String,
         required: [true, 'Please add a Age'],
 
     },
-    size:{
+    weight:{
         type:String,
-        required: [true, 'Please add a size'],
+        required: [true, 'Please add a weight'],
     },
 
     color:{
@@ -40,7 +40,7 @@ const petSchema = mongoose.Schema(
     },
      
     date:{
-        type:Date,
+        type:String,
         required: [true, 'Please add check in date'],
     },
 
@@ -49,7 +49,21 @@ const petSchema = mongoose.Schema(
         required: [true, 'Please add a status'],
     },
 
-    qrCode: { type: String, required: true }
+    qrCode: { type: String, required: true },
+
+    image:{ type:String,required:true},
+
+    price:{
+        type:String,
+        required: [true, 'Please add a price'],
+    },
+
+    systime:{
+
+        type:String,
+        required: [true, 'sys time'],
+
+    }
 
   }
 )

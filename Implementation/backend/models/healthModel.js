@@ -16,11 +16,11 @@ const healthSchema = mongoose.Schema(
           required: true,
         },
         dateGiven: {
-          type: Date,
+          type: String,
           required: true,
         },
         expirationDate: {
-          type: Date,
+          type: String,
           required: true,
         },
       }],

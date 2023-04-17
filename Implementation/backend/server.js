@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const colors = require('colors')
 const dotenv = require('dotenv').config()
+const vetRoutes = require('./routes/vetRoutes')
 const { errorHandler } = require('./middleware/errorMiddleware') 
 
 const connectDB = require('./config/db');
@@ -16,7 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/users', require('./routes/userRoutes'))
-
+app.use('/api/vet',vetRoutes)    
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
 app.use('/api/inventory', require('./routes/inventoryRoutes.js'))
 app.use('/api/vehicle/', require('./routes/vehicleRoutes.js'))
