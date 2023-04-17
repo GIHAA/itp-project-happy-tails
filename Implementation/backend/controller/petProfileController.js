@@ -5,15 +5,12 @@ const booking = require('../models/bookingModel');
 const breed = require('../models/breedModel');
 const{validateRegReqBody}=require('../validations/vetValidation');
 const mongoose = require('mongoose');
-const moment = require('moment');
 const QRCode = require('qrcode');
 
 const registerPet = ((req, res) => {
   
-    const date = moment(req.body.date).startOf('day').format('YYYY-MM-DD');
-    // Destructure the request body
 
-   const { petName, pId, species, breed, gender, birth,  weight, color, petStatus,image,price } = req.body;
+   const { petName, pId,date,species, breed, gender, birth,  weight, color, petStatus,image,price } = req.body;
    
     const systime = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })
 
@@ -186,10 +183,9 @@ const searchprofile = ( async (req, res) => {
 const Qr =(async (req, res) => {
 
   const {id} = req.params;
-  console.log(id)
   try {
     const petob = await pet.findOne({petId:id});
-    console.log(petob);
+   
     if (!petob || !petob.qrCode) {
       return res.status(404).json({ error: 'QR code not found' });
     }
