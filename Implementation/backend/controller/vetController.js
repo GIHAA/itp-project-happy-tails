@@ -50,9 +50,9 @@ const profileUpdate = (async(req,res)=>{
   if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send({ error: 'Invalid Profile ID' });
   }
-
+  console.log(updatedProfileData)
   // Validate the request body
-  if (!petName || !species || !breed || !gender || !age || !size || !color || !petStatus) {
+  if (!petName || !species || !breed || !gender || !age || !color || !petStatus) {
       return res.status(400).send({ error: 'Missing required fields' });
   }
 

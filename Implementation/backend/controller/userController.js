@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 
 //register user
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, address , phone ,  password } = req.body
+  const { name, email, address , phone ,  password  , image} = req.body
 
   if (!name || !email || !password) {
     res.status(400)
@@ -31,7 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
     address,
     phone,
     password: hashedPassword,
-    image: req.filename
+    image: image
   })
 
   if (user) {
@@ -41,7 +41,9 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       token: generateToken(user._id),
       role: user.role,
-      image : user.image
+      image : user.image,
+      createdAt : user.createdAt,
+      updatedAt : user.updatedAt
     })
   } else {
     res.status(400)
