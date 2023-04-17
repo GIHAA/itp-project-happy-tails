@@ -18,6 +18,7 @@ import Footer from './components/common/Footer';
 // import Pets from './components/User/Pets';
 // import Profile from './components/User/Profile';
 import InvDashboard from './components/InvDashboard';
+import InvItems from './components/InvItems';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
 
             //inventory
             <Route path='/inventory' element={<InvDashboard />} />
+            <Route path='/items' element={<InvItems />} />
 
           </Routes>
 
