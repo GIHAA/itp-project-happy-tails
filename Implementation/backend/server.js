@@ -8,7 +8,7 @@ const eventregister = require('./routes/registerEventRoutes')
 const eventRoutes = require('./routes/eventRoutes')
 const efeedbackRoutes = require('./routes/eventFeedbackRoutes')
 const connectDB = require('./config/db');
-const port = process.env.port || 8080
+const port = process.env.port || 5000
 
 connectDB()
 
@@ -27,7 +27,7 @@ app.use('/api/inventory', require('./routes/stockRequestRoutes'))
 app.use('/api/vehicle/', require('./routes/vehicleRoutes.js'))
 app.use('/api/transport/', require('./routes/transportRoutes.js'))
 app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
-app.use('/api/employee', require('./route/employee.route'))
+//app.use('/api/employee', require('./route/employee.js'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
