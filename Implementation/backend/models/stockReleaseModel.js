@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const stockRequestSchema  = mongoose.Schema(
+const stockReleaseSchema  = mongoose.Schema(
     {
         date: {
             type: String,
@@ -27,28 +27,13 @@ const stockRequestSchema  = mongoose.Schema(
         category: {
             type: String,
             lowercase: true,
-            default : 'FOOD',
             required: [true, 'Please select an item category']
         },
 
-        qty: {
+        releaseQty: {
             type: Number,
-            min: 1,
-            default: 1,
-        },
-
-        status: {
-            type: String,
-            //enum: ['PENDING', 'ACCEPTED', 'RECIEVED',],
-            lowercase: true,
-            default: 'PENDING',
-            required: true,
-          },
-
-          rec_date: {
-            type: String,
             
-        }, 
+        },
 
         
 
@@ -60,4 +45,4 @@ const stockRequestSchema  = mongoose.Schema(
 )
 
 
-module.exports = mongoose.model('StockRequest', stockRequestSchema)
+module.exports = mongoose.model('stockRelease', stockReleaseSchema)
