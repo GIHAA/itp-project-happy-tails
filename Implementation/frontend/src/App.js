@@ -24,6 +24,7 @@ import InvItemUpdate from './components/InvItemUpdate';
 import InvRequestStock from './components/InvRequestStock';
 import InvRequestedStock from './components/InvRequestedStock';
 import InvReleaseStock from './components/InvReleaseStock';
+import InvStockIn from './components/InvStockIn';
 
 
 
@@ -54,6 +55,8 @@ function App() {
             <Route path='/requeststock' element={<InvRequestStock />} />
             <Route path='/requestedstock' element={<InvRequestedStock />} />
             <Route path='/releasestock' element={<InvReleaseStock />} />
+            <Route path='/stockin' element={<InvStockIn />} />
+
 
 
           </Routes>
