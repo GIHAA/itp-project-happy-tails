@@ -91,8 +91,8 @@ const Profile = (props) => {
         <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[930px]  w-[1200px]">
           <div className="w-1/3  h-full">
             <img
-              src={temp}
-              className="rounded-[50%] w-[75%] border-bg border-[5px]"
+              src={user.image}
+              className="rounded-[50%] w-[270px] h-[270px] border-bg border-[5px]"
             />
           </div>
           <div className="w-2/3  h-64">

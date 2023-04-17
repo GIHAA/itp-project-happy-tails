@@ -12,7 +12,6 @@ const getAll = asynchandler (async (userData) => {
 
 const updateOne = asynchandler (async (userData) => {
 
-    console.log(userData._id)
     const response = await axios.put(API_URL + 'updateprofile/' + userData._id ,userData, {
         headers: {
           'Authorization': `Bearer ${userData.token}`

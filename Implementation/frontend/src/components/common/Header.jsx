@@ -46,7 +46,7 @@ function Header() {
                 Shelter pet
               </Link>
             </li>
-            
+
             <li className="text-[15px] font-bold">
               <Link
                 to="/adoptpet"
@@ -87,7 +87,7 @@ function Header() {
                 </div>
                 <img
                   class="rounded-full w-9 h-9"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"
+                  src={user.image}
                   alt="profile picture"
                 />
               </div>

@@ -51,11 +51,11 @@ const Booking = (props) => {
 
   return (
     <div>
-      <div className="w-full bg-bgsec">
+      <div className="w-full bg-bgsec pb-[80px]">
         <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[830px]  w-[1000px]">
           <div className="w-full ">
             <h1 className="text-center text-[20px] font-bold mb-5">
-              My Bookings
+              My Pets
             </h1>
 
             {isLoading ? ( 
@@ -117,8 +117,6 @@ const Booking = (props) => {
           </div>
         </div>
       </div>
-
-    
 
       {showDescriptonModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
