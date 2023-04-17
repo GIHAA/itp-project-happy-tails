@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
       type : String,
       required: false,
     },
-c    pnumber: {
+    pnumber: {
       type: String,
       required: [true, 'Please add a phone number'],
     },
