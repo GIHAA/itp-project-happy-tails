@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+    background-color: #797979;
+    color: white;
+    outline: 1px solid #2E4960;
+    font-size: 14px;
+}
+
+.link:hover {
+    color: white;
+    background-color: #28333c;
+  }
+  
