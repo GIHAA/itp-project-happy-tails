@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 const eventSchema = mongoose.Schema(
   {
+    eid: {
+        type: Number,
+        required: true
+    },
     name: {
         type: String,
         required: [true, 'Please add a name'],
@@ -31,12 +35,16 @@ const eventSchema = mongoose.Schema(
     },
 
     price:{
-        type:String,
+        type:Number,
         required: [true, 'Please add event ticket price'],
     },
-    manager:{
-        type:String,
-        required: [true, 'Please add event manager name'],
+    status: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
     }
 
   }

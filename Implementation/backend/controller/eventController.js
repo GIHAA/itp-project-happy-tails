@@ -2,20 +2,20 @@ const express = require('express');
 const event = require('../models/eventModel')
 const Joi = require('joi');
 const mongoose = require('mongoose')
-const{validateReqBody}=require('../validations/eventValidation')
+
 
 
 //add event
 const addEvent = ((req, res) => {
 
-    validateReqBody(req)
+  
   
     // Destructure the request body
-    const { name,description,startTime,endTime,date,venue,price,manager} = req.body;
-  
+    const { eid,name,description,startTime,endTime,date,venue,price,status,image} = req.body;
+ 
     // Create a new event
     const newevent = new event({
-  
+         eid,
         name,
         description,
         startTime,
@@ -23,7 +23,8 @@ const addEvent = ((req, res) => {
         date,
         venue,
         price,
-        manager
+        status,
+        image
   
     });
   
@@ -47,6 +48,7 @@ const getEvents=(async (req,res) => {
     try {
         // get all the events
         const allevents= await event.find();
+        console.log("hievent")
         // return the events
         res.status(200).json({ allevents });
     } catch (err) {
@@ -55,7 +57,7 @@ const getEvents=(async (req,res) => {
     }
   });
 
-//get one event by id
+//get one event
 
 const getEvent = (async(req,res)=>{
 
@@ -91,8 +93,8 @@ const getEvent = (async(req,res)=>{
 const editEvent = (async(req,res)=>{
 
     const { id } = req.params;
-    const { name,description,startTime,endTime,date,venue,price,manager} = req.body;
-    const updatedEventData = { name,description,startTime,endTime,date,venue,price,manager};
+    const {name,description,startTime,endTime,date,venue,price,status,image} = req.body;
+    const updatedEventData = {name,description,startTime,endTime,date,venue,price,status,image};
   
     // Validate the id
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -100,7 +102,7 @@ const editEvent = (async(req,res)=>{
     }
   
     // Validate the request body
-    if (!name || !description || !startTime || !endTime || !date || !venue || !price || !manager) {
+    if (!name || !description || !startTime || !endTime || !date || !venue || !price || !status) {
         return res.status(400).send({ error: 'Missing required fields' });
     }
   

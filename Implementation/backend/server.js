@@ -6,6 +6,10 @@ const { errorHandler } = require('./middleware/errorMiddleware')
 const eventregister = require('./routes/registerEventRoutes')
 const eventRoutes = require('./routes/eventRoutes')
 const efeedbackRoutes = require('./routes/eventFeedbackRoutes')
+const budgetReqRoutes = require('./routes/budgetRequestRoutes')
+const eventStockRequestRoutes = require('./routes/eventStockRequestRoutes')
+const eventAmountRoutes = require('./routes/eventAmountRoutes')
+
 const connectDB = require('./config/db');
 const port = process.env.port || 8080
 
@@ -27,6 +31,9 @@ app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
+app.use('/api/eventbudget', budgetReqRoutes);
+app.use('/api/eventstock', eventStockRequestRoutes);
+app.use('/api/eventamount', eventAmountRoutes);
 
 app.use(errorHandler)
 
