@@ -22,6 +22,7 @@ import InvItems from './components/InvItems';
 import InvAddItem from './components/InvAddItem';
 import InvItemUpdate from './components/InvItemUpdate';
 import InvRequestStock from './components/InvRequestStock';
+import InvRequestedStock from './components/InvRequestedStock';
 
 
 
@@ -50,6 +51,7 @@ function App() {
             <Route path='/additem' element={<InvAddItem />} />
             <Route path='/updateitem/:id' element={<InvItemUpdate />} />
             <Route path='/requeststock' element={<InvRequestStock />} />
+            <Route path='/requestedstock' element={<InvRequestedStock />} />
 
 
           </Routes>
