@@ -21,6 +21,8 @@ import InvDashboard from './components/InvDashboard';
 import InvItems from './components/InvItems';
 import InvAddItem from './components/InvAddItem';
 import InvItemUpdate from './components/InvItemUpdate';
+import InvRequestStock from './components/InvRequestStock';
+
 
 
 function App() {
@@ -47,6 +49,7 @@ function App() {
             <Route path='/items' element={<InvItems />} />
             <Route path='/additem' element={<InvAddItem />} />
             <Route path='/updateitem/:id' element={<InvItemUpdate />} />
+            <Route path='/requeststock' element={<InvRequestStock />} />
 
 
           </Routes>
