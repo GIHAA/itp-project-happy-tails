@@ -3,13 +3,25 @@ const mongoose = require('mongoose')
 
 const registerEventSchema = mongoose.Schema(
   {
+    eid: {
+        type: Number,
+        required: true
+    },
+    eventName: {
+        type: String,
+        required: [true, 'Please add a name'],
+    },
     cusName: {
         type: String,
         required: [true, 'Please add a name'],
     },
     noOfTicket: {
-        type: String,
+        type: Number,
         required: [true, 'Please add number of tickets'],
+    },
+    total: {
+        type: Number,
+        required: true
     },
     email: {
         type: String,
@@ -20,20 +32,6 @@ const registerEventSchema = mongoose.Schema(
         type:String,
         required: [true, 'Please add a phone number'],
 
-    },
-    cardNumber:{
-        type:String,
-        required: [true, 'Please add a card number'],
-
-    },
-    cvv:{
-        type:String,
-        required: [true, 'Please add cvv of card'],
-    },
-
-    validDate:{
-        type:String,
-        required: [true, 'Please add valid date of card'],
     }
 
   }
