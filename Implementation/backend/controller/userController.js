@@ -101,11 +101,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.address = req.body.address || user.address
     user.phone = req.body.phone || user.phone
 
-
     const updatedUser = await user.save()
-
-    console.log(updatedUser)
-    console.log(updatedUser)
 
     res.json({
       _id: updatedUser.id,
@@ -116,6 +112,7 @@ const updateUser = asyncHandler(async (req, res) => {
       token: generateToken(updatedUser._id),
       role: updatedUser.role
     })
+    
   } else {
     res.status(400)
     throw new Error('update failed')
