@@ -2,13 +2,17 @@ const express = require('express')
 const cors = require('cors')
 const colors = require('colors')
 const dotenv = require('dotenv').config()
-const vetRoutes = require('./routes/vetRoutes')
 const { errorHandler } = require('./middleware/errorMiddleware') 
 const eventregister = require('./routes/registerEventRoutes')
 const eventRoutes = require('./routes/eventRoutes')
 const efeedbackRoutes = require('./routes/eventFeedbackRoutes')
+const vetRoutes = require('./routes/vetRoutes')
+const healthRoutes = require('./routes/healthRoutes')
+const breedRoutes = require('./routes/breedRoutes')
+const statusRoutes = require('./routes/statusRoutes')
 const connectDB = require('./config/db');
 const port = process.env.port || 5000
+
 
 connectDB()
 
@@ -20,6 +24,9 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/vet',vetRoutes)    
+app.use('/api/petbreed',breedRoutes)
+app.use('/api/health',healthRoutes)
+app.use('/api/petstatus',statusRoutes)   
 app.use('/api/booking/', require('./routes/bookingRoutes.js'))
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
 app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
@@ -31,6 +38,7 @@ app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
+app.use('/api/counter', require('./routes/counterRoutes'))
 
 
 app.use(errorHandler)
