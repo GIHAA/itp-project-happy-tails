@@ -5,7 +5,7 @@ const {createStockBudget,getStockBudgets,deleteStockBudget,getStockBudget,editSt
 router.post('/',createStockBudget)
 router.get('/',getStockBudgets)
 router.delete('/:id',deleteStockBudget)
-router.put('/:id',getStockBudget)
-router.get('/:id',editStockBudget)
+router.get('/:id',getStockBudget)
+router.put('/:id',editStockBudget)
 
 module.exports = router;

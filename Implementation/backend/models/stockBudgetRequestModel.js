@@ -4,12 +4,11 @@ const stockBudgetRequestSchema  = mongoose.Schema(
   {
       supplier_name: {
       type: String,
+      required: true
       },
-      supplier_ID: {
-        type: String,
-        },
       item_name: {
         type: String,
+        required: true
       },
       submittedAt: {
         type: Date,
@@ -25,11 +24,11 @@ const stockBudgetRequestSchema  = mongoose.Schema(
       },
       status: {
         type: String,
-        required: true
+        default: "Pending",
       },
       amountStatus: {
         type: String,
-        required: true
+        default: "Not Paid",
       }
 
   }

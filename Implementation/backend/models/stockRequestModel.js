@@ -33,7 +33,7 @@ const stockRequestSchema  = mongoose.Schema(
         },
 
         total: {
-            type: Number,
+            type: String,
             required: [true, 'Please enter total amount'],
         },
 
