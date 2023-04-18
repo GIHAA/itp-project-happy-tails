@@ -1,6 +1,5 @@
 import React from 'react'
 import logo from "../assets/logo.png"
-import warehouse from "../assets/warehouse.png"
 import logout from "../assets/logout.png"
 import { Link, NavLink } from 'react-router-dom';
 

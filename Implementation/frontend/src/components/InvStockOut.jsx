@@ -59,7 +59,7 @@ export default function InvStockOut() {
                     <table className="mx-auto my-10 w-[1250px]">
 
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
-                        <tr className="hover:bg-[#efeeee]">
+                        <tr>
                         <th className="p-3">date</th>
                         <th className="p-3">item_code</th>
                         <th className="p-3">item_name</th>
@@ -74,7 +74,7 @@ export default function InvStockOut() {
                     {stockReq.map((stockrequest) => {
                       return(
 
-                        <tr key={stockrequest._id}>
+                        <tr key={stockrequest._id} className="hover:bg-[#efeeee]">
                           <td className="p-3">{stockrequest.date}</td>
                           <td className="p-3">{stockrequest.item_code}</td>
                           <td className="p-3">{stockrequest.item_name}</td>

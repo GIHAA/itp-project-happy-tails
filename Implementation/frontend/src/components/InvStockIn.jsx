@@ -7,17 +7,19 @@ import InventorySideBar from "./InventorySideBar";
 
 export default function InvStockIn() {
 
-    const [stockReq , setStockReq] = useState([]);
+  const [stockReq , setStockReq] = useState([]);
 
-    useEffect(()=>{
-  
-          axios.get("http://localhost:8080/api/inventory/stockrequestreceived/")
-          .then((res) => {
-            setStockReq(res.data)
-          })
-          .catch(err => alert(err))
-  
-    }, []) 
+  useEffect(()=>{
+
+        axios.get("http://localhost:8080/api/inventory/stockrequest/")
+        .then((res) => {
+          const items = res.data;
+          const receivedItems = items.filter((item) => item.status === "received");
+          setStockReq(receivedItems);
+        })
+        .catch(err => alert(err))
+
+  }, []) 
   
   return (
     //Main container
@@ -72,23 +74,23 @@ export default function InvStockIn() {
                     
                     <tbody  className="bg-white text-center">
 
-                    {stockReq.map((stockrequest) => {
-                      return(
+                      {stockReq.map((stockrequest) => {
+                        return(
 
-                        <TableDataRow 
-                        
-                          id = {stockrequest._id}
-                          itemCode={stockrequest.item_code}
-                          itemName={stockrequest.item_name}
-                          itemBrand={stockrequest.item_brand}
-                          category={stockrequest.category}
-                          qty={stockrequest.qty}
-                          date={stockrequest.rec_date}
-                          status={stockrequest.status}
+                          <TableDataRow 
+                          
+                            id = {stockrequest._id}
+                            itemCode={stockrequest.item_code}
+                            itemName={stockrequest.item_name}
+                            itemBrand={stockrequest.item_brand}
+                            category={stockrequest.category}
+                            qty={stockrequest.qty}
+                            date={stockrequest.rec_date}
+                            status={stockrequest.status}
 
-                        />
-                      )
-                    })}
+                          />
+                        )
+                      })}
                   
                     </tbody>
                     </table>
