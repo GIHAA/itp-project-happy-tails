@@ -10,6 +10,10 @@ const vetRoutes = require('./routes/vetRoutes')
 const healthRoutes = require('./routes/healthRoutes')
 const breedRoutes = require('./routes/breedRoutes')
 const statusRoutes = require('./routes/statusRoutes')
+const budgetReqRoutes = require('./routes/budgetRequestRoutes')
+const eventStockRequestRoutes = require('./routes/eventStockRequestRoutes')
+const eventAmountRoutes = require('./routes/eventAmountRoutes')
+
 const connectDB = require('./config/db');
 const port = process.env.port || 5000
 
@@ -39,6 +43,10 @@ app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
 app.use('/api/counter', require('./routes/counterRoutes'))
+app.use('/api/eventbudget', budgetReqRoutes);
+app.use('/api/eventstock', eventStockRequestRoutes);
+app.use('/api/eventamount', eventAmountRoutes);
+
 
 
 app.use(errorHandler)
