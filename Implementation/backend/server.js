@@ -27,6 +27,8 @@ app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
+app.use('/api/inventory', require('./routes/stockRequestRoutes'))
+app.use('/api/stockBudget', require('./routes/stockBudgetRequestRoute'))
 
 app.use(errorHandler)
 
