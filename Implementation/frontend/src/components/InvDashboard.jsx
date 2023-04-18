@@ -189,13 +189,13 @@ function generatePDF() {
                 {/*White box*/}
                 <div 
                 id="canvas"
-                className=" bg-white bg-opacity-95 w-[85%] h-[100%] absolute overflow-scroll">
+                className=" bg-[#f3f3f3] w-[85%] h-[100%] absolute overflow-scroll">
                 
 
-                  <div className="flex place-content-around">
+                  <div className="mt-4 ml-4">
 
                       {releasedProcessed && releasedProcessed.datasets && (
-                        <div className=" w-5/12 ">
+                        <div className=" w-5/12  bg-white p-20 shadow-lg rounded-xl">
                           <Bar 
                             data={releasedProcessed}
                           />
@@ -203,7 +203,7 @@ function generatePDF() {
                       )} 
 
                       {inStockProcessed && inStockProcessed.datasets && (
-                        <div className=" w-1/4">
+                        <div className=" w-2/6 bg-white p-20 shadow-lg rounded-xl mt-5">
                           <Pie 
                             data={inStockProcessed}
                             options={{
@@ -216,15 +216,18 @@ function generatePDF() {
                           />
                           </div>
                       )} 
-                    </div>
+                   
 
                       {receivedProcessed && receivedProcessed.datasets && (
-                        <div className=" w-5/12 ml-[350px]">
+                        <div className="  w-5/12 bg-white p-20 shadow-lg rounded-xl mt-5">
                           <Bar 
                             data={receivedProcessed}
                           />
                         </div>
                       )}
+                       </div>
+
+                      <div className=" h-96"></div>
 
                 </div>
 

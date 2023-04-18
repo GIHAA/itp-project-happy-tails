@@ -105,7 +105,7 @@ function InvRequestStock() {
       style={{ backgroundImage: `url(${inv})` }}
       className="bg-cover bg-center h-screen w-full fixed" >
           {/*White box*/}
-          <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll">
+          <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
 
           <div className="w-[800px] h-[450px] mx-auto rounded-2xl bg-white mt-8">
 
