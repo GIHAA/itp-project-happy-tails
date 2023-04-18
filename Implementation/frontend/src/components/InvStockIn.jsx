@@ -107,14 +107,18 @@ function TableDataRow(props){
  
     return (
       <>
-        <tr>
+        <tr className="hover:bg-[#efeeee]">
         <td className="p-3">{props.date}</td>
           <td className="p-3">{props.itemCode}</td>
           <td className="p-3">{props.itemName}</td>
           <td className="p-3">{props.itemBrand}</td>
           <td className="p-3">{props.category}</td>
           <td className="p-3">{props.qty}</td>
-          <td className="p-3">{props.status}</td>
+          <td className="p-3">
+            <span className="bg-green-200 text-green-800 inline-block px-2 rounded-xl text-sm ">
+              {props.status}
+            </span>
+          </td>
         
         </tr>
       </>

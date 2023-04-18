@@ -59,7 +59,7 @@ export default function InvStockOut() {
                     <table className="mx-auto my-10 w-[1000px]">
 
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
-                        <tr>
+                        <tr className="hover:bg-[#efeeee]">
                         <th className="p-3">date</th>
                         <th className="p-3">item_code</th>
                         <th className="p-3">item_name</th>

@@ -5,7 +5,8 @@ import axios from 'axios'
 import InventorySideBar from "./InventorySideBar";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import editImg from "../assets/edit.png";
+import deleteImg from "../assets/delete.png";
 
 export default function InvItems() {
 
@@ -48,7 +49,7 @@ export default function InvItems() {
         <div className="bg-[#d9d9d9] flex-[85%]">
 
           {/*Header Part*/}
-          <div className="bg-[#2E4960] h-100 w-full">
+          <div className="bg-[#2E4960] h-100 w-full shadow-lg">
             <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">ITEMS</h1>
 
             <div className="flex">
@@ -98,7 +99,7 @@ export default function InvItems() {
                     <tbody  className="bg-white text-center">
 
                     {Items.filter((val)=>{
-                      if(searchTerm == "") {
+                      if(searchTerm === "") {
                         return val;
                       }else if(val.item_name.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
@@ -109,7 +110,7 @@ export default function InvItems() {
                       return(
 
                         <>
-                        <tr>
+                        <tr className="hover:bg-[#efeeee]">
                           <td className="p-3">{item.item_code}</td>
                           <td className="p-3">{item.item_name}</td>
                           <td className="p-3">{item.item_brand}</td>
@@ -117,12 +118,21 @@ export default function InvItems() {
                           <td className="p-3">{item.qty}</td>
                         
                           <td className="p-3">
-                              <button className="px-3 py-1 mr-5 bg-slate-300 rounded-lg ">
-                                <Link to={`/updateitem/${item._id}`}>EDIT</Link>
-                                </button>
+                          <div className="flex ml-12">
+                              <button className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
+                                <Link to={`/updateitem/${item._id}`}
+                                className="flex">
+                                <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
+                                  Edit
+                                </Link>
+                              </button>
                   
-                              <button className="px-3 py-1 bg-slate-300 rounded-lg "
-                              onClick={() => onDelete(item._id)}>DELETE</button>
+                              <button className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
+                              onClick={() => onDelete(item._id)}>
+                              <img src={deleteImg} alt="deleteimage" className="w-4 h-4 mr-2 mt-1" />
+                                Delete
+                              </button>
+                            </div>
                           </td>
                         
                         </tr>

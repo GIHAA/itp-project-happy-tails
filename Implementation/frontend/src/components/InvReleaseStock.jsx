@@ -176,7 +176,7 @@ export default function InvReleaseStock() {
                       return(
 
                         <>
-                        <tr>
+                        <tr className="hover:bg-[#efeeee]">
                           <td className="p-3">{item.item_code}</td>
                           <td className="p-3">{item.item_name}</td>
                           <td className="p-3">{item.item_brand}</td>
@@ -194,7 +194,7 @@ export default function InvReleaseStock() {
                         
                           <td className="p-3">
                   
-                              <button className="px-3 py-1 bg-slate-300 rounded-lg "
+                              <button className="px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
                               onClick={() => handleRelease(item, newQty) }>Release</button>
                           </td>
                         

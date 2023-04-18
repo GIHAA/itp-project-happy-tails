@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from "../assets/logo.png"
 import warehouse from "../assets/warehouse.png"
+import logout from "../assets/logout.png"
 import { Link, NavLink } from 'react-router-dom';
 
 function InventorySideBar() {
@@ -10,7 +11,7 @@ function InventorySideBar() {
       
       
     <div>
-      <img src={logo} alt="logo" className=" w-[150px] h-[100px] mx-auto"></img>
+      <img src={logo} alt="logo" className=" w-[100px] h-[100px] mx-auto object-contain"></img>
       <h3 className=" text-[#2E4960] font-bold text-l text-center w-[150px] leading-5 my-2 tracking-wide mx-auto">
         INVENTORY MANAGEMENT
       </h3>
@@ -42,8 +43,14 @@ function InventorySideBar() {
     </div>
 
     <div>
-      <hr className="mt-[105px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
-      <img src={warehouse} className=" w-[140px] h-[140px] mx-auto"></img>
+
+      <button 
+        className="flex items-center px-5 py-1 ml-12 mr-5 mt-[105px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
+        <img src={logout} alt="Logout" className="w-4 h-4 mr-2" />
+        <span>Logout</span>
+      </button>
+
+
     </div>
   
 </div>

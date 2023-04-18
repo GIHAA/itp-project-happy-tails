@@ -142,17 +142,21 @@ function TableDataRow(props){
   
     return (
       <>
-        <tr>
+        <tr className="hover:bg-[#efeeee]">
         <td className="p-3">{props.date}</td>
           <td className="p-3">{props.itemCode}</td>
           <td className="p-3">{props.itemName}</td>
           <td className="p-3">{props.itemBrand}</td>
           <td className="p-3">{props.category}</td>
           <td className="p-3">{props.qty}</td>
-          <td className="p-3">{props.status}</td>
+          <td className="p-3">
+            <span className={`inline-block px-2 rounded-xl text-sm ${props.status === 'pending' ? 'bg-yellow-200 text-yellow-800' : props.status === 'accepted' ? 'bg-blue-200 text-blue-800' : 'bg-green-200 text-green-800'}`}>  
+                {props.status}
+            </span>
+        </td>
           <td className="p-3">
             {props.status.toLowerCase() === "accepted" ? 
-            <button onClick={() =>handleClick( props.id, props.itemCode, props.qty )} className="px-3 py-1 mr-5 bg-slate-300 hover:bg-[#ffc05a] rounded-lg ">✓ Received</button> : null}
+            <button onClick={() =>handleClick( props.id, props.itemCode, props.qty )} className="px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl ">✓ Received</button> : null}
           </td>
         
         </tr>
