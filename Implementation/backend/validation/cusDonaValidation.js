@@ -35,7 +35,7 @@ const Orgschema = joi.object({
     org_email: joi.string().email().required(),
     org_logo: joi.string().required(),
     org_type: joi.string().valid('Regional', 'Global').required(),
-    org_amount: joi.number().required(),
+
     org_Resources: joi.string().valid('Small', 'Medium', 'Large').required(),
     org_description: joi.string().max(100).required(),
 
