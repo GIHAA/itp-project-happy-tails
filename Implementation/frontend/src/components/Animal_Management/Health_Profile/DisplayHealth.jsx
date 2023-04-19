@@ -100,6 +100,34 @@ export default function DisplayHealth() {
 
   }
 
+  const onDeleteprofile =(id)=>{
+    toast.warn(
+        <div>
+          <p class="text-red-700 ml-8">Do you want to delete ?</p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button style={{ marginRight: '1rem' }} onClick={() => {
+  
+              axios.delete(`http://localhost:8080/api/health/deletereport/${id}`).then((res) => {
+  
+              }).catch((err) => {
+  
+                toast.warning(err)
+              })
+              toast.success('Item deleted successfully',{
+                autoClose: 1000, 
+              });
+              setTimeout(() => {
+                window.location.href = `/petprofile/healthprofile`;
+              }, 1500);
+              
+            }}>Yes</button>
+            <button onClick={() => toast.dismiss()}>No</button>
+          </div>
+        </div>,
+        { autoClose:false }
+      );
+          }
+
 
 
   return (
@@ -200,6 +228,12 @@ export default function DisplayHealth() {
         <button onClick={generatePDF} className="bg-[#30475c]  hover:bg-[#084469] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[14px] block w-[150px] text-center mx-auto">Download pdf</button>
 
         <br></br>
+
+        <div class="-mt-[423px] -ml-[150px] absolute w-[80px]">
+  <button onClick={()=>onDeleteprofile(report.petId)} class="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-3.5 py-2 text-center mt-5 mb-4 ml-[1045px]">
+ Delete
+  </button>
+</div>
 
       </div>
     </>

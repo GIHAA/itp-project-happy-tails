@@ -132,7 +132,7 @@ const GetBooking = () => {
                   </td>
 
                   <td class="px-14 py-4 text-sm">
-                    <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); refreshPage(); updateTransaction(); }}> Closed  </button>
+                    <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); refreshPage(); updateTransaction(); }}> Close </button>
                   </td>
                 </tr>
               );
