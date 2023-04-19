@@ -1,35 +1,34 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import Login from './components/Login';
-import Register from './components/Register';
-import Header from './components/common/Header';
-import Home from './components/Home';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Header from "./components/common/Header";
+import Home from "./components/Home";
 // import VetPortal from './components/portals/VetPortal';
 // import AllPetProfile from './components/petProfile';
 // import AddPetProfile from './components/AddPetProfile';
 // import UpdatePetProfile from './components/UpdatePetProfile';
 
-import AdoptPet from './components/User/AdoptPet';
-import Footer from './components/common/Footer';
-import ShelterPet from './components/User/ShelterPet';
-import UserPortal from './components/User/UserProtal';
-import Booking from './components/User/myBooking';
-import Events from './components/User/Events';
-import Pets from './components/User/myPets';
-import Profile from './components/User/myProfile';
+import AdoptPet from "./components/User/AdoptPet";
+import Footer from "./components/common/Footer";
+import ShelterPet from "./components/User/ShelterPet";
+import UserPortal from "./components/User/UserProtal";
+import Booking from "./components/User/myBooking";
+import Events from "./components/User/Events";
+import Pets from "./components/User/myPets";
+import Profile from "./components/User/myProfile";
 
-import SupplierList from './components/SupplierList';
-import AddSuppliers from './components/AddSuppliers';
-import ManageSuppliers from './components/ManageSuppliers';
-import UpdateSupplier from './components/UpdateSupplier';
-import StockRequests from './components/StockRequests';
-import StockBudgetRequests from './components/StockBudgetRequests'
-import StockBudgetRequestForm from './components/StockBudgetRequestForm';
-import UpdateStockBudgetRequest from './components/UpdateStockBudgetRequest';
+import SupplierList from "./components/SupplierList";
+import AddSuppliers from "./components/AddSuppliers";
+import ManageSuppliers from "./components/ManageSuppliers";
+import UpdateSupplier from "./components/UpdateSupplier";
+import StockRequests from "./components/StockRequests";
+import StockBudgetRequests from "./components/StockBudgetRequests";
+import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
+import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 
-
-import Spinner from './components/common/Spinner';
+import Spinner from "./components/common/Spinner";
 
 // import AdoptPet from './components/adoptPetPage/AdoptPet';
 // import ShelterPet from './components/shelterPetPage/ShelterPet';
@@ -38,19 +37,18 @@ import Spinner from './components/common/Spinner';
 // import Events from './components/User/Events';
 // import Pets from './components/User/Pets';
 // import Profile from './components/User/Profile';
-import VehicleDashboard from './components/VehicleDashboard';
-import EditVehicle from './components/EditVehicle';
-import Vehicles from './components/Vehicles';
-import AddNewVehicle from './components/AddNewVehicle';
-import PendingBookings from './components/PendingBookings';
-import AddAvailability from './components/AddAvailability';
-import Availabilities from './components/Availabilities';
-import EditAvailabilities from './components/EditAvailabilities';
-import AddTBooking from './components/AddTBooking';
-import AddVehicleBudgetRequestForm from './components/AddVehicleBudgetRequest';
-import AllVBudgetRequests from './components/AllVBudgetRequests';
-import VHome from './components/VHome';
-
+import VehicleDashboard from "./components/VehicleDashboard";
+import EditVehicle from "./components/EditVehicle";
+import Vehicles from "./components/Vehicles";
+import AddNewVehicle from "./components/AddNewVehicle";
+import PendingBookings from "./components/PendingBookings";
+import AddAvailability from "./components/AddAvailability";
+import Availabilities from "./components/Availabilities";
+import EditAvailabilities from "./components/EditAvailabilities";
+import AddTBooking from "./components/AddTBooking";
+import AddVehicleBudgetRequestForm from "./components/AddVehicleBudgetRequest";
+import AllVBudgetRequests from "./components/AllVBudgetRequests";
+import VHome from "./components/VHome";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -88,48 +86,50 @@ function App() {
     <>
       <Router>
         <div className="App">
-          {/* <Header /> */}
+  
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
-            <Route path='shelterpet' element={<ShelterPet />} />
-            <Route path='adoptpet' element={<AdoptPet />} />
-            
-
+            <Route path="/" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="shelterpet" element={<ShelterPet />} />
+            <Route path="adoptpet" element={<AdoptPet />} />
             //user
-              <Route path='user' element={<UserPortal />} />
-              <Route path='profile' element={<Profile />} />
-              <Route path='booking' element={<Booking />} />
-              <Route path='pets' element={<Pets />} />
-              <Route path='events' element={<Events />} />
-
-             
-              //
-            <Route path='/supplierList' element={<SupplierList />} />
-            <Route path='/addSuppliers' element={<AddSuppliers />} />
-            <Route path='/manageSuppliers' element={<ManageSuppliers />} />
-            <Route path='/updateSuppliers/:id' element={<UpdateSupplier />} />
-            <Route path='/stockRequests' element={<StockRequests />} />
-            <Route path='/StockBudgetRequests' element={<StockBudgetRequests />} />
-            <Route path='/StockBudgetRequestForm' element={<StockBudgetRequestForm />} />
-            <Route path='/UpdateStockBudgetRequest/:id' element={<UpdateStockBudgetRequest />} />
-
-
-              <Route path='test' element={<Spinner />} />
-
-              <Route path="/" element={<PortalHandler />} />
-              <Route path="login" element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="shelterpet" element={<ShelterPet />} />
-              <Route path="adoptpet" element={<AdoptPet />} />
-              <Route path="user" element={<UserPortal />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="booking" element={<Booking />} />
-              <Route path="pets" element={<Pets />} />
-              <Route path="events" element={<Events />} />
-              <Route path="test" element={<Spinner />} />
-              <Route path="petprofile" element={<VetPortal />}>
+            <Route path="user" element={<UserPortal />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="booking" element={<Booking />} />
+            <Route path="pets" element={<Pets />} />
+            <Route path="events" element={<Events />} />
+            //
+            <Route path="/supplierList" element={<SupplierList />} />
+            <Route path="/addSuppliers" element={<AddSuppliers />} />
+            <Route path="/manageSuppliers" element={<ManageSuppliers />} />
+            <Route path="/updateSuppliers/:id" element={<UpdateSupplier />} />
+            <Route path="/stockRequests" element={<StockRequests />} />
+            <Route
+              path="/StockBudgetRequests"
+              element={<StockBudgetRequests />}
+            />
+            <Route
+              path="/StockBudgetRequestForm"
+              element={<StockBudgetRequestForm />}
+            />
+            <Route
+              path="/UpdateStockBudgetRequest/:id"
+              element={<UpdateStockBudgetRequest />}
+            />
+            <Route path="test" element={<Spinner />} />
+            <Route path="/" element={<PortalHandler />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="shelterpet" element={<ShelterPet />} />
+            <Route path="adoptpet" element={<AdoptPet />} />
+            <Route path="user" element={<UserPortal />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="booking" element={<Booking />} />
+            <Route path="pets" element={<Pets />} />
+            <Route path="events" element={<Events />} />
+            <Route path="test" element={<Spinner />} />
+            <Route path="petprofile" element={<VetPortal />}>
               <Route path="updatepet/:id" element={<UpdatePetProfile />} />
               <Route path="allpetprofile" element={<AllPetProfile />} />
               <Route path="addpet" element={<AddPetProfile />} />
@@ -143,45 +143,42 @@ function App() {
               <Route path="breed" element={<Breed />} />
               <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
             </Route>
+            <Route path="/vhome" exact element={<VHome />} />
+            <Route
+              path="/vehicledashboard"
+              exact
+              element={<VehicleDashboard />}
+            />
+            <Route path="/vehicles" exact element={<Vehicles />} />
+            <Route path="/editvehicle/:id" exact element={<EditVehicle />} />
+            <Route path="/addnvehicle" exact element={<AddNewVehicle />} />
+            <Route path="/pending" element={<PendingBookings />} />
+            <Route path="/tbooking" exact element={<AddTBooking />} />
+            <Route path="/availability" exact element={<Availabilities />} />
+            <Route
+              path="/addavailability"
+              exact
+              element={<AddAvailability />}
+            />
+            <Route
+              path="/editavailability/:id"
+              exact
+              element={<EditAvailabilities />}
+            />
+            <Route
+              path="/vbudgets/:id"
+              exact
+              element={<AllVBudgetRequests />}
+            />
+            <Route
+              path="/addvbudget"
+              exact
+              element={<AddVehicleBudgetRequestForm />}
+            />
           </Routes>
-
         </div>
       </Router>
       <ToastContainer />
-
-      </div>
-    </Router>
-
-    <Router>
-          <div className="App">
-            
-        
-              <Routes>
-                
-              
-
-                <Route path= '/vhome' exact element={<VHome/>}/>
-
-                <Route path= '/vehicledashboard' exact element={<VehicleDashboard/>}/>
-                <Route path='/vehicles' exact element={<Vehicles />} />
-                <Route path= '/editvehicle/:id'  exact element={<EditVehicle/>}/>
-                <Route path= '/addnvehicle'  exact element={<AddNewVehicle/>}/>
-
-                <Route path= '/pending'   element={<PendingBookings/>}/>
-                <Route path= '/tbooking'  exact element={<AddTBooking/>}/>
-
-                <Route path= '/availability'  exact element={<Availabilities/>}/>
-                <Route path= '/addavailability'  exact element={<AddAvailability/>}/>
-                <Route path= '/editavailability/:id'  exact element={<EditAvailabilities/>}/>
-
-                <Route path= '/vbudgets/:id'  exact element={<AllVBudgetRequests/>}/>
-                <Route path= '/addvbudget'  exact element={<AddVehicleBudgetRequestForm/>}/>
-
-              </Routes>
-          </div>
-        </Router>
-    <ToastContainer />
-
     </>
   );
 }
