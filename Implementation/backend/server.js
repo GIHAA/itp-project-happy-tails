@@ -10,6 +10,7 @@ const vetRoutes = require('./routes/vetRoutes')
 const healthRoutes = require('./routes/healthRoutes')
 const breedRoutes = require('./routes/breedRoutes')
 const statusRoutes = require('./routes/statusRoutes')
+
 const budgetReqRoutes = require('./routes/budgetRequestRoutes')
 const eventStockRequestRoutes = require('./routes/eventStockRequestRoutes')
 const eventAmountRoutes = require('./routes/eventAmountRoutes')
@@ -35,6 +36,7 @@ app.use('/api/booking/', require('./routes/bookingRoutes.js'))
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
 app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
 app.use('/api/inventory', require('./routes/stockRequestRoutes'))
+app.use('/api/inventory', require('./routes/stockReleaseRoutes'))
 app.use('/api/vehicle/', require('./routes/vehicleRoutes.js'))
 app.use('/api/transport/', require('./routes/transportRoutes.js'))
 app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
@@ -46,6 +48,7 @@ app.use('/api/counter', require('./routes/counterRoutes'))
 app.use('/api/eventbudget', budgetReqRoutes);
 app.use('/api/eventstock', eventStockRequestRoutes);
 app.use('/api/eventamount', eventAmountRoutes);
+
 
 
 
