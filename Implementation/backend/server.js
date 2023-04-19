@@ -18,16 +18,20 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/booking/', require('./routes/bookingRoutes.js'))
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
-app.use('/api/inventory', require('./routes/inventoryRoutes.js'))
+app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
+app.use('/api/inventory', require('./routes/stockRequestRoutes'))
 app.use('/api/vehicle/', require('./routes/vehicleRoutes.js'))
 app.use('/api/transport/', require('./routes/transportRoutes.js'))
 app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
+app.use('/api/employee', require('./route/employee.route'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
 app.use('/api/inventory', require('./routes/stockRequestRoutes'))
 app.use('/api/stockBudget', require('./routes/stockBudgetRequestRoute'))
+
 
 app.use(errorHandler)
 

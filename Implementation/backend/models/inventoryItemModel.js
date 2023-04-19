@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const stockRequestSchema  = mongoose.Schema(
+const inventoryItemSchema  = mongoose.Schema(
     {
 
         item_code: {
@@ -28,22 +28,8 @@ const stockRequestSchema  = mongoose.Schema(
 
         qty: {
             type: Number,
-            min: 1,
-            default: 1,
+            default : 0,
         },
-
-        total: {
-            type: String,
-            required: [true, 'Please enter total amount'],
-        },
-
-        status: {
-            type: String,
-            //enum: ['PENDING', 'ACCEPTED', 'RECIEVED',],
-            lowercase: true,
-            default: 'PENDING',
-            required: true,
-          },
 
         
 
@@ -55,4 +41,4 @@ const stockRequestSchema  = mongoose.Schema(
 )
 
 
-module.exports = mongoose.model('StockRequest', stockRequestSchema)
+module.exports = mongoose.model('InventoryItem', inventoryItemSchema)

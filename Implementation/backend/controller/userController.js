@@ -108,16 +108,17 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
 
   const { email, password } = req.body
-
+    console.log(req.body)
   if ( !email || !password) {
     res.status(400)
     throw new Error('Please add all fields')
   }
 
+
   const user = await User.findOne({ email })
   
   if (user && (await bcrypt.compare(password, user.password))) {
-    const deletedUser = await user.delete()
+    const deletedUser = await user.deleteOne({email})
     res.json({
       _id: deletedUser.id,
       name: deletedUser.name,
@@ -129,7 +130,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
   else {
     res.status(400)
-    throw new Error('delete failed')
+    throw new Error('deletion failed')
   }
   
 })
