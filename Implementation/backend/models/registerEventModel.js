@@ -11,10 +11,6 @@ const registerEventSchema = mongoose.Schema(
         type: String,
         required: true
     },
-    userid: {
-        type: String,
-        required: true
-    },
     eventName: {
         type: String,
         required: [true, 'Please add a name'],
