@@ -25,10 +25,6 @@ const stockBudgetRequestSchema  = mongoose.Schema(
       status: {
         type: String,
         default: "Pending",
-      },
-      amountStatus: {
-        type: String,
-        default: "Not Paid",
       }
 
   }

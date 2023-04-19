@@ -26,17 +26,6 @@ const getStockBudgets =asyncHandler(async (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
 //update
 const editStockBudget = asyncHandler(async (req, res) => {
 
