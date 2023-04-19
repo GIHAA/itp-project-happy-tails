@@ -39,8 +39,7 @@ const GetBooking = () => {
     console.log(searchTerm)
     const result = book.filter(
       (r) =>
-        r.
-        cus_name.toLowerCase().includes(searchTerm.toLowerCase())
+        r.cus_name.toLowerCase().includes(searchTerm.toLowerCase())||r.bid.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setpayData(result);
   }
