@@ -1,16 +1,34 @@
 const express = require('express');
 const Joi = require('joi');
 const pet = require('../models/petModel');
-const{validateRegReqBody}=require('../validations/vetValidation');
-const mongoose = require('mongoose');
-const moment = require('moment');
+const booking = require('../models/bookingModel');
+const breed = require('../models/breedModel');
+const mongoose = require('mongoose'); 
 const QRCode = require('qrcode');
 
 const registerPet = ((req, res) => {
-  if(validateRegReqBody(req, res)) {
-    const date = moment(req.body.date).startOf('day').format('YYYY-MM-DD');
-    // Destructure the request body
-    const { petName, petId, species, breed, gender, age, size, color, petStatus } = req.body;
+  
+   const { petName, pId, date, species, breed, gender, birth,  weight, color, petStatus,image,price } = req.body;
+   
+    const systime = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })
+
+    let petId;
+
+    //Validate and create unique ID
+
+    if(species=="Cat" && gender=="Male"){
+      petId = "CM" + pId;
+    } else if(species=="Cat" && gender=="Female"){
+      petId  ="CF" + pId;
+    } else if(species=="Dog" && gender=="Male"){
+      petId= "DM" + pId;
+    } else if(species=="Dog" && gender=="Female"){
+      petId = "DF" + pId;
+    } else {
+      console.log("Please recheck the given Value.PID can not set.");
+    }
+
+
     // Create a new profile
     const newpet = new pet({
       petName,
@@ -18,17 +36,21 @@ const registerPet = ((req, res) => {
       species,
       breed,
       gender,
-      age,
-      size,
+      birth,
+      weight,
       color,
       date,
       petStatus,
+      image,
+      price,
+      systime
     });
+
     // Generate QR code
-    QRCode.toDataURL(JSON.stringify(newpet), function (err, url) {
+    QRCode.toDataURL(`Pet Name: ${petName}\nPet ID: ${petId}\nSpecies: ${species}\nBreed: ${breed}\nGender: ${gender}\nStatus: ${petStatus} \n More Details Pls contact Animal Manager of the shelter.\n ---- Thank you 😊----`, function (err, url) {
       if (err) {
         console.error(err);
-        // Respond with an error message
+       
         return res.status(500).json({ error: 'Failed to generate QR code' });
       }
       // Get the base64-encoded QR code image data from the URL
@@ -37,30 +59,32 @@ const registerPet = ((req, res) => {
       newpet.qrCode = base64Image;
       newpet.save()
         .then(() => {
-          // Respond with success message and the new pet object
+          
           res.status(201).json({ message: 'Profile added', pet: newpet });
         })
         .catch((err) => {
-          // Log the error
+      
           console.log(err);
-          // Respond with an error message
+         
           res.status(500).json({ error: 'Failed to add profile' });
         });
     });
-  }
+  
 });
 
 
 
-// update pet profile
+// ------update pet profile-----
+
 const profileUpdate = (async(req,res)=>{
-console.log("hi")
+
   const {id} = req.params;
-  const { petName,species,breed,gender,age,date,size,color,petStatus} = req.body;
-  const updatedProfileData = { petName,species,breed,gender,age,date,size,color,petStatus};
+  const { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price} = req.body;
+  const systime = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })
+  const updatedProfileData = { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price,systime};
 
   // Validate the request body
-  if (!petName || !species || !breed || !gender || !age ||!date || !size || !color || !petStatus) {
+  if (!petName || !species || !breed || !gender || !birth ||!date || !weight || !color || !petStatus || !image || !price) {
       return res.status(400).send({ error: 'Missing required fields' });
   }
 
@@ -75,7 +99,7 @@ console.log("hi")
       // Update the profile
       await pet.findOneAndUpdate({ petId: id }, updatedProfileData);
 
-      // Return success response
+   
       res.status(200).send({ status: 'Profile updated' });
   } catch (err) {
       console.log(`error:${err}`);
@@ -83,7 +107,7 @@ console.log("hi")
   }
 });
 
-//get one pet profile
+//-------get one pet profile-------
 
 const getProfile = (async(req,res)=>{
 
@@ -99,6 +123,7 @@ const getProfile = (async(req,res)=>{
           error: 'Internal server error'
       });
   }
+
   // check if profile exists
   if (!profile) {
       return res.status(404).json({
@@ -108,7 +133,9 @@ const getProfile = (async(req,res)=>{
   res.status(200).json({profile})
 })
 
-//delete profile
+
+//------delete profile------
+
 const deleteProfile = (async (req, res) => {
 
   const { id } = req.params;
@@ -127,13 +154,15 @@ const deleteProfile = (async (req, res) => {
   }
 });
 
-//get all profiles
+
+//-----get all profiles----
 
 const getallprofile=(async (req,res) => {
   try {
       // get all the profile
+
       const profiles= await pet.find();
-      // return the profile
+
       res.status(200).json({ profiles });
   } catch (err) {
       console.log(err);
@@ -141,15 +170,8 @@ const getallprofile=(async (req,res) => {
   }
 });
 
-const searchprofile = ( async (req, res) => {
-  try {
-    const query = req.query.petId;
-    const profile = await pet.find({ petId: query });
-    res.json(profile);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+
+//------QR fetching-------
 
 const Qr =(async (req, res) => {
 
@@ -168,5 +190,19 @@ const Qr =(async (req, res) => {
   }
 });
 
+//-------------Shelter pets-----------------
 
-module.exports = { registerPet,profileUpdate,getProfile,deleteProfile,getallprofile,searchprofile,Qr}
+const shelterpets=(async (req,res) => {
+  try {
+      // get all the profile
+      const books= await booking.find();
+     
+      res.status(200).json({ books });
+  } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+module.exports = { registerPet,profileUpdate,getProfile,deleteProfile,getallprofile,Qr,shelterpets}

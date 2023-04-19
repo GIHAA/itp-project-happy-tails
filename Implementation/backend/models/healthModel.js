@@ -10,17 +10,23 @@ const healthSchema = mongoose.Schema(
         type: String,
         required: true,
       },
+
+      description: {
+        type: String,
+        
+      },
+
       vaccinations: [{
         name: {
           type: String,
           required: true,
         },
         dateGiven: {
-          type: Date,
+          type: String,
           required: true,
         },
         expirationDate: {
-          type: Date,
+          type: String,
           required: true,
         },
       }],

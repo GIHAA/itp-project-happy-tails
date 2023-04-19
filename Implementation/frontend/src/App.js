@@ -1,57 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Login from './components/Login';
+import Register from './components/Register';
+import Header from './components/common/Header';
+import Home from './components/Home';
+// import VetPortal from './components/portals/VetPortal';
+// import AllPetProfile from './components/petProfile';
+// import AddPetProfile from './components/AddPetProfile';
+// import UpdatePetProfile from './components/UpdatePetProfile';
+// import AdoptPet from './components/adoptPetPage/AdoptPet';
+import Footer from './components/common/Footer';
+// import ShelterPet from './components/shelterPetPage/ShelterPet';
+// import UserPortal from './components/User/UserProtal';
+// import Booking from './components/User/Booking';
+// import Events from './components/User/Events';
+// import Pets from './components/User/Pets';
+// import Profile from './components/User/Profile';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+    <Router>
+      <div className="App">
+      <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+            
+
+            //user
+            {/* <Route path='user' element={<UserPortal />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='booking' element={<Booking />} />
+              <Route path='pets' element={<Pets />} />
+              <Route path='Events' element={<Events />} /> */}
+
+          </Routes>
+      <Footer />
+      </div>
+    </Router>
+    <ToastContainer />
+    </>
   );
 }
 

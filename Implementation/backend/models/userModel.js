@@ -25,6 +25,10 @@ const userSchema = mongoose.Schema(
       type : String,
       required: false,
     },
+    pnumber: {
+      type: String,
+      required: [true, 'Please add a phone number'],
+    },
     pets: {
       type: [
         {

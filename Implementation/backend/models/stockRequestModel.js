@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const stockRequestSchema  = mongoose.Schema(
     {
+        date: {
+            type: String,
+            required: [true, 'Please add a date'],
+            
+        }, 
 
         item_code: {
             type: String,
@@ -44,6 +49,11 @@ const stockRequestSchema  = mongoose.Schema(
             default: 'PENDING',
             required: true,
           },
+
+          rec_date: {
+            type: String,
+            
+        }, 
 
         
 
