@@ -104,6 +104,19 @@ import EventDashboard from './components/EventManagement/EventDashboard';
 import EditBooking from './components/EventManagement/EditBooking';
 
 
+import GetTransaction from './components/Finance_Management/GetTransaction';
+import GetPayment from './components/Finance_Management/GetPayment';
+import GetDoanation from './components/Finance_Management/GetDonation';
+import GetOrganization from './components/Finance_Management/GetOrganization';
+import AddOrganization from './components/Finance_Management/AddOrganization';
+import FinaDashBoard from './components/Finance_Management/FinaDashBoard';
+import GetBooking from './components/Finance_Management/GetBooking';
+import FinaPaymentReports from './components/Finance_Management/FinaPaymentReports';
+import AddDonation from './components/Finance_Management/AddDonations';
+import FinaGetEvents from './components/Finance_Management/FinaGetEvents';
+import FinaGetVehicle from './components/Finance_Management/FinaGetVehicle';
+import { FinaHeader, FinaLeftBar } from './components/Finance_Management/FinaHeader_SB'
+
 
 
 
@@ -233,6 +246,20 @@ function App() {
                  <Route path='addFeedback/:id' element={<AddEventFeedback />} />
             </Route>
 
+
+            //financial_manager
+
+            <Route path='/FinaDashBoard' element={<FinaDashBoard />} />
+            <Route path='/GetTransaction' element={<GetTransaction />} />
+            <Route path='/GetPayment' element={<GetPayment />} />
+            <Route path='/GetDoanation' element={<GetDoanation />} />
+            <Route path='/GetOrganization' element={<GetOrganization />} />
+            <Route path='/AddOrganization' element={<AddOrganization />} />
+            <Route path='/GetBooking' element={<GetBooking />} />
+            <Route path='/FinaPaymentReports' element={<FinaPaymentReports />} />
+            <Route path='/AddDonation' element={<AddDonation />} />
+            <Route path='/FinaGetEvents' element={<FinaGetEvents />} />
+            <Route path='/FinaGetVehicle' element={<FinaGetVehicle />} />
 
 
           </Routes>
