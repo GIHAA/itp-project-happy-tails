@@ -7,9 +7,9 @@ export default function EventPortal() {
   return (
     <>
 {/* navbar */}
-<nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-[#0f0f2c] fixed top-0 left-0 w-full z-99">
+<nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-[#0f0f2c] fixed top-0 left-0 w-full z-40">
 
-  <div className="container flex flex-wrap items-center justify-start mx-auto">
+  <div className="container flex flex-wrap items-center justify-start mx-auto z-20">
     <Link to="/" className="flex items-center"></Link>
       
     <div className="hidden w-full md:block md:w-auto ml-auto" id="navbar-default">
