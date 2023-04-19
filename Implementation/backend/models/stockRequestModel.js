@@ -41,20 +41,20 @@ const stockRequestSchema  = mongoose.Schema(
             type: String,
             //enum: ['PENDING', 'ACCEPTED', 'RECIEVED',],
             lowercase: true,
-            default: 'PENDING',
+            default: 'PENDING',  
             required: true,
-          },
+        },
 
           rec_date: {
             type: String,
             
         }, 
 
-        
+        total: {
+            type: Number,
+            
+        },
 
-    },
-    {
-        timestamps: true,
     }
 
 )

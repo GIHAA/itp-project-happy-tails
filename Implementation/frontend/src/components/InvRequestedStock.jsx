@@ -94,7 +94,7 @@ function InvRequestedStock() {
                   
                     </tbody>
                     </table>
-                    <div className=" h-96"></div>
+                    <div className=" h-32"></div>
 
                 </div>
 

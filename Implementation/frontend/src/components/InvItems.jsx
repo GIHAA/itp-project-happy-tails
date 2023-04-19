@@ -14,6 +14,7 @@ export default function InvItems() {
 
   const [Items , setItems] = useState([]);
   const [searchTerm , setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(()=>{
 
@@ -28,7 +29,7 @@ export default function InvItems() {
   console.log(Items) 
 
   
-  function onDelete(id) {
+  const onDelete = (id) => {
   
     axios.delete(`http://localhost:8080/api/inventory/items/${id}`)
     .then((res) => {
@@ -38,6 +39,10 @@ export default function InvItems() {
     .catch(err => alert(err))
   
   }
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
 
 
 
@@ -87,14 +92,15 @@ export default function InvItems() {
 
                 <div className="relative mt-6 ml-[1000px] mb-1">
                   <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
-                  <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+                  <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedCategory} onChange={handleCategoryChange}>
                     <option value="">All Categories</option>
                     <option value="FOOD">FOOD</option>
                     <option value="MEDICINE">MEDICINE</option>
                     <option value="TOYS">TOYS</option>
-                    <option value="BATHROOM ESSENTIALS">BATHROOM ESSENTIALS</option>
-                    <option value="GROOMING EQUIPMENTS">GROOMING EQUIPMENTS</option>
-                    <option value="EVENT ITEMS">EVENT ITEMS</option>
+                    <option value="BATHROOM-ESSENTIALS">BATHROOM ESSENTIALS</option>
+                    <option value="GROOMING-EQUIPMENTS">GROOMING EQUIPMENTS</option>
+                    <option value="EVENT-ITEMS">EVENT ITEMS</option>
                     <option value="OTHER">OTHER</option>
                   </select>
                 </div>
@@ -123,15 +129,21 @@ export default function InvItems() {
                       }else if(val.item_code.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
                       }
+                    }).filter((val)=>{
+                      if(selectedCategory === "") {
+                        return val;
+                      }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
+                        return val;
+                      }
                     }).map((item) => {
                       return(
 
                         <>
                         <tr className="hover:bg-[#efeeee]">
                           <td className="p-3">{item.item_code}</td>
-                          <td className="p-3">{item.item_name}</td>
-                          <td className="p-3">{item.item_brand}</td>
-                          <td className="p-3">{item.category}</td>
+                          <td className="p-3 w-[350px]">{item.item_name}</td>
+                          <td className="p-3 w-[150px]">{item.item_brand}</td>
+                          <td className="p-3 w-[250px]">{item.category}</td>
                           <td className="p-3">{item.qty}</td>
                         
                           <td className="p-3">

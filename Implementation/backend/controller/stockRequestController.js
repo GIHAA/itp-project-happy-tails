@@ -54,15 +54,6 @@ const getAllRequests = asyncHandler(async (req, res) => {
 });
 
 
-//get only received status stock records
-const getReceivedRequests = asyncHandler(async (req, res) => {
-
-    const stockRequest = await StockRequest.find({ status: 'received' });
-
-    res.status(200).json(stockRequest);
-
-});
-
 
 //update accepted to received
 const updateRequestField = asyncHandler(async (req, res) => {
@@ -128,6 +119,5 @@ module.exports = {
     requestStock ,
     getAllRequests,
     updateRequestField,
-    getReceivedRequests,
     groupByCategory
 }
