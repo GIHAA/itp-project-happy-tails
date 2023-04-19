@@ -3,15 +3,11 @@ const mongoose = require('mongoose')
 const supplierSchema = mongoose.Schema(
   {
   
-    fname: {
+    name: {
         type: String,
-        required: [true, 'Please add first name'],
+        required: [true, 'Please add  name'],
     },
-    lname: {
-      type: String,
-      required: [true, 'Please add last name'],
-     },
-
+  
     phone: {
     type: Number,
     required: [true, 'Please add a phone number'],
@@ -29,7 +25,6 @@ const supplierSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['FOOD', 'MEDICINE', 'TOYS', 'CLEANING_PRODUCTS','OTHER'],
       required: [true, 'Please select a type'],
     }
    
