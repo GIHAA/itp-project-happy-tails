@@ -37,6 +37,11 @@ const stockRequestSchema  = mongoose.Schema(
             default: 1,
         },
 
+        total: {
+            type: String,
+            required: [true, 'Please enter total amount'],
+        },
+
         status: {
             type: String,
             //enum: ['PENDING', 'ACCEPTED', 'RECIEVED',],
@@ -45,12 +50,7 @@ const stockRequestSchema  = mongoose.Schema(
             required: true,
           },
 
-          rec_date: {
-            type: String,
-            
-        }, 
-
-        
+       
 
     },
     {

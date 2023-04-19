@@ -50,8 +50,8 @@ app.use('/api/counter', require('./routes/counterRoutes'))
 app.use('/api/eventbudget', budgetReqRoutes);
 app.use('/api/eventstock', eventStockRequestRoutes);
 app.use('/api/eventamount', eventAmountRoutes);
-
-
+app.use('/api/inventory', require('./routes/stockRequestRoutes'))
+app.use('/api/stockBudget', require('./routes/stockBudgetRequestRoute'))
 
 app.use(errorHandler)
 
