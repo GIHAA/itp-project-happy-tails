@@ -17,9 +17,7 @@ function Header() {
 
   const onViewProfile = () => {
     navigate("/user");
-  }
-
-
+  };
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-primary">
@@ -37,6 +35,22 @@ function Header() {
                 Homepage
               </Link>
             </li>
+
+  
+              
+              {user ? (
+                <>
+                <li className="text-[15px] font-bold">
+                <Link
+                  to="/shelterpet"
+                  className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                >
+                  Shelter pet
+                </Link>
+                </li>
+
+            
+
             <li className="text-[15px] font-bold">
               <Link
                 to="/adoptpet"
@@ -45,14 +59,19 @@ function Header() {
                 Adopt pet
               </Link>
             </li>
+
             <li className="text-[15px] font-bold">
               <Link
-                to="/shelterpet"
+                to="/events"
                 className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
               >
-                Shelter pet
+                Events
               </Link>
             </li>
+            </>
+                          ) : (
+                            <></>
+                          )}
           </ul>
         </div>
 
@@ -69,14 +88,18 @@ function Header() {
               // </li>
               <div className="flex ">
                 <div class="px-2 space-y-0.5 font-medium text-secondary text-[17px] text-left">
-                  <button onClick={onViewProfile}>{user.name}</button><br/>
-                  <button onClick={onLogout} class="text-sm font-light text-white">
+                  <button onClick={onViewProfile}>{user.name}</button>
+                  <br />
+                  <button
+                    onClick={onLogout}
+                    class="text-sm font-light text-white"
+                  >
                     Logout
                   </button>
                 </div>
                 <img
                   class="rounded-full w-9 h-9"
-                  src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"
+                  src={user.image}
                   alt="profile picture"
                 />
               </div>

@@ -19,8 +19,9 @@ const Schema =
 
         cus_id: joi.string().required(),
         description: joi.string().max(100).required(),
-        price: joi.number().required()
-
+        price: joi.number().required(),
+        
+        status: joi.string().valid('Verified', 'CANCELED', 'PAID', 'FINISHED').required(),
 
     });
 
@@ -35,7 +36,7 @@ const Orgschema = joi.object({
     org_email: joi.string().email().required(),
     org_logo: joi.string().required(),
     org_type: joi.string().valid('Regional', 'Global').required(),
-    org_amount: joi.number().required(),
+   
     org_Resources: joi.string().valid('Small', 'Medium', 'Large').required(),
     org_description: joi.string().max(100).required(),
 

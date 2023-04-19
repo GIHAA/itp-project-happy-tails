@@ -191,9 +191,6 @@ return(
                 <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
                     Booked ID
                 </th>
-                <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
-                    User ID
-                </th>
             <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
                     Event Name
                 </th>
@@ -226,9 +223,6 @@ return(
                 </td>
                 <td class="px-6 py-4" style={{color: 'black'}}>
                 {Register.bookid}
-                </td>
-                <td class="px-6 py-4" style={{color: 'black'}}>
-                {Register.userid}
                 </td>
                <td class="px-6 py-4" style={{color: 'black'}}>
                 {Register.eventName}

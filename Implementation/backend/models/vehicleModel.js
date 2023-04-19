@@ -31,12 +31,7 @@ const vehicleSchema = mongoose.Schema(
     required: [true, 'Please add Insurance Expiration date '],
     },
 
-    /*status: {
-      type: String,
-      enum: ['AVAILABLE', 'UNAVAILABLE'],
-      default: 'AVAILABLE',
-      required: [true, 'Please add a status'],
-    },*/
+    
  
   },
   {

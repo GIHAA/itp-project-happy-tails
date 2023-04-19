@@ -53,19 +53,13 @@ const transportSchema = mongoose.Schema(
         required: [true, 'Please add no of pets'],
     },
 
-      
     status: {
-        type: String,
-        enum: ['PENDING', 'CANCLED', 'ACCEPTED' , 'REJECTED'],//?
-        default: 'PENDING',//?
-        required: [false, 'Please add a status'],
-      },
-
-
+      type: String,
+      enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
+      default: 'PENDING', 
+    },
     
 
-
- 
   },
   {
     timestamps: true,
