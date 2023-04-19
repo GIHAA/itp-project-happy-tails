@@ -18,7 +18,7 @@ export default function Breed() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/petbreed/getbreed`)
+      .get(`http://localhost:8080/api/petbreed/getbreed`)
       .then((response) => {
         console.log(response.data.allbreed);
         setAllBreed(response.data.allbreed);
@@ -37,7 +37,7 @@ export default function Breed() {
       speciesOne
 
     };
-    axios.post("http://localhost:5000/api/petbreed/addbreed", newBreed)
+    axios.post("http://localhost:8080/api/petbreed/addbreed", newBreed)
       .then(() => {
 
         setBreed("");
@@ -78,23 +78,7 @@ export default function Breed() {
     openUpModal(); // Then open the modal
   }
 
-         
-    // async function getbreed(){
-    //     try{
-    //       console.log(breedId)
-    //     const res = await axios.get(`http://localhost:5000/api/vet/getonebreed/${breedId}`)
-    //     setOneBreed(res.data.oneBreed)
-      
-    //     console.log(onebreed)
-            
-    //     }catch(err){
-
-    //         alert(err)
-
-    //     }
-    // } 
-
-
+        
     async function UpdateData(e){
 
    
@@ -110,7 +94,7 @@ export default function Breed() {
       }
 
 
-     await axios.put(`http://localhost:5000/api/petbreed/breedupdate/${upId}`,newbreed)
+     await axios.put(`http://localhost:8080/api/petbreed/breedupdate/${upId}`,newbreed)
     
      toast.success('Breed Updated successfully',{
       autoClose: 500, 
@@ -130,7 +114,7 @@ export default function Breed() {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button style={{ marginRight: '1rem' }} onClick={() => {
     
-            axios.delete(`http://localhost:5000/api/petbreed/deletebreed/${id}`).then((res) => {
+            axios.delete(`http://localhost:8080/api/petbreed/deletebreed/${id}`).then((res) => {
     
             }).catch((err) => {
     
@@ -169,7 +153,7 @@ function filterContent(breed, searchTerm) {
 
 const handleTextSearch = (e) => {
   const searchTerm = e.currentTarget.value;
-  axios.get("http://localhost:5000/api/petbreed/getbreed").then((res) => {
+  axios.get("http://localhost:8080/api/petbreed/getbreed").then((res) => {
     if (res.data.allbreed) {
       filterContent(res.data.allbreed, searchTerm);
     }

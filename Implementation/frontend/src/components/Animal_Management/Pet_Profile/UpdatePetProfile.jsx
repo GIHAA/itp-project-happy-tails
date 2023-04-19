@@ -29,7 +29,7 @@ export default function UpdatePetProfile(){
 
     async function getProfile() {
         try {
-          const res = await axios.get(`http://localhost:5000/api/vet/profile/${id}`);
+          const res = await axios.get(`http://localhost:8080/api/vet/profile/${id}`);
           const oneProfile = res.data;
           console.log(res.data);
           setProfile(oneProfile.profile);
@@ -46,7 +46,7 @@ export default function UpdatePetProfile(){
 
     useEffect(() => {
       axios
-        .get(`http://localhost:5000/api/petbreed/getbreed`)
+        .get(`http://localhost:8080/api/petbreed/getbreed`)
         .then((response) => {
           console.log(response.data.allbreed);
           setAllBreed(response.data.allbreed);
@@ -94,7 +94,7 @@ export default function UpdatePetProfile(){
         }
 
         
-       await axios.put(`http://localhost:5000/api/vet/updateprofile/${id}`,newpet)
+       await axios.put(`http://localhost:8080/api/vet/updateprofile/${id}`,newpet)
        toast.success('profile Updated successfully',{
         autoClose: 1000,
       });

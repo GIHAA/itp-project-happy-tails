@@ -26,7 +26,7 @@ function AddPetProfile() {
     console.log("Pet id called");
     async function fetchCount() {
       try {
-        const response = await axios.post('http://localhost:5000/api/counter');
+        const response = await axios.post('http://localhost:8080/api/counter');
         setId(response.data.count.toString());
         console.log(response.data.count.toString());
       } catch (err) {
@@ -38,7 +38,7 @@ function AddPetProfile() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/petbreed/getbreed`)
+      .get(`http://localhost:8080/api/petbreed/getbreed`)
       .then((response) => {
        
         setAllBreed(response.data.allbreed);
@@ -70,7 +70,7 @@ function AddPetProfile() {
       price
     };
 
-    axios.post("http://localhost:5000/api/vet/addpet", newPet, {
+    axios.post("http://localhost:8080/api/vet/addpet", newPet, {
 
       headers: {
         "Content-Type": "application/json",

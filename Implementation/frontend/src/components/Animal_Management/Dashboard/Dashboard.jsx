@@ -21,7 +21,7 @@ function Dashboard() {
   useEffect(() => {
     async function healthCounts() {
       try {
-        const response = await axios.get('http://localhost:5000/api/petstatus/statuscount');
+        const response = await axios.get('http://localhost:8080/api/petstatus/statuscount');
         setNormalCount(response.data.normalCount);
         setCriticalCount(response.data.criticalCount);
       } catch (err) {
@@ -34,7 +34,7 @@ function Dashboard() {
   useEffect(() => {
     async function lastbreed() {
       try {
-        const response = await axios.get('http://localhost:5000/api/petstatus/lastbreed');
+        const response = await axios.get('http://localhost:8080/api/petstatus/lastbreed');
         setLastBreed(response.data);
       } catch (err) {
         console.error(err);
@@ -46,7 +46,7 @@ function Dashboard() {
   useEffect(() => {
     async function lastPetProfile() {
       try {
-        const response = await axios.get('http://localhost:5000/api/petstatus/lastpets');
+        const response = await axios.get('http://localhost:8080/api/petstatus/lastpets');
         setLastPet(response.data);
       } catch (err) {
         console.error(err);
@@ -59,7 +59,7 @@ function Dashboard() {
   useEffect(() => {
     async function petStatusCounts() {
       try {
-        const response = await axios.get('http://localhost:5000/api/petstatus/petcount')
+        const response = await axios.get('http://localhost:8080/api/petstatus/petcount')
         setAvaCount(response.data.avaCount);
         setAdoCount(response.data.adpCount);
       } catch (err) {
@@ -70,7 +70,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/booking')
+    axios.get('http://localhost:8080/api/booking')
       .then(response => {
         const data = response.data;
         setpayData(data);

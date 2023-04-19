@@ -20,7 +20,7 @@ const GetBooking = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/booking')
+    axios.get('http://localhost:8080/api/booking')
       .then(response => {
         const data = response.data;
         console.log(response);
@@ -47,7 +47,7 @@ const GetBooking = () => {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:5000/api/booking").then((res) => {
+    axios.get("http://localhost:8080/api/booking").then((res) => {
       if (res.data) {
         filterContent(res.data, searchTerm);
       }
@@ -111,7 +111,7 @@ const GetBooking = () => {
                   description: description,
                 };
 
-                axios.put(`http://localhost:5000/api/booking/${_id}`, updatedTransaction)
+                axios.put(`http://localhost:8080/api/booking/${_id}`, updatedTransaction)
                   .then(response => {
 
                   })

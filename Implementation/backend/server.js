@@ -16,7 +16,7 @@ const eventStockRequestRoutes = require('./routes/eventStockRequestRoutes')
 const eventAmountRoutes = require('./routes/eventAmountRoutes')
 
 const connectDB = require('./config/db');
-const port = process.env.port || 5000
+const port = process.env.port || 8080
 
 
 connectDB()

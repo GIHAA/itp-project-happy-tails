@@ -29,7 +29,7 @@ function AddHealth() {
     };
 
     try {
-      await axios.put(`http://localhost:5000/api/health/addvac/${pid}`, newreport);
+      await axios.put(`http://localhost:8080/api/health/addvac/${pid}`, newreport);
       toast.success('Report saved successfully',{
         autoClose: 1000, 
       });

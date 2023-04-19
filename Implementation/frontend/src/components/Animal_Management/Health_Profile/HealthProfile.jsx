@@ -13,7 +13,7 @@ export default function HealthProfile (){
 
         async function getReports(){
             try{
-            const res = await axios.get("http://localhost:5000/api/health/getallreport")
+            const res = await axios.get("http://localhost:8080/api/health/getallreport")
             setReport(res.data.petReport)
                
                 
@@ -36,7 +36,7 @@ export default function HealthProfile (){
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <button style={{ marginRight: '1rem' }} onClick={() => {
           
-                      axios.delete(`http://localhost:5000/api/health/deletereport/${id}`).then((res) => {
+                      axios.delete(`http://localhost:8080/api/health/deletereport/${id}`).then((res) => {
           
                       }).catch((err) => {
           
@@ -78,7 +78,7 @@ export default function HealthProfile (){
 
           const handleTextSearch = (e) => {
             const searchTerm = e.currentTarget.value;
-            axios.get("http://localhost:5000/api/health/getallreport").then((res) => {
+            axios.get("http://localhost:8080/api/health/getallreport").then((res) => {
               if (res.data.petReport) {
                 filterContent(res.data.petReport, searchTerm);
               }

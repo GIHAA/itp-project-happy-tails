@@ -17,7 +17,7 @@ export default function ProfilePage() {
          
         async function getProfile(){
             try{
-            const res = await axios.get(`http://localhost:5000/api/vet/profile/${pid}`)
+            const res = await axios.get(`http://localhost:8080/api/vet/profile/${pid}`)
                 setProfile(res.data.profile)
                 setQrCode(res.data.profile.qrCode)
                 
@@ -30,18 +30,6 @@ export default function ProfilePage() {
 
         getProfile()
         },[])
-
-  // useEffect(() => {
-  //   // Fetch the QR code data from the backend
-  //   console.log(pid)
-  //   axios.get(`http://localhost:5000/api/vet/pets/qrcode/${pid}`)
-  //     .then((res) => {
-  //       setQrCode(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, [pid]);
 
    
   function downloadQRCode() {
@@ -58,7 +46,7 @@ export default function ProfilePage() {
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button style={{ marginRight: '1rem' }} onClick={() => {
       
-              axios.delete(`http://localhost:5000/api/vet/deleteprofile/${pid}`).then((res) => {
+              axios.delete(`http://localhost:8080/api/vet/deleteprofile/${pid}`).then((res) => {
       
               }).catch((err) => {
       

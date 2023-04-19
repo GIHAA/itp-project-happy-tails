@@ -22,9 +22,9 @@ function AddHealth() {
                 vaccinations };
 
             try {
-              await axios.post("http://localhost:5000/api/health/addreport", newreport);
+              await axios.post("http://localhost:8080/api/health/addreport", newreport);
               toast.success('Report saved successfully',{
-                autoClose: 1000, // Display for 3 seconds
+                autoClose: 1000, 
               });
               setTimeout(() =>    window.location.href = `/petprofile/healthprofile`, 2000);
             } catch (error) {

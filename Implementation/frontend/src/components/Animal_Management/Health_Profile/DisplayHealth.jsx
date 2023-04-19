@@ -23,7 +23,7 @@ export default function DisplayHealth() {
 
     async function getProfile() {
       try {
-        const res = await axios.get(`http://localhost:5000/api/health/getreport/${pid}`)
+        const res = await axios.get(`http://localhost:8080/api/health/getreport/${pid}`)
         setReport(res.data.petReport)
         setvaccinations(res.data.petReport.vaccinations);
         setLoading(false);
@@ -78,7 +78,7 @@ export default function DisplayHealth() {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button style={{ marginRight: '1rem' }} onClick={() => {
 
-            axios.delete(`http://localhost:5000/api/health/deletevac/${index}/${id}`).then((res) => {
+            axios.delete(`http://localhost:8080/api/health/deletevac/${index}/${id}`).then((res) => {
 
             }).catch((err) => {
 

@@ -13,7 +13,7 @@ export default function AllPetProfile(){
 
         async function getProfiles(){
             try{
-            const res = await axios.get("http://localhost:5000/api/vet/getallprofile")
+            const res = await axios.get("http://localhost:8080/api/vet/getallprofile")
                 setProfile(res.data.profiles)
                
             }catch(err){
@@ -33,7 +33,7 @@ export default function AllPetProfile(){
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <button style={{ marginRight: '1rem' }} onClick={() => {
               
-                      axios.delete(`http://localhost:5000/api/vet/deleteprofile/${id}`).then((res) => {
+                      axios.delete(`http://localhost:8080/api/vet/deleteprofile/${id}`).then((res) => {
               
                       }).catch((err) => {
               
@@ -76,7 +76,7 @@ export default function AllPetProfile(){
 
           const handleTextSearch = (e) => {
             const searchTerm = e.currentTarget.value;
-            axios.get("http://localhost:5000/api/vet/getallprofile").then((res) => {
+            axios.get("http://localhost:8080/api/vet/getallprofile").then((res) => {
               if (res.data.profiles) {
                 filterContent(res.data.profiles, searchTerm);
               }

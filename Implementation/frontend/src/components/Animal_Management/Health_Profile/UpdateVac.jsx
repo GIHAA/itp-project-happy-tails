@@ -15,14 +15,13 @@ export default function UpdateVac() {
     const pid =param.id;
     const index = param.index;
     
-    // console.log(index)
-    // console.log(healthState+"hi")
+
 
    useEffect(() => {
     
         async function fetchData() {
           try {
-            const res = await axios.get(`http://localhost:5000/api/health/getreport/${pid}`);
+            const res = await axios.get(`http://localhost:8080/api/health/getreport/${pid}`);
             const reportdata = res.data.petReport;
             console.log(reportdata.vaccinations)
             setVaccinations(reportdata.vaccinations);
@@ -54,9 +53,9 @@ export default function UpdateVac() {
 
             try {
                
-              await axios.put(`http://localhost:5000/api/health/reportupdate/${pid}`, newreport);
+              await axios.put(`http://localhost:8080/api/health/reportupdate/${pid}`, newreport);
               toast.success('Report Updated successfully',{
-                autoClose: 1000, // Display for 3 seconds
+                autoClose: 1000, 
               });
               setTimeout(() =>    window.location.href = `/petprofile/displayhealth/${pid}`, 2000);
             } catch (error) {
