@@ -3,7 +3,15 @@ const mongoose = require('mongoose')
 const efeefbackSchema = mongoose.Schema(
   {
     eid: {
-        type: Number,
+        type: String,
+        required: true
+    },
+    feedbackid: {
+        type: String,
+        required: true
+    },
+    userid: {
+        type: String,
         required: true
     },
     eventName: {

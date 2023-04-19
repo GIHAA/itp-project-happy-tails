@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const eventSchema = mongoose.Schema(
   {
     eid: {
-        type: Number,
+        type: String,
         required: true
     },
     name: {
@@ -45,6 +45,10 @@ const eventSchema = mongoose.Schema(
     image: {
       type: String,
       required: true
+    },
+    size:{
+        type:String,
+        required: [true, 'Please add event participant size'],
     }
 
   }

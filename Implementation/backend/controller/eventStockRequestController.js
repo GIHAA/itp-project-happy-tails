@@ -1,5 +1,5 @@
 const express = require('express');
-const stockr = require('../models/eventStockRequestModel')
+const stockr = require('../models/stockRequestModel')
 const Joi = require('joi');
 const mongoose = require('mongoose')
 
@@ -9,12 +9,13 @@ const reqstock = ((req, res) => {
 
   
     // Destructure the request body
-    const { eid,eventName, items,description,status } = req.body;
+    const { eid,stockid,eventName, items,description,status } = req.body;
   
 
     // Create a new stock request
     const newStock = new stockr({
         eid,
+        stockid,
         eventName,
         items,
         description,

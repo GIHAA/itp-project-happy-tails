@@ -4,7 +4,15 @@ const mongoose = require('mongoose')
 const registerEventSchema = mongoose.Schema(
   {
     eid: {
-        type: Number,
+        type: String,
+        required: true
+    },
+    bookid: {
+        type: String,
+        required: true
+    },
+    userid: {
+        type: String,
         required: true
     },
     eventName: {

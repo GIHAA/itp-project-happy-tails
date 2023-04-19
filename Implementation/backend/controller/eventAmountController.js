@@ -117,16 +117,24 @@ const editeamount = (async(req,res)=>{
   const { eid,eventName,price,noOfTicket,totalIncome,totalExpense, result, rate} = req.body;
   const updatedEAmountData = { eid,eventName, price,noOfTicket,totalIncome,totalExpense, result,rate};
 
+//   console.log(eid)
+//   console.log(eventName)
+//   console.log(noOfTicket)
+//   console.log(totalIncome)
+//   console.log(totalExpense)
+//   console.log(result)
+//   console.log(rate)
+//   console.log(price)
   // Validate the id
   if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).send({ error: 'Invalid income expenses of event ID' });
   }
 
-  // Validate the request body
-  if (!eid || !eventName || !price || !noOfTicket || !totalIncome || !totalExpense || !result || !rate ) {
-      return res.status(400).send({ error: 'Missing required fields' });
-  }
 
+  // Validate the request body
+// if(!eventName || !eid || !price || !noOfTicket || !totalIncome || !totalExpense || !result || !rate ){
+//     return res.status(400).send({ error: 'Missing fields' });
+// }
   try {
       // Ensure the income expenses of event belongs to the event manager making the request
       const eamount = await inExEvent.findById(id);
@@ -144,5 +152,6 @@ const editeamount = (async(req,res)=>{
       res.status(500).send({ error: 'Internal server error' });
   }
 });
+
 
 module.exports = { addeamount,geteamounts,deleteeamount,geteamount,editeamount}

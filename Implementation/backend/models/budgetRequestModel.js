@@ -3,9 +3,13 @@ const mongoose = require('mongoose')
 const budgetRequestSchema  = mongoose.Schema(
   {
     eid: {
-      type: Number,
+      type: String,
       required: true
    },
+   budgetid: {
+    type: String,
+    required: true
+    },
     eventName: {
         type: String,
         required: true
