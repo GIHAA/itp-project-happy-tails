@@ -5,12 +5,26 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/common/Header';
 import Home from './components/Home';
+import VetPortal from './components/portals/VetPortal';
+import AllPetProfile from './components/Animal_Management/Pet_Profile/petProfile';
+import AddPetProfile from './components/Animal_Management/Pet_Profile/AddPetProfile';
+import UpdatePetProfile from './components/Animal_Management/Pet_Profile/UpdatePetProfile';
+import ProfilePage from './components/Animal_Management/Pet_Profile/ProfilePage';
+import HealthProfile from './components/Animal_Management/Health_Profile/HealthProfile';
+import AddHealth from './components/Animal_Management/Health_Profile/AddHealth';
+import DisplayHealth from './components/Animal_Management/Health_Profile/DisplayHealth';
+import Addvac from './components/Animal_Management/Health_Profile/Addvac'
+import AdoptPet from './components/adoptPetPage/AdoptPet';
+import Footer from './components/common/Footer';
+import UpdateVac from './components/Animal_Management/Health_Profile/UpdateVac';
+import Dashboard from './components/Animal_Management/Dashboard/Dashboard';
+import Shelterpets from './components/Animal_Management/Pet_Profile/ShelterPets';
+import Breed from './components/Animal_Management/Pet_Profile/Breed';
 // import VetPortal from './components/portals/VetPortal';
 // import AllPetProfile from './components/petProfile';
 // import AddPetProfile from './components/AddPetProfile';
 // import UpdatePetProfile from './components/UpdatePetProfile';
 // import AdoptPet from './components/adoptPetPage/AdoptPet';
-import Footer from './components/common/Footer';
 // import ShelterPet from './components/shelterPetPage/ShelterPet';
 // import UserPortal from './components/User/UserProtal';
 // import Booking from './components/User/Booking';
@@ -51,7 +65,7 @@ function App() {
     <>
     <Router>
       <div className="App">
-      <Header />
+      {/* <Header /> */}
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='login' element={<Login />} />
@@ -93,7 +107,28 @@ function App() {
 
 
           </Routes>
-      <Footer />
+      {/* <Footer /> */}
+      </div>
+    </Router>
+
+    <Router>
+      <div className="App">
+          <Routes>
+            <Route path='petprofile' element={<VetPortal />}>
+                <Route path='updatepet/:id' element={<UpdatePetProfile />} />
+                <Route path='allpetprofile' element={<AllPetProfile />} />
+                <Route path='addpet' element={<AddPetProfile />} />
+                <Route path='addhealthprofile' element={<AddHealth />} />  
+                <Route path='profilepage/:id' element={<ProfilePage />} />
+                <Route path='healthprofile' element={<HealthProfile />} />
+                <Route path='displayhealth/:id' element={<DisplayHealth />} />
+                <Route  path='addvac/:id/:state' element={<Addvac/>}/>
+                <Route path='dashboard' element={<Dashboard />} />
+                <Route path='spets' element={<Shelterpets />} />
+                <Route path='breed' element={<Breed />} />
+                <Route path='upvac/:id/:index/:state' element={<UpdateVac />} />
+            </Route>
+          </Routes>
       </div>
     </Router>
     <ToastContainer />
