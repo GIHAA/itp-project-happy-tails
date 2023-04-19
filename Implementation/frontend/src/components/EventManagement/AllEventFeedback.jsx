@@ -146,9 +146,6 @@ const handleDelete = (Feedbackid) => {
                 <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
                     Feedback ID
                 </th>
-                <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
-                    User ID
-                </th>
             <th scope="col" class="px-6 py-3" style={{color: 'white'}}>
                     Event Name
                 </th>
@@ -194,9 +191,6 @@ const handleDelete = (Feedbackid) => {
                 </td>
                 <td class="px-6 py-4" style={{color: 'black'}}>
                 {Feedback.feedbackid}
-                </td>
-                <td class="px-6 py-4" style={{color: 'black'}}>
-                {Feedback.userid}
                 </td>
                <td class="px-6 py-4" style={{color: 'black'}}>
                 {Feedback.eventName}

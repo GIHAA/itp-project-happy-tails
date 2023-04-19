@@ -39,7 +39,6 @@ const [eventAmount,setEventAmount] = useState({});
     const [size,setSize] = useState("")
     const [remaining,setRemaining] = useState("")
     const [bookid, setBookId] = useState("");
-    const [userid, setUserId] = useState("1111");
     const [button, setButton] = useState(true);
 
      useEffect(()=>{
@@ -137,7 +136,6 @@ const [eventAmount,setEventAmount] = useState({});
     const newregister = {
       eid,
       bookid:bookid,
-      userid,
       eventName,
       cusName,
       noOfTicket,
