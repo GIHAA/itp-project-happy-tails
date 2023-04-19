@@ -5,19 +5,9 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Header from "./components/common/Header";
 import Home from "./components/Home";
-// import VetPortal from './components/portals/VetPortal';
-// import AllPetProfile from './components/petProfile';
-// import AddPetProfile from './components/AddPetProfile';
-// import UpdatePetProfile from './components/UpdatePetProfile';
 
-import AdoptPet from "./components/User/AdoptPet";
-import Footer from "./components/common/Footer";
-import ShelterPet from "./components/User/ShelterPet";
-import UserPortal from "./components/User/UserProtal";
-import Booking from "./components/User/myBooking";
-import Events from "./components/User/Events";
-import Pets from "./components/User/myPets";
-import Profile from "./components/User/myProfile";
+
+
 
 import SupplierList from "./components/SupplierList";
 import AddSuppliers from "./components/AddSuppliers";
@@ -28,15 +18,8 @@ import StockBudgetRequests from "./components/StockBudgetRequests";
 import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
 import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 
-import Spinner from "./components/common/Spinner";
 
-// import AdoptPet from './components/adoptPetPage/AdoptPet';
-// import ShelterPet from './components/shelterPetPage/ShelterPet';
-// import UserPortal from './components/User/UserProtal';
-// import Booking from './components/User/Booking';
-// import Events from './components/User/Events';
-// import Pets from './components/User/Pets';
-// import Profile from './components/User/Profile';
+
 import VehicleDashboard from "./components/VehicleDashboard";
 import EditVehicle from "./components/EditVehicle";
 import Vehicles from "./components/Vehicles";
@@ -49,14 +32,9 @@ import AddTBooking from "./components/AddTBooking";
 import AddVehicleBudgetRequestForm from "./components/AddVehicleBudgetRequest";
 import AllVBudgetRequests from "./components/AllVBudgetRequests";
 import VHome from "./components/VHome";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Header from "./components/common/Header";
-import Home from "./components/Home";
+
+
 import VetPortal from "./components/portals/VetPortal";
 import AllPetProfile from "./components/Animal_Management/Pet_Profile/petProfile";
 import AddPetProfile from "./components/Animal_Management/Pet_Profile/AddPetProfile";
@@ -113,6 +91,7 @@ import FinaPaymentReports from "./components/Finance_Management/FinaPaymentRepor
 import AddDonation from "./components/Finance_Management/AddDonations";
 import FinaGetEvents from "./components/Finance_Management/FinaGetEvents";
 import FinaGetVehicle from "./components/Finance_Management/FinaGetVehicle";
+
 import {
   FinaHeader,
   FinaLeftBar,
