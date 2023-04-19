@@ -9,6 +9,7 @@ import Home from './components/Home';
 // import AllPetProfile from './components/petProfile';
 // import AddPetProfile from './components/AddPetProfile';
 // import UpdatePetProfile from './components/UpdatePetProfile';
+
 import AdoptPet from './components/User/AdoptPet';
 import Footer from './components/common/Footer';
 import ShelterPet from './components/User/ShelterPet';
@@ -29,6 +30,27 @@ import UpdateStockBudgetRequest from './components/UpdateStockBudgetRequest';
 
 
 import Spinner from './components/common/Spinner';
+
+// import AdoptPet from './components/adoptPetPage/AdoptPet';
+// import ShelterPet from './components/shelterPetPage/ShelterPet';
+// import UserPortal from './components/User/UserProtal';
+// import Booking from './components/User/Booking';
+// import Events from './components/User/Events';
+// import Pets from './components/User/Pets';
+// import Profile from './components/User/Profile';
+import VehicleDashboard from './components/VehicleDashboard';
+import EditVehicle from './components/EditVehicle';
+import Vehicles from './components/Vehicles';
+import AddNewVehicle from './components/AddNewVehicle';
+import PendingBookings from './components/PendingBookings';
+import AddAvailability from './components/AddAvailability';
+import Availabilities from './components/Availabilities';
+import EditAvailabilities from './components/EditAvailabilities';
+import AddTBooking from './components/AddTBooking';
+import AddVehicleBudgetRequestForm from './components/AddVehicleBudgetRequest';
+import AllVBudgetRequests from './components/AllVBudgetRequests';
+import VHome from './components/VHome';
+
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -122,9 +144,44 @@ function App() {
               <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
             </Route>
           </Routes>
+
         </div>
       </Router>
       <ToastContainer />
+
+      </div>
+    </Router>
+
+    <Router>
+          <div className="App">
+            
+        
+              <Routes>
+                
+              
+
+                <Route path= '/vhome' exact element={<VHome/>}/>
+
+                <Route path= '/vehicledashboard' exact element={<VehicleDashboard/>}/>
+                <Route path='/vehicles' exact element={<Vehicles />} />
+                <Route path= '/editvehicle/:id'  exact element={<EditVehicle/>}/>
+                <Route path= '/addnvehicle'  exact element={<AddNewVehicle/>}/>
+
+                <Route path= '/pending'   element={<PendingBookings/>}/>
+                <Route path= '/tbooking'  exact element={<AddTBooking/>}/>
+
+                <Route path= '/availability'  exact element={<Availabilities/>}/>
+                <Route path= '/addavailability'  exact element={<AddAvailability/>}/>
+                <Route path= '/editavailability/:id'  exact element={<EditAvailabilities/>}/>
+
+                <Route path= '/vbudgets/:id'  exact element={<AllVBudgetRequests/>}/>
+                <Route path= '/addvbudget'  exact element={<AddVehicleBudgetRequestForm/>}/>
+
+              </Routes>
+          </div>
+        </Router>
+    <ToastContainer />
+
     </>
   );
 }
