@@ -40,8 +40,9 @@ const Booking = (props) => {
   const handleDelete = (booking) => {
     const response = bookingServices.deleteBooking(formData);
     console.log(response);
-
     if (response) toast.success("Booking deleted successfully");
+
+    refreshTable();
   };
 
   const handleMainInputChange = (event) => {
@@ -54,6 +55,13 @@ const Booking = (props) => {
       token: user.token,
     }));
     console.log(formData);
+  };
+
+  const refreshTable = () => {
+    setData([]);
+    bookingServices.getAllBookings(user).then((res) => {
+      setData(res);
+    });
   };
 
   const handleEditSubmit = async (e) => {
@@ -71,65 +79,76 @@ const Booking = (props) => {
               My Bookings
             </h1>
 
-            {isLoading ? ( 
-        <Spinner />
-      ) : (
+            <div className="flex justify-end">
+              <button
+                className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]"
+                onClick={() => refreshTable()}
+              >
+                Refresh
+              </button>
+            </div>
 
-            <table className="w-full bg-bgsec rounded-[10px]" id="myTable">
-              <thead className="bg-secondary rounded-[10px] text-white">
-                <tr className="h-[40px]">
-                  <th className="w-[20%]">Booking ID</th>
-                  <th className="">Number of pets</th>
-                  <th className="">Start-date</th>
-                  <th className="">End-date</th>
-                  <th className="">status</th>
-                  <th className="">Edit</th>
-                  <th className="text-center">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item) => (
-                  <tr
-                    key={item._id}
-                    className="h-[55px] border-[1px] border-gray-400"
-                  >
-                    <td onClick={() => handleDescription(item)}>{item.id}</td>
-                    <td className="text-center">{item.petCount}</td>
-                    <td className="text-center">
-                      {item.startDate.substring(0, 10)}
-                    </td>
-                    <td className="text-center">
-                      {item.endDate.substring(0, 10)}
-                    </td>
-                    <td className="text-center rounded-[100px] text-white">
-                      <p className="bg-green-600 h-[27px] rounded-[30px]">
-                        {item.status}
-                      </p>
-                    </td>
-                    <td className="text-center">
-                      {item.status === "BOOKED" ? (
-                        <button onClick={() => handleEdit(item)}>Edit</button>
-                      ) : (
-                        <button></button>
-                      )}
-                    </td>
-                    <td className="text-center">
-                      <button
-                        onFocus={() =>
-                          setFormData((prevFormData) => ({
-                            ...prevFormData,
-                            id: item._id,
-                          }))
-                        }
-                        onClick={() => handleDelete(item)}
-                      >
-                        Delete
-                      </button>
-                    </td>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <table className="w-full bg-bgsec rounded-[10px]" id="myTable">
+                <thead className="bg-secondary rounded-[10px] text-white">
+                  <tr className="h-[40px]">
+                    <th className="w-[20%]">Booking ID</th>
+                    <th className="">Number of pets</th>
+                    <th className="">Start-date</th>
+                    <th className="">End-date</th>
+                    <th className="">status</th>
+                    <th className="">Edit</th>
+                    <th className="text-center">Delete</th>
                   </tr>
-                ))}
-              </tbody>
-            </table> )}
+                </thead>
+                <tbody>
+                  {data.map((item) => (
+                    <tr
+                      key={item._id}
+                      className="h-[55px] border-[1px] border-gray-400"
+                    >
+                      <td className="text-center" onClick={() => handleDescription(item)}>
+                        {item.bid}
+                      </td>
+                      <td className="text-center">{item.petCount}</td>
+                      <td className="text-center">
+                        {item.startDate.substring(0, 10)}
+                      </td>
+                      <td className="text-center">
+                        {item.endDate.substring(0, 10)}
+                      </td>
+                      <td className="text-center rounded-[100px] text-white">
+                        <p className="bg-green-600 h-[27px] rounded-[30px]">
+                          {item.status}
+                        </p>
+                      </td>
+                      <td className="text-center">
+                        {item.status === "BOOKED" ? (
+                          <button onClick={() => handleEdit(item)}>Edit</button>
+                        ) : (
+                          <button></button>
+                        )}
+                      </td>
+                      <td className="text-center">
+                        <button
+                          onFocus={() =>
+                            setFormData((prevFormData) => ({
+                              ...prevFormData,
+                              id: item._id,
+                            }))
+                          }
+                          onClick={() => handleDelete(item)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
@@ -182,8 +201,8 @@ const Booking = (props) => {
             </form>
             <br />
             <div className="flex">
-              <button onClick={() => setShowEditModal(false)}>Close</button>
-              <button onClick={handleEditSubmit} className="ml-auto">
+              <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setShowEditModal(false)}>Close</button>
+              <button className="bg-secondary text-white h-[35px] w-[90px] rounded-full ml-auto" onClick={handleEditSubmit}>
                 Submit
               </button>
             </div>
@@ -195,12 +214,92 @@ const Booking = (props) => {
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8">
             <h2 className="text-lg font-bold mb-4">
-              Booking ID {selectedBooking.description}
+              Booking ID {selectedBooking.bid}
             </h2>
-
-            <button className="" onClick={() => setShowDescriptonModal(false)}>
+            <table class="border-collapse w-full">
+              <tbody>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Customer name
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.cus_name}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Booking description
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.description}
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Number of pets
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.petCount}
+                  </td>
+                </tr>
+                <br></br>
+              </tbody>
+            </table>
+            <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-2">
+            {selectedBooking.mini.map((item, index) => (
+              <>
+                <table class="border-collapse w-full">
+                  <tbody>
+                    <tr class="bg-gray-100">
+                      <td class="border border-gray-400 px-4 py-1 font-medium">
+                        Pet num {index + 1} details
+                      </td>
+                      <td class="border border-gray-400 px-4 py-1"></td>
+                    </tr>
+                    <tr class="bg-gray-200">
+                      <td class="border border-gray-400 px-4 py-1 font-medium">
+                        Pet ID
+                      </td>
+                      <td class="border border-gray-400 px-4 py-1">
+                        {item.pid}
+                      </td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                      <td class="border border-gray-400 px-4 py-1 font-medium">
+                        Pet Type
+                      </td>
+                      <td class="border border-gray-400 px-4 py-1">
+                        {item.type}
+                      </td>
+                    </tr>
+                    <tr class="bg-gray-200">
+                      <td class="border border-gray-400 px-4 py-1 font-medium">
+                        Pet name
+                      </td>
+                      <td class="border border-gray-400 px-4 py-1">
+                        {item.name}
+                      </td>
+                    </tr>
+                    <tr class="bg-gray-100">
+                      <td class="border border-gray-400 px-4 py-1 font-medium">
+                        Pet Description
+                      </td>
+                      <td class="border border-gray-400 px-4 py-1">
+                        {item.description}
+                      </td>
+                    </tr>
+                
+                  </tbody>
+                </table>
+              </>
+            ))}
+            </div>
+            <div className="flex justify-end">
+            <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setShowDescriptonModal(false)}>
               Close
             </button>
+              </div>
+            
           </div>
         </div>
       )}

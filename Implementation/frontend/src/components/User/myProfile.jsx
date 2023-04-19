@@ -12,6 +12,11 @@ import logo from "../../assets/logo.png";
 
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth);
+
+  if (!user){
+    const user = {};
+  };
+  
   const [bookings, setbookings] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -42,7 +47,7 @@ const Profile = (props) => {
         .then(() => {
           toast.success("Profile updated successfully");
           dispatch(logout());
-          dispatch(reset());
+          //dispatch(reset());
           navigate("/login");
         })
         .catch((err) => {
@@ -200,14 +205,14 @@ const Profile = (props) => {
               <button
                 onClick={genarateUserData}
                 type="button"
-                className="transition mr-auto  w-[35%] rounded-[100px] duration-200 bg-[#2E4960] hover:bg-[#2E4960] focus:bg-[#2E4960] focus:shadow-sm focus:ring-4 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                className="transition mr-auto w-[35%] rounded-[100px] duration-200 bg-[#2E4960] hover:bg-[#2E4960] focus:bg-[#2E4960] focus:shadow-sm focus:ring-4 focus:ring-opacity-50 text-white py-2.5  text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
                 <span className="inline-block mr-2">genarate user data</span>
               </button>
               <button
                 onClick={onSubmit}
                 type="button"
-                className="transition w-[25%] rounded-[100px] duration-200 bg-[#2E4960] hover:bg-[#2E4960] focus:bg-[#2E4960] focus:shadow-sm focus:ring-4 focus:ring-opacity-50 text-white w-full py-2.5 text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                className="transition w-[25%] rounded-[100px] duration-200 bg-[#2E4960] hover:bg-[#2E4960] focus:bg-[#2E4960] focus:shadow-sm focus:ring-4 focus:ring-opacity-50 text-white py-2.5 text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
               >
                 <span className="inline-block mr-2">update details</span>
               </button>

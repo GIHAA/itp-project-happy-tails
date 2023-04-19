@@ -6,7 +6,6 @@ const router = express.Router()
 const {
   registerUser,
   loginUser,
-  getMe,
   updateUser,
   deleteUser
 } = require('../controller/userController')
@@ -16,8 +15,7 @@ router.post('/',registerUser)
 router.post('/login', loginUser)
 router.post('/update',protect, userProtect, updateUser)
 router.delete('/',protect, userProtect, deleteUser)
-router.get('/me', protect, getMe)
-router.get('/', (req, res) => res.send('Hello World!')) 
+ 
 
 
 module.exports = router

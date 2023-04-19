@@ -38,6 +38,13 @@ const Booking = (props) => {
     if (response) toast.success("Booking deleted successfully");
   };
 
+  const refreshTable = () => {
+    setData([]);
+    adpotServices.getAll(user).then((res) => {
+      setData(res.profiles);
+    });
+  }
+
   const handleMainInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -57,7 +64,9 @@ const Booking = (props) => {
             <h1 className="text-center text-[20px] font-bold mb-5">
               My Pets
             </h1>
-
+            <div className="flex justify-end">
+            <button className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]" onClick={() => refreshTable()}>Refresh</button>
+            </div>
             {isLoading ? ( 
         <Spinner />
       ) : (

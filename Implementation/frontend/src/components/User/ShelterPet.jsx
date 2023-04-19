@@ -5,27 +5,11 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
-//import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 import bookingServices from "../../services/api/booking";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-// const useStyles = makeStyles({
-//   root: {
-//     width: 400,
-//     margin: "auto",
-//   },
-//   customColor: {
-//     color: "#808080",
-//     "& .MuiSlider-thumb": {
-//       backgroundColor: "#808080",
-//     },
-//     "& .MuiSlider-track": {
-//       backgroundColor: "#808080",
-//     },
-//   },
-// });
 
 function ShelterPet() {
   const { user } = useSelector((state) => state.auth);
@@ -34,23 +18,30 @@ function ShelterPet() {
   const [bid, setBid] = useState(0);
   const [total , setTotal] = useState(0);
 
-  const fetchData = async () => {
-    const result = await axios.post("http://localhost:8080/api/counter"); // replace <API URL> with the URL of your API
+  const fetchPid = async () => {
+    const result = await axios.post("http://localhost:8080/api/counter"); 
     setPid(result.data.count);
+  };
+
+  const fetchBid = async () => {
+    const result = await axios.post("http://localhost:8080/api/counter"); 
     setBid(result.data.count);
   };
 
   const getid = () => {
-    fetchData();
+    fetchPid();
     return pid;
   };
 
   useEffect(() => {
-    fetchData();
+    fetchPid();
+    fetchBid();
   }, []);
 
   const [formData, setFormData] = useState({
     cus_id: user._id,
+    cus_name: user.name,
+    bid,
     token: user.token,
     bid: 0,
     petCount: 1,
@@ -89,10 +80,20 @@ function ShelterPet() {
 
     if (rememberChecked) {
       try {
-
-        setFormData((prevFormData) => ({ ...prevFormData, bid: "B"+ bid , price: total}));
         bookingServices.addBooking(formData);
         toast.success("Booking added successfully");
+        setFormData({cus_id: user._id,
+          cus_name: user.name,
+          bid,
+          token: user.token,
+          bid: 0,
+          petCount: 1,
+          mini: [{ name: "", description: "", type: "cat", pid: 0 }],
+          contactNumbers: "",
+          description: "",
+          startDate: new Date(),
+          endDate: new Date(),})
+        setTotal(0);
       } catch (error) {
         toast.error("Something went wrong");
       }
@@ -101,15 +102,12 @@ function ShelterPet() {
     }
   };
 
-  // const classes = useStyles();
-
   const calculateTotal = () => {
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setTotal(diffDays * formData.petCount * 2000);
-
   }
 
   return (
@@ -127,6 +125,7 @@ function ShelterPet() {
                 variant="outlined"
                 value={formData.contactNumbers}
                 onChange={handleMainInputChange}
+                required={true}
               />
 
               <TextField
@@ -136,6 +135,7 @@ function ShelterPet() {
                 variant="outlined"
                 value={formData.description}
                 onChange={handleMainInputChange}
+                required={true}
               />
 
               <TextField
@@ -168,6 +168,8 @@ function ShelterPet() {
                 onChange={handleMainInputChange}
               />
             </div>
+            {<h2>Start date set to : {formData.startDate.toString().substring(0, 16)} </h2>}
+            {<h2>End date set to : {formData.endDate.toString().substring(0,16)}</h2>}
             {<h2>Number of pets: {formData.petCount}</h2>}
 
             <div>
@@ -239,7 +241,6 @@ function ShelterPet() {
                       >
                         <MenuItem value="cat">Cat</MenuItem>
                         <MenuItem value="dog">Dog</MenuItem>
-                        <MenuItem value="other">Other</MenuItem>
                       </Select>
                     </FormControl>
                   </label>
@@ -278,6 +279,7 @@ function ShelterPet() {
               </label>
             </div>
             <button
+              onFocus={() => setFormData((prevFormData) => ({ ...prevFormData, bid: "B"+ bid , price: total}))}
               type="submit"
               className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >

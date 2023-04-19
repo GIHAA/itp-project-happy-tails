@@ -133,7 +133,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email })
   
   if (user && (await bcrypt.compare(password, user.password))) {
-    const deletedUser = await user.delete()
+    const deletedUser = await user.deleteOne()
     res.json({
       _id: deletedUser.id,
       name: deletedUser.name,
