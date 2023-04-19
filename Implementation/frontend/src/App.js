@@ -1,23 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Header from "./components/common/Header";
-import Home from "./components/Home";
-
-
-
-
-import SupplierList from "./components/SupplierList";
-import AddSuppliers from "./components/AddSuppliers";
-import ManageSuppliers from "./components/ManageSuppliers";
-import UpdateSupplier from "./components/UpdateSupplier";
-import StockRequests from "./components/StockRequests";
-import StockBudgetRequests from "./components/StockBudgetRequests";
-import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
-import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Login from './components/Login';
+import Register from './components/Register';
+import Header from './components/common/Header';
+import Home from './components/Home';
+// import VetPortal from './components/portals/VetPortal';
+// import AllPetProfile from './components/petProfile';
+// import AddPetProfile from './components/AddPetProfile';
+// import UpdatePetProfile from './components/UpdatePetProfile';
+import AdoptPet from './components/User/AdoptPet';
+import Footer from './components/common/Footer';
+import ShelterPet from './components/User/ShelterPet';
+import UserPortal from './components/User/UserProtal';
+import Booking from './components/User/myBooking';
+import Events from './components/User/Events';
+import Pets from './components/User/myPets';
+import Profile from './components/User/myProfile';
 
 
 import VehicleDashboard from "./components/VehicleDashboard";
@@ -100,8 +99,9 @@ import {
 function App() {
   return (
     <>
-      <Router>
-        <div className="App">
+    <Router>
+      <div className="App">
+      <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
@@ -109,170 +109,20 @@ function App() {
             <Route path="shelterpet" element={<ShelterPet />} />
             <Route path="adoptpet" element={<AdoptPet />} />
             //user
-            <Route path="user" element={<UserPortal />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="booking" element={<Booking />} />
-            <Route path="pets" element={<Pets />} />
-            <Route path="events" element={<Events />} />
-            //
-            <Route path="/supplierList" element={<SupplierList />} />
-            <Route path="/addSuppliers" element={<AddSuppliers />} />
-            <Route path="/manageSuppliers" element={<ManageSuppliers />} />
-            <Route path="/updateSuppliers/:id" element={<UpdateSupplier />} />
-            <Route path="/stockRequests" element={<StockRequests />} />
-            <Route
-              path="/StockBudgetRequests"
-              element={<StockBudgetRequests />}
-            />
-            <Route
-              path="/StockBudgetRequestForm"
-              element={<StockBudgetRequestForm />}
-            />
-            <Route
-              path="/UpdateStockBudgetRequest/:id"
-              element={<UpdateStockBudgetRequest />}
-            />
-            <Route path="shelterpet" element={<ShelterPet />} />
-            <Route path="adoptpet" element={<AdoptPet />} />
-            <Route path="user" element={<UserPortal />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="booking" element={<Booking />} />
-            <Route path="pets" element={<Pets />} />
-            <Route path="events" element={<Events />} />
-            <Route path="test" element={<Spinner />} />
-            <Route path="petprofile" element={<VetPortal />}>
-              <Route path="updatepet/:id" element={<UpdatePetProfile />} />
-              <Route path="allpetprofile" element={<AllPetProfile />} />
-              <Route path="addpet" element={<AddPetProfile />} />
-              <Route path="addhealthprofile" element={<AddHealth />} />
-              <Route path="profilepage/:id" element={<ProfilePage />} />
-              <Route path="healthprofile" element={<HealthProfile />} />
-              <Route path="displayhealth/:id" element={<DisplayHealth />} />
-              <Route path="addvac/:id/:state" element={<Addvac />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="spets" element={<Shelterpets />} />
-              <Route path="breed" element={<Breed />} />
-              <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
-            </Route>
-            <Route path="/vhome" exact element={<VHome />} />
-            <Route
-              path="/vehicledashboard"
-              exact
-              element={<VehicleDashboard />}
-            />
-            <Route path="/vehicles" exact element={<Vehicles />} />
-            <Route path="/editvehicle/:id" exact element={<EditVehicle />} />
-            <Route path="/addnvehicle" exact element={<AddNewVehicle />} />
-            <Route path="/pending" element={<PendingBookings />} />
-            <Route path="/tbooking" exact element={<AddTBooking />} />
-            <Route path="/availability" exact element={<Availabilities />} />
-            <Route
-              path="/addavailability"
-              exact
-              element={<AddAvailability />}
-            />
-            <Route
-              path="/editavailability/:id"
-              exact
-              element={<EditAvailabilities />}
-            />
-            <Route
-              path="/vbudgets/:id"
-              exact
-              element={<AllVBudgetRequests />}
-            />
-            <Route
-              path="/addvbudget"
-              exact
-              element={<AddVehicleBudgetRequestForm />}
-            />
-            // EventManagement
-            <Route path="eventdashboard" element={<EventPortal />}>
-              <Route path="getEvents" element={<AllEvent />} />
-              <Route path="addEvent" element={<AddEvent />} />
-              <Route path="editEvent/:id" element={<EditEvent />} />
-              <Route path="getFeedbacks" element={<AllEventFeedback />} />
-              <Route path="budget" element={<AllEventBudget />} />
-              <Route path="editbudget/:id" element={<EditBudget />} />
-              <Route path="addBudget" element={<BudgetRequestForm />} />
-              <Route path="stock" element={<AllEventStock />} />
-              <Route path="editstock/:id" element={<StockRequestEdit />} />
-              <Route path="addStock" element={<StockRequestForm />} />
-              <Route path="eventbooking" element={<AllRegisterEvent />} />
-              <Route path="chart" element={<IncomeExpenseReport />} />
-              <Route path="dashboard" element={<EventDashboard />} />
-              <Route path="report" element={<EventReport />} />
-              <Route path="addbooking/:id" element={<RegisterEvent />} />
-              <Route path="editBooking/:id" element={<EditBooking />} />
-              <Route path="getEventsUser" element={<AllEventUser />} />
-              <Route path="addFeedback/:id" element={<AddEventFeedback />} />
-            </Route>
-            //financial_manager
-            <Route path="/FinaDashBoard" element={<FinaDashBoard />} />
-            <Route path="/GetTransaction" element={<GetTransaction />} />
-            <Route path="/GetPayment" element={<GetPayment />} />
-            <Route path="/GetDoanation" element={<GetDoanation />} />
-            <Route path="/GetOrganization" element={<GetOrganization />} />
-            <Route path="/AddOrganization" element={<AddOrganization />} />
-            <Route path="/GetBooking" element={<GetBooking />} />
-            <Route
-              path="/FinaPaymentReports"
-              element={<FinaPaymentReports />}
-            />
-            <Route path="/AddDonation" element={<AddDonation />} />
-            <Route path="/FinaGetEvents" element={<FinaGetEvents />} />
-            <Route path="/FinaGetVehicle" element={<FinaGetVehicle />} />
-            {/* <Footer /> */}
-            <Route path="petprofile" element={<VetPortal />}>
-              <Route path="updatepet/:id" element={<UpdatePetProfile />} />
-              <Route path="allpetprofile" element={<AllPetProfile />} />
-              <Route path="addpet" element={<AddPetProfile />} />
-              <Route path="addhealthprofile" element={<AddHealth />} />
-              <Route path="profilepage/:id" element={<ProfilePage />} />
-              <Route path="healthprofile" element={<HealthProfile />} />
-              <Route path="displayhealth/:id" element={<DisplayHealth />} />
-              <Route path="addvac/:id/:state/:des" element={<Addvac />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="spets" element={<Shelterpets />} />
-              <Route path="breed" element={<Breed />} />
-              <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
-            </Route>
-            <Route path="/vhome" exact element={<VHome />} />
-            <Route
-              path="/vehicledashboard"
-              exact
-              element={<VehicleDashboard />}
-            />
-            <Route path="/vehicles" exact element={<Vehicles />} />
-            <Route path="/editvehicle/:id" exact element={<EditVehicle />} />
-            <Route path="/addnvehicle" exact element={<AddNewVehicle />} />
-            <Route path="/pending" element={<PendingBookings />} />
-            <Route path="/tbooking" exact element={<AddTBooking />} />
-            <Route path="/availability" exact element={<Availabilities />} />
-            <Route
-              path="/addavailability"
-              exact
-              element={<AddAvailability />}
-            />
-            <Route
-              path="/editavailability/:id"
-              exact
-              element={<EditAvailabilities />}
-            />
-            <Route
-              path="/vbudgets/:id"
-              exact
-              element={<AllVBudgetRequests />}
-            />
-            <Route
-              path="/addvbudget"
-              exact
-              element={<AddVehicleBudgetRequestForm />}
-            />
+            <Route path='user' element={<UserPortal />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='booking' element={<Booking />} />
+              <Route path='pets' element={<Pets />} />
+              <Route path='events' element={<Events />} />
+
+
+              <Route path='test' element={<Spinner />} />
+
           </Routes>
-        </div>
-      </Router>
-      <ToastContainer />
+      <Footer />
+      </div>
+    </Router>
+    <ToastContainer />
     </>
   );
 }
