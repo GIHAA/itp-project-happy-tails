@@ -36,7 +36,7 @@ function App() {
     <>
     <Router>
       <div className="App">
-      <Header />
+      {/* <Header /> */}
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='login' element={<Login />} />
@@ -67,7 +67,7 @@ function App() {
               <Route path='test' element={<Spinner />} />
 
           </Routes>
-      <Footer />
+      {/* <Footer /> */}
       </div>
     </Router>
     <ToastContainer />
