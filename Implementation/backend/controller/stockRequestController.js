@@ -11,6 +11,7 @@ const requestStock = asyncHandler(async (req, res) => {
     const formatted = now.format('YYYY-MM-DD, h:mm a'); // Returns a formatted date string like "2023-10-10, 4:28 pm"
 
 
+
     //check whether all values exists
     if (!item_code || !item_name || !item_brand || !category || !qty ) {
         res.status(400)
