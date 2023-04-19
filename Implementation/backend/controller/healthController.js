@@ -155,8 +155,10 @@ const addVac = async (req, res) => {
     await report.updateOne(
       { petId: id },
       {
-        $set: { currentHealthStatus: currentHealthStatus },
-        $set: { description: description },
+        $set: {
+          currentHealthStatus: currentHealthStatus,
+          description: description
+        },
         $push: { vaccinations: { $each: vaccinations } }
       }
     );

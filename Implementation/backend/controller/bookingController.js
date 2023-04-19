@@ -39,6 +39,8 @@ const updateBooking = asyncHandler(async (req, res) =>{
     const id = req.params.id
     const { description , startDate , endDate , status } = req.body
 
+    console.log("status")
+
     const booking = await Booking.findByIdAndUpdate(id, {
         description,
         startDate,
