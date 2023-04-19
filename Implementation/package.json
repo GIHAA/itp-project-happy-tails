@@ -1,0 +1,13 @@
+{
+  "name": "implementation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd backend && npm run server\" \"cd frontend && npm run start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

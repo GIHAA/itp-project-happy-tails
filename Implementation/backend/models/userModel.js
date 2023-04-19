@@ -15,30 +15,23 @@ const userSchema = mongoose.Schema(
         type: String,
         required: [true, 'Please add a password'],
     },
+    address: {
+        type: String,
+        required: [true, 'Please add an address'],
+    },
+    phone: {
+        type: String,
+        required: [true, 'Please add a phone number'],
+    },
     role: {
       type: String,
-      enum: ['ADMIN', 'USER', 'EVENT_MANAGER', 'SHELTER_MANAGER'],
+      enum: ['ADMIN', 'USER', 'EVENT_MANAGER' , 'INVENTORY_MANAGER' , 'VEHICLE_MANAGER' , 'ANIMAL_MANAGER' , 'FINANCIAL_MANAGER' , 'SUPPLIER_MANAGER'],
       default: 'USER',
       required: [true, 'Please add a role'],
     },
     image : {
       type : String,
       required: false,
-    },
-    pnumber: {
-      type: String,
-      required: [true, 'Please add a phone number'],
-    },
-    pets: {
-      type: [
-        {
-          pets_id: {
-            type: String,
-            required: [true, 'Please add a pet_id'],
-          },
-        }
-      ],
-      required: [false],
     },
   },
   {

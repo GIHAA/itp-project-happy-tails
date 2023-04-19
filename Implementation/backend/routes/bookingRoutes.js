@@ -10,9 +10,9 @@ const {
 const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware')
 
 router.post('/', protect , addBooking )
-router.post('/user', protect , readUserBooking )
+router.post('/user', protect  , readUserBooking )
 router.get('/' , readBooking )
-router.put('/:id', protect , updateBooking)
+router.put('/', protect , updateBooking)
 router.delete('/:id', protect , deleteBooking )
 
 

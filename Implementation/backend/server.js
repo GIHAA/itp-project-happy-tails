@@ -33,6 +33,8 @@ app.use('/api/petbreed',breedRoutes)
 app.use('/api/health',healthRoutes)
 app.use('/api/petstatus',statusRoutes)   
 app.use('/api/booking/', require('./routes/bookingRoutes.js'))
+app.use('/api/counter', require('./routes/counterRoutes'))
+app.use('/api/vet',require('./routes/vetRoutes'))   
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
 app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
 app.use('/api/inventory', require('./routes/stockRequestRoutes'))
@@ -48,7 +50,6 @@ app.use('/api/counter', require('./routes/counterRoutes'))
 app.use('/api/eventbudget', budgetReqRoutes);
 app.use('/api/eventstock', eventStockRequestRoutes);
 app.use('/api/eventamount', eventAmountRoutes);
-
 
 
 
