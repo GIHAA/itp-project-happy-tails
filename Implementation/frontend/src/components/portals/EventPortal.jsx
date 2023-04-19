@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink,Link, Outlet } from 'react-router-dom'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logopanel.png'
 
 
 export default function EventPortal() {
