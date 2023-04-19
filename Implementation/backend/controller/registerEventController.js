@@ -9,11 +9,13 @@ const registerevent = ((req, res) => {
 
   
     // Destructure the request body
-    const { eid,eventName,cusName,noOfTicket,total,email,phoneNumber} = req.body;
+    const { eid,bookid,userid,eventName,cusName,noOfTicket,total,email,phoneNumber} = req.body;
   
     // Create a new booking
     const regEvent = new registerEvent({
      eid,
+     bookid,
+     userid,
      eventName,
      cusName,
      noOfTicket,

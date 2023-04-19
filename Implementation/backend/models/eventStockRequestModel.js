@@ -3,8 +3,12 @@ const mongoose = require('mongoose')
 const stockRequestSchema  = mongoose.Schema(
   {
     eid: {
-      type: Number,
+      type: String,
       required: true
+   },
+    stockid: {
+    type: String,
+    required: true
    },
     eventName: {
         type: String,

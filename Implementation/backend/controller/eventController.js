@@ -11,7 +11,7 @@ const addEvent = ((req, res) => {
   
   
     // Destructure the request body
-    const { eid,name,description,startTime,endTime,date,venue,price,status,image} = req.body;
+    const { eid,name,description,startTime,endTime,date,venue,price,status,image,size} = req.body;
  
     // Create a new event
     const newevent = new event({
@@ -24,7 +24,8 @@ const addEvent = ((req, res) => {
         venue,
         price,
         status,
-        image
+        image,
+        size
   
     });
   
@@ -93,8 +94,8 @@ const getEvent = (async(req,res)=>{
 const editEvent = (async(req,res)=>{
 
     const { id } = req.params;
-    const {name,description,startTime,endTime,date,venue,price,status,image} = req.body;
-    const updatedEventData = {name,description,startTime,endTime,date,venue,price,status,image};
+    const {name,description,startTime,endTime,date,venue,price,status,image,size} = req.body;
+    const updatedEventData = {name,description,startTime,endTime,date,venue,price,status,image,size};
   
     // Validate the id
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -102,7 +103,7 @@ const editEvent = (async(req,res)=>{
     }
   
     // Validate the request body
-    if (!name || !description || !startTime || !endTime || !date || !venue || !price || !status) {
+    if (!name || !description || !startTime || !endTime || !date || !venue || !price || !status || !size) {
         return res.status(400).send({ error: 'Missing required fields' });
     }
   

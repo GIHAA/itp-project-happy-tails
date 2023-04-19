@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const eventAmountSchema  = mongoose.Schema(
   {
     eid: {
-      type: Number,
+      type: String,
       required: true
     },
     eventName: {

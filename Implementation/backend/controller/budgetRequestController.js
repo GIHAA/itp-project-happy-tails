@@ -10,11 +10,12 @@ const reqBudget = ((req, res) => {
 
   
     // Destructure the request body
-    const { eid,eventName, items,description,total,status,amountStatus } = req.body;
+    const { eid,budgetid,eventName, items,description,total,status,amountStatus } = req.body;
 
     // Create a new event
     const newBudget = new budget({
         eid,
+        budgetid,
         eventName,
         items,
         description,
