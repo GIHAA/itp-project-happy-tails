@@ -7,6 +7,4 @@ const {
 
 router.post('/' , addCount)
 
-
-
 module.exports = router
