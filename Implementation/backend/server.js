@@ -33,6 +33,8 @@ app.use('/api/petbreed',breedRoutes)
 app.use('/api/health',healthRoutes)
 app.use('/api/petstatus',statusRoutes)   
 app.use('/api/booking/', require('./routes/bookingRoutes.js'))
+app.use('/api/counter', require('./routes/counterRoutes'))
+app.use('/api/vet',require('./routes/vetRoutes'))   
 app.use('/api/suppliers/', require('./routes/suppliersRoutes'))
 app.use('/api/inventory', require('./routes/inventoryItemRoutes'))
 app.use('/api/inventory', require('./routes/stockRequestRoutes'))
@@ -44,13 +46,16 @@ app.use('/api/availability/', require('./routes/availabilityRoutes.js'))
 app.use('/api/eventregister', eventregister);
 app.use('/api/event', eventRoutes);
 app.use('/api/eventfeedback', efeedbackRoutes);
+app.use('/api/counter', require('./routes/counterRoutes'))
+app.use('/api/eventbudget', budgetReqRoutes);
+app.use('/api/eventstock', eventStockRequestRoutes);
+app.use('/api/eventamount', eventAmountRoutes);
 app.use('/api/inventory', require('./routes/stockRequestRoutes'))
 app.use('/api/stockBudget', require('./routes/stockBudgetRequestRoute'))
 app.use('/api/counter', require('./routes/counterRoutes'))
 app.use('/api/eventbudget', budgetReqRoutes);
 app.use('/api/eventstock', eventStockRequestRoutes);
 app.use('/api/eventamount', eventAmountRoutes);
-
 
 
 

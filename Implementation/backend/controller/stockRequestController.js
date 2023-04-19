@@ -119,14 +119,8 @@ const groupByCategory = async (req, res) => {
   };
   
 
-
-
-
-
-
-
 module.exports = { 
-    requestStock ,
+    requestStock,
     getAllRequests,
     updateRequestField,
     getReceivedRequests,
