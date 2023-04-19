@@ -6,6 +6,14 @@ import bg2 from "../assets/back2.png";
 import { Link } from "react-router-dom";
 import Home from "./Home";
 import FinaDashBoard from "./Finance_Management/FinaDashBoard";
+import Dashboard from "./Animal_Management/Dashboard/Dashboard";
+import InvDashboard from "./InvDashboard";
+import EventDashboard from  "./EventManagement/EventDashboard";
+import SupplierList  from "./SupplierList";
+import VHome from "./VHome";
+import Header from "./common/PortalHeader";
+import PortalHeader from "./common/PortalHeader";
+
 
 function PortalHandler() {
 
@@ -19,17 +27,30 @@ function PortalHandler() {
       case 'USER':
         return <><Home/></>;
       case 'EVENT_MANAGER':
-        return <></>;
+        return <>
+        <PortalHeader/>
+        <EventDashboard/>
+        </>;
       case 'INVENTORY_MANAGER':
-        return <></>;
+        return <>
+                <PortalHeader/>
+        <InvDashboard/></>;
       case 'VEHICLE_MANAGER':
-        return <></>;
+        return <>
+                <PortalHeader/>
+        <VHome/> </>;
       case 'ANIMAL_MANAGER':
-        return <></>;
+        return <>
+                <PortalHeader/>
+        <Dashboard/> </>;
       case 'FINANCIAL_MANAGER':
-        return <><FinaDashBoard/></>;
+        return <>
+                <PortalHeader/>
+        <FinaDashBoard/></>;
       case 'SUPPLIER_MANAGER':
-        return <></>;
+        return <>
+                <PortalHeader/>
+        <SupplierList/></>;
       default:
         return <></>;
     }
