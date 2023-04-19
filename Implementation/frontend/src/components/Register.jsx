@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { register, reset } from "../services/auth/authSlice";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 const Registration = () => {
   const [image, setImage] = useState("");
@@ -106,7 +108,9 @@ const Registration = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+    <>
+      <Header />
+        <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
       <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
         <h1 className="font-bold text-center text-2xl mb-5">Register</h1>
         <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
@@ -227,6 +231,8 @@ const Registration = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

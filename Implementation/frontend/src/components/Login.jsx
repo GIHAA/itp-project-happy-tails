@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { login , reset } from '../services/auth/authSlice'
+import Header from "./common/Header";
+import Footer from "./common/Footer";
+
 
 const Login = () => {
 
@@ -44,6 +47,8 @@ const Login = () => {
       
 
     return (
+        <>
+        <Header />
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
           <h1 className="font-bold text-center text-2xl mb-5">Login</h1>  
@@ -86,6 +91,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer/></>
     )
 }
 
