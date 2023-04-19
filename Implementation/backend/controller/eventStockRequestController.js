@@ -1,5 +1,5 @@
 const express = require('express');
-const stockr = require('../models/stockRequestModel')
+const stockr = require('../models/eventStockRequestModel')
 const Joi = require('joi');
 const mongoose = require('mongoose')
 

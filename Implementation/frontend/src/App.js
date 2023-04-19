@@ -80,6 +80,33 @@ import Pets from "./components/User/myPets";
 import Profile from "./components/User/myProfile";
 import PortalHandler from "./components/PortalHandler";
 import Spinner from "./components/common/Spinner";
+import AddEvent from './components/EventManagement/AddEvent';
+import AllEvent from './components/EventManagement/AllEvent';
+import RegisterEvent from './components/EventManagement/RegisterEvent';
+import AllRegisterEvent from './components/EventManagement/AllRegisterEvent';
+import AllEventUser from './components/EventManagement/AllEventUser';
+import EditEvent from './components/EventManagement/EditEvent';
+import AddEventFeedback from './components/EventManagement/AddEventFeedback';
+import AllEventFeedback from './components/EventManagement/AllEventFeedback';
+import EventReport from './components/EventManagement/EventReport';
+import BudgetRequestForm from './components/EventManagement/BudgetRequestForm';
+import AllEventBudget from './components/EventManagement/AllEventBudget';
+import EditBudget from './components/EventManagement/BudgetRequestEdit';
+import StockRequestForm from './components/EventManagement/StockRequestForm';
+import StockRequestEdit from './components/EventManagement/StockRequestEdit';
+import AllEventStock from './components/EventManagement/AllEventStock';
+import LeftSideBar from './components/LeftSideBar'
+import EventChart from './components/EventManagement/EventChart'
+import QRCodeContent from './components/EventManagement/QRCodeContent'
+import IncomeExpenseReport from './components/EventManagement/IncomeExpenseReport'
+import EventPortal from './components/portals/EventPortal';
+import EventDashboard from './components/EventManagement/EventDashboard';
+import EditBooking from './components/EventManagement/EditBooking';
+
+
+
+
+
 
 function App() {
   return (
@@ -175,6 +202,39 @@ function App() {
               exact
               element={<AddVehicleBudgetRequestForm />}
             />
+            {/* <Route path='user' element={<UserPortal />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='booking' element={<Booking />} />
+              <Route path='pets' element={<Pets />} />
+              <Route path='Events' element={<Events />} /> */}
+
+
+
+            // EventManagement
+            <Route path='eventdashboard' element={<EventPortal />} >
+                
+                 <Route path='getEvents' element={<AllEvent />} />
+                 <Route path='addEvent' element={<AddEvent />} />
+                 <Route path='editEvent/:id' element={<EditEvent />} />
+                 <Route path='getFeedbacks' element={<AllEventFeedback />} />
+                 <Route path='budget' element={<AllEventBudget />} />
+                 <Route path='editbudget/:id' element={<EditBudget />} />
+                 <Route path='addBudget' element={<BudgetRequestForm />} />
+                 <Route path='stock' element={<AllEventStock />} />
+                 <Route path='editstock/:id' element={<StockRequestEdit />} />
+                 <Route path='addStock' element={<StockRequestForm />} />
+                 <Route path='eventbooking' element={<AllRegisterEvent />} />
+                 <Route path='chart' element={<IncomeExpenseReport />} />
+                 <Route path='dashboard' element={<EventDashboard />} />
+                 <Route path='report' element={<EventReport />} />
+                 <Route path='addbooking/:id' element={<RegisterEvent />} />
+                 <Route path='editBooking/:id' element={<EditBooking />} />
+                 <Route path='getEventsUser' element={<AllEventUser />} />
+                 <Route path='addFeedback/:id' element={<AddEventFeedback />} />
+            </Route>
+
+
+
           </Routes>
         </div>
       </Router>

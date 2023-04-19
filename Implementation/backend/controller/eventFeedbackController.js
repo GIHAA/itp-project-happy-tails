@@ -9,13 +9,12 @@ const mongoose = require('mongoose')
 const addFeedback = ((req, res) => {
   
     // Destructure the request body
-    const { eid,feedbackid,userid,eventName,name,email,phoneNumber,feedbackType,priceStatisfy,funStatisfy,description,rating,newIdea} = req.body;
+    const { eid,feedbackid,eventName,name,email,phoneNumber,feedbackType,priceStatisfy,funStatisfy,description,rating,newIdea} = req.body;
   
     // Create a new event
     const newefeedback = new efeedback({
         eid,
         feedbackid,
-        userid,
         eventName,
         name,
         email,
