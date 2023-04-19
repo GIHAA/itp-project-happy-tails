@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import inv from "../assets/inv.jpg"
 import InventorySideBar from "./InventorySideBar";
+import filterImg from "../assets/filter.png";
 
 
 export default function InvStockIn() {
 
   const [stockReq , setStockReq] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(()=>{
 
@@ -20,6 +22,10 @@ export default function InvStockIn() {
         .catch(err => alert(err))
 
   }, []) 
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
   
   return (
     //Main container
@@ -51,14 +57,30 @@ export default function InvStockIn() {
         </div>
     </div>
 
-    {/*Body Part*/}
-    <div 
-      style={{ backgroundImage: `url(${inv})` }}
-      className="bg-cover bg-center h-screen w-full fixed" >
-{/*White box*/}
-<div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">                    
+            {/*Body Part*/}
+            <div 
+              style={{ backgroundImage: `url(${inv})` }}
+              className="bg-cover bg-center h-screen w-full fixed" >
+            {/*White box*/}
+            <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">  
+
+            <div className="relative mt-6 ml-[1000px] mb-1">
+                  <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                  <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedCategory} onChange={handleCategoryChange}>
+                    <option value="">All Categories</option>
+                    <option value="FOOD">FOOD</option>
+                    <option value="MEDICINE">MEDICINE</option>
+                    <option value="TOYS">TOYS</option>
+                    <option value="BATHROOM-ESSENTIALS">BATHROOM ESSENTIALS</option>
+                    <option value="GROOMING-EQUIPMENTS">GROOMING EQUIPMENTS</option>
+                    <option value="EVENT-ITEMS">EVENT ITEMS</option>
+                    <option value="OTHER">OTHER</option>
+                  </select>
+                </div>
+
                     {/*Table*/}
-                    <table className="mx-auto my-10 w-[1250px]">
+                    <table className="mx-auto w-[1250px]">
 
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
                         <tr>
@@ -74,7 +96,13 @@ export default function InvStockIn() {
                     
                     <tbody  className="bg-white text-center">
 
-                      {stockReq.map((stockrequest) => {
+                      {stockReq.filter((val)=>{
+                      if(selectedCategory === "") {
+                        return val;
+                      }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
+                        return val;
+                      }
+                    }).map((stockrequest) => {
                         return(
 
                           <TableDataRow 

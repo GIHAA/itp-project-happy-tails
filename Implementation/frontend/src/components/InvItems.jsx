@@ -15,6 +15,7 @@ export default function InvItems() {
   const [Items , setItems] = useState([]);
   const [searchTerm , setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   useEffect(()=>{
 
@@ -42,6 +43,11 @@ export default function InvItems() {
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
+  };
+
+  
+  const handleStockFilter = (event) => {
+    setSelectedFilter(event.target.value);
   };
 
 
@@ -90,20 +96,33 @@ export default function InvItems() {
                 {/*White box*/}
                 <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
 
-                <div className="relative mt-6 ml-[1000px] mb-1">
-                  <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
-                  <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
-                  value={selectedCategory} onChange={handleCategoryChange}>
-                    <option value="">All Categories</option>
-                    <option value="FOOD">FOOD</option>
-                    <option value="MEDICINE">MEDICINE</option>
-                    <option value="TOYS">TOYS</option>
-                    <option value="BATHROOM-ESSENTIALS">BATHROOM ESSENTIALS</option>
-                    <option value="GROOMING-EQUIPMENTS">GROOMING EQUIPMENTS</option>
-                    <option value="EVENT-ITEMS">EVENT ITEMS</option>
-                    <option value="OTHER">OTHER</option>
-                  </select>
-                </div>
+                  <div className="flex">
+
+                    <div className="relative mt-6 ml-[830px] mb-1">
+                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      value={selectedFilter} onChange={handleStockFilter}>
+                        <option value="">All</option>
+                        <option value="inStock">In Stock</option>
+                        <option value="outOfStock">Out of Stock</option>
+                      </select>
+                    </div>
+
+                    <div className="relative mt-6 mb-1 ml-[5px]">
+                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      value={selectedCategory} onChange={handleCategoryChange}>
+                        <option value="">All Categories</option>
+                        <option value="FOOD">FOOD</option>
+                        <option value="MEDICINE">MEDICINE</option>
+                        <option value="TOYS">TOYS</option>
+                        <option value="BATHROOM-ESSENTIALS">BATHROOM ESSENTIALS</option>
+                        <option value="GROOMING-EQUIPMENTS">GROOMING EQUIPMENTS</option>
+                        <option value="EVENT-ITEMS">EVENT ITEMS</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
+                    </div>
+                  </div>
 
                     {/*Table*/}
                     <table className="mx-auto w-[1250px]">
@@ -122,19 +141,27 @@ export default function InvItems() {
                     <tbody  className="bg-white text-center">
 
                     {Items.filter((val)=>{
-                      if(searchTerm === "") {
-                        return val;
-                      }else if(val.item_name.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }else if(val.item_code.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }
-                    }).filter((val)=>{
-                      if(selectedCategory === "") {
-                        return val;
-                      }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
-                        return val;
-                      }
+                        if(searchTerm === "") {
+                          return val;
+                        }else if(val.item_name.toLowerCase().includes(searchTerm.toLowerCase())){
+                          return val;
+                        }else if(val.item_code.toLowerCase().includes(searchTerm.toLowerCase())){
+                          return val;
+                        }
+                      }).filter((val)=>{
+                        if(selectedCategory === "") {
+                          return val;
+                        }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
+                          return val;
+                        }
+                      }).filter((val)=>{
+                        if (selectedFilter === "") {
+                          return val;
+                        } else if (selectedFilter === "inStock") {
+                          return val.qty > 0;
+                        } else if (selectedFilter === "outOfStock") {
+                          return val.qty <= 0;
+                        }
                     }).map((item) => {
                       return(
 

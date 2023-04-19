@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import inv from "../assets/inv.jpg"
 import InventorySideBar from "./InventorySideBar";
+import filterImg from "../assets/filter.png";
 const moment = require('moment');
 
 
 function InvRequestedStock() {
 
     const [stockReq , setStockReq] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [statusFilter, setStatusFilter] = useState("");
 
     useEffect(()=>{
   
@@ -19,6 +22,15 @@ function InvRequestedStock() {
           .catch(err => alert(err))
   
     }, []) 
+
+    const handleCategoryChange = (event) => {
+      setSelectedCategory(event.target.value);
+    };
+
+    const handleStatusFilter = (event) => {
+      setStatusFilter(event.target.value);
+    };
+    
   
   return (
     //Main container
@@ -50,14 +62,45 @@ function InvRequestedStock() {
         </div>
     </div>
 
-    {/*Body Part*/}
-    <div 
-      style={{ backgroundImage: `url(${inv})` }}
-      className="bg-cover bg-center h-screen w-full fixed" >
-{/*White box*/}
-<div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
+                  {/*Body Part*/}
+                  <div 
+                    style={{ backgroundImage: `url(${inv})` }}
+                    className="bg-cover bg-center h-screen w-full fixed" >
+                    {/*White box*/}
+                    <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
+
+                      <div className="flex">
+
+                    <div className="relative mt-6 ml-[830px] mb-1">
+                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      value={statusFilter} onChange={handleStatusFilter}>
+                        <option value="">All</option>
+                        <option value="pending">Pending</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="received">Received</option>
+                      </select>
+                    </div>
+
+                    <div className="relative mt-6 mb-1 ml-[5px]">
+                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                      value={selectedCategory} onChange={handleCategoryChange}>
+                        <option value="">All Categories</option>
+                        <option value="FOOD">FOOD</option>
+                        <option value="MEDICINE">MEDICINE</option>
+                        <option value="TOYS">TOYS</option>
+                        <option value="BATHROOM-ESSENTIALS">BATHROOM ESSENTIALS</option>
+                        <option value="GROOMING-EQUIPMENTS">GROOMING EQUIPMENTS</option>
+                        <option value="EVENT-ITEMS">EVENT ITEMS</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
+                    </div>
+                  </div>
+
+
                     {/*Table*/}
-                    <table className="mx-auto my-10 w-[1250px]">
+                    <table className="mx-auto w-[1250px]">
 
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
                         <tr>
@@ -74,7 +117,19 @@ function InvRequestedStock() {
                     
                     <tbody  className="bg-white text-center">
 
-                    {stockReq.map((stockrequest) => {
+                    {stockReq.filter((val)=>{
+                      if(selectedCategory === "") {
+                        return val;
+                      }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
+                        return val;
+                      }
+                    }).filter((val)=>{
+                      if(statusFilter === "") {
+                        return val;
+                      }else if(statusFilter.toLowerCase() === val.status.toLowerCase()){
+                        return val;
+                      }
+                    }).map((stockrequest) => {
                       return(
 
                         <TableDataRow 
