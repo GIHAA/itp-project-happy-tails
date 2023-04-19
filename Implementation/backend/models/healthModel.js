@@ -10,6 +10,12 @@ const healthSchema = mongoose.Schema(
         type: String,
         required: true,
       },
+
+      description: {
+        type: String,
+        
+      },
+
       vaccinations: [{
         name: {
           type: String,
