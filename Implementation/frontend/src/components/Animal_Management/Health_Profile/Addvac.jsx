@@ -20,11 +20,13 @@ function AddHealth() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const newDescription = description || "No description";
+
 
     const newreport = {
       petId,
       currentHealthStatus,
-      description,
+      description:newDescription,
       vaccinations
     };
 

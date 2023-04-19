@@ -11,14 +11,15 @@ function AddHealth() {
     const [currentHealthStatus, setCurrentHealthStatus] = useState('');
     const [vaccinations, setVaccinations] = useState([]);
 
-    console.log(description)
-   
         const handleSubmit = async (event) => {
             event.preventDefault();
+
+            const newDescription = description || "No description";
+
             const newreport = { 
                 petId, 
                 currentHealthStatus, 
-                description,
+                description:newDescription,
                 vaccinations };
 
             try {
