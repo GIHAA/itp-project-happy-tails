@@ -56,7 +56,7 @@ const VehreadPayment = asyncHandler(async (req, res) => {
 const VehupdatePayment = asyncHandler(async (req, res) => {
 
     const id = req.params.id
-    const { req_title, date, payment, status } = req.body
+    const { req_title, plateNo,date, payment, status } = req.body
 
     const pay = await VehReqPayment.findByIdAndUpdate(id, {
 
