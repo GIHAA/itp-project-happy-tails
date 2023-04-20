@@ -80,7 +80,7 @@ function VSideBar() {
     </div>
 
     <div>
-      <hr className="mt-[80px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
+      <hr className="mt-[20px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
       <img src={v} className=" w-[140px] h-[140px] mx-auto"></img>
     </div>
   

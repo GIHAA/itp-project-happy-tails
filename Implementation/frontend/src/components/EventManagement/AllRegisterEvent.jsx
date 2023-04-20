@@ -246,7 +246,7 @@ return(
                 <td class="px-6 py-4" style={{color: 'black'}}>
                 <div  className="flex justify-center">
       
-            <div><button style={{ backgroundColor: '#459DE8' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"><Link to={`/eventdashboard/editbooking/${Register._id}`}>Edit</Link></button></div>
+            <div><button style={{ backgroundColor: '#459DE8',marginRight:'20px'  }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"><Link to={`/eventdashboard/editbooking/${Register._id}`}>Edit</Link></button></div>
             <button style={{ backgroundColor: '#D12222',marginRight:'20px' }} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20" onClick={()=>handleDelete(Register._id,Register.eid,Register.noOfTicket,Register.total)}>Delete</button>
           </div>
                 </td>

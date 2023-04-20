@@ -230,15 +230,20 @@ export default function DisplayHealth() {
           </div>
         )}
 
-        <button onClick={generatePDF} className="bg-[#30475c]  hover:bg-[#084469] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[14px] block w-[150px] text-center mx-auto">Download pdf</button>
+        
+        
+    <button onClick={generatePDF} className="bg-[#30475c]  hover:bg-[#084469] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[14px] block w-[150px] text-center mx-auto">Download pdf</button>
+    
+    <button onClick={()=>onDeleteprofile(report.petId)} className="bg-red-700 mt-3  hover:bg-red-600 px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[14px] block w-[150px] text-center mx-auto">Delete Report</button>
+   
+
+
 
         <br></br>
 
-        <div class="-mt-[423px] -ml-[150px] absolute w-[80px]">
-  <button onClick={()=>onDeleteprofile(report.petId)} class="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-3.5 py-2 text-center mt-5 mb-4 ml-[1045px]">
- Delete
-  </button>
-</div>
+     
+
+
 
       </div>
     </>
