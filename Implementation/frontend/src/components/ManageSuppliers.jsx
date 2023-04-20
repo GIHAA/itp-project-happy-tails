@@ -73,12 +73,12 @@ export default function ManageSuppliers() {
          style={{ backgroundImage: `url(${supp})` }}
         className="bg-cover bg-center h-screen w-full fixed">
           {/* White box */}
-          <div className="bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll">
+          <div className="bg-white bg-opacity-90 w-[75%] h-[75%] absolute top-5 left-[80px] overflow-scroll">
             {/* Table */}
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
                 <tr>
-                  <th className="p-3">SID</th>
+                  {/* <th className="p-3">SID</th> */}
                   <th className="p-3">Name</th>
                   <th className="p-3">Phone Number</th>
                   <th className="p-3">Email</th>
@@ -102,7 +102,7 @@ export default function ManageSuppliers() {
 
                         <>
                         <tr>
-                          <td className="p-3">{supplier._id}</td>
+                          {/* <td className="p-3">{supplier._id}</td> */}
                           <td className="p-3">{supplier.name}</td>
                           <td className="p-3">{supplier.phone}</td>
                           <td className="p-3">{supplier.email}</td>

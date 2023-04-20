@@ -125,7 +125,7 @@ function AddPetProfile() {
   return (
     <>
       <div class="flex justify-center items-center  h-full w-full bg-white pt-5">
-        <div class="w-2/3 bg-[#34495E] rounded-3xl shadow-2xl p-8 m-4 ml-64 mt-16">
+        <div class="w-2/3 bg-[#34495E] rounded-3xl shadow-2xl p-8 m-4 ml-64 mt-24">
           <h1 class="block w-full text-center text-white text-3xl font-bold mb-6">Pet Registration</h1>
 
           <form onSubmit={addPet} method="post" class="grid grid-cols-3 gap-1">
@@ -213,7 +213,7 @@ function AddPetProfile() {
               <select name="petStatus" id="petStatus" required onChange={(e) => {
                 setStatus(e.target.value)
               }} class="border py-3 px-3 text-grey-800 w-full rounded-xl">
-                <option selected>Choose a health Status</option>
+                <option selected>Choose Status</option>
                 <option value="Available">Available</option>
                 <option value="Adopted">Adopted</option>
               </select>
