@@ -50,7 +50,6 @@ const GetTransaction = () => {
         axios.delete(`http://localhost:8080/api/transaction/${id}`)
             .then((res) => {
 
-                alert('Delete Transaction ?')
 
                 refreshPage();
             })
