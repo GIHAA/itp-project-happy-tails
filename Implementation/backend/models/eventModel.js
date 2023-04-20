@@ -43,8 +43,8 @@ const eventSchema = mongoose.Schema(
       required: true
     },
     image: {
-      type: String,
-      required: true
+      type: String
+    
     },
     size:{
         type:String,

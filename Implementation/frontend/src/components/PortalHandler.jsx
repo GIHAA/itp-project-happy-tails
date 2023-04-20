@@ -13,6 +13,8 @@ import SupplierList from "./SupplierList";
 import VHome from "./VHome";
 import Header from "./common/PortalHeader";
 import PortalHeader from "./common/PortalHeader";
+import EventPortal from "./portals/EventPortal";
+
 import VetPortal from "./portals/VetPortal";
 
 function PortalHandler() {
@@ -31,7 +33,8 @@ function PortalHandler() {
       case "EVENT_MANAGER":
         return (
           <>
-            <PortalHeader />
+           
+            <EventPortal/>
             <EventDashboard />
           </>
         );
