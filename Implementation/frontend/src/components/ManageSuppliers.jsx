@@ -46,7 +46,8 @@ export default function ManageSuppliers() {
           <div className="ml-5">
             <Link
               to='/addSuppliers'
-              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
+              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] 
+              font-bold text-white text-[12px] block w-[100px] text-center mr-2"
             >
               +ADD
             </Link>

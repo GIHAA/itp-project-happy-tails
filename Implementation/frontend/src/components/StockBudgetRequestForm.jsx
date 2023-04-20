@@ -109,7 +109,7 @@ export default function StockBudgetRequestForm() {
                     <center>
                       <input
                       placeholder="Enter total amount"
-                        type="text"
+                        type="number"
                         className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
                         onChange={(e) => {
                           setTotal(e.target.value);
