@@ -168,7 +168,7 @@ function App() {
               <Route path="profilepage/:id" element={<ProfilePage />} />
               <Route path="healthprofile" element={<HealthProfile />} />
               <Route path="displayhealth/:id" element={<DisplayHealth />} />
-              <Route path="addvac/:id/:state" element={<Addvac />} />
+              <Route path="/petprofile/addvac/:id/:state/:des" element={<Addvac />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="spets" element={<Shelterpets />} />
               <Route path="breed" element={<Breed />} />
