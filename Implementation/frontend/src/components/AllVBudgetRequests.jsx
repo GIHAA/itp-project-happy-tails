@@ -7,13 +7,13 @@ import VSideBar from "./VSideBar";
 
 export default function AllVBudgetRequests() {
 
-  const [payments , setPayments] = useState([]);
+  const [Payments , setPayments] = useState([]);
   const [searchTerm , setSearchTerm] = useState("");
 
 
   useEffect(()=>{
 
-        axios.get(`http://localhost:8080/api/VehreadAllPayment/`)
+        axios.get(`http://localhost:8080/api/VehReqPayment/`)
         .then((res) => {
           setPayments(res.data)
         })
@@ -24,7 +24,7 @@ export default function AllVBudgetRequests() {
 
   
 
-  console.log(payments) 
+  console.log(Payments) 
 
 
 
@@ -91,8 +91,8 @@ export default function AllVBudgetRequests() {
                     
                     <tbody  className="bg-white text-center">
 
-                    {payments.filter((val)=>{
-                      if(searchTerm == "") {
+                    {Payments.filter((val)=>{
+                      if(searchTerm === "") {
                         return val;
                       }else if(val.plateNo.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
@@ -156,7 +156,7 @@ function TableDataRow(props){
 
 function onDelete(id) {
 
-  axios.delete(`http://localhost:8080/api/VehdeletePayment/${id}`)
+  axios.delete(`http://localhost:8080/api/VehReqPayment/${id}`)
   .then((res) => {
       alert("request deleted")
   })

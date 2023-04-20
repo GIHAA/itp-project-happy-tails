@@ -46,14 +46,15 @@ export default function ManageSuppliers() {
           <div className="ml-5">
             <Link
               to='/addSuppliers'
-              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
+              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] 
+              font-bold text-white text-[12px] block w-[100px] text-center mr-2"
             >
               +ADD
             </Link>
           </div>
 
           {/*search */}
-          <div className="ml-[1000px]">
+          <div className="ml-[800px] mb-7">
                 <input type="text" 
                 className=" rounded-3xl py-2.5 px-5 w-[40vh]
                  text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300

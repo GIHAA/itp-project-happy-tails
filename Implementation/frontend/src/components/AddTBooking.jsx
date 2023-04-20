@@ -39,8 +39,11 @@ export default function AddTBooking() {
 
     }
 
+    console.log(newTBooking);
 
-        axios.post("http://localhost:8080/api/transport",newTBooking)
+
+
+        axios.post("http://localhost:8080/api/transport/",newTBooking)
         .then(()=>{
             alert("Request added")
 
@@ -64,7 +67,7 @@ export default function AddTBooking() {
 
           {/*Header Part*/}
           <div className="bg-[#2E4960] h-100 w-full">
-            <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">ADD VEHICLE</h1>
+            <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">REQUEST TRANSPORT SERVICE</h1>
 
               <div className=" flex p-5">
 
