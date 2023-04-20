@@ -68,9 +68,9 @@ export default function InvAddItem() {
             style={{ backgroundImage: `url(${inv})` }}
             className="bg-cover bg-center h-screen w-full fixed" >
 
-                <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll"> 
+                <div className=" bg-white bg-opacity-90 w-[85%] h-[90%] absolute overflow-scroll"> 
 
-                    <div className="w-[800px] h-[400px] mx-auto rounded-2xl bg-white mt-8">
+                    <div className="w-[800px] h-[400px] mx-auto rounded-2xl bg-white mt-12">
 
                     <h1 
                     className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
@@ -133,7 +133,7 @@ export default function InvAddItem() {
 
                                     <button type="submit" 
                                     className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[130px]"
-                                    >Submit</button>
+                                    >Add</button>
                                 </div>
                         </form>
                         </div>
