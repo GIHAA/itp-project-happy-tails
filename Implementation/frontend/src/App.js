@@ -102,6 +102,7 @@ import GetBooking from "./components/Finance_Management/GetBooking";
 import AddDonation from "./components/Finance_Management/AddDonations";
 import FinaGetEvents from "./components/Finance_Management/FinaGetEvents";
 import FinaGetVehicle from "./components/Finance_Management/FinaGetVehicle";
+import FinaGetStock from "./components/Finance_Management/FinaGetStock"
 
 import {
   FinaHeader,
@@ -230,6 +231,7 @@ function App() {
             <Route path="/AddDonation" element={<AddDonation />} />
             <Route path="/FinaGetEvents" element={<FinaGetEvents />} />
             <Route path="/FinaGetVehicle" element={<FinaGetVehicle />} />
+            <Route path="/FinaGetStock" element={<FinaGetStock />} />
             {/* <Footer /> */}
             <Route path="petprofile" element={<VetPortal />}>
               <Route path="updatepet/:id" element={<UpdatePetProfile />} />

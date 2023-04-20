@@ -1,8 +1,8 @@
 const joi = require("@hapi/joi");
-var { Schema } = require("../validation/cusDonaValidation");
-var { Orgschema } = require("../validation/cusDonaValidation");
-var { Transchema } = require("../validation/cusDonaValidation");
-var { CusPay } = require("../validation/cusDonaValidation");
+var { Schema } = require("../validations/cusDonaValidation");
+var { Orgschema } = require("../validations/cusDonaValidation");
+var { Transchema } = require("../validations/cusDonaValidation");
+var { CusPay } = require("../validations/cusDonaValidation");
 
 
 //user payment validation

@@ -196,13 +196,11 @@ function FinaLeftBar() {
 
       </aside>
       <Outlet />
-    </>
-  )
-}
+   
 
 
-function FinaHeader() {
-  return (
+
+
 
     <div>
       <nav className="bg-[#2E4960] fixed inset-x-0 top-0">
@@ -356,10 +354,11 @@ function FinaHeader() {
 
 
     </div>
+    </>
   )
 }
 
 
-export { FinaHeader, FinaLeftBar };
+export default FinaLeftBar ;
 
 
