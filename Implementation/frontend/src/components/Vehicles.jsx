@@ -25,6 +25,9 @@ export default function Vehicle() {
 
 
   function generatePDF() {
+
+    
+
     const doc = new jsPDF();
     doc.autoTable({
       head: [["Plate Number", "Driver ID", "Agent ID", "Vehicle Model", "Insurance Expiration Date"]],

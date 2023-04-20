@@ -197,7 +197,7 @@ const GetPayment = () => {
 
             {/* //BALANCE BAR */}
 
-            <div class="flex ml-48 justify-center flex-cols-1 gap-4 mt-20 ">
+            <div class="flex ml-48 justify-center flex-cols-1 gap-4 mt-24 ">
 
 
                 <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">

@@ -147,7 +147,7 @@ doc.addPage();
             </div>
         </div>
   <span style={{ marginRight: '10px', fontSize:'20px',  }}>All Events</span>
-   <button style={{ backgroundColor: '#459DE8' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={generatePDF}>Download PDF</button>
+   <button style={{ backgroundColor: '#459DE8' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-40" onClick={generatePDF}>Download PDF</button>
 
    
   

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import supp from "../assets/supp.jpg"
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
+import PortalHeader from "./common/PortalHeader";
 
 export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
@@ -32,6 +33,7 @@ export default function ManageSuppliers() {
 
   return (
     <div className="flex scroll-smooth">
+      
       <SupplierSideBar />
 
       {/* Right Side container start */}
@@ -46,14 +48,15 @@ export default function ManageSuppliers() {
           <div className="ml-5">
             <Link
               to='/addSuppliers'
-              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
+              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] 
+              font-bold text-white text-[12px] block w-[100px] text-center mr-2"
             >
               +ADD
             </Link>
           </div>
 
           {/*search */}
-          <div className="ml-[1000px]">
+          <div className="ml-[800px] mb-7">
                 <input type="text" 
                 className=" rounded-3xl py-2.5 px-5 w-[40vh]
                  text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300
@@ -70,12 +73,12 @@ export default function ManageSuppliers() {
          style={{ backgroundImage: `url(${supp})` }}
         className="bg-cover bg-center h-screen w-full fixed">
           {/* White box */}
-          <div className="bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll">
+          <div className="bg-white bg-opacity-90 w-[75%] h-[75%] absolute top-5 left-[80px] overflow-scroll">
             {/* Table */}
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
                 <tr>
-                  <th className="p-3">SID</th>
+                  {/* <th className="p-3">SID</th> */}
                   <th className="p-3">Name</th>
                   <th className="p-3">Phone Number</th>
                   <th className="p-3">Email</th>
@@ -99,7 +102,7 @@ export default function ManageSuppliers() {
 
                         <>
                         <tr>
-                          <td className="p-3">{supplier._id}</td>
+                          {/* <td className="p-3">{supplier._id}</td> */}
                           <td className="p-3">{supplier.name}</td>
                           <td className="p-3">{supplier.phone}</td>
                           <td className="p-3">{supplier.email}</td>
@@ -108,7 +111,7 @@ export default function ManageSuppliers() {
                         
                           <td className="p-3">
                           <div className="flex ml-12">
-                              <button className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
+                              <button className=" items-center px-5 py-1 w-[110px] mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
                                 <Link to={`/updateSuppliers/${supplier._id}`}
                                 className="flex">
                                 <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
@@ -137,6 +140,7 @@ export default function ManageSuppliers() {
       </div>
       {/* Right Side container end */}
     </div>
+  
   );
 }
 

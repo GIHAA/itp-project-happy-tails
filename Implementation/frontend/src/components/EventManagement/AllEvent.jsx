@@ -128,7 +128,7 @@ return(
     
     
         <div class="flex flex-row-reverse space-x-1 space-x-reverse ...">
-<div><button style={{ backgroundColor: '#1FE23F' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><Link to={"/eventdashboard/addEvent"}>Add Event</Link></button></div>
+<div><button style={{ backgroundColor: '#1FE23F' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full"><Link to={"/eventdashboard/addEvent"}>Add Event</Link></button></div>
 </div>
 
 <h1 className="text-2xl font-bold mb-4" >All Events</h1>
@@ -165,8 +165,8 @@ return(
     <div class="flex justify-end items-center mb-4" style={{marginRight:'20px',marginTop:'20px'}}>
      
    
-    <div><button style={{ backgroundColor: '#459DE8',marginRight:'20px'  }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><Link to={`/eventdashboard/editEvent/${event._id}`}>Edit</Link></button></div>
-      <div><button style={{ backgroundColor: '#D12222'}} className="bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={()=>handleDelete(event._id,event.eid)}>Delete</button></div>
+    <div><button style={{ backgroundColor: '#459DE8',marginRight:'20px'  }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"><Link to={`/eventdashboard/editEvent/${event._id}`}>Edit</Link></button></div>
+      <div><button style={{ backgroundColor: '#D12222'}} className="bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20" onClick={()=>handleDelete(event._id,event.eid)}>Delete</button></div>
       
       </div>
    

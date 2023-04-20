@@ -77,7 +77,7 @@ function AddOrganization({ closeModal }) {
 
                 </div>
                 <div class="mb-3 justify-center -mx-2 flex items-end">
-                    <label class="font-medium text-sm mb-2 ml-1">organization Name
+                    <label class="font-medium text-sm mb-2 ml-1">Organization Name
                         <input type="text" size="15px" required class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" onChange={(e) => handle(e)} id="org_name" value={data.org_name}>
                         </input> </label>
 
@@ -94,31 +94,16 @@ function AddOrganization({ closeModal }) {
                         </select> </label>  <br></br> */}
                 </div>
 
-                <div class="mb-3 justify-center ml-48 -mx-2 " >
-                    <label class="font-medium text-sm mb-2 ml-1">Email <br></br>
-                        <input type="email" required size="15px" onChange={(e) => handle(e)} id="org_email" value={data.org_email} class="w-3/6 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"></input> </label> <br></br>
-                </div>
-
-                <div className=" mb-3 justify-center -mx-2 flex items-end ">
-                    <label class="font-medium text-sm mb-2 ml-1">Amount <input type="number" size="15px" required onChange={(e) => handle(e)} id="org_amount" value={data.org_amount} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"></input> </label> <br></br>
-                    
-                </div>
-
-                <div className=" mb-3 justify-center -mx-2 flex items-end ">
-                    <label class="font-medium text-sm mb-2 ml-1">Logo <input type="file" size="15px" required onChange={(e) => handle(e)} id="org_logo" value={data.org_logo} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors">
-                        </input> </label> 
-                        <br></br>
-                    
-                </div>
-
-                <div className=" mb-3 justify-center -mx-2 flex items-end ">
+                <div class="mb-3 ml-8 justify-start -mx-20  flex items-end" >
+                    <label class="font-medium text-sm mb-2 ml-1 ">Email <br></br>
+                        <input type="email" required size="15px" onChange={(e) => handle(e)} id="org_email" value={data.org_email} class="w-60 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"></input> </label> <br></br>
+                    {/* <label class="font-medium text-sm mb-2 ml-1">Amount <input type="number" size="15px" required onChange={(e) => handle(e)} id="org_amount" value={data.org_amount} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"></input> </label> <br></br> */}
                     <label class="font-medium text-sm mb-2 ml-1">Type
                         <select id="org_type" className="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" onChange={(e) => handle(e)} >
                             <option value="Regional" selected={data.org_type === "Regional"}>Regional</option>
                             <option value="Global" selected={data.org_type === "Global"}>Global</option>
 
                         </select> </label> <br></br>
-
                     <label class="font-medium text-sm mb-2 ml-1">Resources
                         <select id="org_Resources" required className="form-select w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" onChange={(e) => handle(e)}>
                            
@@ -129,11 +114,24 @@ function AddOrganization({ closeModal }) {
                     </label>
                 </div>
 
-                
-                <div class="mb-3 justify-center -mx-2 flex items-end">
+              
+
+
+                <div className=" mb-3 justify-center -mx-2 flex items-end ">
+
+                </div>
+                <div className=" mb-3 justify-center -mx-2 flex items-end ">
+                    <label class="font-medium text-sm mb-2 ml-1">Logo <input type="text" size="15px" required onChange={(e) => handle(e)} id="org_logo" value={data.org_logo} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors">
+                        </input> </label> 
                     <label class="font-medium text-sm mb-2 ml-1">Description
                         <input type="text" size="15px" height="30px" required class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" onChange={(e) => handle(e)} id="org_description" value={data.org_description}>
                         </input> </label>
+                        
+                    
+                </div>
+
+                
+                <div class="mb-3 justify-center -mx-2 flex items-end">
                     
                 </div>
 

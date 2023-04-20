@@ -1,9 +1,22 @@
 import React from 'react'
 import logo from "../assets/logo.png"
-import logout from "../assets/logout.png"
+import logoutImg from "../assets/logout.png"
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout, reset } from "../services/auth/authSlice";
+
 
 function InventorySideBar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
 
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
@@ -43,9 +56,9 @@ function InventorySideBar() {
 
     <div>
 
-      <button 
+      <button onClick={onLogout}
         className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
-        <img src={logout} alt="Logout" className="w-4 h-4 mr-2" />
+        <img src={logoutImg} alt="Logout" className="w-4 h-4 mr-2" />
         <span>Logout</span>
       </button>
 

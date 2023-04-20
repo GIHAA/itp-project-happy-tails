@@ -42,6 +42,7 @@ useEffect(()=>{
 
 useEffect(() => {
     setEventName(stock.eventName);
+    setId(stock.eid)
   //  setItems(budget.items);
     setDesc(stock.description);
   
@@ -142,6 +143,22 @@ useEffect(() => {
     
       <form onSubmit={EditStock}>
      
+      <div class="flex flex-col mb-4 block">
+  <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} htmlFor="eventName">
+    Event ID
+  </label>
+      <input
+      class="border py-2 px-3 text-grey-800 rounded-lg"
+  type="text"
+  name="eventId"
+  id="eventId"
+  value={eid}
+  disabled // make the input field read-only to prevent editing
+  style={{ marginLeft: '10px',width: "65%", alignSelf:'center' }}
+/>
+</div>
+
+
       <div class="flex flex-col mb-4 block">
   <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} htmlFor="eventName">
     Event Name

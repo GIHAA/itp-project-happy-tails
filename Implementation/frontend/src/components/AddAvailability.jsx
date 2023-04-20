@@ -27,7 +27,10 @@ export default function AddAvailability() {
     }
 
 
-        axios.post("http://localhost:8080/api/availability/",newAvailability)
+    console.log(newAvailability);
+
+         axios.post("http://localhost:8080/api/availability/",newAvailability)
+
         .then(()=>{
             alert("Availability added")
 
