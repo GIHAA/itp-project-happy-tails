@@ -3,6 +3,8 @@ import adpotServices from "../../services/api/adoptPet";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Spinner from "../common/Spinner";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 function Adoptpet() {
   const [data, setData] = useState([]);
@@ -43,13 +45,15 @@ function Adoptpet() {
   );
   return (
     <>
+    <Header/>
       <div className="h-full overflow-y-scrollf bg-bgsec">
+        
         <div className="flex justify-center pt-5">
           <input
             id="search"
             type="text"
-            placeholder="   Search for pets... ex: dog, cat, pet name etc"
-            className="border-b-[1px] w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
+            placeholder="Search for pets... ex: dog, cat, pet name etc"
+            className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
 
           <button
@@ -109,6 +113,7 @@ function Adoptpet() {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 }

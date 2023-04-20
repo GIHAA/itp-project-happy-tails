@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Header from "./components/common/Header";
 import Home from "./components/Home";
+import AdoptPet from "./components/User/AdoptPet";
 
 
 import InvDashboard from './components/InvDashboard';
@@ -56,7 +57,7 @@ import HealthProfile from "./components/Animal_Management/Health_Profile/HealthP
 import AddHealth from "./components/Animal_Management/Health_Profile/AddHealth";
 import DisplayHealth from "./components/Animal_Management/Health_Profile/DisplayHealth";
 import Addvac from "./components/Animal_Management/Health_Profile/Addvac";
-import AdoptPet from "./components/adoptPetPage/AdoptPet";
+
 import UpdateVac from "./components/Animal_Management/Health_Profile/UpdateVac";
 import Dashboard from "./components/Animal_Management/Dashboard/Dashboard";
 import Shelterpets from "./components/Animal_Management/Pet_Profile/ShelterPets";
@@ -144,8 +145,6 @@ function App() {
               path="/UpdateStockBudgetRequest/:id"
               element={<UpdateStockBudgetRequest />}
             />
-            <Route path="shelterpet" element={<ShelterPet />} />
-            <Route path="adoptpet" element={<AdoptPet />} />
             <Route path="user" element={<UserPortal />} />
             <Route path="profile" element={<Profile />} />
             <Route path="booking" element={<Booking />} />
