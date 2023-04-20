@@ -4,13 +4,16 @@ import axios from 'axios'
 import SupplierSideBar from "./SupplierSideBar";
 import inv from "../assets/inv.jpg"
 import { ToastContainer, toast } from 'react-toastify';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import logo2 from "../assets/logo2.png"
 
 const moment = require('moment');
 
 export default function StockRequests(){
 
     const [stockReq , setStockReq] = useState([]);
-   
+
     useEffect(()=>{
   
           axios.get("http://localhost:8080/api/inventory/stockrequest/")
@@ -20,6 +23,34 @@ export default function StockRequests(){
           .catch(err => alert(err))
   
     }, []) 
+
+    function generatePDF() {
+      const doc = new jsPDF();
+      const today = new Date();
+      const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+      doc.text(`Stock Requests Report Generated- ${date}`, 14, 16);
+      doc.addImage(logo2, 'JPG', 10, 20, 0, 50);
+      doc.setFontSize(25);
+      doc.text(70, 35, "Happy Tails");
+      doc.setFontSize(10);
+      doc.text(70, 40, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
+      doc.text(70, 55, "Tel : 01123457689");
+      doc.autoTable({
+        startY: 80,
+        head: [["Date", "Item Code", "Item Name", "Item Brand", "Category", "Qty"]],
+        body: stockReq
+          .filter((request) => request.status.toLowerCase() === 'pending')
+          .map((request) => [
+            request.date,
+            request.item_code,
+            request.item_name,
+            request.item_brand,
+            request.category,
+            request.qty,
+          ]),
+      });
+      doc.save('stock-requests.pdf');
+    }
 
   return (
     //Main container
@@ -32,7 +63,18 @@ export default function StockRequests(){
 
     {/*Header Part*/}
     <div className="bg-[#2E4960] h-100 w-full">
-      <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">NEW STOCK REQUESTS</h1>
+      <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">
+        NEW STOCK REQUESTS</h1>
+
+        <div className="flex mt-2">
+
+          <div className="ml-5">
+          <button   
+             className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[7px] rounded-[120px] font-bold text-white text-[11px] block w-[150px] text-center mr-2"
+           onClick={generatePDF}>DOWNLOAD REPORT</button>
+          </div>
+          
+        </div>
 
       <div className="flex">
 
