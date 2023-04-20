@@ -67,7 +67,7 @@ function Adoptpet() {
         {isLoading ? (
           <Spinner />
         ) : (
-          <div>
+          <div className="pb-[200px]">
             {filteredData.map((card, index) =>
               card.petStatus === "Available" ? (
                 <div className="grid grid-cols-1 gap-[70px] px-[80px] py-[40px] h-[200px]p-[50px] rounded-[20px]">
@@ -75,7 +75,7 @@ function Adoptpet() {
                     <div className="bg-cover bg-center rounded-[20px] flex justify-center">
                       <img
                         src={card.image}
-                        className="w-auto h-auto rounded-[20px]"
+                        className="w-auto h-[350px] rounded-[20px]"
                       />
                     </div>
 
@@ -91,7 +91,7 @@ function Adoptpet() {
                         <li>species : {card.species}</li>
                         <li>Breed : {card.breed}</li>
                         <li>Gender : {card.gender}</li>
-                        <li>Age : {card.age}</li>
+                        <li>Age : {card.birth}</li>
                         <li>Color : {card.color}</li>
                         <li>status : {card.petStatus}</li>
                       </ul>
