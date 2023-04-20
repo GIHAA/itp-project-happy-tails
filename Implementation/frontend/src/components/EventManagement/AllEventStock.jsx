@@ -83,7 +83,7 @@ const handleTextSearch = (e) => {
     <>
     <div class="p-4 sm:ml-64" style={{marginTop:'90px'}}>
 
-<div class="pb-4 bg-white dark:bg-gray-900">
+<div class="pb-4 bg-white">
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative mt-1">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -95,7 +95,7 @@ const handleTextSearch = (e) => {
     
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <div class="flex flex-row-reverse space-x-1 space-x-reverse ...">
-<div><button style={{ backgroundColor: '#1FE23F' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><Link to={"/eventdashboard/addStock"}>Request Stock</Link></button></div>
+<div><button style={{ backgroundColor: '#1FE23F' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-40"><Link to={"/eventdashboard/addStock"}>Request Stock</Link></button></div>
 </div>
       <h1 className="text-2xl font-bold mb-4">Stock Requests</h1>
       {stockRequests.length > 0 ? (
@@ -137,14 +137,14 @@ const handleTextSearch = (e) => {
 
             {request.status === "Accepted" ? (
           <div className="flex justify-center">
-          <button style={{ backgroundColor: '#99ccff',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={() => toast.error('This request has already been accepted and cannot be edited')}>Edit</button>
-           <button style={{ backgroundColor: '#ff9980',marginRight:'20px' }} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={() => toast.error('This request has already been accepted and cannot be deleted')}>Delete</button>
+          <button style={{ backgroundColor: '#99ccff',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20" onClick={() => toast.error('This request has already been accepted and cannot be edited')}>Edit</button>
+           <button style={{ backgroundColor: '#ff9980',marginRight:'20px' }} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20" onClick={() => toast.error('This request has already been accepted and cannot be deleted')}>Delete</button>
         </div>
           ) : (
             <div  className="flex justify-center">
    
-            <button style={{ backgroundColor: '#459DE8',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><a href={`/eventdashboard/editstock/${request._id}`}>Edit</a></button>
-            <button style={{ backgroundColor: '#D12222',marginRight:'20px'}} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={()=>handleDelete(request._id)}>Delete</button>
+            <button style={{ backgroundColor: '#459DE8',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"><a href={`/eventdashboard/editstock/${request._id}`}>Edit</a></button>
+            <button style={{ backgroundColor: '#D12222',marginRight:'20px'}} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20" onClick={()=>handleDelete(request._id)}>Delete</button>
           </div>
           )}
             {/* <button style={{ backgroundColor: '#459DE8',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><a href={`/eventdashboard/editstock/${request._id}`}>Edit</a></button>

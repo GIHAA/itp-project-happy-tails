@@ -250,7 +250,7 @@ const data = eventAmount.map((event) => {
             </div>
         </div>
    <span style={{ marginRight: '10px', fontSize:'20px',  }}>Events Income-Expense</span>
-     <button style={{ backgroundColor: '#459DE8'}} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={generatePDFamount}>Download PDF</button>
+     <button style={{ backgroundColor: '#459DE8'}} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-40" onClick={generatePDFamount}>Download PDF</button>
     {/* <button style={{ backgroundColor: '#E471D2' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={(e) => addIncomeExpense(e)}>View Bar Chart</button> */}
     
      
