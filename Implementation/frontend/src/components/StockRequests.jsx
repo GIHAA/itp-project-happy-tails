@@ -28,8 +28,13 @@ export default function StockRequests(){
       const doc = new jsPDF();
       const today = new Date();
       const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-      doc.text(`Stock Requests Report - ${date}`, 14, 16);
+      doc.text(`Stock Requests Report Generated- ${date}`, 14, 16);
       doc.addImage(logo2, 'JPG', 10, 20, 0, 50);
+      doc.setFontSize(25);
+      doc.text(70, 35, "Happy Tails");
+      doc.setFontSize(10);
+      doc.text(70, 40, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
+      doc.text(70, 55, "Tel : 01123457689");
       doc.autoTable({
         startY: 80,
         head: [["Date", "Item Code", "Item Name", "Item Brand", "Category", "Qty"]],
@@ -46,7 +51,6 @@ export default function StockRequests(){
       });
       doc.save('stock-requests.pdf');
     }
-    
 
   return (
     //Main container
