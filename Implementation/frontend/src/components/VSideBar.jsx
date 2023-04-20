@@ -2,10 +2,25 @@ import React from 'react'
 import logo from "../assets/logo.png"
 import v from "../assets/v.png"
 import { Link, NavLink } from 'react-router-dom';
+import { logout, reset } from "../services/auth/authSlice";
+import logoutimg from "../assets/logout.png"
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 
 
 function VSideBar() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
 
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
@@ -50,6 +65,15 @@ function VSideBar() {
         <NavLink to='/vbudgets' activeClassName =" bg-[#797979]"
         className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
         >BUDGET REQUESTS </NavLink>
+
+        <div>
+            <button onClick={onLogout}
+                className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
+                <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
+                <span>Logout</span>
+              </button>
+
+      </div>
 
         
 

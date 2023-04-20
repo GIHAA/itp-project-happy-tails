@@ -60,7 +60,7 @@ function PortalHandler() {
       case "VEHICLE_MANAGER":
         return (
           <>
-            <PortalHeader />
+            
             <VHome />{" "}
           </>
         );
