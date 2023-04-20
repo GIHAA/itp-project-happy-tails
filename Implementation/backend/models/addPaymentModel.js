@@ -4,7 +4,7 @@ const paymentSchema = mongoose.Schema(
   {
     cus_id: {
       type: String,
-      required: [true, 'Please add a cus_id'],
+      required: [false, 'Please add a cus_id'],
      
     },
     pet_id: {

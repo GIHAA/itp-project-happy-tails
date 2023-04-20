@@ -139,7 +139,7 @@ const GetTransaction = () => {
                         <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     </div>
                     <div class="text-right">
-                        <p class="text-2xl">&nbsp; Rs. {income}</p>
+                        <p class="text-2xl">&nbsp; Rs. {amount}</p>
                         <p>Income</p>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ const GetTransaction = () => {
                         <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                     </div>
                     <div class="text-right">
-                        <p class="text-2xl">&nbsp;Rs. {amount}</p>
+                        <p class="text-2xl">&nbsp;Rs. {income}</p>
                         <p>Expenses</p>
                     </div>
                 </div>
@@ -303,9 +303,10 @@ const GetTransaction = () => {
                                                 </div>
 
 
-                                                <div class="mb-3 justify-center ml-48 -mx-2 " >
+                                                <div class="mb-3 justify-center -mx-2 flex items-start " >
 
-                                                    <label class="font-medium text-sm mb-2 ml-1"> Transaction Amount  {" "} <input type="number" name="amount" defaultValue={selectedData.tran_amount} class="w-3/6 px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" /> </label>{" "} <br />
+                                                    <label class="font-medium text-sm mb-2 ml-1"> Transaction Amount  {" "}<br/>
+                                                     <input type="number" name="amount" defaultValue={selectedData.tran_amount} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" /> </label>{" "} <br />
                                                 </div>
 
                                                 <div className=" mb-3 justify-center -mx-2 flex items-end ">

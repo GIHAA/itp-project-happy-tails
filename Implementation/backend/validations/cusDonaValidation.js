@@ -8,7 +8,7 @@ const CusPay =
         cus_id: joi.string().required(),
         pet_id: joi.string().required(),
         payment: joi.string().required(),
-        status: joi.string().valid('verified', 'CANCELED', 'PAID', 'FINISHED').required(),
+        status: joi.string().valid('Verified', 'CANCELED', 'PAID', 'FINISHED').required(),
 
     });
 
