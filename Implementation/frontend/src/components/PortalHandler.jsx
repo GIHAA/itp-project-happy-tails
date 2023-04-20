@@ -17,8 +17,15 @@ import PortalHeader from "./common/PortalHeader";
 import FinaLeftBar from "./portals/FinaHeader_SB";
 
 import EventPortal from "./portals/EventPortal";
-
 import VetPortal from "./portals/VetPortal";
+
+
+
+import Navbar from "./admin/navbar.component";
+
+import { EmployeeList } from "./admin/employee-list.component";
+import { CreateEmployee } from './admin/employee-add.component';
+import  EditEmployee from "./admin/employee-edit.component";
 
 
 function PortalHandler() {
@@ -27,7 +34,8 @@ function PortalHandler() {
   const renderPortals = (param) => {
     switch (param) {
       case "ADMIN":
-        return <></>;
+        return <>
+        <EmployeeList /></>;
       case "USER":
         return (
           <>
