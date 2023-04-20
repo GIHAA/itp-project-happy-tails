@@ -2,6 +2,9 @@ import React, {useState,useEffect} from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from "../common/Spinner";
+import Header from "../common/Header";
+import Footer from "../common/Footer"
 
 export default function AllEvent(){
 
@@ -9,6 +12,9 @@ export default function AllEvent(){
     const [bookings,setBooking] = useState([]);
     const [totalTicket,setTotalNoOfTickets] = useState(0);
     const [size,setSize] = useState(0)
+    const [searchTerm, setSearchTerm] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+
 
         useEffect(()=>{
 
@@ -17,12 +23,12 @@ export default function AllEvent(){
             const res = await axios.get("http://localhost:8080/api/event/getEvents")
             console.log(res.data)
             setEvent(res.data.allevents)
-            
+            setIsLoading(false); 
             //console.log(events)
                 
             }catch(err){
 
-                alert(err)
+                toast.error(err)
 
             }
         } 
@@ -104,13 +110,13 @@ export default function AllEvent(){
             if (remaining <= 10) {
               toast.warning(`Only ${remaining} tickets are available. If you wish you can book it`);
               setTimeout(() => {
-                window.location.href = `/eventdashboard/addbooking/${eventId}`;
+                window.location.href = `registerevent/${eventId}`;
               }, 5000);
               return; // Add a return statement to exit the function if the error message is displayed
             }
           }
           
-          window.location.href = `/eventdashboard/addbooking/${eventId}`;
+          window.location.href = `registerevent/${eventId}`;
           
          
         };
@@ -123,24 +129,25 @@ export default function AllEvent(){
     <>
 
 
-
-<div class="p-4 sm:ml-64" style={{marginTop:'70px'}}>
-<div className="flex justify-center items-center h-full " style={{marginTop:'70px'}}>
-  <div className="bg-white rounded-lg shadow-2xl p-8 m-4 w-3/4" style={{ backgroundColor: "#ffffff" }}>
-<div class="pb-4 bg-white dark:bg-gray-900">
-        <label for="table-search" class="sr-only">Search</label>
+<Header />
+<div className="h-full overflow-y-scrollf bg-bgsec">
+        <div className="flex justify-center pt-5">
         <div class="relative mt-1">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
             </div>
-            <input type="text" id="table-search" onChange={handleTextSearch} class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for Event Name or Event ID"/>
+            <input type="text" id="table-search" onChange={handleTextSearch} class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-96 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search by EventID or FeedbackID or EventName"/>
         </div>
-    </div>
+        </div> 
+        
+        {isLoading ? ( 
+        <Spinner />
+      ) : (
     
-  
-   
-
-<h1 className="text-2xl font-bold mb-4">All Events</h1>
+        <div>
+<div className="flex justify-center pt-5">
+<div className="w-3/4 mx-auto">
+<h1 className="text-2xl text-center font-bold mb-4">All Events</h1>
 {events.length > 0 ? (
     
     events.map((event,index)=>{
@@ -152,7 +159,7 @@ const eventDate = new Date(`${event.date} ${event.startTime}`);
 if (eventDate >= currentDate && event.status === 'Available') {
           return(  
                  
-            <div class="flex flex-col space-x-4 text-center bg-gray-500 shadow-lg shadow-gray-500/50 rounded-lg w-full mx-20" style={{margin: '20px', backgroundColor:"#EFF0F6"}}>
+            <div class="flex flex-col space-x-4 text-center justify-center bg-gray-500 shadow-lg shadow-gray-500/50 rounded-lg mx-20" style={{margin: '20px', backgroundColor:"#EFF0F6"}}>
     
     <div class="flex justify-between" style={{marginTop:'20px'}}>
   <div style={{marginLeft:'20px'}}>{event.eid}</div>
@@ -170,7 +177,7 @@ if (eventDate >= currentDate && event.status === 'Available') {
           <div class="flex justify-end items-center mb-4" style={{marginRight:'20px',marginTop:'20px'}}>
            
           <div><button style={{ backgroundColor: '#1FE23F',marginRight:'20px'   }} className="bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={()=>handleEdit(event._id,event.eid)}>Register</button></div>      
-  <div><button style={{ backgroundColor: '#459DE8'}} className="bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" ><a href={`/addFeedback/${event._id}`}>Feedback</a></button></div> 
+  <div><button style={{ backgroundColor: '#459DE8'}} className="bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" ><a href={`feedbackevent/${event._id}`}>Feedback</a></button></div> 
   
 
 
@@ -198,12 +205,9 @@ if (eventDate >= currentDate && event.status === 'Available') {
 })
         ) : (
           <p style={{backgroundColor:'#D5ABAF'}}>No events found.</p>
-        )}  
-          </div>
-             </div>
-             </div>
-            
-
+        )}  </div></div></div> )}
+        </div>
+        <Footer />
            </>     
         )
         }

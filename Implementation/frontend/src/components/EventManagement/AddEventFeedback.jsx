@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from "../common/Spinner";
+import Header from "../common/Header";
+import Footer from "../common/Footer"
 
 function AddEventFeedback() {
 
@@ -99,10 +102,9 @@ function AddEventFeedback() {
         setIdea("")
         setEventname("")
         
-      //   setTimeout(() => {
-      //     window.location.href = "/getEFeedbacks";
-      //   }, 5000);
-      //  })
+        setTimeout(() => {
+          window.location.href = "/events";
+        }, 5000);
       
        }).catch((err)=>{
           toast.error(`Not inserted ${err}`)
@@ -116,7 +118,7 @@ function AddEventFeedback() {
   return (
     <>
     
-    
+    <Header />
     <div className="flex justify-center items-center h-full w-full ">
     <div className="w-1/2 bg-white rounded-lg shadow-2xl p-8 m-4" style={{ backgroundColor: "#2E4960", alignSelf:'center' }}>
         <h1 class="block w-full text-center text-white text-2xl font-bold mb-6">Feedback Form</h1>
@@ -243,7 +245,7 @@ function AddEventFeedback() {
     </div>
 </div>
     
-    
+<Footer />
     </>
   )
 }

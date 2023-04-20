@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from "react-router-dom";
 import QRCode from 'qrcode';
 import 'react-toastify/dist/ReactToastify.css';
+import Header from "../common/Header";
+import Footer from "../common/Footer"
 
 
 function RegisterEvent() {
@@ -174,8 +176,11 @@ const [eventAmount,setEventAmount] = useState({});
         setPhone(0);
         setEventname("");
         setDPrice("");
-  
-        //  window.location.href = "/getbooking";
+
+        // setTimeout(() => {
+        //   window.location.href = "events";
+        // }, 5000);
+       
       })
       .catch((err) => {
         toast.error(`Please fill all fields`);
@@ -267,7 +272,7 @@ async function checkavailable(event, selectedValue) {
     
    
     <>
-    
+    <Header />
     
     
     <div className="flex justify-center items-center h-full w-full ">
@@ -388,7 +393,7 @@ async function checkavailable(event, selectedValue) {
           </div>
           <div class="flex justify-center mt-4">
             <button class="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={handleDownloadQRCode}>Download QR Code</button>
-            <button class="bg-red-500 text-white px-4 py-2 rounded-lg ml-4"><a href={`getEventsUser`}>Close</a></button>
+            <button class="bg-red-500 text-white px-4 py-2 rounded-lg ml-4"><a href={`/events`}>Close</a></button>
           </div>
         </div>
       </div>
@@ -398,7 +403,7 @@ async function checkavailable(event, selectedValue) {
     </div>
 </div>
     
-    
+<Footer />
     </>
   )
 }

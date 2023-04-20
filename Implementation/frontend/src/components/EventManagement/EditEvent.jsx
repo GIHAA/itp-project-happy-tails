@@ -241,7 +241,7 @@ console.log(period); // Output: AM
   }
     return(
         <>
-         <div class="p-4 sm:ml-64">
+         <div class="p-4 sm:ml-64" style={{marginTop:'20px'}}>
     <div className="flex justify-center items-center h-full w-full " style={{marginTop:'70px'}}>
     <div className="w-1/2 bg-white rounded-lg shadow-2xl p-8 m-4" style={{ backgroundColor: "#2E4960", alignSelf:'center' }}>
       
@@ -332,7 +332,7 @@ console.log(period); // Output: AM
             </div>
             <div class="flex flex-col mb-4">
   <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} for="image">Edit Image</label>
-  <input class="border py-2 px-3 text-grey-800 rounded-lg w-full text-white" type="file" style={{marginLeft:'17.5%',width: "65%"}}  onChange={convertToBase64}  required/>
+  <input class="border py-2 px-3 text-grey-800 rounded-lg w-full text-white" type="file" style={{marginLeft:'17.5%',width: "65%"}}  onChange={convertToBase64} />
   {image == "" || image == null ? "" : <img width={100} height={100} src={image} style={{marginLeft:'17.5%',marginTop:'10px'}} />}
 </div>
 

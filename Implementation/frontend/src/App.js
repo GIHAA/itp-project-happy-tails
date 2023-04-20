@@ -127,7 +127,9 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="booking" element={<Booking />} />
             <Route path="pets" element={<Pets />} />
-            <Route path="events" element={<Events />} />
+            <Route path="events" element={<AllEventUser />} />
+            <Route path="registerevent/:id" element={<RegisterEvent />} />
+            <Route path="feedbackevent/:id" element={<AddEventFeedback />} />
             //
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
@@ -150,7 +152,9 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="booking" element={<Booking />} />
             <Route path="pets" element={<Pets />} />
-            <Route path="events" element={<Events />} />
+            <Route path="events" element={<AllEventUser />} />
+            <Route path="registerevent/:id" element={<RegisterEvent />} />
+            <Route path="feedbackevent/:id" element={<AddEventFeedback />} />
             <Route path="test" element={<Spinner />} />
             <Route path="petprofile" element={<VetPortal />}>
               <Route path="updatepet/:id" element={<UpdatePetProfile />} />
@@ -283,8 +287,9 @@ function App() {
               <Route path='profile' element={<Profile />} />
               <Route path='booking' element={<Booking />} />
               <Route path='pets' element={<Pets />} />
-              <Route path='events' element={<Events />} />
-
+              <Route path="events" element={<AllEventUser />} />
+            <Route path="registerevent/:id" element={<RegisterEvent />} />
+            <Route path="feedbackevent/:id" element={<AddEventFeedback />} />
 
               <Route path='test' element={<Spinner />} />
 

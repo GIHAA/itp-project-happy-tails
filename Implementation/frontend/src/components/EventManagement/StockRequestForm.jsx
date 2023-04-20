@@ -112,7 +112,7 @@ useEffect(() => {
   getevents()
   },[])
   return (
-    <div class="p-4 sm:ml-64">
+    <div class="p-4 sm:ml-64"  style={{marginTop:'20px'}}>
     <div className="flex justify-center items-center h-full w-full " style={{marginTop:'70px'}}>
     <div className="w-1/2 bg-white rounded-lg shadow-2xl p-8 m-4" style={{ backgroundColor: "#2E4960", alignSelf:'center' }}>
     <div class="flex flex-row-reverse space-x-4 space-x-reverse ...">
