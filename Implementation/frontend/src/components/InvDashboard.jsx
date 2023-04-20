@@ -6,7 +6,7 @@ import { Bar, Pie } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto"
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo2.png"
 const moment = require('moment');
 
 

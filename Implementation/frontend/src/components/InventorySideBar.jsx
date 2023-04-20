@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from "../assets/logo.png"
+import logo from "../assets/logo2.png"
 import logoutImg from "../assets/logout.png"
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
