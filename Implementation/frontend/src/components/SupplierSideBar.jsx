@@ -1,10 +1,24 @@
 import React from 'react'
 import logo from "../assets/logo.png"
 import suppliers from "../assets/suppliers.png"
-import { Link, NavLink } from 'react-router-dom';
+import {  Link, NavLink } from 'react-router-dom';
+import { logout, reset } from "../services/auth/authSlice";
+import logoutimg from "../assets/logout.png"
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function SupplierSideBar() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+  
   return (
+    
 
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
       
@@ -37,8 +51,12 @@ function SupplierSideBar() {
     </div>
 
     <div>
-      <hr className="mt-[180px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
-      <img src={suppliers} className=" w-[140px] h-[140px] mx-auto"></img>
+    <button onClick={onLogout}
+        className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
+        <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
+        <span>Logout</span>
+      </button>
+
     </div>
   
 </div>

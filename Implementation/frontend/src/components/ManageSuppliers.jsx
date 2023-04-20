@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import supp from "../assets/supp.jpg"
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
+import PortalHeader from "./common/PortalHeader";
 
 export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
@@ -32,6 +33,7 @@ export default function ManageSuppliers() {
 
   return (
     <div className="flex scroll-smooth">
+      
       <SupplierSideBar />
 
       {/* Right Side container start */}
@@ -109,7 +111,7 @@ export default function ManageSuppliers() {
                         
                           <td className="p-3">
                           <div className="flex ml-12">
-                              <button className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
+                              <button className=" items-center px-5 py-1 w-[110px] mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
                                 <Link to={`/updateSuppliers/${supplier._id}`}
                                 className="flex">
                                 <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
@@ -138,6 +140,7 @@ export default function ManageSuppliers() {
       </div>
       {/* Right Side container end */}
     </div>
+  
   );
 }
 
