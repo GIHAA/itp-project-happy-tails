@@ -54,7 +54,7 @@ export default function ManageSuppliers() {
           </div>
 
           {/*search */}
-          <div className="ml-[1000px]">
+          <div className="ml-[800px] mb-7">
                 <input type="text" 
                 className=" rounded-3xl py-2.5 px-5 w-[40vh]
                  text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300

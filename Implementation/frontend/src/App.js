@@ -11,19 +11,6 @@ import { EmployeeList } from "./components/admin/employee-list.component";
 import { CreateEmployee } from "./components/admin/employee-add.component";
 import EditEmployee from "./components/admin/employee-edit.component";
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import Login from './components/Login';
-import Register from './components/Register';
-import Header from './components/common/Header';
-import Home from './components/Home';
-// import VetPortal from './components/portals/VetPortal';
-// import AllPetProfile from './components/petProfile';
-// import AddPetProfile from './components/AddPetProfile';
-// import UpdatePetProfile from './components/UpdatePetProfile';
-
-import AdoptPet from "./components/User/AdoptPet";
 
 
 import InvDashboard from './components/InvDashboard';
@@ -36,18 +23,6 @@ import InvReleaseStock from './components/InvReleaseStock';
 import InvStockIn from './components/InvStockIn';
 import InvStockOut from './components/InvStockOut';
 
-
-
-
-
-import SupplierList from "./components/SupplierList";
-import AddSuppliers from "./components/AddSuppliers";
-import ManageSuppliers from "./components/ManageSuppliers";
-import UpdateSupplier from "./components/UpdateSupplier";
-import StockRequests from "./components/StockRequests";
-import StockBudgetRequests from "./components/StockBudgetRequests";
-import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
-import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 
 
 
@@ -80,15 +55,11 @@ import UpdateVac from "./components/Animal_Management/Health_Profile/UpdateVac";
 import Dashboard from "./components/Animal_Management/Dashboard/Dashboard";
 import Shelterpets from "./components/Animal_Management/Pet_Profile/ShelterPets";
 import Breed from "./components/Animal_Management/Pet_Profile/Breed";
-import Footer from "./components/common/Footer";
-import ShelterPet from "./components/User/ShelterPet";
-import UserPortal from "./components/User/UserProtal";
-import Booking from "./components/User/myBooking";
-import Events from "./components/User/Events";
-import Pets from "./components/User/myPets";
-import Profile from "./components/User/myProfile";
+
+import SupplierList from "./components/SupplierList";
+
 import PortalHandler from "./components/PortalHandler";
-import Spinner from "./components/common/Spinner";
+
 import AddEvent from "./components/EventManagement/AddEvent";
 import AllEvent from "./components/EventManagement/AllEvent";
 import RegisterEvent from "./components/EventManagement/RegisterEvent";
@@ -136,7 +107,7 @@ import Events from './components/User/Events';
 import Pets from './components/User/myPets';
 import Profile from './components/User/myProfile';
 
-import SupplierList from './components/SupplierList';
+
 import AddSuppliers from './components/AddSuppliers';
 import ManageSuppliers from './components/ManageSuppliers';
 import UpdateSupplier from './components/UpdateSupplier';
