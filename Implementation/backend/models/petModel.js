@@ -42,7 +42,7 @@ const petSchema = mongoose.Schema(
     petStatus:{
         type:String,
         required: [true, 'Please add a status'],
-        enum: ['Available', 'paid', 'Booked'],
+        enum: ['Available', 'paid', 'Booked',"Adopted"],
     },
     
     date:{

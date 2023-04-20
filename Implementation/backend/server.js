@@ -40,6 +40,7 @@ app.use('/api/VehReqPayment/', require('./routes/vehicleBudgetRoutes'))
 
 
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/booking/', require('./routes/bookingRoutes.js'))
 app.use('/api/vet',vetRoutes)    
 app.use('/api/petbreed',breedRoutes)
 app.use('/api/health',healthRoutes)

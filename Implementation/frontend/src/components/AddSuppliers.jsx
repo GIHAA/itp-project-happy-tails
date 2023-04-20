@@ -44,7 +44,8 @@ export default function AddSuppliers() {
       <SupplierSideBar />
       <div className="bg-[#d9d9d9] flex-[85%]">
         <div className="bg-[#2E4960] h-100 w-full">
-          <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">ADD SUPPLIERS</h1>
+          <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
+            ADD SUPPLIERS</h1>
           <div className=" flex p-5"></div>
         </div>
         <div style={{ backgroundImage: `url(${supp})` }} className="bg-cover bg-center h-screen w-full fixed">

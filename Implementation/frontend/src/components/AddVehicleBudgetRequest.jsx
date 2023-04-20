@@ -23,7 +23,7 @@ export default function AddVehicleBudgetRequestForm() {
       };
       console.log(newRequest);
 
-        axios.post("http://localhost:8080/api/VehaddPayment/",newRequest)
+        axios.post("http://localhost:8080/api/VehReqPayment/",newRequest)
         .then(()=>{
             alert("Request added")
 
