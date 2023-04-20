@@ -6,6 +6,7 @@ import { Bar, Pie } from "react-chartjs-2"
 import { Chart as ChartJS } from "chart.js/auto"
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import logo from "../assets/logo.png"
 const moment = require('moment');
 
 
@@ -15,8 +16,11 @@ export default function InvDashboard() {
     const [ receivedProcessed , setReceivedProcessed ] = useState([]);
     const [ inStockProcessed , setInStockProcessed ] = useState([]);
     const [stockReq , setStockReq] = useState([]);
+    const [stockReqReport , setStockReqReport] = useState([]);
     const [stockRel , setStockRel] = useState([]);
+    const [stockRelReport , setStockRelReport] = useState([]);
     const [stockReqPending , setStockReqPending] = useState([]);
+    
   
 
     useEffect(()=>{
@@ -138,28 +142,87 @@ useEffect(()=>{
 
 
 
-function generatePDF() {
-  const canvas = document.querySelector("#canvas");
+// function generatePDF() {
+//   const canvas = document.querySelector("#canvas");
 
-  if (!canvas) {
-    console.error("Canvas element not found");
-    return;
-  }
+//   if (!canvas) {
+//     console.error("Canvas element not found");
+//     return;
+//   }
 
-  html2canvas(canvas)
-    .then(function (canvas) {
-      const imgData = canvas.toDataURL('image/png');
-      const doc = new jsPDF('p', 'mm');
+//   html2canvas(canvas)
+//     .then(function (canvas) {
+//       const imgData = canvas.toDataURL('image/png');
+//       const doc = new jsPDF('p', 'mm');
 
-      // Resize the image to 50mm width and 50mm height
-      doc.addImage(imgData, 'PNG', 1, 10, 200, 140);
+//       // Resize the image to 50mm width and 50mm height
+//       doc.addImage(imgData, 'PNG', 1, 10, 200, 140);
 
-      doc.save('report.pdf');
-    })
-    .catch(function (error) {
-      console.error("Error generating PDF:", error);
-    });
-}
+//       doc.save('report.pdf');
+//     })
+//     .catch(function (error) {
+//       console.error("Error generating PDF:", error);
+//     });
+// }
+
+    const generatePDF = () => {
+
+      const now = moment();
+      const month = now.format('MMMM');
+
+      const doc = new jsPDF('landscape', 'px', 'a4', false);
+      doc.addImage(logo, 'JPG', 45, 10, 50, 50);
+      doc.setFont('times', 'bold');
+
+      doc.setFontSize(30);
+      doc.text(200, 50, "Inventory Stock Report");
+
+
+      doc.setFontSize(20);
+      doc.text(210, 100, `Received Stocks In ${month}`);
+
+      doc.autoTable({
+        startY: 120,
+        head: [['Date', 'Item code', 'Item name', 'Item brand', 'Category', 'Quantity']],
+        body: stockReqReport.filter(item => moment(item.rec_date).format('MMMM') === month)
+        .map(item => [
+          item.date,
+          item.item_code,
+          item.item_name,
+          item.item_brand,
+          item.category,
+          item.qty,
+        ]),
+        theme: 'striped'
+
+      });
+
+      const previousAutoTable = doc.lastAutoTable;
+
+        doc.setFontSize(20);
+        doc.text(210, previousAutoTable.finalY + 30, `Released Stocks In ${month}`);
+
+
+      doc.autoTable({
+        startY: previousAutoTable.finalY + 50,
+        head: [['Date', 'Item code', 'Item name', 'Item brand', 'Category', 'Quantity']],
+        body: stockRelReport.filter(item => moment(item.date).format('MMMM') === month)
+        .map(item => [
+          item.date,
+          item.item_code,
+          item.item_name,
+          item.item_brand,
+          item.category,
+          item.releaseQty,
+
+        ]),
+
+        theme: 'striped'
+
+      });
+
+      doc.save('Report.pdf');
+    };
 
 
 useEffect(()=>{
@@ -167,6 +230,7 @@ useEffect(()=>{
       axios.get("http://localhost:8080/api/inventory/stockrequest/")
       .then((res) => {
         const items = res.data;
+        setStockReqReport(items);
         const receivedItems = items.filter((item) => item.status === "received");
         receivedItems.sort((a, b) => moment(b.rec_date, "YYYY-MM-DD, hh:mm a") - moment(a.rec_date, "YYYY-MM-DD, hh:mm a"));
         const lastFiveReceivedItems = receivedItems.slice(0, 5); // get only the last 5 records by the rec_date field
@@ -196,6 +260,7 @@ useEffect(()=>{
       axios.get("http://localhost:8080/api/inventory/readreleasestock/")
       .then((res) => {
         const items = res.data;
+        setStockRelReport(items)
         items.sort((a, b) => moment(b.date, "YYYY-MM-DD, hh:mm a") - moment(a.date, "YYYY-MM-DD, hh:mm a"));
         const lastFiveReleasedItems = items.slice(0, 5); 
         setStockRel(lastFiveReleasedItems)

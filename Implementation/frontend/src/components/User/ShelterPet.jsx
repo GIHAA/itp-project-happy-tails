@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import bookingServices from "../../services/api/booking";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 
 function ShelterPet() {
@@ -112,6 +114,7 @@ function ShelterPet() {
 
   return (
     <>
+    <Header />
       <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
         <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
           <p>Name : {user.name} </p>
@@ -288,6 +291,7 @@ function ShelterPet() {
           </form>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

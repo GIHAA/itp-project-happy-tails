@@ -69,8 +69,16 @@ function PortalHandler() {
             <SupplierList />
           </>
         );
+        case "":
+          return (
+            <>
+            <Home />
+            </>
+          );
       default:
-        return <></>;
+        return <>
+        <Home />
+        </>;
     }
   };
 

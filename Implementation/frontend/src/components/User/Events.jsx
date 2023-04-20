@@ -3,6 +3,8 @@ import eventServices from "../../services/api/event";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Spinner from "../common/Spinner";
+import Header from "../common/Header";
+import Footer from "../common/Footer"
 
 function Adoptpet() {
   const [data, setData] = useState([]);
@@ -37,7 +39,7 @@ function Adoptpet() {
   );
   return (
     <>
-
+      <Header />
          <div className="h-full overflow-y-scrollf bg-bgsec">
         <div className="flex justify-center pt-5">
           <input
@@ -97,6 +99,7 @@ function Adoptpet() {
 
         </div> )}
       </div>
+      <Footer />
     </>
   );
 }

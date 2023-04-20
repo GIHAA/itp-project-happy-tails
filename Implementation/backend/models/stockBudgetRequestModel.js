@@ -19,7 +19,7 @@ const stockBudgetRequestSchema  = mongoose.Schema(
         required: true
       },
       total: {
-        type: String,
+        type: Number,
         required: true
       },
       status: {
