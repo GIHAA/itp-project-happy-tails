@@ -2,7 +2,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { useState } from "react";
-
+import org from "../../assets/logo2.png";
 
 
 
@@ -15,7 +15,7 @@ function AddOrganization({ closeModal }) {
         org_place: "",
         org_email: "",
         org_type: "",
-        org_amount: "",
+       
         org_Resources:"",
         org_description: "",
         org_logo: "",
@@ -34,7 +34,7 @@ function AddOrganization({ closeModal }) {
             org_place: data.org_place,
             org_email: data.org_email,
             org_type: data.org_type,
-            org_amount: data.org_amount,
+           
             org_Resources:data.org_Resources,
             org_description: data.org_description,
             org_logo: data.org_logo,
@@ -121,7 +121,7 @@ function AddOrganization({ closeModal }) {
 
                 </div>
                 <div className=" mb-3 justify-center -mx-2 flex items-end ">
-                    <label class="font-medium text-sm mb-2 ml-1">Logo <input type="text" size="15px" required onChange={(e) => handle(e)} id="org_logo" value={data.org_logo} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors">
+                    <label class="font-medium text-sm mb-2 ml-1">Logo <input type="text" size="15px" required onChange={(e) => handle(e)} id="org_logo" value={org} class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors">
                         </input> </label> 
                     <label class="font-medium text-sm mb-2 ml-1">Description
                         <input type="text" size="15px" height="30px" required class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" onChange={(e) => handle(e)} id="org_description" value={data.org_description}>

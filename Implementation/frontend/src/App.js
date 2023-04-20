@@ -215,7 +215,7 @@ function App() {
             </Route>
 
             //financial_manager
-            {/* <Route path="FinaDashBoard" element={<FinaLeftBar />} >
+            <Route path="FinaDashBoard" element={<FinaLeftBar />} >
             <Route path="FinaDashBoard" element={<FinaDashBoard />} />
             <Route path="GetTransaction" element={<GetTransaction />} />
             <Route path="GetPayment" element={<GetPayment />} />
@@ -227,7 +227,7 @@ function App() {
             <Route path="FinaGetEvents" element={<FinaGetEvents />} />
             <Route path="FinaGetVehicle" element={<FinaGetVehicle />} />
             <Route path="FinaGetStock" element={<FinaGetStock />} />
-            </Route> */}
+            </Route>
 
             {/* <Footer /> */}
             {/* <Route path="petprofile" element={<VetPortal />}> */}

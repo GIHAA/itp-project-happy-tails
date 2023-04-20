@@ -57,6 +57,7 @@ const updatePayment = asyncHandler(async (req, res) => {
     const id = req.params.id
     const { cus_id, pet_id, payment, status } = req.body
 
+    console.log(cus_id);
     const pay = await Payment.findByIdAndUpdate(id, {
 
         cus_id,
