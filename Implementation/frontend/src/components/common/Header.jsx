@@ -17,9 +17,7 @@ function Header() {
 
   const onViewProfile = () => {
     navigate("/user");
-  }
-
-
+  };
 
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-primary">
@@ -38,14 +36,20 @@ function Header() {
               </Link>
             </li>
 
-            <li className="text-[15px] font-bold">
-              <Link
-                to="/shelterpet"
-                className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
-              >
-                Shelter pet
-              </Link>
-            </li>
+  
+              
+              {user ? (
+                <>
+                <li className="text-[15px] font-bold">
+                <Link
+                  to="/shelterpet"
+                  className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                >
+                  Shelter pet
+                </Link>
+                </li>
+
+            
 
             <li className="text-[15px] font-bold">
               <Link
@@ -64,6 +68,10 @@ function Header() {
                 Events
               </Link>
             </li>
+            </>
+                          ) : (
+                            <></>
+                          )}
           </ul>
         </div>
 
@@ -80,8 +88,12 @@ function Header() {
               // </li>
               <div className="flex ">
                 <div class="px-2 space-y-0.5 font-medium text-secondary text-[17px] text-left">
-                  <button onClick={onViewProfile}>{user.name}</button><br/>
-                  <button onClick={onLogout} class="text-sm font-light text-white">
+                  <button onClick={onViewProfile}>{user.name}</button>
+                  <br />
+                  <button
+                    onClick={onLogout}
+                    class="text-sm font-light text-white"
+                  >
                     Logout
                   </button>
                 </div>

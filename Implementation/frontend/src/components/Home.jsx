@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import bg from "../assets/Image.png";
 import bg2 from "../assets/back2.png";
 import { Link } from "react-router-dom";
+import Header from "./common/Header";
+import Footer from "./common/Footer";
 
 function Home() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const [value, onChange] = useState('10:00');
 
   const renderPortals = (param) => {
     switch (param) {
@@ -26,6 +27,7 @@ function Home() {
 
   return (
     <>
+    <Header/>
       <div
         style={{ backgroundImage: `url(${bg})` }}
         name="home"
@@ -71,7 +73,7 @@ function Home() {
       <div  style={{ backgroundImage: `url(${bg2})` }}  className="snap-start bg-cover bg-center h-screen w-auto">
 
       </div>
-    
+      <Footer/>
     </>
   );
 }
