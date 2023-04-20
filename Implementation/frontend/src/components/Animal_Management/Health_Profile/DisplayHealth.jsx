@@ -44,17 +44,22 @@ export default function DisplayHealth() {
     doc.addImage(logo, 'JPG', 45, 10, 50, 50);
     doc.setFont('times', 'bold');
 
-    doc.text(40, 100, 'Pet ID : ');
-    doc.text(90, 100, id);
+    doc.text(40, 110, 'Pet ID : ');
+    doc.text(90, 110, id);
 
+    doc.text(40, 75, 'Happy Tails');
+    
     doc.setFontSize(30);
     doc.text(230, 50, 'Vaccination Report');
+
+    doc.setFontSize(12);
+    doc.text(225, 65, '( Happy Tails, No 221/B , Peradeniya Road , Kandy )');
 
   
 
 
     doc.autoTable({
-      startY: 120,
+      startY: 130,
       head: [['Vac Name', 'Date Given', 'Expiration Date']],
       body: vaccinations.map(vaccination => [
         vaccination.name,
