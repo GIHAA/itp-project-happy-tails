@@ -56,7 +56,7 @@ import Dashboard from "./components/Animal_Management/Dashboard/Dashboard";
 import Shelterpets from "./components/Animal_Management/Pet_Profile/ShelterPets";
 import Breed from "./components/Animal_Management/Pet_Profile/Breed";
 
-import SupplierList from "./components/SupplierList";
+
 
 import PortalHandler from "./components/PortalHandler";
 
@@ -94,10 +94,7 @@ import FinaGetEvents from "./components/Finance_Management/FinaGetEvents";
 import FinaGetVehicle from "./components/Finance_Management/FinaGetVehicle";
 import FinaGetStock from "./components/Finance_Management/FinaGetStock"
 
-import {
-  FinaHeader,
-  FinaLeftBar,
-} from "./components/Finance_Management/FinaHeader_SB";
+import FinaLeftBar from "./components/portals/FinaHeader_SB";
 import AdoptPet from './components/User/AdoptPet';
 import Footer from './components/common/Footer';
 import ShelterPet from './components/User/ShelterPet';
