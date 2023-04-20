@@ -22,7 +22,6 @@ function SupplierSideBar() {
 
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
       
-      
     <div>
       <img src={logo} alt="logo" className=" w-[150px] h-[100px] mx-auto"></img>
       <h3 className=" text-[#2E4960] font-bold text-l text-center w-[150px] leading-5 my-2 tracking-wide mx-auto">
