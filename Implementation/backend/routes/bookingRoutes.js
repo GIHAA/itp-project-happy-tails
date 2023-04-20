@@ -12,7 +12,7 @@ const { protect , userProtect , adminProtect} = require('../middleware/authMiddl
 router.post('/', protect , addBooking )
 router.post('/user', protect  , readUserBooking )
 router.get('/' , readBooking )
-router.put('/', protect , updateBooking)
+router.put('/', updateBooking)
 router.delete('/:id', protect , deleteBooking )
 
 
