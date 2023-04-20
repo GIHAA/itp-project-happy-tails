@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import updateUser from "../../services/api/user";
-import { logout, reset } from "../../services/auth/authSlice";
+import { logout, login,  reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
 import logo from "../../assets/logo.png";
@@ -42,13 +42,14 @@ const Profile = (props) => {
 
     if (password !== password2) {
       toast.error("Passwords do not match");
-    } else {
+    } 
+    else {
       const response = updateUser(formData)
         .then(() => {
           toast.success("Profile updated successfully");
-          dispatch(logout());
+          dispatch(login({ email : user.email , password : password}));
           //dispatch(reset());
-          navigate("/login");
+          navigate("/user");
         })
         .catch((err) => {
           toast.error("An error occurred while updating profile");
@@ -199,6 +200,7 @@ const Profile = (props) => {
               onChange={onChange}
               type="text"
               className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+              required
             />
 
             <div className="flex mt-7">

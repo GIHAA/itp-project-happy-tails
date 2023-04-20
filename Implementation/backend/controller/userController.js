@@ -87,6 +87,7 @@ const getMe = asyncHandler(async (req, res) => {
 //update user
 const updateUser = asyncHandler(async (req, res) => {
 
+
   const user = await User.findOne({ _id: req.body._id})
   const passmatch = await bcrypt.compare(req.body.confirmpassword, user.password)
   
