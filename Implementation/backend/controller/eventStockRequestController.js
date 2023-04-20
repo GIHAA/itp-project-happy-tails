@@ -69,7 +69,7 @@ const deletestock = (async (req, res) => {
       // Delete the stock request
       await stockr.findByIdAndRemove(req.params.id);
 
-      return res.status(200).json({ message: 'stock request deleted successfully', deletebudget });
+      return res.status(200).json({ message: 'stock request deleted successfully', deletestock });
   } catch (err) {
       return res.status(500).json({ error: 'Internal server error' });
   }

@@ -22,24 +22,24 @@ const AllEventStock = () => {
   }, []);
 
 
-  const onDelete =(id,status)=>{
-    // if(status === "accept"){
-    //   alert("This event has already been accepted and cannot be deleted.");
-   
-    // }
-    axios.delete(`http://localhost:8080/api/eventstock/deleteStock/${id}`).then((res)=>{
+  const onDelete = (id) => {
+    axios
+      .delete(`http://localhost:8080/api/eventstock/deleteStock/${id}`)
+      .then((res) => {
+        console.log(res); // Add this line to check if the then block is being executed
+        toast.success("Requested Stock Deleted!!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+      })
+      .catch((err) => {
+        console.log(err); // Add this line to check if there is an error
+        toast.error(err);
+      });
+  };
+  
 
-    toast.success("Requested Stock Deleted!!")
-    setTimeout(() => {
-      window.location.reload();
-    }, 5000);
-         }).catch((err)=>{
-
-             toast.error(err)     
-         })
-}
-
-const handleDelete = (id,status) => {
+const handleDelete = (id) => {
   confirmAlert({
     title: 'Confirm Delete',
     message: 'Are you sure, you want to delete this requested stock?',
@@ -47,7 +47,7 @@ const handleDelete = (id,status) => {
       {
         label: 'Yes',
         onClick: () => {
-          onDelete(id,status);
+          onDelete(id);
         }
       },
       {
@@ -81,7 +81,7 @@ const handleTextSearch = (e) => {
 
   return (
     <>
-    <div class="p-4 sm:ml-64" style={{marginTop:'80px'}}>
+    <div class="p-4 sm:ml-64" style={{marginTop:'90px'}}>
 
 <div class="pb-4 bg-white dark:bg-gray-900">
         <label for="table-search" class="sr-only">Search</label>
@@ -144,7 +144,7 @@ const handleTextSearch = (e) => {
             <div  className="flex justify-center">
    
             <button style={{ backgroundColor: '#459DE8',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><a href={`/eventdashboard/editstock/${request._id}`}>Edit</a></button>
-            <button style={{ backgroundColor: '#D12222',marginRight:'20px'}} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={()=>handleDelete(request._id,request.status)}>Delete</button>
+            <button style={{ backgroundColor: '#D12222',marginRight:'20px'}} className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={()=>handleDelete(request._id)}>Delete</button>
           </div>
           )}
             {/* <button style={{ backgroundColor: '#459DE8',marginRight:'20px' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg"><a href={`/eventdashboard/editstock/${request._id}`}>Edit</a></button>
