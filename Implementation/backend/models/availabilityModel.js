@@ -31,8 +31,6 @@ const availabilitySchema = mongoose.Schema(
       default: 'AVAILABLE',
       required: [true, 'Please add a status'],
     },
-
-    
  
   },
   {

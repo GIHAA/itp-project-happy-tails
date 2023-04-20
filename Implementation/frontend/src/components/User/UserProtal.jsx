@@ -4,6 +4,9 @@ import Pets from "./myPets";
 import Profile from "./myProfile";
 import Events from "./myEvents";
 import { useState } from "react";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
+
 
 const UserPortal = (props) => {
   const [choice, setchoice] = useState("profile");
@@ -22,6 +25,7 @@ const UserPortal = (props) => {
   };
   return (
     <>
+    <Header />
       <div class="flex flex-row p-5 bg-[#FFF7DC]">
         <button
           class="inline-flex items-center justify-center rounded-full w-[120px] h-10 bg-secondary  text-[15px] text-white pb-[5px] font-bold"
@@ -61,6 +65,7 @@ const UserPortal = (props) => {
       ) : (
         <Events />
       )}
+      <Footer/>
     </>
   );
 };
