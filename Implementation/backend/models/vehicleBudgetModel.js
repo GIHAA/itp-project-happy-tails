@@ -27,7 +27,7 @@ const ReqpaymentSchema = mongoose.Schema(
     status: {
       type: String,
       enum: ['Accepted', 'Requested', 'PAID', 'FINISHED'],
-      default: 'PAID',
+      default: 'Requested',
       required: [true, 'Please add a status'],
     },
   },

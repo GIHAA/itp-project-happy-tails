@@ -189,7 +189,7 @@ function App() {
               element={<EditAvailabilities />}
             />
             <Route
-              path="/vbudgets/:id"
+              path="/vbudgets"
               exact
               element={<AllVBudgetRequests />}
             />

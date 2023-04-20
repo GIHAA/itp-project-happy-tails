@@ -14,7 +14,7 @@ export default function PendingBookings() {
     axios
       .get("http://localhost:8080/api/transport/")
       .then((res) => {
-        setTransports(res.data);
+       setTransports(res.data);
       })
       .catch((err) => alert(err));
   }, []);
@@ -91,15 +91,19 @@ export default function PendingBookings() {
       
       <div>
 
-      {transports.filter((val)=>{
-                      if(searchTerm == "") {
-                        return val;
-                      }else if(val.customerId.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }else if(val._id.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }
+      
+
+                      {transports.length > 0 && transports.filter((val) => {
+                        if (searchTerm === "") {
+                            return val;
+                        } else if (val.customerId.toLowerCase().includes(searchTerm.toLowerCase())) {
+                            return val;
+                        } else if (val._id.toLowerCase().includes(searchTerm.toLowerCase())) {
+                            return val;
+                        }
                     }).map((transport) => (
+                        
+                    
       
 
         
