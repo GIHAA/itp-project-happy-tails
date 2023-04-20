@@ -105,10 +105,7 @@ import FinaGetEvents from "./components/Finance_Management/FinaGetEvents";
 import FinaGetVehicle from "./components/Finance_Management/FinaGetVehicle";
 import FinaGetStock from "./components/Finance_Management/FinaGetStock"
 
-import {
-  FinaHeader,
-  FinaLeftBar,
-} from "./components/Finance_Management/FinaHeader_SB";
+import FinaLeftBar from "./components/portals/FinaHeader_SB";
 
 function App() {
   return (
@@ -219,18 +216,22 @@ function App() {
               <Route path="getEventsUser" element={<AllEventUser />} />
               <Route path="addFeedback/:id" element={<AddEventFeedback />} />
             </Route>
+
             //financial_manager
-            <Route path="/FinaDashBoard" element={<FinaDashBoard />} />
-            <Route path="/GetTransaction" element={<GetTransaction />} />
-            <Route path="/GetPayment" element={<GetPayment />} />
-            <Route path="/GetDoanation" element={<GetDoanation />} />
-            <Route path="/GetOrganization" element={<GetOrganization />} />
-            <Route path="/AddOrganization" element={<AddOrganization />} />
-            <Route path="/GetBooking" element={<GetBooking />} />
-            <Route path="/AddDonation" element={<AddDonation />} />
-            <Route path="/FinaGetEvents" element={<FinaGetEvents />} />
-            <Route path="/FinaGetVehicle" element={<FinaGetVehicle />} />
-            <Route path="/FinaGetStock" element={<FinaGetStock />} />
+            <Route path="FinaDashBoard" element={<FinaLeftBar />} >
+            <Route path="FinaDashBoard" element={<FinaDashBoard />} />
+            <Route path="GetTransaction" element={<GetTransaction />} />
+            <Route path="GetPayment" element={<GetPayment />} />
+            <Route path="GetDoanation" element={<GetDoanation />} />
+            <Route path="GetOrganization" element={<GetOrganization />} />
+            <Route path="AddOrganization" element={<AddOrganization />} />
+            <Route path="GetBooking" element={<GetBooking />} />
+            <Route path="AddDonation" element={<AddDonation />} />
+            <Route path="FinaGetEvents" element={<FinaGetEvents />} />
+            <Route path="FinaGetVehicle" element={<FinaGetVehicle />} />
+            <Route path="FinaGetStock" element={<FinaGetStock />} />
+            </Route>
+
             {/* <Footer /> */}
             <Route path="petprofile" element={<VetPortal />}>
               <Route path="updatepet/:id" element={<UpdatePetProfile />} />

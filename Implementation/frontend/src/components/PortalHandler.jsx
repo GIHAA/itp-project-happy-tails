@@ -13,6 +13,7 @@ import SupplierList from "./SupplierList";
 import VHome from "./VHome";
 import Header from "./common/PortalHeader";
 import PortalHeader from "./common/PortalHeader";
+import FinaLeftBar from "./portals/FinaHeader_SB";
 
 function PortalHandler() {
   const { user } = useSelector((state) => state.auth);
@@ -59,6 +60,7 @@ function PortalHandler() {
         return (
           <>
             <PortalHeader />
+            <FinaLeftBar />
             <FinaDashBoard />
           </>
         );
