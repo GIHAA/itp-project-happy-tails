@@ -26,6 +26,9 @@ export default function StockRequests(){
 
     function generatePDF() {
       const doc = new jsPDF();
+      const today = new Date();
+      const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+      doc.text(`Stock Requests Report - ${date}`, 14, 16);
       doc.addImage(logo2, 'JPG', 10, 10, 0, 50);
       doc.autoTable({
         startY: 80,
