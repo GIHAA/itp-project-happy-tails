@@ -105,12 +105,12 @@ const GetBooking = () => {
               function updateTransaction() {
                 const updatedTransaction = {
                   status: 'CLOSED',
-                  cus_id: cus_id,
+                  id:_id,
                   contactNumbers: contactNumbers,
                   description: description,
                 };
 
-                axios.put(`http://localhost:8080/api/booking/${_id}`, updatedTransaction)
+                axios.put(`http://localhost:8080/api/booking`, updatedTransaction)
                   .then(response => {
 
                   })

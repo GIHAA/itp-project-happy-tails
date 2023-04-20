@@ -168,25 +168,34 @@ useEffect(()=>{
     const generatePDF = () => {
 
       const now = moment();
-      const month = now.format('MMMM');
+      const month = now.format('MMMM'); //april,july
+      const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
+      const date2 = now.format('YYYY-MM'); //2023-02
 
       const doc = new jsPDF('landscape', 'px', 'a4', false);
-      doc.addImage(logo, 'JPG', 45, 10, 50, 50);
+      doc.addImage(logo, 'JPG', 65, 20, 50, 50);
       doc.setFont('times', 'bold');
 
+      doc.setFontSize(25);
+      doc.text(45, 80, "Happy Tails");
+      doc.setFontSize(10);
+      doc.text(45, 95, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
+      doc.text(45, 120, "Tel : 01123457689");
+      doc.text(45, 128, `Generated : ${date}`);
+
       doc.setFontSize(30);
-      doc.text(200, 50, "Inventory Stock Report");
+      doc.text(220, 80, "Inventory Stock Report");
 
 
       doc.setFontSize(20);
-      doc.text(210, 100, `Received Stocks In ${month}`);
+      doc.text(210, 150, `Received Stocks In ${month}`);
 
       doc.autoTable({
-        startY: 120,
+        startY: 160,
         head: [['Date', 'Item code', 'Item name', 'Item brand', 'Category', 'Quantity']],
-        body: stockReqReport.filter(item => moment(item.rec_date).format('MMMM') === month)
+        body: stockReqReport.filter(item => item.rec_date.includes(date2))
         .map(item => [
-          item.date,
+          item.rec_date,
           item.item_code,
           item.item_name,
           item.item_brand,
@@ -206,7 +215,7 @@ useEffect(()=>{
       doc.autoTable({
         startY: previousAutoTable.finalY + 50,
         head: [['Date', 'Item code', 'Item name', 'Item brand', 'Category', 'Quantity']],
-        body: stockRelReport.filter(item => moment(item.date).format('MMMM') === month)
+        body: stockRelReport.filter(item => item.date.includes(date2))
         .map(item => [
           item.date,
           item.item_code,
@@ -230,8 +239,8 @@ useEffect(()=>{
       axios.get("http://localhost:8080/api/inventory/stockrequest/")
       .then((res) => {
         const items = res.data;
-        setStockReqReport(items);
         const receivedItems = items.filter((item) => item.status === "received");
+        setStockReqReport(receivedItems);
         receivedItems.sort((a, b) => moment(b.rec_date, "YYYY-MM-DD, hh:mm a") - moment(a.rec_date, "YYYY-MM-DD, hh:mm a"));
         const lastFiveReceivedItems = receivedItems.slice(0, 5); // get only the last 5 records by the rec_date field
         setStockReq(lastFiveReceivedItems);

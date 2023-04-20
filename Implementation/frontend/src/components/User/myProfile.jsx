@@ -39,15 +39,25 @@ const Profile = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
     if (password !== password2) {
       toast.error("Passwords do not match");
     } 
-    else {
+    else if(formData.confirmpassword === ""){
+      toast.error("Please enter your password to confirm changes");
+    }
+    else{
+    
       const response = updateUser(formData)
         .then(() => {
           toast.success("Profile updated successfully");
-          dispatch(login({ email : user.email , password : password}));
+
+          //login logic
+          let email = formData.email ? formData.email : user.email;
+          let password = formData.password ? formData.password : confirmpassword;
+          
+          dispatch(login({ email , password }));
+
           //dispatch(reset());
           navigate("/user");
         })
