@@ -291,16 +291,16 @@ function App() {
             <Route path='/stockout' element={<InvStockOut />} />
 
 
-<Routes>
+
           <Route exact path="/employee" element={<EmployeeList />} />
-          {/* Done */}
+     
           <Route exact path="/creatEmployee" element={<CreateEmployee />} />
-          {/* Done */}
+        
           <Route exact path="/editEmployee/:id" element={EditEmployee} />
-          {/* Done */}
+ 
         </Routes>
 
-          </Routes>
+  
 
           
       {/* <Footer /> */}
