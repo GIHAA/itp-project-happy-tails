@@ -6,6 +6,11 @@ const petSchema = mongoose.Schema(
         type: String,
         required: [true, 'Please add a name'],
     },
+
+    petId:{
+        type: String,
+        required: [true, 'Please add a petid'],
+    },
     owenerId: {
         type: String,
         required: false,
