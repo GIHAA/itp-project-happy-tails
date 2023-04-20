@@ -5,6 +5,12 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Header from "./components/common/Header";
 import Home from "./components/Home";
+
+import Navbar from "./components/admin/navbar.component";
+import { EmployeeList } from "./components/admin/employee-list.component";
+import { CreateEmployee } from "./components/admin/employee-add.component";
+import EditEmployee from "./components/admin/employee-edit.component";
+
 // import VetPortal from './components/portals/VetPortal';
 // import AllPetProfile from './components/petProfile';
 // import AddPetProfile from './components/AddPetProfile';
@@ -261,6 +267,14 @@ function App() {
             <Route path='/FinaGetEvents' element={<FinaGetEvents />} />
             <Route path='/FinaGetVehicle' element={<FinaGetVehicle />} />
 
+<Routes>
+          <Route exact path="/employee" element={<EmployeeList />} />
+          {/* Done */}
+          <Route exact path="/creatEmployee" element={<CreateEmployee />} />
+          {/* Done */}
+          <Route exact path="/editEmployee/:id" element={EditEmployee} />
+          {/* Done */}
+        </Routes>
 
           </Routes>
         </div>
