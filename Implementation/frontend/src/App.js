@@ -94,7 +94,10 @@ import FinaGetEvents from "./components/Finance_Management/FinaGetEvents";
 import FinaGetVehicle from "./components/Finance_Management/FinaGetVehicle";
 import FinaGetStock from "./components/Finance_Management/FinaGetStock"
 
+
 import FinaLeftBar from "./components/portals/FinaHeader_SB";
+
+
 import AdoptPet from './components/User/AdoptPet';
 import Footer from './components/common/Footer';
 import ShelterPet from './components/User/ShelterPet';
@@ -212,7 +215,7 @@ function App() {
             </Route>
 
             //financial_manager
-            <Route path="FinaDashBoard" element={<FinaLeftBar />} >
+            {/* <Route path="FinaDashBoard" element={<FinaLeftBar />} >
             <Route path="FinaDashBoard" element={<FinaDashBoard />} />
             <Route path="GetTransaction" element={<GetTransaction />} />
             <Route path="GetPayment" element={<GetPayment />} />
@@ -224,7 +227,7 @@ function App() {
             <Route path="FinaGetEvents" element={<FinaGetEvents />} />
             <Route path="FinaGetVehicle" element={<FinaGetVehicle />} />
             <Route path="FinaGetStock" element={<FinaGetStock />} />
-            </Route>
+            </Route> */}
 
             {/* <Footer /> */}
             {/* <Route path="petprofile" element={<VetPortal />}> */}
