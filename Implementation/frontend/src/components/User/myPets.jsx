@@ -86,7 +86,7 @@ const Booking = (props) => {
               <tbody>
                 {data.map((item) => (
 
-                   item.status === "Adopted" ? (<><tr
+                   item.bookedmarked ? (<><tr
                     key={item._id}
                     className="h-[55px] border-[1px] border-gray-400"
                   >
@@ -132,10 +132,41 @@ const Booking = (props) => {
       {showDescriptonModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8">
-            <h2 className="text-lg font-bold mb-4">
-              Booking ID {selectedBooking.description}
+            <h2 className="text-lg font-bold mb-4 ">
+              Pet ID {selectedBooking.petId}
             </h2>
-
+              <img src={selectedBooking.image} className="w-[300px] h-[300px]">
+              </img>
+                <br></br>
+              <table class="border-collapse w-full">
+              <tbody>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Name
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.petName}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                  Species 
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.species}
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                  Gender
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.gender}
+                  </td>
+                </tr>
+                <br></br>
+              </tbody>
+            </table>
             <button className="" onClick={() => setShowDescriptonModal(false)}>
               Close
             </button>

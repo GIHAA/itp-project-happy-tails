@@ -79,9 +79,9 @@ const registerPet = ((req, res) => {
 const profileUpdate = (async(req,res)=>{
 
   const {id} = req.params;
-  const { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price} = req.body;
+  const { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price ,bookedmarked } = req.body;
   const systime = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })
-  const updatedProfileData = { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price,systime};
+  const updatedProfileData = { petName,species,breed,gender,birth,date,weight,color,petStatus,image,price,systime , bookedmarked};
 
   // Validate the request body
   if (!petName || !species || !breed || !gender || !birth ||!date || !weight || !color || !petStatus || !image || !price) {

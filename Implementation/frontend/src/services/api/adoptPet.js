@@ -12,7 +12,7 @@ const getAll = asynchandler (async (userData) => {
 
 const updateOne = asynchandler (async (userData) => {
 
-    const response = await axios.put(API_URL + 'updateprofile/' + userData._id ,userData, {
+    const response = await axios.put(API_URL + "updateprofile/" + userData.petId ,userData, {
         headers: {
           'Authorization': `Bearer ${userData.token}`
         }

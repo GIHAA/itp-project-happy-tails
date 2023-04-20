@@ -44,7 +44,10 @@ const petSchema = mongoose.Schema(
         required: [true, 'Please add a status'],
         enum: ['Available', 'paid', 'Booked',"Adopted"],
     },
-    
+    bookedmarked:{
+        type:String,
+        required: [false, 'Please add a status'],
+    },
     date:{
         type:String,
         required: [true, 'Please add check in date'],

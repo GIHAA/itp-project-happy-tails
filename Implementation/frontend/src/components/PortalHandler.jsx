@@ -45,7 +45,6 @@ function PortalHandler() {
       case "EVENT_MANAGER":
         return (
           <>
-           
             <EventPortal/>
             <EventDashboard />
           </>
