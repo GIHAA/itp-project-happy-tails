@@ -73,7 +73,7 @@ export default function EditBooking(){
           setEName(Register.eventName);
           
             setOldTicketCount(Register.noOfTicket)
-            setOldTotal(Register.total);
+          
             setCName(Register.cusName);
             setTicket(Register.noOfTicket);
             setTotal(Register.total);
@@ -82,6 +82,9 @@ export default function EditBooking(){
        // console.log(event.startTime);
       }, [Register]);
 
+      const oldtic = Register.total
+      console.log(oldtic)
+      console.log(total)
       useEffect(() => {
         async function getEvent() {
           try {
@@ -93,7 +96,7 @@ export default function EditBooking(){
               const targetEvent = res.data.allevents.find((e) => e.name === eventName);
               if (targetEvent) {
                 setDPrice(targetEvent.price);
-                console.log(targetEvent);
+                console.log(targetEvent.price);
                 setTotal(targetEvent.price * noOfTicket);
               }
             }
@@ -140,17 +143,18 @@ export default function EditBooking(){
             email,
             phoneNumber
         }
-       
+        console.log(newBooking)
         var expense = amountExpense
         if(oldCount !== noOfTicket){
          
             var ticket = Number(amountTicket)-Number(oldCount)
+            console.log(ticket);
             ticket = Number(ticket)+Number(noOfTicket)
             console.log(ticket);
         
         
         
-        var totaltic = Number(amountIncome) - Number(oldTotal);
+        var totaltic = Number(amountIncome) - Number(oldtic);
         totaltic = Number(dbprice*noOfTicket) + Number(totaltic);
         console.log(totaltic);
      
@@ -176,13 +180,14 @@ export default function EditBooking(){
           result: finalResult,
           rate: finalRate
         };
+        console.log(newamount)
         Promise.all([
         axios.put(`http://localhost:8080/api/eventregister/editBooking/${id}`,newBooking),
        axios.put(`http://localhost:8080/api/eventamount/editeamount/${amountOID}`, newamount)
       ])
         toast.success("Booking Updated Successfully")
         setTimeout(() => {
-          window.location.href = "/eventdashboard/eventbooking";
+         // window.location.href = "/eventdashboard/eventbooking";
         }, 5000);
        
        }catch (err){

@@ -53,14 +53,14 @@ function PortalHandler() {
       case "INVENTORY_MANAGER":
         return (
           <>
-            <PortalHeader />
+            
             <InvDashboard />
           </>
         );
       case "VEHICLE_MANAGER":
         return (
           <>
-            <PortalHeader />
+            
             <VHome />{" "}
           </>
         );

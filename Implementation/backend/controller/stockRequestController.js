@@ -34,7 +34,7 @@ const requestStock = asyncHandler(async (req, res) => {
         item_brand,
         category,
         qty,
-        total,
+        total : 0,
         status
         
     });
