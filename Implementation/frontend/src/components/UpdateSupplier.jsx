@@ -108,6 +108,15 @@ export default function UpdateSupplier(){
                             value={email} onChange={(e) => {
                               setEmail(e.target.value);
                             }}
+                            onInput={(e) => {
+                              const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                              const isValidEmail = emailPattern.test(e.target.value);
+                              if (!isValidEmail) {
+                                e.target.setCustomValidity("Please enter a valid email address");
+                              } else {
+                                e.target.setCustomValidity("");
+                              }
+                            }}
                             required/>
                         </div>
                       </div>
@@ -138,6 +147,16 @@ export default function UpdateSupplier(){
                         appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] "
                         value={phone} onChange={(e)=>{
                         setPhone(e.target.value)}}
+
+                        onInput={(e) => {
+                          const input = e.target.value;
+                          const valid = /^[0-9]{10}$/;
+                          if (!valid.test(input)) {
+                            e.target.setCustomValidity("Please enter a valid  phone number");
+                          } else {
+                            e.target.setCustomValidity("");
+                          }
+                        }}
                         required />
                       </div>
                       </div>
