@@ -116,7 +116,7 @@ return(
 <div class="p-4 sm:ml-64"  style={{marginTop:'90px'}}>
 <div className="flex justify-center items-center h-full " style={{marginTop:'70px'}}>
   <div className="bg-white rounded-lg shadow-2xl p-8 m-4 w-3/4" style={{ backgroundColor: "#ffffff" }}>
-        <div class="pb-4 bg-white dark:bg-gray-900" style={{marginRight:'5px'}}>
+        <div class="pb-4 bg-white dark:bg-gray-600" style={{marginRight:'5px'}}>
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1 flex-shrink-0">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
