@@ -35,7 +35,7 @@ const addBooking = asynchandler (async (userData) => {
 })
 
 const updateBooking = asynchandler (async (userData) => {
-  console.log(userData)
+
   const response = await axios.put(API_URL , userData, {
     headers: {
       'Authorization': `Bearer ${userData.token}`
@@ -47,7 +47,7 @@ const updateBooking = asynchandler (async (userData) => {
 
 
 const deleteBooking = asynchandler (async (userData) => {
-  console.log(userData)
+
   const response = await axios.delete(API_URL + userData.id, {
     headers: {
         'Authorization': `Bearer ${userData.token}`

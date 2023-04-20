@@ -13,6 +13,9 @@ import SupplierList from "./SupplierList";
 import VHome from "./VHome";
 import Header from "./common/PortalHeader";
 import PortalHeader from "./common/PortalHeader";
+import EventPortal from "./portals/EventPortal";
+
+import VetPortal from "./portals/VetPortal";
 
 function PortalHandler() {
   const { user } = useSelector((state) => state.auth);
@@ -30,7 +33,8 @@ function PortalHandler() {
       case "EVENT_MANAGER":
         return (
           <>
-            <PortalHeader />
+           
+            <EventPortal/>
             <EventDashboard />
           </>
         );
@@ -51,7 +55,7 @@ function PortalHandler() {
       case "ANIMAL_MANAGER":
         return (
           <>
-            <PortalHeader />
+            <VetPortal />
             <Dashboard />{" "}
           </>
         );
@@ -69,8 +73,16 @@ function PortalHandler() {
             <SupplierList />
           </>
         );
+        case "":
+          return (
+            <>
+            <Home />
+            </>
+          );
       default:
-        return <></>;
+        return <>
+        <Home />
+        </>;
     }
   };
 

@@ -40,6 +40,7 @@ app.use('/api/VehReqPayment/', require('./routes/vehicleBudgetRoutes'))
 
 
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/booking/', require('./routes/bookingRoutes.js'))
 app.use('/api/vet',vetRoutes)    
 app.use('/api/petbreed',breedRoutes)
 app.use('/api/health',healthRoutes)
@@ -69,7 +70,10 @@ app.use('/api/eventbudget', budgetReqRoutes);
 app.use('/api/eventstock', eventStockRequestRoutes);
 app.use('/api/eventamount', eventAmountRoutes);
 
-
+app.use('/api/payment/', require('./routes/addPaymentRoutes.js'))
+app.use('/api/transaction', require('./routes/transactionRoutes.js'))
+app.use('/api/organization', require('./routes/organizationRoutes.js'))
+app.use('/api/cusDonation', require('./routes/cusDonationRoutes.js'))
 
 
 app.use(errorHandler)

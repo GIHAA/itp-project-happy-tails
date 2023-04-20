@@ -77,15 +77,16 @@ const Booking = (props) => {
                   <th className="w-[20%]">Pet id</th>
                   <th className="">Name</th>
                   <th className="">Breed</th>
-                  <th className="">Age</th>
+                  <th className="">Birth</th>
                   <th className="">Gender</th>
                   <th className="">Status</th>
-                  <th className="text-center">Delete</th>
+                  {/* <th className="text-center">Delete</th> */}
                 </tr>
               </thead>
               <tbody>
                 {data.map((item) => (
-                  <tr
+
+                   item.status === "Adopted" ? (<><tr
                     key={item._id}
                     className="h-[55px] border-[1px] border-gray-400"
                   >
@@ -95,18 +96,18 @@ const Booking = (props) => {
                       {item.breed}
                     </td>
                     <td className="text-center">
-                      {item.age}
+                      {item.birth}
                     </td>
                     <td className="text-center">
                       {item.gender}
                     </td>
-                    <td className="text-center rounded-[100px] text-white">
-                      <p className="bg-green-600 h-[27px] rounded-[30px]">
+                    <td className="text-center pr-5 rounded-[100px] text-white">
+                      <p className="bg-green-600 h-[27px]  rounded-[30px]">
                         {item.petStatus}
                       </p>
                     </td>
 
-                    <td className="text-center">
+                    {/* <td className="text-center">
                       <button
                         onFocus={() =>
                           setFormData((prevFormData) => ({
@@ -118,8 +119,9 @@ const Booking = (props) => {
                       >
                         Delete
                       </button>
-                    </td>
-                  </tr>
+                    </td> */}
+                  </tr></>): (<></>)
+                  
                 ))}
               </tbody>
             </table> )}

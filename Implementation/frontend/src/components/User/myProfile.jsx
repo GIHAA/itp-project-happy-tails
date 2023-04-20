@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import updateUser from "../../services/api/user";
-import { logout, reset } from "../../services/auth/authSlice";
+import { logout, login,  reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
 import logo from "../../assets/logo.png";
@@ -39,16 +39,27 @@ const Profile = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
     if (password !== password2) {
       toast.error("Passwords do not match");
-    } else {
+    } 
+    else if(formData.confirmpassword === ""){
+      toast.error("Please enter your password to confirm changes");
+    }
+    else{
+    
       const response = updateUser(formData)
         .then(() => {
           toast.success("Profile updated successfully");
-          dispatch(logout());
+
+          //login logic
+          let email = formData.email ? formData.email : user.email;
+          let password = formData.password ? formData.password : confirmpassword;
+          
+          dispatch(login({ email , password }));
+
           //dispatch(reset());
-          navigate("/login");
+          navigate("/user");
         })
         .catch((err) => {
           toast.error("An error occurred while updating profile");
@@ -199,6 +210,7 @@ const Profile = (props) => {
               onChange={onChange}
               type="text"
               className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+              required
             />
 
             <div className="flex mt-7">

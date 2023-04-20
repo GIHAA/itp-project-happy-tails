@@ -70,7 +70,7 @@ export default function ProfilePage() {
 
   return (
     <>
-    <div class="overflow-hidden bg-secondary shadow sm:rounded-3xl max-w-screen-lg mx-auto mt-20 mb- ml-96">
+    <div class="overflow-hidden bg-secondary shadow sm:rounded-3xl max-w-screen-lg mx-auto mt-28 mb- ml-96">
   <div class="px-4 py-5 sm:px-6">
     <h3 class="text-xl font-semibold leading-6 text-white">{Profile.petName}</h3>
     <p class="mt-1 max-w-2xl text-sm text-white">Pet Information.</p>
@@ -113,8 +113,8 @@ export default function ProfilePage() {
         </div>
 
         <div class="bg-[#D9D9D9] px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">     
-        <dt class="text-lg text-black font-bold ml-16">Species</dt>
-        <dd class="mt-1 text-lg  text-black sm:col-span-2 sm:mt-0">{Profile.species}</dd>
+        <dt class="text-lg text-black font-bold ml-16">Price</dt>
+        <dd class="mt-1 text-lg  text-black sm:col-span-2 sm:mt-0">{Profile.price}</dd>
       </div>
 
     </dl>

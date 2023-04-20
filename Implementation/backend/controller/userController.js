@@ -87,17 +87,28 @@ const getMe = asyncHandler(async (req, res) => {
 //update user
 const updateUser = asyncHandler(async (req, res) => {
 
+
   const user = await User.findOne({ _id: req.body._id})
+
+  if(!req.body.confirmpassword){
+    res.status(400)
+    throw new Error('please enter old password')
+  }
   const passmatch = await bcrypt.compare(req.body.confirmpassword, user.password)
-  
+
   if (user && passmatch) {
     const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.password, salt)
+    
+    let hashedPassword = user.password
+  if(req.body.password){
+    hashedPassword = await bcrypt.hash(req.body.password, salt)
+  }
+      
 
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
     user.role = req.body.role || user.role
-    user.password = hashedPassword|| user.password
+    user.password = hashedPassword
     user.address = req.body.address || user.address
     user.phone = req.body.phone || user.phone
 

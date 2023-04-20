@@ -3,6 +3,8 @@ import adpotServices from "../../services/api/adoptPet";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Spinner from "../common/Spinner";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 function Adoptpet() {
   const [data, setData] = useState([]);
@@ -43,13 +45,15 @@ function Adoptpet() {
   );
   return (
     <>
+    <Header/>
       <div className="h-full overflow-y-scrollf bg-bgsec">
+        
         <div className="flex justify-center pt-5">
           <input
             id="search"
             type="text"
-            placeholder="   Search for pets... ex: dog, cat, pet name etc"
-            className="border-b-[1px] w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
+            placeholder="Search for pets... ex: dog, cat, pet name etc"
+            className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
 
           <button
@@ -63,7 +67,7 @@ function Adoptpet() {
         {isLoading ? (
           <Spinner />
         ) : (
-          <div>
+          <div className="pb-[200px]">
             {filteredData.map((card, index) =>
               card.petStatus === "Available" ? (
                 <div className="grid grid-cols-1 gap-[70px] px-[80px] py-[40px] h-[200px]p-[50px] rounded-[20px]">
@@ -71,7 +75,7 @@ function Adoptpet() {
                     <div className="bg-cover bg-center rounded-[20px] flex justify-center">
                       <img
                         src={card.image}
-                        className="w-auto h-auto rounded-[20px]"
+                        className="w-auto h-[350px] rounded-[20px]"
                       />
                     </div>
 
@@ -87,7 +91,7 @@ function Adoptpet() {
                         <li>species : {card.species}</li>
                         <li>Breed : {card.breed}</li>
                         <li>Gender : {card.gender}</li>
-                        <li>Age : {card.age}</li>
+                        <li>Age : {card.birth}</li>
                         <li>Color : {card.color}</li>
                         <li>status : {card.petStatus}</li>
                       </ul>
@@ -109,6 +113,7 @@ function Adoptpet() {
           </div>
         )}
       </div>
+      <Footer/>
     </>
   );
 }

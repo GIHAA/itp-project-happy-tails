@@ -1,27 +1,83 @@
 import React from 'react'
-import { NavLink,Link, Outlet } from 'react-router-dom'
+import { NavLink,Link, Outlet,useNavigate } from 'react-router-dom'
 import logo from '../../assets/logopanel.png'
+import { logout, reset } from "../../services/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 
 export default function EventPortal() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
+
   return (
     <>
 {/* navbar */}
-<nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-[#0f0f2c] fixed top-0 left-0 w-full z-40">
+<nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5 fixed top-0 left-0 w-full z-40">
 
-  <div className="container flex flex-wrap items-center justify-start mx-auto z-20">
-    <Link to="/" className="flex items-center"></Link>
-      
-    <div className="hidden w-full md:block md:w-auto ml-auto" id="navbar-default">
-      <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ">
-        <li>
-          <button className="btn">
-             Logout
-          </button>
-        </li>
-      </ul>
-    </div>
-  </div>
+<div className="container flex flex-wrap items-center justify-start mx-auto ">
+        <Link to="/" className="flex items-center"></Link>
+
+       
+
+        <div
+          className="hidden w-full md:block md:w-auto ml-auto"
+          id="navbar-default"
+        >
+          <ul className="flex flex-col p-4 mt-4 border rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ">
+            {user ? (
+              // <li>
+              //   <button className="btn" onClick={onLogout}>
+              //     <FaSignOutAlt /> Logout
+              //   </button>
+              // </li>
+              <div className="flex ">
+                <div class="px-2 space-y-0.5 font-medium text-white text-[17px] text-left">
+                  <button>{user.name}</button>
+                  <br />
+                  <button
+                    onClick={onLogout}
+                    class="text-sm font-light text-white"
+                  >
+                    Logout
+                  </button>
+                </div>
+                <img
+                  class="rounded-full w-9 h-9"
+                  src={user.image}
+                  alt="profile picture"
+                />
+              </div>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/login"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/register"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+      </div>
 </nav>
 
 
@@ -33,7 +89,7 @@ export default function EventPortal() {
    </svg>
 </button>
 
-<aside id="default-sidebar" class="fixed top-0 left-0 z-100 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="default-sidebar" class="fixed top-0 left-0 z-[96] w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-[#FF9F00]">
 
    <div>
@@ -45,34 +101,34 @@ export default function EventPortal() {
 
    <div className="my-6 ">
 
-   <Link to='dashboard'
+   <Link to='/eventdashboard/dashboard'
        className=" bg-[#2E4960] px-[15px] hover:bg-[#797979] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >DASHBOARD</Link>
 
-       <Link to="getEvents"
+       <Link to="/eventdashboard/getEvents"
        activeClassName="bg-[#797979]"
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Event</Link>
 
-      <Link to="eventbooking" 
+      <Link to="/eventdashboard/eventbooking" 
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Booking</Link>
 
-       <Link to="getFeedbacks"
+       <Link to="/eventdashboard/getFeedbacks"
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Feedback</Link>
 
-       <Link to='budget'
+       <Link to='/eventdashboard/budget'
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Budget</Link>
 
-   <Link to='stock'
+   <Link to='/eventdashboard/stock'
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Stock</Link>
-       <Link to='chart'
+       <Link to='/eventdashboard/chart'
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >Income-Expense Report</Link>
-       <Link to='report'
+       <Link to='/eventdashboard/report'
        className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
        >All Event Report</Link>
 
