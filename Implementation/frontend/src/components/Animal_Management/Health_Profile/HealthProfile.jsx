@@ -88,7 +88,7 @@ export default function HealthProfile (){
 return(
 
     <>
-    <div class="min-h-screen mt-10 py-5 ml-[17%]">
+    <div class="min-h-screen mt-20 py-5 ml-[17%]">
 
         <div class='overflow-x-auto'>
         <div class="fixed ">
@@ -112,8 +112,8 @@ return(
     </div>
 </form>
 </div>
-<div class='overflow-x-auto w-full max-h-[460px] mt-28 '>
- <table class='mx-auto shadow-2xl max-w-4xl w-full whitespace-nowrap mt-5 rounded-lg bg-white divide-y divide-gray-300 overflow-hidden table-auto'>
+<div class='overflow-x-auto w-full max-h-[460px] mt-[120px] '>
+ <table class='mx-auto shadow-2xl max-w-4xl w-full whitespace-nowrap mt-10 rounded-lg bg-white divide-y divide-gray-300 overflow-hidden table-auto'>
                 <thead class="bg-[#2E4960] sticky top-0">
                     <tr class="text-white text-left">
                         <th class="font-semibold text-sm uppercase text-center px-6 py-4"> ID </th>

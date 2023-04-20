@@ -134,17 +134,9 @@ function App() {
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />
             <Route path="/updateSuppliers/:id" element={<UpdateSupplier />} />
             <Route path="/stockRequests" element={<StockRequests />} />
-            <Route
-              path="/StockBudgetRequests"
-              element={<StockBudgetRequests />}
-            />
-            <Route
-              path="/StockBudgetRequestForm"
-              element={<StockBudgetRequestForm />}
-            />
-            <Route
-              path="/UpdateStockBudgetRequest/:id"
-              element={<UpdateStockBudgetRequest />}
+            <Route path="/StockBudgetRequests" element={<StockBudgetRequests />}/>
+            <Route path="/StockBudgetRequestForm" element={<StockBudgetRequestForm />}/>
+            <Route path="/UpdateStockBudgetRequest/:id" element={<UpdateStockBudgetRequest />}
             />
             <Route path="user" element={<UserPortal />} />
             <Route path="profile" element={<Profile />} />
@@ -152,6 +144,7 @@ function App() {
             <Route path="pets" element={<Pets />} />
             <Route path="events" element={<Events />} />
             <Route path="test" element={<Spinner />} />
+
             <Route path="petprofile" element={<VetPortal />}>
               <Route path="updatepet/:id" element={<UpdatePetProfile />} />
               <Route path="allpetprofile" element={<AllPetProfile />} />
@@ -166,38 +159,19 @@ function App() {
               <Route path="breed" element={<Breed />} />
               <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
             </Route>
+
             <Route path="/vhome" exact element={<VHome />} />
-            <Route
-              path="/vehicledashboard"
-              exact
-              element={<VehicleDashboard />}
-            />
+            <Route path="/vehicledashboard"exactelement={<VehicleDashboard />}/>
             <Route path="/vehicles" exact element={<Vehicles />} />
             <Route path="/editvehicle/:id" exact element={<EditVehicle />} />
             <Route path="/addnvehicle" exact element={<AddNewVehicle />} />
             <Route path="/pending" element={<PendingBookings />} />
             <Route path="/tbooking" exact element={<AddTBooking />} />
             <Route path="/availability" exact element={<Availabilities />} />
-            <Route
-              path="/addavailability"
-              exact
-              element={<AddAvailability />}
-            />
-            <Route
-              path="/editavailability/:id"
-              exact
-              element={<EditAvailabilities />}
-            />
-            <Route
-              path="/vbudgets/:id"
-              exact
-              element={<AllVBudgetRequests />}
-            />
-            <Route
-              path="/addvbudget"
-              exact
-              element={<AddVehicleBudgetRequestForm />}
-            />
+            <Route path="/addavailability" exact element={<AddAvailability />}/>
+            <Route path="/editavailability/:id" exact element={<EditAvailabilities />}/>
+            <Route path="/vbudgets/:id" exact element={<AllVBudgetRequests />}/>
+            <Route path="/addvbudget" exact element={<AddVehicleBudgetRequestForm />}/>
             // EventManagement
             <Route path="eventdashboard" element={<EventPortal />}>
               <Route path="getEvents" element={<AllEvent />} />
@@ -219,6 +193,7 @@ function App() {
               <Route path="getEventsUser" element={<AllEventUser />} />
               <Route path="addFeedback/:id" element={<AddEventFeedback />} />
             </Route>
+
             //financial_manager
             <Route path="/FinaDashBoard" element={<FinaDashBoard />} />
             <Route path="/GetTransaction" element={<GetTransaction />} />
@@ -232,20 +207,20 @@ function App() {
             <Route path="/FinaGetVehicle" element={<FinaGetVehicle />} />
             <Route path="/FinaGetStock" element={<FinaGetStock />} />
             {/* <Footer /> */}
-            <Route path="petprofile" element={<VetPortal />}>
-              <Route path="updatepet/:id" element={<UpdatePetProfile />} />
-              <Route path="allpetprofile" element={<AllPetProfile />} />
-              <Route path="addpet" element={<AddPetProfile />} />
-              <Route path="addhealthprofile" element={<AddHealth />} />
-              <Route path="profilepage/:id" element={<ProfilePage />} />
-              <Route path="healthprofile" element={<HealthProfile />} />
-              <Route path="displayhealth/:id" element={<DisplayHealth />} />
-              <Route path="addvac/:id/:state/:des" element={<Addvac />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="spets" element={<Shelterpets />} />
-              <Route path="breed" element={<Breed />} />
-              <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
-            </Route>
+            {/* <Route path="petprofile" element={<VetPortal />}> */}
+              {/* <Route path="/petprofile/updatepet/:id" element={<UpdatePetProfile />} />
+              <Route path="/petprofile/allpetprofile" element={<AllPetProfile />} />
+              <Route path="/petprofile/addpet" element={<AddPetProfile />} />
+              <Route path="/petprofile/addhealthprofile" element={<AddHealth />} />
+              <Route path="/petprofile/profilepage/:id" element={<ProfilePage />} />
+              <Route path="/petprofile/healthprofile" element={<HealthProfile />} />
+              <Route path="/petprofile/displayhealth/:id" element={<DisplayHealth />} />
+              <Route path="/petprofile/addvac/:id/:state/:des" element={<Addvac />} />
+              <Route path="/petprofile/dashboard" element={<Dashboard />} />
+              <Route path="/petprofile/spets" element={<Shelterpets />} />
+              <Route path="/petprofile/breed" element={<Breed />} />
+              <Route path="/petprofile/upvac/:id/:index/:state" element={<UpdateVac />} /> */}
+            {/* </Route> */}
             <Route path="/vhome" exact element={<VHome />} />
             <Route
               path="/vehicledashboard"
