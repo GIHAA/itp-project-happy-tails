@@ -22,6 +22,7 @@ import InvRequestedStock from './components/InvRequestedStock';
 import InvReleaseStock from './components/InvReleaseStock';
 import InvStockIn from './components/InvStockIn';
 import InvStockOut from './components/InvStockOut';
+import InvEventStocks from "./components/InvEventStocks";
 
 
 
@@ -297,7 +298,7 @@ function App() {
             <Route path='/releasestock' element={<InvReleaseStock />} />
             <Route path='/stockin' element={<InvStockIn />} />
             <Route path='/stockout' element={<InvStockOut />} />
-
+            <Route path='/eventstocks' element={<InvEventStocks />} />
 
 
           <Route exact path="/employee" element={<EmployeeList />} />
