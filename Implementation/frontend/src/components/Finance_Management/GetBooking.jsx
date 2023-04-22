@@ -163,6 +163,7 @@ const GetBooking = () => {
 
                   function updateTransaction() {
                     const updatedTransaction = {
+                      id: _id,
                       status: 'SHELTERED',
                       cus_name: cus_name,
                       bid: bid,
@@ -170,7 +171,7 @@ const GetBooking = () => {
                       description: description,
                     };
 
-                    axios.put(`http://localhost:8080/api/booking/${_id}`, updatedTransaction)
+                    axios.put(`http://localhost:8080/api/booking/`, updatedTransaction)
                       .then(response => {
 
                         console.log(_id);
@@ -209,7 +210,7 @@ const GetBooking = () => {
                       </td>
 
                       <td class="px-10 py-4 text-sm">
-                        <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); refreshPage(); updateTransaction(); }}> Verify  </button>
+                        <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); refreshPage();  updateTransaction(); }}> Verify  </button>
                       </td>
                     </tr>
 

@@ -39,6 +39,8 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      address: user.address,
+      phone: user.phone,
       token: generateToken(user._id),
       role: user.role,
       image : user.image,
