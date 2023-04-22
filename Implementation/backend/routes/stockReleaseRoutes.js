@@ -1,20 +1,14 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-
 const {
-    addRelease,
-    readAllReleases,
-    groupByCategory
+  addRelease,
+  readAllReleases,
+  groupByCategory,
+} = require("../controller/stockReleaseController");
 
-
-} = require('../controller/stockReleaseController');
-
-
-router.post('/releasestock', addRelease);
-router.get( '/readreleasestock' , readAllReleases);
-router.get( '/releasestockprocessed' , groupByCategory);
-
-
+router.post("/releasestock", addRelease);
+router.get("/readreleasestock", readAllReleases);
+router.get("/releasestockprocessed", groupByCategory);
 
 module.exports = router;
