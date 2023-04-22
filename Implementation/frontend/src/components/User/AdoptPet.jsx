@@ -45,9 +45,8 @@ function Adoptpet() {
   );
   return (
     <>
-    <Header/>
+      <Header />
       <div className="h-full overflow-y-scrollf bg-bgsec">
-        
         <div className="flex justify-center pt-5">
           <input
             id="search"
@@ -113,7 +112,7 @@ function Adoptpet() {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

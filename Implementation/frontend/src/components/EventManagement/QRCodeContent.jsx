@@ -1,5 +1,5 @@
-import React from 'react';
-import { content } from './RegisterEvent.jsx'
+import React from "react";
+import { content } from "./RegisterEvent.jsx";
 
 const QRCodeContent = ({ content }) => {
   return (

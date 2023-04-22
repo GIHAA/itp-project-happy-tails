@@ -19,14 +19,11 @@ import FinaLeftBar from "./portals/FinaHeader_SB";
 import EventPortal from "./portals/EventPortal";
 import VetPortal from "./portals/VetPortal";
 
-
-
 import Navbar from "./admin/navbar.component";
 
 import { EmployeeList } from "./admin/employee-list.component";
-import { CreateEmployee } from './admin/employee-add.component';
-import  EditEmployee from "./admin/employee-edit.component";
-
+import { CreateEmployee } from "./admin/employee-add.component";
+import EditEmployee from "./admin/employee-edit.component";
 
 function PortalHandler() {
   const { user } = useSelector((state) => state.auth);
@@ -34,8 +31,11 @@ function PortalHandler() {
   const renderPortals = (param) => {
     switch (param) {
       case "ADMIN":
-        return <>
-        <EmployeeList /></>;
+        return (
+          <>
+            <EmployeeList />
+          </>
+        );
       case "USER":
         return (
           <>
@@ -45,21 +45,19 @@ function PortalHandler() {
       case "EVENT_MANAGER":
         return (
           <>
-            <EventPortal/>
+            <EventPortal />
             <EventDashboard />
           </>
         );
       case "INVENTORY_MANAGER":
         return (
           <>
-            
             <InvDashboard />
           </>
         );
       case "VEHICLE_MANAGER":
         return (
           <>
-            
             <VHome />{" "}
           </>
         );
@@ -85,16 +83,18 @@ function PortalHandler() {
             <SupplierList />
           </>
         );
-        case "":
-          return (
-            <>
+      case "":
+        return (
+          <>
             <Home />
-            </>
-          );
+          </>
+        );
       default:
-        return <>
-        <Home />
-        </>;
+        return (
+          <>
+            <Home />
+          </>
+        );
     }
   };
 

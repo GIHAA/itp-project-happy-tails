@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
 
 const FinaGetEvents = () => {
-
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
-
 
   function refreshPage() {
     setTimeout(function () {
@@ -18,10 +15,10 @@ const FinaGetEvents = () => {
     }, 2000);
   }
 
-
   useEffect(() => {
-    axios.get('http://localhost:8080/api/eventbudget/getBudgets')
-      .then(response => {
+    axios
+      .get("http://localhost:8080/api/eventbudget/getBudgets")
+      .then((response) => {
         const data = response.data;
         console.log(response);
         setpayData(data);
@@ -32,9 +29,8 @@ const FinaGetEvents = () => {
         // setPetCount(totalPetCount);
         // setPetCountsByIndex(petCounts);
       })
-      .catch(error => setIsError(error.message));
+      .catch((error) => setIsError(error.message));
   }, []);
-
 
   // function calculateprice() {
   //   const income = payData
@@ -45,11 +41,9 @@ const FinaGetEvents = () => {
   //   return income;
   // }
 
-
   // const max = calculateprice();
 
   return (
-
     <>
       {/* //BALANCE BAR */}
 
@@ -63,26 +57,14 @@ const FinaGetEvents = () => {
             <p>Balances</p>
           </div>
         </div> */}
-
-
-
-
-       
-
-
-
       </div>
 
       {isError !== "" && <h2>{isError}</h2>}
 
-
-
       <div class="mt-4 mb-16 mr-8 rounded-lg">
         <div class="w-full overflow-hidden  shadow-xs">
           <div class="w-full overflow-x-auto">
-
             <table class="table-auto rounded-lg ml-80">
-
               <thead>
                 <tr class="text-base font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th className="px-10 py-4">Customer ID</th>
@@ -93,128 +75,97 @@ const FinaGetEvents = () => {
                 </tr>
               </thead>
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                {Array.isArray(payData) && payData.map((data) => {
+                {Array.isArray(payData) &&
+                  payData.map((data) => {
+                    const { _id, eventName, description, total, status } = data;
 
-                  const {
-
-                    _id, eventName,  description, total, status, 
-                    
-                  } = data;
-
-
-
-                  const notify = () => toast.success('Payment Accepted ', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-
-                  });
-
-
-
-                  <div>
-
-
-
-
-                  </div>
-
-                  const count = 0;
-
-
-                  function updateTransaction() {
-                    const updatedTransaction = {
-                      status: 'Accepted',
-                      eventName: eventName,
-                      total: total,
-                      description: description,
-                    };
-
-                    axios.put(`http://localhost:8080/api/eventbudget/editbudget/${_id}`, updatedTransaction)
-                      .then(response => {
-
-                        console.log(_id);
-                        console.log(eventName);
-                        console.log(total);
-                        console.log(response.data);
-                       // calculateprice();
-                      })
-                      .catch((error) => {
-                        console.log(error);
+                    const notify = () =>
+                      toast.success("Payment Accepted ", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
                       });
-                  }
 
+                    <div></div>;
 
+                    const count = 0;
 
+                    function updateTransaction() {
+                      const updatedTransaction = {
+                        status: "Accepted",
+                        eventName: eventName,
+                        total: total,
+                        description: description,
+                      };
 
+                      axios
+                        .put(
+                          `http://localhost:8080/api/eventbudget/editbudget/${_id}`,
+                          updatedTransaction
+                        )
+                        .then((response) => {
+                          console.log(_id);
+                          console.log(eventName);
+                          console.log(total);
+                          console.log(response.data);
+                          // calculateprice();
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                    }
 
-                  return (
-
-
-
-                    <tr key={_id} class="font-semibold bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-400 text-gray-100 dark:text-gray-900">
-                      <td class="px-10 py-2">
-                        <div class="lex items-center px-10 py-3 text-sm">
-
-                          <div>
-                            <p class="font-semibold">{eventName}</p>
-
+                    return (
+                      <tr
+                        key={_id}
+                        class="font-semibold bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-400 text-gray-100 dark:text-gray-900"
+                      >
+                        <td class="px-10 py-2">
+                          <div class="lex items-center px-10 py-3 text-sm">
+                            <div>
+                              <p class="font-semibold">{eventName}</p>
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
+                        <td class="text-center px-10 py-3 text-sm">
+                          {description}
+                        </td>
+                        <td class="text-center px-10 py-3 text-sm">{total}</td>
+                        <td class="text-center px-10 py-3 text-sm">{status}</td>
 
-                      <td class="text-center px-10 py-3 text-sm">{description}</td>
-                      <td class="text-center px-10 py-3 text-sm">{total}</td>
-                      <td class="text-center px-10 py-3 text-sm">{status}</td>
-                     
-                      {/* <td class="text-center px-10 py-3 text-sm">
+                        {/* <td class="text-center px-10 py-3 text-sm">
 
                         {data.mini.map((miniitem) => (<><p>{miniitem.pid}</p></>))}
                       </td> */}
 
-                      <td class="px-10 py-4 text-sm">
-                        <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify();  updateTransaction(); }}> Verify  </button>
-                      </td>
-                    </tr>
-
-
-
-
-
-
-
-
-
-
-
-                  );
-                })}
+                        <td class="px-10 py-4 text-sm">
+                          <button
+                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                            onClick={() => {
+                              notify();
+                              updateTransaction();
+                            }}
+                          >
+                            {" "}
+                            Verify{" "}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
-
-
-
-
-
-
-
-
-
     </>
-
   );
-
 };
 
 export default FinaGetEvents;
-

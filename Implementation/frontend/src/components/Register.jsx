@@ -72,7 +72,7 @@ const Registration = () => {
 
   const isNumberAndTenDigit = (str) => {
     return /^\d{10}$/.test(str);
-  }
+  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -96,10 +96,8 @@ const Registration = () => {
       // replace with your email address
 
       if (emailRegex.test(email)) {
-        if( isNumberAndTenDigit(phone))
-        dispatch(register(userData));
-        else
-        toast.error("Phone number should be 10 digit number");
+        if (isNumberAndTenDigit(phone)) dispatch(register(userData));
+        else toast.error("Phone number should be 10 digit number");
       } else {
         toast.error("The email address is invalid.");
       }

@@ -12,21 +12,20 @@ import { toast } from "react-toastify";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 
-
 function ShelterPet() {
   const { user } = useSelector((state) => state.auth);
 
   const [pid, setPid] = useState(0);
   const [bid, setBid] = useState(0);
-  const [total , setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
   const fetchPid = async () => {
-    const result = await axios.post("http://localhost:8080/api/counter"); 
+    const result = await axios.post("http://localhost:8080/api/counter");
     setPid(result.data.count);
   };
 
   const fetchBid = async () => {
-    const result = await axios.post("http://localhost:8080/api/counter"); 
+    const result = await axios.post("http://localhost:8080/api/counter");
     setBid(result.data.count);
   };
 
@@ -84,7 +83,8 @@ function ShelterPet() {
       try {
         bookingServices.addBooking(formData);
         toast.success("Booking added successfully");
-        setFormData({cus_id: user._id,
+        setFormData({
+          cus_id: user._id,
           cus_name: user.name,
           bid,
           token: user.token,
@@ -94,7 +94,8 @@ function ShelterPet() {
           contactNumbers: "",
           description: "",
           startDate: new Date(),
-          endDate: new Date(),})
+          endDate: new Date(),
+        });
         setTotal(0);
       } catch (error) {
         toast.error("Something went wrong");
@@ -110,11 +111,11 @@ function ShelterPet() {
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setTotal(diffDays * formData.petCount * 2000);
-  }
+  };
 
   return (
     <>
-    <Header />
+      <Header />
       <div className="w-full bg-bgsec pt-[60px] pb-[70px]">
         <div className="max-w-2xl mx-auto bg-white p-16 border-[2px] rounded-[15px]">
           <p>Name : {user.name} </p>
@@ -171,8 +172,17 @@ function ShelterPet() {
                 onChange={handleMainInputChange}
               />
             </div>
-            {<h2>Start date set to : {formData.startDate.toString().substring(0, 16)} </h2>}
-            {<h2>End date set to : {formData.endDate.toString().substring(0,16)}</h2>}
+            {
+              <h2>
+                Start date set to :{" "}
+                {formData.startDate.toString().substring(0, 16)}{" "}
+              </h2>
+            }
+            {
+              <h2>
+                End date set to : {formData.endDate.toString().substring(0, 16)}
+              </h2>
+            }
             {<h2>Number of pets: {formData.petCount}</h2>}
 
             <div>
@@ -253,9 +263,7 @@ function ShelterPet() {
             </div>
 
             <div className="mb-6">
-              <h2 className="md">Entimated price:  Rs:{
-              total
-              }</h2>
+              <h2 className="md">Entimated price: Rs:{total}</h2>
             </div>
 
             <div className="flex items-start mb-6">
@@ -282,7 +290,13 @@ function ShelterPet() {
               </label>
             </div>
             <button
-              onFocus={() => setFormData((prevFormData) => ({ ...prevFormData, bid: "B"+ bid , price: total}))}
+              onFocus={() =>
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  bid: "B" + bid,
+                  price: total,
+                }))
+              }
               type="submit"
               className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
             >
@@ -291,7 +305,7 @@ function ShelterPet() {
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

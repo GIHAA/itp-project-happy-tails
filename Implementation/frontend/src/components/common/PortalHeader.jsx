@@ -24,8 +24,6 @@ function Header() {
       <div className="container flex flex-wrap items-center justify-start mx-auto ">
         <Link to="/" className="flex items-center"></Link>
 
-       
-
         <div
           className="hidden w-full md:block md:w-auto ml-auto"
           id="navbar-default"
@@ -39,7 +37,7 @@ function Header() {
               // </li>
               <div className="flex ">
                 <div class="px-2 space-y-0.5 font-medium text-secondary text-[17px] text-left">
-                  <button >{user.name}</button>
+                  <button>{user.name}</button>
                   <br />
                   <button
                     onClick={onLogout}
