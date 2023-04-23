@@ -18,6 +18,7 @@ const Users = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [id, setId] = useState("");
   const { about, details } = formData;
+  const [sortRole, setSortRole] = useState("");
 
   useEffect(() => {
     axios
@@ -69,6 +70,16 @@ const Users = () => {
     }, 2000);
   };
 
+  const handleSortChange = (e) => {
+    setSortRole(e.target.value);
+    refreshPage();
+  };
+
+  const filteredData = sortRole
+    ? data.filter((item) => item.role === sortRole)
+    : data;
+
+
   return (
     <>
       <div className="flex ">
@@ -85,6 +96,30 @@ const Users = () => {
               >
                 ADD
               </button>
+
+              <div className="flex flex-row mb-3">
+                <label htmlFor="sort" className="mr-2 font-bold">
+                  Sort by role:
+                </label>
+                <select
+                  name="sort"
+                  id="sort"
+                  className="border border-gray-400 p-2 rounded-md"
+                  onChange={handleSortChange}
+                >
+                  <option value="">All</option>
+                  <option value="ADMIN">Admin</option>
+                  <option value="USER">User</option>
+                  <option value="EVENT_MANAGER">Event Manager</option>
+                  <option value="INVENTORY_MANAGER">Inventory Manager</option>
+                  <option value="VEHICLE_MANAGER">Vehicle Manager</option>
+                  <option value="ANIMAL_MANAGER">Animal Manager</option>
+                  <option value="FINANCIAL_MANAGER">Financial Manager</option>
+                  <option value="SUPPLIER_MANAGER">Supplier Manager</option>
+                </select>
+              </div>
+
+      
               <div className="h-[500px] overflow-y-scroll ">
   <table className="mx-auto w-[980px] h-auto ml-[100px] ">
     <thead className="bg-[#2E4960] text-white sticky top-0">
@@ -97,7 +132,7 @@ const Users = () => {
     </thead>
 
     <tbody className="bg-white text-center border-black ">
-      {data.map((item) => {
+      {filteredData.map((item) => {
         return (
           <tr className="hover:bg-[#efeeee] border-[2px]">
             <td className="p-3">{item.name}</td>
@@ -200,11 +235,11 @@ const Users = () => {
             </h2>
             
             
-            <label className="font-semibold text-sm text-gray-600 pb-1 block">Add Name</label>
+            <label className="font-semibold text-sm text-gray-600 pb-1 block">Add New Name</label>
               <input  id="name" name="name" value={about} onChange={onChange} type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
 
 
-              <label className="font-semibold text-sm text-gray-600 pb-1 block">Add Email</label>
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">Add New Email</label>
               <input  id="email" name="email" value={details} onChange={onChange} type="text" className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
 
               <select name="role" onChange={onChange}>

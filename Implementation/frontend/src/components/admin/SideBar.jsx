@@ -5,6 +5,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, reset } from "../../services/auth/authSlice";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import jsPDF from "jspdf";
 
 function InventorySideBar() {
   const dispatch = useDispatch();
@@ -27,7 +30,39 @@ function InventorySideBar() {
       .catch((err) => alert(err));
   }, []);
   
-  
+  const exportEmployee = () => {
+
+    const unit = "pt";
+    const size = "A4";
+    const orientation = "landscape";
+    const marginLeft = 40;
+    const doc = new jsPDF(orientation, unit, size);
+    const title = "Employee List Report ";
+    const headers = [
+      [
+        "Name",
+        "Email",
+        "Phone",
+        "roles",
+      ],
+    ];
+    const emp = data.map((Employee) => [
+      Employee.name,
+      Employee.email,
+      Employee.phone,
+      Employee.role,
+    ]);
+    let content = {
+      startY: 50,
+      head: headers,
+      body: emp,
+    };
+    doc.setFontSize(20);
+    doc.text(title, marginLeft, 40);
+    require("jspdf-autotable");
+    doc.autoTable(content);
+    doc.save("Employee-list.pdf");
+  };
 
   return (
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
@@ -59,9 +94,18 @@ function InventorySideBar() {
           Employee
         </NavLink>
 
+        <button
+          onClick={exportEmployee}
+   
+          activeclassname=" bg-[#797979]"
+          className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[150px] text-center mb-7 mx-auto"
+        >
+          Genarate Report
+        </button>
+
         <NavLink
           to="/"
-          activeclassname=" bg-[#797979]"
+          activeclassname="active"
           className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[150px] text-center mb-7 mx-auto"
         >
           Feedback
