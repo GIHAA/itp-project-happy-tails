@@ -3,6 +3,13 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 
+
+const viewUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+
+  users? res.status(201).json(users) : res.status(400).json({message : "Error"})
+})
+
 //register user
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, address, phone, password, image } = req.body;
@@ -155,6 +162,36 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateAdmin = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const { name , email, role } = req.body;
+
+  // Wait for the Feedback model to find the document by ID
+  const user = await User.findOne({ _id: id });
+
+  if (user) {
+    // Update the feedback document with new values
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.role = role || user.role;
+
+    // Save the updated document and wait for it to complete
+    await user.save();
+
+    res.status(201).json(user);
+  } else {
+    res.status(400).json({ message: "Error" });
+  }
+})
+
+const deleteAdmin = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
+  const user = await User.findByIdAndDelete(id)
+
+  user ? res.status(201).json(user) : res.status(400).json({message : "Error"})
+});
+
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
@@ -164,7 +201,9 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
-  getMe,
+  viewUsers,
   updateUser,
   deleteUser,
+  deleteAdmin,
+  updateAdmin
 };

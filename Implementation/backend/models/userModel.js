@@ -17,11 +17,11 @@ const userSchema = mongoose.Schema(
     },
     address: {
       type: String,
-      required: [true, "Please add an address"],
+      required: [false, "Please add an address"],
     },
     phone: {
       type: String,
-      required: [true, "Please add a phone number"],
+      required: [false, "Please add a phone number"],
     },
     role: {
       type: String,

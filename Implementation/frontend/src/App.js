@@ -5,12 +5,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Header from "./components/common/Header";
 import Home from "./components/Home";
-
-import Navbar from "./components/admin/navbar.component";
-import { EmployeeList } from "./components/admin/employee-list.component";
-import { CreateEmployee } from "./components/admin/employee-add.component";
-import EditEmployee from "./components/admin/employee-edit.component";
-
 import InvDashboard from "./components/InvDashboard";
 import InvItems from "./components/InvItems";
 import InvAddItem from "./components/InvAddItem";
@@ -108,6 +102,8 @@ import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 
 import Spinner from "./components/common/Spinner";
 
+import Employee from "./components/admin/Employee";
+
 function App() {
   return (
     <>
@@ -199,10 +195,8 @@ function App() {
               exact
               element={<AddVehicleBudgetRequestForm />}
             />
-            {/*<Route path="/addavailability" exact element={<AddAvailability />}/>
-            <Route path="/editavailability/:id" exact element={<EditAvailabilities />}/>
-            <Route path="/vbudgets/:id" exact element={<AllVBudgetRequests />}/>
-  <Route path="/addvbudget" exact element={<AddVehicleBudgetRequestForm />}/>*/}
+            //admin
+            <Route path="/employee" element={<Employee />} />
             // EventManagement
             <Route path="eventdashboard" element={<EventPortal />}>
               <Route path="getEvents" element={<AllEvent />} />
@@ -256,10 +250,6 @@ function App() {
             <Route path="/releasestock" element={<InvReleaseStock />} />
             <Route path="/stockin" element={<InvStockIn />} />
             <Route path="/stockout" element={<InvStockOut />} />
-            <Route exact path="/employee" element={<EmployeeList />} />
-            <Route exact path="/creatEmployee" element={<CreateEmployee />} />
-            <Route exact path="/editEmployee/:id" element={EditEmployee} />
-            //
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />
@@ -277,7 +267,10 @@ function App() {
               path="/UpdateStockBudgetRequest/:id"
               element={<UpdateStockBudgetRequest />}
             />
+
+
             <Route path="test" element={<Spinner />} />
+            
           </Routes>
           {/* <Footer /> */}
         </div>
