@@ -93,7 +93,6 @@ const Registration = () => {
       };
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // replace with your email address
 
       if (emailRegex.test(email)) {
         if (isNumberAndTenDigit(phone)) dispatch(register(userData));

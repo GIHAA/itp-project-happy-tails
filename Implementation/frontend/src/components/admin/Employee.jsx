@@ -58,12 +58,20 @@ const Users = () => {
   };
 
   const onSubmit = () => {
+
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(formData.email)) {
     const res = axios
       .post("http://localhost:8080/api/users/", formData)
       .then((res) => {
         toast.success("Users added successfully");
       })
       .catch((err) => alert(err));
+    } else {
+      toast.error("The email format is invalid.");
+    }
 
     setTimeout(function () {
       refreshPage();
