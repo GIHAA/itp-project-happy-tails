@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api/booking/";
 
 const getAllBookings = asynchandler(async (userData) => {
-  const response = await axios.get(API_URL, userData, {
+  const response = await axios.get(API_URL + userData._id, userData, {
     headers: {
       Authorization: `Bearer ${userData.token}`,
     },

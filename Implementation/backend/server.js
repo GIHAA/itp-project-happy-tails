@@ -29,18 +29,22 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/users", require("./routes/userRoutes.js"));
 app.use("/api/booking/", require("./routes/bookingRoutes.js"));
+app.use("/api/sendEmail/", require("./routes/sendEmailRoutes.js"));
+
 app.use("/api/vehicle/", require("./routes/vehicleRoutes.js"));
 app.use("/api/transport/", require("./routes/transportRoutes.js"));
 app.use("/api/availability/", require("./routes/availabilityRoutes.js"));
 app.use("/api/VehReqPayment/", require("./routes/vehicleBudgetRoutes"));
 
 app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/booking/", require("./routes/bookingRoutes.js"));
+
+
 app.use("/api/vet", vetRoutes);
 app.use("/api/petbreed", breedRoutes);
 app.use("/api/health", healthRoutes);
 app.use("/api/petstatus", statusRoutes);
-app.use("/api/booking/", require("./routes/bookingRoutes.js"));
+
+
 app.use("/api/counter", require("./routes/counterRoutes"));
 app.use("/api/vet", require("./routes/vetRoutes"));
 app.use("/api/suppliers/", require("./routes/suppliersRoutes"));

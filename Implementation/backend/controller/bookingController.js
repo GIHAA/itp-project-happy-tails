@@ -32,7 +32,9 @@ const addBooking = asyncHandler(async (req, res) => {
 });
 
 const readBooking = asyncHandler(async (req, res) => {
-  const booking = await Booking.find({});
+
+  const id = req.params.id;
+  const booking = await Booking.find({ cus_id: id});
   res.json(booking);
 });
 

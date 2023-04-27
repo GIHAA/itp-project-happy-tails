@@ -79,7 +79,17 @@ function ShelterPet() {
     event.preventDefault();
     const rememberChecked = document.getElementById("remember").checked;
 
+    
+    const isNumberAndTenDigit = (str) => {
+      return /^\d{10}$/.test(str);
+    };
+
     if (rememberChecked) {
+
+      if( !isNumberAndTenDigit(formData.contactNumbers) ){
+        toast.error("Please enter a valid contact number");
+        return;
+      }
       try {
         bookingServices.addBooking(formData);
         toast.success("Booking added successfully");

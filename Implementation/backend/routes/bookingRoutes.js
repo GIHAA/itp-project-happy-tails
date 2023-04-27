@@ -15,7 +15,7 @@ const {
 
 router.post("/", protect, addBooking);
 router.post("/user", protect, readUserBooking);
-router.get("/", readBooking);
+router.get("/:id", readBooking);
 router.put("/", updateBooking);
 router.delete("/:id", protect, deleteBooking);
 

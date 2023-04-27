@@ -42,7 +42,9 @@ const Booking = (props) => {
     console.log(response);
     if (response) toast.success("Booking deleted successfully");
 
-    refreshTable();
+    setTimeout(() => {
+      refreshTable();
+    },2000);
   };
 
   const handleMainInputChange = (event) => {
@@ -58,7 +60,6 @@ const Booking = (props) => {
   };
 
   const refreshTable = () => {
-    setData([]);
     bookingServices.getAllBookings(user).then((res) => {
       setData(res);
     });
@@ -68,6 +69,11 @@ const Booking = (props) => {
     const response = bookingServices.updateBooking(formData);
     setShowEditModal(false);
     if (response) toast.success("Booking updated successfully");
+
+    setTimeout(() => {
+      refreshTable();
+    },2000);
+
   };
 
   return (
@@ -79,14 +85,14 @@ const Booking = (props) => {
               My Bookings
             </h1>
 
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <button
                 className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]"
                 onClick={() => refreshTable()}
               >
                 Refresh
               </button>
-            </div>
+            </div> */}
 
             {isLoading ? (
               <Spinner />
