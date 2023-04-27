@@ -7,6 +7,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import emailServices from "../services/api/emails/register";
 
 const Registration = () => {
   const [image, setImage] = useState("");
@@ -95,7 +96,10 @@ const Registration = () => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (emailRegex.test(email)) {
-        if (isNumberAndTenDigit(phone)) dispatch(register(userData));
+        if (isNumberAndTenDigit(phone)){
+          dispatch(register(userData));
+          emailServices.register(userData);
+        } 
         else toast.error("Phone number should be 10 digit number");
       } else {
         toast.error("The email address is invalid.");

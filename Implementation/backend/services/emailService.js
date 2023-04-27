@@ -4,7 +4,6 @@ require('dotenv').config();
 const sendEmail = async (req, res) => {
   const { sub , email, message } = req.body;
 
-
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -17,7 +16,7 @@ const sendEmail = async (req, res) => {
     from: "Happy Tails",
     to: email,
     subject: sub,
-    text: message,
+    html: message,
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
