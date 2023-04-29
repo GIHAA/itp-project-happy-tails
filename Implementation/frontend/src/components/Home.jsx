@@ -10,18 +10,6 @@ import Footer from "./common/Footer";
 function Home() {
   const { user } = useSelector((state) => state.auth);
 
-  const renderPortals = (param) => {
-    switch (param) {
-      case "ADMIN":
-        return <></>;
-      case "EVENT_MANAGER":
-        return <></>;
-      case "SHELTER_MANAGER":
-        return <></>;
-      default:
-        return <></>;
-    }
-  };
 
   return (
     <>

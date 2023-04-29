@@ -16,10 +16,9 @@ const register = asynchandler(async (userData) => {
                     font-family: Arial, sans-serif;
                     font-size: 16px;
                     line-height: 1.5;
-                    color: #333333;
                 }
                 h1 {
-                    font-size: 24px;
+                    font-size: 20px;
                     margin-bottom: 0;
                 }
                 ul {

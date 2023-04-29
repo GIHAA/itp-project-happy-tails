@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import { login, reset } from "../services/auth/authSlice";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import loginbackground from "../assets/loginbackground.png";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -43,15 +46,19 @@ const Login = () => {
 
     dispatch(login(userData));
   };
+  // className="snap-start bg-cover bg-center h-screen w-full"
 
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+      <div
+       style={{ backgroundImage: `url(${loginbackground})` }}  
+      className="min-h-screen bg-cover  flex flex-col justify-center sm:py-12">
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-          <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
-          <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+
+          <div className="bg-white drop-shadow-2xl shadow w-full rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
+            <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
@@ -97,7 +104,15 @@ const Login = () => {
                   />
                 </svg>
               </button>
-            </div>
+
+                <p className="text-[14px] mt-[15px] text-gray-500">Don't have an account?<Link
+                to="/register"
+                className="ml-1"
+                >
+                   <span className="text-secondary font-[20px]">Register now</span>
+                </Link></p>
+   
+          </div>
             <div className="py-5">
               <div className="grid grid-cols-2 gap-1">
                 <div className="text-center sm:text-left whitespace-nowrap">
