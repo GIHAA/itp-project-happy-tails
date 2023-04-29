@@ -28,14 +28,9 @@ const FinaGetEvents = () => {
       .catch((error) => setIsError(error.message));
   }, []);
 
-<<<<<<< HEAD
 
   function calculateprice() {
     const income = payData
-=======
-  // function calculateprice() {
-  //   const income = payData
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
 
       .filter(({ status }) => status === "Accepted")
       .reduce((total1, { total }) => total1 + total, 0);
@@ -46,11 +41,6 @@ const FinaGetEvents = () => {
 
   const max = calculateprice();
 
-<<<<<<< HEAD
-
-=======
-  // const max = calculateprice();
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
 
   return (
     <>
@@ -65,7 +55,6 @@ const FinaGetEvents = () => {
             <p class="text-2xl"> &nbsp; Rs. {max}</p>
             <p>Expenses</p>
           </div>
-<<<<<<< HEAD
         </div>
 
 
@@ -85,19 +74,16 @@ const FinaGetEvents = () => {
 
 
 
-=======
-        </div> */}
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
       </div>
 
       {isError !== "" && <h2>{isError}</h2>}
 
-      <div class="mt-4 mb-16 mr-8 rounded-lg">
-        <div class="w-full overflow-hidden  shadow-xs">
-          <div class="w-full overflow-x-auto">
-            <table class="table-auto rounded-lg ml-80">
+      <div className="mt-4 mb-16 mr-8 rounded-lg">
+        <div className="w-full overflow-hidden shadow-xs">
+          <div className="w-full overflow-x-auto">
+            <table className="table-auto rounded-lg ml-80">
               <thead>
-                <tr class="text-base font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <tr className="text-base font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th className="px-10 py-4">Event Name</th>
                   <th className="px-10 py-4">Description</th>
                   <th className="px-10 py-4">price</th>
@@ -105,93 +91,43 @@ const FinaGetEvents = () => {
                   <th className="px-10 py-4">Action</th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {Array.isArray(payData) &&
                   payData.map((data) => {
-                    const { _id, eventName, description, total, status } = data;
-
-<<<<<<< HEAD
-                  const {
-
-                    _id, eventName, description, total, status, amountStatus, eid, items
-
-                  } = data;
-
-
-
-                  const notify = () => toast.success('Payment Accepted ', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-
-                  });
-
-
-
-                  <div>
-
-
-
-
-                  </div>
-
-                  const count = 0;
-
-
-                  function updateTransaction() {
-                    const updatedTransaction = {
-                      status: 'Accepted',
-                      eventName: eventName,
-                      total: total,
-                      description: description,
-                      eid: eid,
-                      items: items,
-                      amountStatus: amountStatus
-
-                    };
-
-                    axios.put(`http://localhost:8080/api/eventbudget/editbudget/${_id}`, updatedTransaction)
-                      .then(response => {
-
-                        console.log(_id);
-                        console.log(eventName);
-                        console.log(total);
-                        console.log(response.data);
-                        // calculateprice();
-                      })
-                      .catch((error) => {
-                        console.log(error);
-=======
+                    const {
+                      _id,
+                      eventName,
+                      description,
+                      total,
+                      status,
+                      amountStatus,
+                      eid,
+                      items,
+                    } = data;
+      
                     const notify = () =>
-                      toast.success("Payment Accepted ", {
-                        position: "top-right",
+                      toast.success('Payment Accepted ', {
+                        position: 'top-right',
                         autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
-                        theme: "colored",
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
+                        theme: 'colored',
                       });
-
-                    <div></div>;
-
-                    const count = 0;
-
+      
                     function updateTransaction() {
                       const updatedTransaction = {
-                        status: "Accepted",
+                        status: 'Accepted',
                         eventName: eventName,
                         total: total,
                         description: description,
+                        eid: eid,
+                        items: items,
+                        amountStatus: amountStatus,
                       };
-
+      
                       axios
                         .put(
                           `http://localhost:8080/api/eventbudget/editbudget/${_id}`,
@@ -208,90 +144,40 @@ const FinaGetEvents = () => {
                           console.log(error);
                         });
                     }
-
-<<<<<<< HEAD
-                  return (
-
-
-
-
-
-                    <tr key={_id} class="font-semibold bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-400 text-gray-100 dark:text-gray-900">
-                      <td class="px-10 py-2">
-                        <div class="lex items-center px-10 py-3 text-sm">
-
-                          <div>
-                            <p class=" text-center font-semibold">{eventName}</p>
-
-=======
+      
                     return (
                       <tr
                         key={_id}
-                        class="font-semibold bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-400 text-gray-100 dark:text-gray-900"
+                        className="font-semibold bg-gray-50 dark:bg-gray-100 hover:bg-gray-100 dark:hover:bg-gray-400 text-gray-100 dark:text-gray-900"
                       >
-                        <td class="px-10 py-2">
-                          <div class="lex items-center px-10 py-3 text-sm">
+                        <td className="px-10 py-2">
+                          <div className="lex items-center px-10 py-3 text-sm">
                             <div>
-                              <p class="font-semibold">{eventName}</p>
+                              <p className="font-semibold">{eventName}</p>
                             </div>
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
                           </div>
                         </td>
-
-                        <td class="text-center px-10 py-3 text-sm">
+      
+                        <td className="text-center px-10 py-3 text-sm">
                           {description}
                         </td>
-                        <td class="text-center px-10 py-3 text-sm">{total}</td>
-                        <td class="text-center px-10 py-3 text-sm">{status}</td>
-
-<<<<<<< HEAD
-                      <td class="text-center px-10 py-3 text-sm">{description}</td>
-                      <td class="text-center px-10 py-3 text-sm">{total}</td>
-                      <td class="text-center px-10 py-3 text-sm">{status}</td>
-
-                      {/* <td class="text-center px-10 py-3 text-sm">
-=======
-                        {/* <td class="text-center px-10 py-3 text-sm">
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
-
-                        {data.mini.map((miniitem) => (<><p>{miniitem.pid}</p></>))}
-                      </td> */}
-
-<<<<<<< HEAD
-                      <td class="px-10 py-4 text-sm">
-                        <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); updateTransaction(); }}> Verify  </button>
-                      </td>
-                    </tr>
-
-
-
-
-
-
-
-
-
-
-
-                  );
-                })}
-=======
-                        <td class="px-10 py-4 text-sm">
+                        <td className="text-center px-10 py-3 text-sm">{total}</td>
+                        <td className="text-center px-10 py-3 text-sm">{status}</td>
+      
+                        <td className="px-10 py-4 text-sm">
                           <button
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
+                            className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
                             onClick={() => {
                               notify();
                               updateTransaction();
                             }}
                           >
-                            {" "}
-                            Verify{" "}
+                            Verify
                           </button>
                         </td>
                       </tr>
                     );
                   })}
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
               </tbody>
             </table>
           </div>
