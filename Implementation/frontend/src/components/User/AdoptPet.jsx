@@ -22,6 +22,12 @@ function Adoptpet() {
     });
   }, []);
 
+  const refreshTable = () => {
+    adpotServices.getAll().then((res) => {
+      setData(res.profiles);
+    });
+  }
+
   const handleAdopt = (card) => {
     card = {
       ...card,
@@ -30,7 +36,10 @@ function Adoptpet() {
       owenerId: user._id,
     };
     const res = adpotServices.updateOne(card).then((res) => {
-      toast.success("Adopted successfully");
+      toast.success("Animal added to watch list");
+      setTimeout(() => {
+        refreshTable();
+      },4000)
     });
 
     console.log(res);
@@ -40,7 +49,7 @@ function Adoptpet() {
     setSearchTerm(document.getElementById("search").value);
   };
 
-  const filteredData = data
+ const filteredData = data
   .filter((card) =>
     card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     card.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -114,9 +123,9 @@ function Adoptpet() {
                       <div className="flex justify-end pt-3">
                         <button
                           onClick={() => handleAdopt(card)}
-                          className="rounded-[20px] w-[100px] h-[40px] border-[1px] bg-secondary text-white font-bold-sm "
+                          className="rounded-[20px] w-[140px] h-[40px] border-[1px] bg-secondary text-white font-bold-sm "
                         >
-                          Adopt
+                          Add to Watch list
                         </button>
                       </div>
                     </div>
