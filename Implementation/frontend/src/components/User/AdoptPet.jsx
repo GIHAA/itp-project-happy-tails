@@ -10,6 +10,8 @@ function Adoptpet() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [petType, setPetType] = useState("");
+
 
   const { user } = useSelector((state) => state.auth);
 
@@ -38,11 +40,17 @@ function Adoptpet() {
     setSearchTerm(document.getElementById("search").value);
   };
 
-  const filteredData = data.filter(
-    (card) =>
-      card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.species.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = data
+  .filter((card) =>
+    card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.color.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .filter((card) =>
+    petType === "" || card.species.toLowerCase() === petType.toLowerCase()
   );
+
   return (
     <>
       <Header />
@@ -54,10 +62,19 @@ function Adoptpet() {
             placeholder="Search for pets... ex: dog, cat, pet name etc"
             className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
+          <select
+  value={petType}
+  onChange={(e) => setPetType(e.target.value)}
+  className="ml-3 border-b-[1px] pl-6 w-[150px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-1 focus:ring-gray-200 rounded-[50px]"
+>
+  <option value="">All</option>
+  <option value="Dog">Dog</option>
+  <option value="Cat">Cat</option>
+</select>
 
           <button
             onClick={handleSearch}
-            className="ml-5 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
+            className="ml-2 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
           >
             Search
           </button>

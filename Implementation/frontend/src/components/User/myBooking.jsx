@@ -38,13 +38,33 @@ const Booking = (props) => {
   };
 
   const handleDelete = (booking) => {
-    const response = bookingServices.deleteBooking(formData);
-    console.log(response);
-    if (response) toast.success("Booking deleted successfully");
 
-    setTimeout(() => {
-      refreshTable();
-    },2000);
+    toast.warn(
+      <div>
+        <p class="text-red-700 ml-8">Do you want to delete ?</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            style={{ marginRight: "1rem" }}
+            onClick={() => {
+              const response = bookingServices.deleteBooking(formData);
+              toast.success("Booking deleted successfully", {
+                autoClose: 1000,
+              });
+              setTimeout(() => {
+                refreshTable();
+              },2000);
+            }}
+          >
+            Yes
+          </button>
+          <button onClick={() => toast.dismiss()}>No</button>
+        </div>
+      </div>,
+      { autoClose: false }
+    );
+
+
+
   };
 
   const handleMainInputChange = (event) => {

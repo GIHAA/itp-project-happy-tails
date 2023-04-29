@@ -30,11 +30,17 @@ function Home() {
             Trusted care for your furry friends, while you're away!
           </h2>
           <div className="pt-6">
-            <button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
+
+            {user ? (<button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
               <Link to="shelterpet" smooth={true} duration={500}>
                 BOOK NOW
               </Link>
-            </button>
+            </button>):(<><button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
+              <Link to="register" smooth={true} duration={500}>
+                REGISTER NOW
+              </Link>
+            </button></>)}
+
           </div>
         </div>
       </div>

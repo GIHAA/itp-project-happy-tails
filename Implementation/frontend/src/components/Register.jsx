@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [image, setImage] = useState("");
-  const [img, setAll] = useState([]);
 
   const convertToBase64 = (e) => {
     console.log(e);

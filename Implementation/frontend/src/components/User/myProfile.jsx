@@ -9,16 +9,17 @@ import { logout, login, reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
 import logo from "../../assets/logo.png";
+import { AiFillEdit } from "react-icons/ai";
 
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth);
 
-  if (!user) {
-    const user = {};
-  }
+  // if (!user) {
+  //   const user = {};
+  // }
 
   const [bookings, setbookings] = useState([]);
-
+  const [image, setImage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,8 +27,11 @@ const Profile = (props) => {
     password2: "",
     confirmpassword: "",
     token: user.token,
+    image: "",
     _id: user._id,
   });
+
+  
 
   const { name, email, address, phone, password, password2, confirmpassword } =
     formData;
@@ -39,13 +43,14 @@ const Profile = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
+    const formDataWithImage = { ...formData, image: image };
     if (password !== password2) {
       toast.error("Passwords do not match");
     } else if (formData.confirmpassword === "") {
       toast.error("Please enter your password to confirm changes");
     } else {
-      const response = updateUser(formData)
+      const response = updateUser(formDataWithImage)
         .then(() => {
           toast.success("Profile updated successfully");
 
@@ -56,6 +61,17 @@ const Profile = (props) => {
             : confirmpassword;
 
           dispatch(login({ email, password }));
+
+          setFormData({
+            name: "",
+            email: "",
+            password: "",
+            password2: "",
+            confirmpassword: "",
+            image: "",
+            token: user.token,
+            _id: user._id,
+          });
 
           //dispatch(reset());
           navigate("/user");
@@ -100,16 +116,57 @@ const Profile = (props) => {
     doc.save("userreport.pdf");
   };
 
+  const convertToBase64 = (e) => {
+    console.log(e);
+    var reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      const imgElement = document.createElement("img");
+      imgElement.src = reader.result;
+      imgElement.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX_WIDTH = 630;
+        const MAX_HEIGHT = 630;
+        let width = imgElement.width;
+        let height = imgElement.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(imgElement, 0, 0, width, height);
+        const dataURL = canvas.toDataURL(e.target.files[0].type, 0.5);
+        setImage(dataURL);
+      };
+    };
+  };
+
   return (
     <>
       <div className="w-full bg-bgsec">
-        <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[930px]  w-[1200px]">
-          <div className="w-1/3  h-full">
-            <img
-              src={user.image}
-              className="rounded-[50%] w-[270px] h-[270px] border-bg border-[5px]"
-            />
-          </div>
+        <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[1050px]  w-[1200px]">
+        <div className="w-1/3 h-full ">
+  <label className="relative w-[270px] h-[270px]">
+
+      
+      <img
+        src={user.image}
+        className="rounded-[50%] w-[270px] h-[270px]  border-bg border-[5px]"
+      />
+
+  </label>
+</div>
+
           <div className="w-2/3  h-64">
             <div>
               <pre>User ID - {user._id}</pre>{" "}
@@ -223,6 +280,16 @@ const Profile = (props) => {
               className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               required
             />
+
+<label className="font-semibold text-sm text-gray-600 pb-1 block">
+                Add Image
+              </label>
+              <input
+                className="w-full h- py-5 pb-8 file:rounded-full file:h-[45px] file:w-[130px] file:bg-secondary file:text-white "
+                accept="image/*"
+                type="file"
+                onChange={convertToBase64}
+              />
 
             <div className="flex mt-7">
               <button

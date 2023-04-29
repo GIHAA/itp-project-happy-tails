@@ -18,6 +18,7 @@ function ShelterPet() {
   const [pid, setPid] = useState(0);
   const [bid, setBid] = useState(0);
   const [total, setTotal] = useState(0);
+  const [isDateValid, setIsDateValid] = useState(false);
 
   const fetchPid = async () => {
     const result = await axios.post("http://localhost:8080/api/counter");
@@ -75,6 +76,7 @@ function ShelterPet() {
     calculateTotal();
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const rememberChecked = document.getElementById("remember").checked;
@@ -89,6 +91,10 @@ function ShelterPet() {
       if( !isNumberAndTenDigit(formData.contactNumbers) ){
         toast.error("Please enter a valid contact number");
         return;
+      }
+      if( !isDateValid ){
+        toast.error("Please enter a valid date range");
+        return; 
       }
       try {
         bookingServices.addBooking(formData);
@@ -118,10 +124,18 @@ function ShelterPet() {
   const calculateTotal = () => {
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
+
+    if (startDate > endDate) 
+      setIsDateValid(false);
+    else 
+      setIsDateValid(true);
+    
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setTotal(diffDays * formData.petCount * 2000);
   };
+
+
 
   return (
     <>
@@ -134,7 +148,7 @@ function ShelterPet() {
             <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-1">
               <TextField
                 id="outlined-basic"
-                label="Contact numbers"
+                label="Contact number"
                 name="contactNumbers"
                 variant="outlined"
                 value={formData.contactNumbers}
@@ -157,7 +171,7 @@ function ShelterPet() {
                 name="startDate"
                 type="date"
                 id="start"
-                value={new Date().toISOString().substr(0, 10)}
+                value={new Date(formData.startDate).toISOString().substr(0, 10)}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -172,7 +186,7 @@ function ShelterPet() {
                 name="endDate"
                 type="date"
                 id="start"
-                value={new Date().toISOString().substr(0, 10)}
+                value={new Date(formData.endDate).toISOString().substr(0, 10)}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -182,7 +196,7 @@ function ShelterPet() {
                 onChange={handleMainInputChange}
               />
             </div>
-            {
+            {/* {
               <h2>
                 Start date set to :{" "}
                 {formData.startDate.toString().substring(0, 16)}{" "}
@@ -192,8 +206,11 @@ function ShelterPet() {
               <h2>
                 End date set to : {formData.endDate.toString().substring(0, 16)}
               </h2>
+            } */}
+            {
+              (formData.startDate > formData.endDate) ? (<><p className="text-red-600">Invalid dates selected</p></>) : (<></>) 
             }
-            {<h2>Number of pets: {formData.petCount}</h2>}
+            {<h2 className="mt-5">Number of pets: {formData.petCount}</h2>}
 
             <div>
               <Slider
@@ -246,6 +263,7 @@ function ShelterPet() {
                       style={{ width: "100%" }}
                     />
                   </label>
+
                   <label>
                     <FormControl fullWidth>
                       <InputLabel id="mini-form">Type</InputLabel>

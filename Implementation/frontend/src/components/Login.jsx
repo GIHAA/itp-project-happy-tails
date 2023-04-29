@@ -46,7 +46,7 @@ const Login = () => {
 
     dispatch(login(userData));
   };
-  // className="snap-start bg-cover bg-center h-screen w-full"
+
 
   return (
     <>

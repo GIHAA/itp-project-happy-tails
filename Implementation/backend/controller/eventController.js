@@ -55,7 +55,7 @@ const getEvents = async (req, res) => {
   try {
     // get all the events
     const allevents = await event.find();
-    console.log("hievent");
+
     // return the events
     res.status(200).json({ allevents });
   } catch (err) {
@@ -71,7 +71,7 @@ const getEvent = async (req, res) => {
   let even = null;
   //validate event id
   if (!mongoose.Types.ObjectId.isValid(eventId)) {
-    console.log(eventId);
+
     return res.status(400).json({
       error: "Invalid EVENT ID",
     });

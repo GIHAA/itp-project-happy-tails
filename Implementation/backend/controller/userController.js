@@ -131,6 +131,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.password = hashedPassword;
     user.address = req.body.address || user.address;
     user.phone = req.body.phone || user.phone;
+    user.image = req.body.image || user.image;
 
     const updatedUser = await user.save();
 
@@ -142,6 +143,7 @@ const updateUser = asyncHandler(async (req, res) => {
       phone: updatedUser.phone,
       token: generateToken(updatedUser._id),
       role: updatedUser.role,
+      image: updatedUser.image,
     });
   } else {
     res.status(400);
