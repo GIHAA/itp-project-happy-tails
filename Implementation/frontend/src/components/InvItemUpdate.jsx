@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import inv from "../assets/inv.jpg";
 import axios from "axios";
 import InventorySideBar from "./InventorySideBar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function InvItemUpdate() {
   const param = useParams();
@@ -60,9 +62,10 @@ function InvItemUpdate() {
         `http://localhost:8080/api/inventory/items/${id}`,
         newItem
       );
-      alert("item Updated !!");
+      toast.success("item Updated !!", {position: toast.POSITION.BOTTOM_RIGHT,})
     } catch (err) {
       console.error(err);
+      toast.error(err, {position: toast.POSITION.BOTTOM_RIGHT,})
     }
   }
 
