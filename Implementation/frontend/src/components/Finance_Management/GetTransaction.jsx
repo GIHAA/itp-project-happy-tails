@@ -86,11 +86,14 @@ const GetTransaction = () => {
     }
   }
 
+
+  
+
   return (
     <>
       {/* //BALANCE BAR */}
 
-      <div class="flex  ml-48 justify-center flex-cols-1 gap-4 mt-24 ">
+      <div class="flex  ml-48 justify-center flex-cols-1 gap-4 mt-28 ">
         <div class=" bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
           <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
             <svg
@@ -187,7 +190,7 @@ const GetTransaction = () => {
           </a>
           <a href="./FinaGetStock">
             <button class=" my-12 border border-gray-700 bg-[#2E4960] text-white rounded-full  px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline ">
-              Events
+              Stocks
             </button>
           </a>
         </div>
