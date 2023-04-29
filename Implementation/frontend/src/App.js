@@ -82,14 +82,14 @@ import FinaGetStock from "./components/Finance_Management/FinaGetStock";
 
 import FinaLeftBar from "./components/portals/FinaHeader_SB";
 
-import AdoptPet from "./components/user/AdoptPet";
+import AdoptPet from "./components/User/AdoptPet";
 import Footer from "./components/common/Footer";
-import ShelterPet from "./components/user/ShelterPet";
-import UserPortal from "./components/user/UserProtal";
-import Booking from "./components/user/myBooking";
-import Events from "./components/user/Events";
-import Pets from "./components/user/myPets";
-import Profile from "./components/user/myProfile";
+import ShelterPet from "./components/User/ShelterPet";
+import UserPortal from "./components/User/UserProtal";
+import Booking from "./components/User/myBooking";
+import Events from "./components/User/Events";
+import Pets from "./components/User/myPets";
+import Profile from "./components/User/myProfile";
 
 import SupplierList from "./components/SupplierList";
 import AddSuppliers from "./components/AddSuppliers";
