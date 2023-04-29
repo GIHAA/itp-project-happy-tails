@@ -5,14 +5,14 @@ const budget = require('../models/stockBudgetRequestModel')
  //post-create
  const createStockBudget =asyncHandler(async (req, res) => {
 
-   const{supplier_name, item_name,description,total} = req.body
+   const{supplier_name, item_name,description,total,status} = req.body
    console.log(supplier_name);
 
    const new_budget = await budget.create({
     supplier_name,
     item_name,
     description,
-    total
+    total,status
    }) 
 
    new_budget ? res.status(201).json(new_budget) : res.status(400).json({message: 'Request did not inserted'})
@@ -30,11 +30,11 @@ const getStockBudgets =asyncHandler(async (req, res) => {
 const editStockBudget = asyncHandler(async (req, res) => {
 
   const id = req.params.id
-  const { supplier_name,item_name,description,total } = req.body
+  const { supplier_name,item_name,description,total,status } = req.body
 
   const pay = await budget.findByIdAndUpdate(id, {
 
-     supplier_name,item_name,description,total
+     supplier_name,item_name,description,total,status
   })
 
   pay ? res.status(201).json(pay) : res.status(400).json({ message: 'payment not updated' })

@@ -24,7 +24,9 @@ const stockBudgetRequestSchema  = mongoose.Schema(
       },
       status: {
         type: String,
+        enum: ['Accepted', 'Requested', 'Pending', 'FINISHED'],
         default: "Pending",
+        required: true
       }
 
   }

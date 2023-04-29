@@ -41,7 +41,7 @@ const FinaGetVehicle = () => {
         const income = payData
 
             .filter(({ status }) => status === "Accepted")
-            .reduce((total, { payment }) => total + payment, 0);
+            .reduce((total1, { total }) => total1 + total, 0);
 
         return income;
     }
@@ -53,7 +53,7 @@ const FinaGetVehicle = () => {
 
     function filterPayments(data) {
         const filtered = data.filter((payment) =>
-            payment.req_title.toString().toLowerCase().includes(searchTerm.toLowerCase())
+            payment.supplier_name.toString().toLowerCase().includes(searchTerm.toLowerCase())
         );
         setFilteredPayData(filtered);
     }
@@ -72,7 +72,7 @@ const FinaGetVehicle = () => {
     }
 
 
-    console.log(searchTerm);
+    console.log(max);
 
     return (
 
@@ -88,7 +88,7 @@ const FinaGetVehicle = () => {
                         <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div class="text-right">
-                        <p class="text-2xl"> &nbsp; Rs. {max ?max.toString() : ''}</p>
+                        <p class="text-2xl"> &nbsp; Rs. {max}</p>
                         <p>Expenses</p>
                     </div>
                 </div>
@@ -116,8 +116,6 @@ const FinaGetVehicle = () => {
 
 
 
-            {isError !== "" && <h2>{isError}</h2>}
-
             <div class="mt-4 mb-16 mr-8 rounded-lg">
                 <div class="w-full overflow-hidden  shadow-xs">
                     <div class="w-full overflow-x-auto">
@@ -126,9 +124,9 @@ const FinaGetVehicle = () => {
 
                             <thead>
                                 <tr class="text-base font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th className="px-10 py-4">Request Title</th>
+                                    <th className="px-10 py-4">Supplier Name</th>
+                                    <th className="px-10 py-4">Item Name</th>
                                     <th className="px-10 py-4">Payment</th>
-                                    <th className="px-10 py-4">Date</th>
                                     <th className="px-10 py-4">Payment Status</th>
                                     <th className="px-10 py-4">Action</th>
                                 </tr>
@@ -139,7 +137,7 @@ const FinaGetVehicle = () => {
                                 {filteredPayData.map((data) => {
                                     const {
 
-                                        _id, supplier_name, item_name, total, status
+                                        _id, supplier_name, item_name, total, status, description
 
                                     } = data;
 
@@ -163,15 +161,16 @@ const FinaGetVehicle = () => {
                                         const updatedTransaction = {
                                             status: "Accepted",
                                             supplier_name: supplier_name,
-                                            item_name:item_name,
-                                            status: status,
-                                            total:  total.toString(),
+                                            item_name: item_name,
+
+                                            total: total,
+                                            description: description,
                                         };
 
                                         axios
-                                            .put(`http://localhost:8080/api/VehReqPayment/${_id}`, updatedTransaction)
+                                            .put(`http://localhost:8080/api/stockBudget/${_id}`, updatedTransaction)
                                             .then((response) => {
-                                                console.log(response.data);
+                                                console.log(_id)
                                                 calculateprice();
                                             })
                                             .catch((error) => {
@@ -203,7 +202,7 @@ const FinaGetVehicle = () => {
                                             <td class="text-center px-10 py-3 text-sm">{status}</td>
 
                                             <td class="text-center px-10 py-3 text-sm">
-                                                <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); refreshPage(); updateTransaction(); }}> Verify  </button>
+                                                <button class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100" onClick={() => { notify(); updateTransaction(); }}> Verify  </button>
                                             </td>
                                         </tr>
 
