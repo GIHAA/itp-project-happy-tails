@@ -4,10 +4,8 @@ const budget = require("../models/stockBudgetRequestModel");
 
 //post-create
 const createStockBudget = asyncHandler(async (req, res) => {
-  const { supplier_name, item_name, description, total } = req.body;
-  console.log(supplier_name);
 
-<<<<<<< HEAD
+
    const{supplier_name, item_name,description,total,status} = req.body
    console.log(supplier_name);
 
@@ -17,14 +15,6 @@ const createStockBudget = asyncHandler(async (req, res) => {
     description,
     total,status
    }) 
-=======
-  const new_budget = await budget.create({
-    supplier_name,
-    item_name,
-    description,
-    total,
-  });
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
 
   new_budget
     ? res.status(201).json(new_budget)
@@ -39,14 +29,9 @@ const getStockBudgets = asyncHandler(async (req, res) => {
 
 //update
 const editStockBudget = asyncHandler(async (req, res) => {
-<<<<<<< HEAD
 
   const id = req.params.id
   const { supplier_name,item_name,description,total,status } = req.body
-=======
-  const id = req.params.id;
-  const { supplier_name, item_name, description, total } = req.body;
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
 
   const pay = await budget.findByIdAndUpdate(id, {
     supplier_name,
@@ -55,15 +40,8 @@ const editStockBudget = asyncHandler(async (req, res) => {
     total,
   });
 
-<<<<<<< HEAD
      supplier_name,item_name,description,total,status
   })
-=======
-  pay
-    ? res.status(201).json(pay)
-    : res.status(400).json({ message: "payment not updated" });
-});
->>>>>>> b11d283dbe1680def8ce497d049077edf29d482f
 
 //get one stock budget request
 
