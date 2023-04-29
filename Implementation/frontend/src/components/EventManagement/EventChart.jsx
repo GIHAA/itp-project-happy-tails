@@ -1,8 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EventChart = () => {
   const [eventAmount, setEventAmount] = useState([]);
@@ -10,7 +18,9 @@ const EventChart = () => {
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/eventamount/geteamounts');
+        const res = await axios.get(
+          "http://localhost:8080/api/eventamount/geteamounts"
+        );
         console.log(res);
         setEventAmount(res.data.alleamount);
       } catch (err) {
@@ -19,7 +29,9 @@ const EventChart = () => {
     };
     const allEvents = async () => {
       try {
-        const res = await axios.get('http://localhost:8080/api/event/getEvents');
+        const res = await axios.get(
+          "http://localhost:8080/api/event/getEvents"
+        );
         console.log(res.data.allevents);
         setEvent(res.data.allevents);
       } catch (err) {
@@ -30,10 +42,20 @@ const EventChart = () => {
     allEvents();
   }, []);
 
-  const chartData = eventAmount.map(({ eventName, rate }) => ({ name: eventName, Rate: rate }));
+  const chartData = eventAmount.map(({ eventName, rate }) => ({
+    name: eventName,
+    Rate: rate,
+  }));
 
   return (
-    <div style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <BarChart
         width={500}
         height={300}
@@ -51,7 +73,7 @@ const EventChart = () => {
         <Tooltip />
         <Legend />
         <CartesianGrid strokeDasharray="3 3" />
-        <Bar dataKey="Rate" fill="#8884d8" background={{ fill: '#eee' }} />
+        <Bar dataKey="Rate" fill="#8884d8" background={{ fill: "#eee" }} />
       </BarChart>
     </div>
   );

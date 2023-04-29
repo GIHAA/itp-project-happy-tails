@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import updateUser from "../../services/api/user";
-import { logout, login,  reset } from "../../services/auth/authSlice";
+import { logout, login, reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
 import logo from "../../assets/logo.png";
@@ -13,10 +13,10 @@ import logo from "../../assets/logo.png";
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth);
 
-  if (!user){
+  if (!user) {
     const user = {};
-  };
-  
+  }
+
   const [bookings, setbookings] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -39,24 +39,23 @@ const Profile = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     if (password !== password2) {
       toast.error("Passwords do not match");
-    } 
-    else if(formData.confirmpassword === ""){
+    } else if (formData.confirmpassword === "") {
       toast.error("Please enter your password to confirm changes");
-    }
-    else{
-    
+    } else {
       const response = updateUser(formData)
         .then(() => {
           toast.success("Profile updated successfully");
 
           //login logic
           let email = formData.email ? formData.email : user.email;
-          let password = formData.password ? formData.password : confirmpassword;
-          
-          dispatch(login({ email , password }));
+          let password = formData.password
+            ? formData.password
+            : confirmpassword;
+
+          dispatch(login({ email, password }));
 
           //dispatch(reset());
           navigate("/user");
@@ -113,13 +112,25 @@ const Profile = (props) => {
           </div>
           <div className="w-2/3  h-64">
             <div>
-              <pre>User ID      - {user._id}</pre>{" "}
+              <pre>User ID - {user._id}</pre>{" "}
             </div>
             <div>
-              <pre>Member Since - {user.createdAt.substring(0,10) + " " + user.createdAt.substring(11,16) + " UTC"}</pre>{" "}
+              <pre>
+                Member Since -{" "}
+                {user.createdAt.substring(0, 10) +
+                  " " +
+                  user.createdAt.substring(11, 16) +
+                  " UTC"}
+              </pre>{" "}
             </div>
             <div>
-              <pre>Last Edited  - {user.updatedAt.substring(0,10) + " " + user.updatedAt.substring(11,16) + " UTC"}</pre>{" "}
+              <pre>
+                Last Edited -{" "}
+                {user.updatedAt.substring(0, 10) +
+                  " " +
+                  user.updatedAt.substring(11, 16) +
+                  " UTC"}
+              </pre>{" "}
             </div>
             <h3 className="text-center mb-5 mt-5 text-[22px] font-bold">
               Update profile

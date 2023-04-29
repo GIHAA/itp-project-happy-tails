@@ -23,7 +23,7 @@ function Adoptpet() {
   const handleAdopt = (card) => {
     card = {
       ...card,
-      petStatus: "Adopted",
+      bookedmarked: "yes",
       token: user.token,
       owenerId: user._id,
     };
@@ -45,9 +45,8 @@ function Adoptpet() {
   );
   return (
     <>
-    <Header/>
+      <Header />
       <div className="h-full overflow-y-scrollf bg-bgsec">
-        
         <div className="flex justify-center pt-5">
           <input
             id="search"
@@ -69,7 +68,7 @@ function Adoptpet() {
         ) : (
           <div className="pb-[200px]">
             {filteredData.map((card, index) =>
-              card.petStatus === "Available" ? (
+              card.petStatus === "Available" && !card.bookedmarked ? (
                 <div className="grid grid-cols-1 gap-[70px] px-[80px] py-[40px] h-[200px]p-[50px] rounded-[20px]">
                   <div className="grid grid-cols-3 gap-[20px] px-[120px] h-[300px] ">
                     <div className="bg-cover bg-center rounded-[20px] flex justify-center">
@@ -113,7 +112,7 @@ function Adoptpet() {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

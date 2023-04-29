@@ -36,42 +36,38 @@ function Header() {
               </Link>
             </li>
 
-  
-              
-              {user ? (
-                <>
+            {user ? (
+              <>
                 <li className="text-[15px] font-bold">
-                <Link
-                  to="/shelterpet"
-                  className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
-                >
-                  Shelter pet
-                </Link>
+                  <Link
+                    to="/shelterpet"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    Shelter pet
+                  </Link>
                 </li>
 
-            
+                <li className="text-[15px] font-bold">
+                  <Link
+                    to="/adoptpet"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    Adopt pet
+                  </Link>
+                </li>
 
-            <li className="text-[15px] font-bold">
-              <Link
-                to="/adoptpet"
-                className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
-              >
-                Adopt pet
-              </Link>
-            </li>
-
-            <li className="text-[15px] font-bold">
-              <Link
-                to="/events"
-                className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
-              >
-                Events
-              </Link>
-            </li>
-            </>
-                          ) : (
-                            <></>
-                          )}
+                <li className="text-[15px] font-bold">
+                  <Link
+                    to="/events"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    Events
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <></>
+            )}
           </ul>
         </div>
 

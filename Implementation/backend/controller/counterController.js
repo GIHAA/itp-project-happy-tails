@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
-const asyncHandler = require('express-async-handler')
-const Counter = require('../models/counterModel')
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const Counter = require("../models/counterModel");
 
 const addCount = asyncHandler(async (req, res) => {
   try {
@@ -20,4 +20,4 @@ const addCount = asyncHandler(async (req, res) => {
 
 module.exports = {
   addCount,
-}
+};
