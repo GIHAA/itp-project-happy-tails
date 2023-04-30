@@ -8,8 +8,6 @@ const vehicleSchema = mongoose.Schema(
       unique: true,
     },
 
-<<<<<<< HEAD
-=======
     driverId: {
       type: String,
       required: [true, "Please add an driver id"],
@@ -19,7 +17,6 @@ const vehicleSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add an agent id"],
     },
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
     vModel: {
       type: String,
@@ -30,20 +27,6 @@ const vehicleSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add Insurance Expiration date "],
     },
-<<<<<<< HEAD
-
-
-    status: {
-      type: String,
-      enum: ['AVAILABLE', 'UNAVAILABLE'],
-      default: 'AVAILABLE',
-      required: [true, 'Please add a status'],
-    },
-
-    
- 
-=======
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
   },
 
   
