@@ -56,6 +56,14 @@ function SupplierSideBar() {
         </NavLink>
 
         <NavLink
+          to="/eventstockReqs"
+          activeClassName=" bg-[#797979]"
+          className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
+        >
+          EVENT REQUESTS
+        </NavLink>
+
+        <NavLink
           to="/StockBudgetRequests"
           activeClassName=" bg-[#797979]"
           className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"

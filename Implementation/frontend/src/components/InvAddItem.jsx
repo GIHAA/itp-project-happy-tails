@@ -36,6 +36,12 @@ export default function InvAddItem() {
         toast.error(`Item insert unsuccessful ${err}`);
       });
   }
+  
+  const handleReset = () => {
+    setTimeout(() => {
+      window.location.href = "/items";
+    });
+  };
 
   return (
     //Main container
@@ -71,7 +77,7 @@ export default function InvAddItem() {
               </h1>
 
               <div className=" pl-5">
-                <form className="mx-auto" onSubmit={addItem}>
+                <form className="mx-auto" onSubmit={addItem} onReset={handleReset}>
                   <div className="flex mb-6">
                     <div>
                       <label className="">Item Code :</label>
@@ -136,7 +142,8 @@ export default function InvAddItem() {
                   </div>
 
                   <div className="flex mt-24 h-10">
-                    <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
+                    <button type="reset"
+                    className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
                       <Link to="/items">Cancel</Link>
                     </button>
 

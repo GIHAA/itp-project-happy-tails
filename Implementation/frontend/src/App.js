@@ -97,6 +97,7 @@ import AddSuppliers from "./components/AddSuppliers";
 import ManageSuppliers from "./components/ManageSuppliers";
 import UpdateSupplier from "./components/UpdateSupplier";
 import StockRequests from "./components/StockRequests";
+import EventStockReqs from "./components/EventStockReqs";
 import StockBudgetRequests from "./components/StockBudgetRequests";
 import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
 import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
@@ -131,6 +132,7 @@ function App() {
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />
             <Route path="/updateSuppliers/:id" element={<UpdateSupplier />} />
             <Route path="/stockRequests" element={<StockRequests />} />
+            <Route path="/eventstockReqs" element={<EventStockReqs />} />
             <Route
               path="/StockBudgetRequests"
               element={<StockBudgetRequests />}
