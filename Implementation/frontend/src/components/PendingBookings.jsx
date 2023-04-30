@@ -237,7 +237,7 @@ export default function PendingBookings() {
                             ))}
                           </select>
                           <button type ="button" className="bg-[#ff006a] rounded-xl text-sm px-3 py-2 text-white hover:text-black hover:bg-gray-500"
-                           onClick={() => handleVehicleSelect(transport._id)}>ASSIGN</button>
+                           onClick={() => handleVehicleSelect(transport._id, selectedVehicle )}>ASSIGN</button>
                         </div>
 
                       <button
