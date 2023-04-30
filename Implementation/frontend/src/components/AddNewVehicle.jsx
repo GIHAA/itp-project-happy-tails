@@ -4,7 +4,6 @@ import bgimg from "../assets/bgimg.jpg"
 import axios from 'axios'
 import VSideBar from "./VSideBar";
 
-
 export default function AddNewVehicle() {
 
     const[plateNo, setPlateNo] = useState("");

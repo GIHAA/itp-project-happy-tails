@@ -7,21 +7,6 @@ const addVehicle = asyncHandler(async (req, res) => {
   const { plateNo, driverId, agentId, vModel, insuranceExpirationDate } =
     req.body;
 
-<<<<<<< HEAD
-    const { plateNo, vModel, insuranceExpirationDate } = req.body
-
-    const vehicle = await Vehicle.create({
-        plateNo,
-        vModel, 
-        insuranceExpirationDate,
-        status : 'AVAILABLE'
-    })
-
-    vehicle ? res.status(201).json(vehicle) : res.status(400).json({message: 'Vehicle not created'})
-
-
-})
-=======
   const vehicle = await Vehicle.create({
     plateNo,
     driverId,
@@ -29,7 +14,6 @@ const addVehicle = asyncHandler(async (req, res) => {
     vModel,
     insuranceExpirationDate,
   });
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
   vehicle
     ? res.status(201).json(vehicle)
@@ -67,37 +51,6 @@ const getOneVehicle = async (req, res) => {
 };
 
 //put
-<<<<<<< HEAD
-const updateVehicle = asyncHandler(async (req, res) =>{
-
-    const id = req.params.id
-    const { vModel, insuranceExpirationDate, status } = req.body
-
-    const vehicle = await Vehicle.findByIdAndUpdate(id, {
-        vModel, 
-        insuranceExpirationDate,
-        status
-    }, { new: true });
-
-    vehicle ? res.status(201).json(vehicle) : res.status(400).json({message: 'Vehicle not updated'})
-})
-
-//put
-const updateVehicleStatus = asyncHandler(async (req, res) =>{
-
-    const id = req.params.id
-    const { status } = req.body
-
-    const vehicle = await Vehicle.findByIdAndUpdate(id, {
-        status
-    }, { new: true })
-
-    vehicle ? res.status(200).json(vehicle) : res.status(404).json({ message: 'Vehicle not found' })
-})
-
-
-
-=======
 const updateVehicle = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const { driverId, agentId, vModel, insuranceExpirationDate } = req.body;
@@ -108,7 +61,6 @@ const updateVehicle = asyncHandler(async (req, res) => {
     vModel,
     insuranceExpirationDate,
   });
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
   vehicle
     ? res.status(201).json(vehicle)
@@ -139,19 +91,6 @@ const searchVehicleByPlateNo = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-<<<<<<< HEAD
-    addVehicle,
-    readVehicle,
-    getOneVehicle,
-    updateVehicle,
-    updateVehicleStatus,
-    deleteVehicle,
-    searchVehicleByPlateNo,
-}
-    
-
-
-=======
   addVehicle,
   readVehicle,
   getOneVehicle,
@@ -159,4 +98,3 @@ module.exports = {
   deleteVehicle,
   searchVehicleByPlateNo,
 };
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
