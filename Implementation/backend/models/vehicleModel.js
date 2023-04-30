@@ -16,7 +16,7 @@ const vehicleSchema = mongoose.Schema(
     status: {
       type: String,
       enum: ["AVAILABLE", "UNAVAILABLE"],
-      default: "PENDING",
+      default: "AVAILABLE",
     },
 
     insuranceExpirationDate: {

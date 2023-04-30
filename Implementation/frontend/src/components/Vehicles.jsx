@@ -27,8 +27,8 @@ export default function Vehicle() {
   function generatePDF() {
     const doc = new jsPDF();
     doc.autoTable({
-      head: [["Plate Number", "Vehicle Model", "Availability", "Insurance Expiration Date"]],
-      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.vModel, vehicle.ava,vehicle.insuranceExpirationDate]),
+      head: [["Plate Number", "Vehicle Model", "Insurance Expiration Date" , "Availability"]],
+      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.vModel ,vehicle.insuranceExpirationDate, vehicle.status]),
     });
     doc.save("All-vehicles-report.pdf");
   }
@@ -98,10 +98,9 @@ export default function Vehicle() {
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
                         <tr>
                         <th className="p-3">Plate Number</th>
-                        <th className="p-3">Driver ID</th>
-                        <th className="p-3">Agent ID</th>
                         <th className="p-3">Vehicle Model</th>
                         <th className="p-3">Insurance Expiration Date</th>
+                        <th className="p-3">Avilability of vehicle</th>
                         <th className="p-3">Action</th>
                         </tr>
                     </thead>
@@ -124,10 +123,10 @@ export default function Vehicle() {
                         <TableDataRow 
                           id = {vehicle._id}
                           VehiclePlateNo={vehicle.plateNo}
-                          VehicleDriverId={vehicle.driverId}
-                          VehicleAgentId={vehicle.agentId}
                           VehicleVModel={vehicle.vModel}
                           VehicleInsuranceExpirationDate={vehicle.insuranceExpirationDate}
+                          VehicleStatus={vehicle.status}
+
                 
 
                         />
@@ -155,10 +154,10 @@ function TableDataRow(props){
     <>
       <tr>
         <td className="p-3">{props.VehiclePlateNo}</td>
-        <td className="p-3">{props.VehicleDriverId}</td>
-        <td className="p-3">{props.VehicleAgentId}</td>
         <td className="p-3">{props.VehicleVModel}</td>
         <td className="p-3">{props.VehicleInsuranceExpirationDate}</td>
+        <td className="p-3">{props.VehicleStatus}</td>
+
       
         <td className="p-3">
             <button className="px-3 py-1 mr-5 bg-[#2E4960] rounded-full" style={{ color: "white" }}>

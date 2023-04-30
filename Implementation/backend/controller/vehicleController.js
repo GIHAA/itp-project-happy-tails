@@ -4,14 +4,13 @@ const Vehicle = require("../models/vehicleModel");
 
 //post
 const addVehicle = asyncHandler(async (req, res) => {
-  const { plateNo, driverId, agentId, vModel, insuranceExpirationDate } =
+  const { plateNo, driverId, agentId, vModel, status, insuranceExpirationDate } =
     req.body;
 
   const vehicle = await Vehicle.create({
     plateNo,
-    driverId,
-    agentId,
     vModel,
+    status,
     insuranceExpirationDate,
   });
 
@@ -53,12 +52,12 @@ const getOneVehicle = async (req, res) => {
 //put
 const updateVehicle = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const { driverId, agentId, vModel, insuranceExpirationDate } = req.body;
+  const { vModel, status, insuranceExpirationDate } = req.body;
 
   const vehicle = await Vehicle.findByIdAndUpdate(id, {
-    driverId,
-    agentId,
+    
     vModel,
+    status,
     insuranceExpirationDate,
   });
 
