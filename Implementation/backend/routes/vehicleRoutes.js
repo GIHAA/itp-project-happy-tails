@@ -5,6 +5,7 @@ const {
    addVehicle,
    getOneVehicle,
    updateVehicle,
+   updateVehicleStatus,
    deleteVehicle,
    searchVehicleByPlateNo,
 
@@ -15,6 +16,7 @@ router.post('/', addVehicle)
 router.get('/', readVehicle )
 router.get('/:id', getOneVehicle )
 router.put('/:id',updateVehicle )
+router.put('/:id/status', updateVehicleStatus)
 router.delete('/:id',deleteVehicle )
 router.get('/search/:plateNo', searchVehicleByPlateNo);
 

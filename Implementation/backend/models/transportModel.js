@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const transportSchema = mongoose.Schema(
   {
 
-    customerId: {
+    userName: {
         type: String,
         required: [true, 'Please add a customerId'],
-        default: 'temp customerId',
+        default: 'temp userName',
     },
     
 
@@ -25,11 +25,6 @@ const transportSchema = mongoose.Schema(
         required: [true, 'Please add type of pet'],
     },
 
-    petGender: {
-      type: String,
-      required: [true, 'Please add gender of pet'],
-    },
-
     date: {
         type: String,
         required: [true, 'Please add a date'],
@@ -41,16 +36,14 @@ const transportSchema = mongoose.Schema(
     },
 
 
-    vaccineStatus: {
-      type: String,
-      enum: ['VACCINATED', 'NOT_VACCINATED'],
-      required: [false, 'Please specify vaccine details']
-    },
-
-
     count: {
         type: Number,
         required: [true, 'Please add no of pets'],
+    },
+
+    selectedVehicle: {
+      type: String,
+      default: 'tempPlateNo', 
     },
 
     status: {
@@ -58,6 +51,8 @@ const transportSchema = mongoose.Schema(
       enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
       default: 'PENDING', 
     },
+
+
     
 
   },

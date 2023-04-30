@@ -13,10 +13,10 @@ function EditVehicle() {
 
     const [vehicle, setVehicle] = useState({});
     const [plateNo, setPlateNo] = useState("");
-    const [driverId, setDriverId] = useState("");
-    const [agentId, setAgentId] = useState("");
     const [vModel, setVModel] = useState("");
     const [insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
+    const [status, setStatus] = useState("");
+
   
 
     async function getVehicle() {
@@ -42,10 +42,11 @@ function EditVehicle() {
   useEffect(() => { 
     
     setPlateNo(vehicle.plateNo);
-    setDriverId(vehicle.driverId);
-    setAgentId(vehicle.agentId);
     setVModel(vehicle.vModel);
     setInsuranceExpirationDate(vehicle.insuranceExpirationDate);
+    setStatus(vehicle.status);
+
+
 
   },[vehicle])
 
@@ -61,10 +62,9 @@ function EditVehicle() {
       const newVehicle = {
 
       plateNo,
-      driverId,
-      agentId,
       vModel,
-      insuranceExpirationDate
+      insuranceExpirationDate,
+      status
 
     }
 
@@ -110,69 +110,60 @@ function EditVehicle() {
 
                              <div className="flex mb-6">
 
-                                 <div>
+                                <div className=" w-[50%]  ">
                                      <label className="">Plate Number :</label>
                                      <input type="text" 
                                      className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                      value={plateNo}
                                      readOnly/>                        
-                                 </div>
+                                </div>
 
-                                 <div>
-                                     <label className="">Driver ID :</label>
-                                     <input type="text"
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={driverId}
-                                     onChange={(e)=>{
-                                         setDriverId(e.target.value)}} required />                        
-                                 </div>
+                              </div>
 
+
+                              <div className="flex mb-6">
+
+                                  <div className=" w-[50%]  ">
+                                      <label className="">Vehicle Model :</label>
+                                      <input type="text" 
+                                      className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                      value={vModel}
+                                      onChange={(e)=>{
+                                          setVModel(e.target.value)}} required />                        
+                                  </div>
                              </div>
-
-
-
-
-                             <div className="flex mb-6">
-
-                                 <div className=" w-[50%]  ">
-                                     <label className="">Agent ID :</label>
-                                     <input type="text" 
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={agentId}
-                                     onChange={(e)=>{
-                                         setAgentId(e.target.value)}} required />                        
-                                 </div>
-                            </div>
+                            
 
 
                             <div className="flex mb-6">
                                  <div className=" w-[50%]  ">
-                                     <label className="">Vehicle Model :</label>
-                                     <input type="text" 
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={vModel}
-                                     onChange={(e)=>{
-                                         setVModel(e.target.value)}} required />                        
-                                 </div>
-                            </div>
-
-
-                            <div className="flex mb-6">
-                                 <div className=" w-[50%]  ">
-                                     <label className="">insurance Expiration Date :</label>
+                                     <label className="">Insurance Expiration Date :</label>
                                      <input type="text" 
                                      className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                      value={insuranceExpirationDate}
                                      onChange={(e)=>{
-                                         setInsuranceExpirationDate(e.target.value)}} required />                        
+                                      setInsuranceExpirationDate(e.target.value)}} required />                        
+                                 </div>
+                            </div>
+
+
+                            <div className="flex mb-6">
+                                 <div className=" w-[50%]  ">
+                                     <label className="">Availability :</label>
+                                     <input type="text" 
+                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                     value={status}
+                                     onChange={(e)=>{
+                                         setStatus(e.target.value)}} required />                        
                                  </div>
                              </div>
                                  
                         </div>
+                            <center>
 
                              <button type="submit" 
-                             className="text-white bg-[#FF9F00] hover:bg-[#2E4960] mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-l w-full sm:w-auto px-5 py-2.5 text-center"
-                             >Submit</button>
+                             className="text-white bg-[#FF9F00] hover:bg-[#2E4960] mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-l w-full sm:w-auto px-5 py-2.5 text-center "
+                             >Submit</button></center>
                      </form>
 
                  </div>

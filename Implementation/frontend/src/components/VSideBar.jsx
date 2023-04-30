@@ -66,14 +66,14 @@ function VSideBar() {
         className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
         >BUDGET REQUESTS </NavLink>
 
-        <div>
-            <button onClick={onLogout}
-                className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
-                <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
-                <span>Logout</span>
-              </button>
+<div style={{ marginTop: '50px' }}>
+    <button onClick={onLogout}
+        className="flex items-center px-5 py-1 ml-12 mr-5 bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
+        <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
+        <span>Logout</span>
+    </button>
+</div>
 
-      </div>
 
         
 

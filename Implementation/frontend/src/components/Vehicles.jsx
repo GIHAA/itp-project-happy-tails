@@ -7,6 +7,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 
+
 export default function Vehicle() {
 
   const [Vehicles , setVehicles] = useState([]);
@@ -24,6 +25,28 @@ export default function Vehicle() {
   }, []) 
 
 
+  
+  function toggleAvailability(id, isAvailable) {
+    axios.put(`http://localhost:8080/api/vehicle/${id}`, {status: isAvailable ? 'AVAILABLE' : 'UNAVAILABLE'})
+      .then(res => {
+        setVehicles(prevVehicles => {
+          return prevVehicles.map(vehicle => {
+            if (vehicle._id === id) {
+              return {...vehicle, status: isAvailable ? 'UNAVAILABLE' : 'AVAILABLE'}
+            } else {
+              return vehicle;
+            }
+          });
+        });
+      })
+      .catch(err => alert(err))
+  }
+  
+  
+
+
+
+
   function generatePDF() {
 
     
@@ -31,7 +54,7 @@ export default function Vehicle() {
     const doc = new jsPDF();
     doc.autoTable({
       head: [["Plate Number", "Driver ID", "Agent ID", "Vehicle Model", "Insurance Expiration Date"]],
-      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.driverId, vehicle.agentId, vehicle.vModel, vehicle.insuranceExpirationDate]),
+      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.vModel, vehicle.insuranceExpirationDate]),
     });
     doc.save("All-vehicles-report.pdf");
   }
@@ -93,10 +116,9 @@ export default function Vehicle() {
                     <thead className=" bg-[#FF9F00] text-white sticky top-0">
                         <tr>
                         <th className="p-3">Plate Number</th>
-                        <th className="p-3">Driver ID</th>
-                        <th className="p-3">Agent ID</th>
                         <th className="p-3">Vehicle Model</th>
                         <th className="p-3">Insurance Expiration Date</th>
+                        <th className="p-3">Availability</th> 
                         <th className="p-3">Action</th>
                         </tr>
                     </thead>
@@ -111,23 +133,20 @@ export default function Vehicle() {
                       }else if(val.insuranceExpirationDate.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
                       }
-                    }).map((vehicle) => {
-
-                    
-                      return(
-
-                        <TableDataRow 
-                          id = {vehicle._id}
+                    }).map((vehicle) => (
+                      <TableDataRow 
+                          key={vehicle._id}
+                          id={vehicle._id}
                           VehiclePlateNo={vehicle.plateNo}
-                          VehicleDriverId={vehicle.driverId}
-                          VehicleAgentId={vehicle.agentId}
                           VehicleVModel={vehicle.vModel}
                           VehicleInsuranceExpirationDate={vehicle.insuranceExpirationDate}
-                
+                          VehicleStatus={vehicle.status}
+                          toggleAvailability={toggleAvailability}
+                          isAvailable={vehicle.status === 'AVAILABLE'}
+                    />
 
-                        />
-                      )
-                    })}
+                    ))}
+
 
                   
                     </tbody>
@@ -152,14 +171,25 @@ export default function Vehicle() {
 }
 
 function TableDataRow(props){
+  
+
   return (
     <>
       <tr>
         <td className="p-3">{props.VehiclePlateNo}</td>
-        <td className="p-3">{props.VehicleDriverId}</td>
-        <td className="p-3">{props.VehicleAgentId}</td>
         <td className="p-3">{props.VehicleVModel}</td>
         <td className="p-3">{props.VehicleInsuranceExpirationDate}</td>
+        <td className="p-3"><button
+          onClick={() => props.toggleAvailability(props.id, props.isAvailable)}
+          style={{ backgroundColor: props.isAvailable ? 'red' : 'green' }}
+        >
+          {props.isAvailable ? 'uav' : 'av'}
+        </button></td>
+
+
+
+        
+
       
         <td className="p-3">
             <button className="px-3 py-1 mr-5 bg-[#2E4960] rounded-full" style={{ color: "white" }}>
@@ -185,3 +215,4 @@ function onDelete(id) {
   .catch(err => alert(err))
 
 }
+

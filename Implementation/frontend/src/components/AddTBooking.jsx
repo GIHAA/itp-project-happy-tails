@@ -9,7 +9,7 @@ export default function AddTBooking() {
     
     
 
-    const[customerId, setCustomerId] = useState("");
+    const[userName, setUserName] = useState("");
     const[plocation, setPlocation] = useState("");
     const[dlocation, setDlocation] = useState("");
     const[petType, setPetType] = useState("");
@@ -27,7 +27,7 @@ export default function AddTBooking() {
 
         const newTBooking = {
 
-            customerId,
+            userName,
             plocation,
             dlocation,
             petType,
@@ -98,12 +98,17 @@ export default function AddTBooking() {
 
                                 <div className="flex mb-6">
                                     <div>
-                                        <label className="">Customer ID :</label>
+                                        <label className="">User Name  : </label>
                                         <input type="text" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                         onChange={(e)=>{
-                                            setCustomerId(e.target.value)}} required />                        
+                                            setUserName(e.target.value)}} required />                        
                                     </div>
+
+                                    
+                                </div>
+
+                                <div className="flex mb-6">
 
                                     <div>
                                         <label className="">Pick-up Location :</label>
@@ -112,9 +117,7 @@ export default function AddTBooking() {
                                         onChange={(e)=>{
                                             setPlocation(e.target.value)}} required />                        
                                     </div>
-                                </div>
 
-                                <div className="flex mb-6">
                                     <div className=" w-[50%]  ">
                                         <label className="">Drop-off Location :</label>
                                         <input type="text" 
@@ -124,74 +127,51 @@ export default function AddTBooking() {
                                     </div>
 
 
+                                </div>
+
+                                <div className="flex mb-6">
+
+                                    
+
                                     <div className=" w-[50%]  ">
-                                        <label className="">Pet Type :</label>
+                                        <label className="">Date :</label>
+                                        <input type="Date" 
+                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                        onChange={(e)=>{
+                                            setDate(e.target.value)}} required />                        
+                                    </div>
+
+                                    <div className=" w-[50%]  ">
+                                        <label className="">Time :</label>
+                                        <input type="Time" 
+                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                        onChange={(e)=>{
+                                            setTime(e.target.value)}} required />                        
+                                    </div>
+
+
+                                    
+                                </div>
+                                <div className="flex mb-6">
+
+                                <div className=" w-[50%]  ">
+                                        <label className="">Pet types :</label>
                                         <input type="text" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                         onChange={(e)=>{
                                             setPetType(e.target.value)}} required />                        
                                     </div>
 
-                                </div>
-
-                                <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
-                                        <label className="">Gender of pet :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setPetGender(e.target.value)}} required />                        
-                                    </div>
-
                                     <div className=" w-[50%]  ">
-                                        <label className="">Date :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setDate(e.target.value)}} required />                        
-                                    </div>
-
-
-                                    
-                                </div>
-                                <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
-                                        <label className="">Time :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setTime(e.target.value)}} required />                        
-                                    </div>
-
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Vaccine Status :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setVaccineStatus(e.target.value)}} required />                        
-                                    </div>
-
-                                
-
-                                    
-                                </div>
-
-                                <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
                                         <label className="">Number of pets :</label>
-                                        <input type="text" 
+                                        <input type="Number" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                         onChange={(e)=>{
                                             setCount(e.target.value)}} required />                        
                                     </div>
-
-                                    
                                 </div>
-                                
 
+            
                                 
                                 <div className="flex mt-24 h-10">
 

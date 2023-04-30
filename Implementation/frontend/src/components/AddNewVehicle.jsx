@@ -5,6 +5,9 @@ import axios from 'axios'
 import VSideBar from "./VSideBar";
 
 
+
+
+
 export default function AddNewVehicle() {
 
     const[plateNo, setPlateNo] = useState("");
@@ -12,34 +15,43 @@ export default function AddNewVehicle() {
     const[agentId, setAgentId] = useState("");
     const[vModel, setVModel] = useState("");
     const[insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
+    const[status, setStatus] = useState("");
+
 
     function addVehicle(e) {
         e.preventDefault();
-
-        const newVehicle = {
-
-      plateNo,
-      driverId,
-      agentId,
-      vModel,
-      insuranceExpirationDate
-
-    }
-
-
-        axios.post("http://localhost:8080/api/vehicle",newVehicle)
-        .then(()=>{
-            alert("Vehicle added")
-
-       }).catch((err)=>{
-            if(err.response.status === 409)
-                alert("Cannot insert !! vehicle already exists !!")
-            else
-                alert(`Vehicle insert unsuccessful ${err}`)
-       })
-
-
-    }
+      
+        axios.get("http://localhost:8080/api/vehicle").then((response) => {
+          const vehicles = response.data;
+      
+          const isPlateNumberDuplicate = vehicles.some(
+            (vehicle) => vehicle.plateNo === plateNo
+          );
+      
+          if (isPlateNumberDuplicate) {
+            alert("Cannot insert !! Vehicle with same plate number already exists !!");
+          } else {
+            const newVehicle = {
+              plateNo,
+              driverId,
+              agentId,
+              vModel,
+              insuranceExpirationDate,
+              status,
+            };
+      
+            axios
+              .post("http://localhost:8080/api/vehicle", newVehicle)
+              .then(() => {
+                alert("Vehicle added");
+              })
+              .catch((err) => {
+                alert(`Vehicle insert unsuccessful ${err}`);
+              });
+          }
+        });
+      }
+      
 
     return (
        //Main container
@@ -89,25 +101,6 @@ export default function AddNewVehicle() {
                                             setPlateNo(e.target.value)}} required />                        
                                     </div>
 
-                                    <div>
-                                        <label className="">Driver ID :</label>
-                                        <input type="text"
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setDriverId(e.target.value)}} required />                        
-                                    </div>
-                                </div>
-
-                                <div className="flex mb-6">
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Agent ID :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setAgentId(e.target.value)}} required />                        
-                                    </div>
-
-
                                     <div className=" w-[50%]  ">
                                         <label className="">Vehicle Model :</label>
                                         <input type="text" 
@@ -116,7 +109,10 @@ export default function AddNewVehicle() {
                                             setVModel(e.target.value)}} required />                        
                                     </div>
 
+                                    
                                 </div>
+
+                                
 
                                 <div className="flex mb-6">
 
@@ -127,6 +123,15 @@ export default function AddNewVehicle() {
                                         onChange={(e)=>{
                                             setInsuranceExpirationDate(e.target.value)}} required />                        
                                     </div>
+
+                                    <div className=" w-[50%]  ">
+                                        <label className="">Availability :</label>
+                                        <input type="text" 
+                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                        onChange={(e)=>{
+                                          setStatus(e.target.value)}} required />                        
+                                    </div>
+
 
                                     
                                 </div>
