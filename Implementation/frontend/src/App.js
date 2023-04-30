@@ -14,6 +14,7 @@ import InvRequestedStock from "./components/InvRequestedStock";
 import InvReleaseStock from "./components/InvReleaseStock";
 import InvStockIn from "./components/InvStockIn";
 import InvStockOut from "./components/InvStockOut";
+import InvEventStocks from "./components/InvEventStocks";
 
 import VehicleDashboard from "./components/VehicleDashboard";
 import EditVehicle from "./components/EditVehicle";
@@ -250,6 +251,7 @@ function App() {
             <Route path="/releasestock" element={<InvReleaseStock />} />
             <Route path="/stockin" element={<InvStockIn />} />
             <Route path="/stockout" element={<InvStockOut />} />
+            <Route path="/eventstocks" element={<InvEventStocks />} />
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />

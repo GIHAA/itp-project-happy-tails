@@ -4,16 +4,52 @@ import axios from "axios";
 import inv from "../assets/inv.jpg";
 import InventorySideBar from "./InventorySideBar";
 import filterImg from "../assets/filter.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function InvEventStocks() {
-  const [stockReq, setStockReq] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [stockreqs, setStockRequests] = useState([]);
+  const [total, setTotal] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/eventstock/getStocks")
+      .then((res) => {
+        console.log(res.data.getstocks);
+        setStockRequests(res.data.getstocks);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(`Error: ${err}`);
+      });
+  }, []);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
+  async function handleAccept(id, eid, eventName, items, description){
+    console.log(id, eid, eventName, items, description)
+  
+      try {
+        const newStock = {
+          eid,
+          eventName,
+          items,
+          description,
+          status: "Accepted",
+        };
+  
+        await axios.put(
+          `http://localhost:8080/api/eventstock/editstock/${id}`,
+          newStock
+        );
+        toast.success("Requested stock Updated Successfully");
+        // setTimeout(() => {
+        //   window.location.href = "/eventdashboard/stock";
+        // }, 5000);
+      } catch (err) {
+        toast.error(err);
+      }
+    
+  }
+
 
   return (
     //Main container
@@ -50,8 +86,7 @@ export default function InvEventStocks() {
               <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
               <select
                 className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
-                value={selectedCategory}
-                onChange={handleCategoryChange}
+                
               >
                 <option value="">All Categories</option>
                 <option value="FOOD">FOOD</option>
@@ -68,17 +103,81 @@ export default function InvEventStocks() {
             <table className="mx-auto w-[1250px]">
               <thead className=" bg-[#FF9F00] text-white sticky top-0">
                 <tr>
-                  <th className="p-3">date</th>
-                  <th className="p-3">item_code</th>
-                  <th className="p-3">item_name</th>
-                  <th className="p-3">item_brand</th>
-                  <th className="p-3">category</th>
-                  <th className="p-3">qty</th>
-                  <th className="p-3">status</th>
+                  <th className="p-3">Request ID</th>
+                  <th className="p-3 w-[150px]">Event Name</th>
+                  <th className="p-3 w-[250px]">Product - Quantity</th>
+                  <th className="p-3 w-[250px]">Description</th>
+                  <th className="p-3 w-[150px]">Requested Date,Time</th>
+                  <th className="p-3">Status</th>
+                  <th className="p-3">Action</th>
                 </tr>
               </thead>
 
-              <tbody className="bg-white text-center"></tbody>
+              <tbody className="bg-white text-center">
+                {stockreqs.map((req) => {
+                    return (
+                      <>
+                        <tr className="hover:bg-[#efeeee]">
+                          <td className="p-3">{req.stockid}</td>
+                          <td className="p-3 w-[150px]">{req.eventName}</td>
+                          
+                          {req.items.map((item, itemIndex) => (
+                            <tr key={itemIndex}>
+                              <td className="p-3 w-[250px]">
+                                {item.product} - {item.quantity}
+                              </td>
+                              {/** <td class="px-6 py-4" style={{color: 'black'}}>{item.quantity}</td>*/}
+                            </tr>
+                          ))}
+                          <td className="p-3 w-[250px]">{req.description}</td>
+
+                          <td className="p-3 w-[150px]" >
+                            {new Date(req.submittedAt).toLocaleString()}
+                          </td>
+
+                          <td className="p-3">
+                            <span
+                              className={`inline-block px-2 rounded-xl text-sm ${
+                                req.status.toLowerCase() === "pending"
+                                  ? "bg-yellow-200 text-yellow-800"
+                                  : req.status.toLowerCase() === "accepted"
+                                  ? "bg-green-200 text-green-800"
+                                  : "bg-red-500 text-red-100"
+                              }`}
+                            >
+                              {req.status}
+                            </span>
+                          </td>
+
+                          <td className="p-3">
+                            {req.status.toLowerCase() === "pending" ? (
+                              <div className="flex">
+                              <input type="number"
+                                placeholder="Enter total.." 
+                                onChange={(e)=> {
+                                    setTotal(e.target.value)
+                                }}
+                                className=" bg-[#E4EBF7]  text-gray-900 border-0 border-b-2 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" /
+                              >
+
+                              <button
+                                onClick={() => handleAccept( req._id, req.eid, req.eventName, req.items, req.description)}
+                                className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
+                              >
+                                ✓ Accept
+                              </button>
+                              </div>
+      
+                            ) : null}
+                          </td>
+
+
+                    
+                        </tr>
+                      </>
+                    );
+                  })}
+              </tbody>
             </table>
             <div className=" h-96"></div>
           </div>
@@ -87,8 +186,4 @@ export default function InvEventStocks() {
       {/*Right Side container end*/}
     </div> //Main container end
   );
-}
-
-function TableDataRow(props) {
-  return <></>;
 }
