@@ -49,9 +49,9 @@ import PortalHandler from "./components/PortalHandler";
 
 import AddEvent from "./components/EventManagement/AddEvent";
 import AllEvent from "./components/EventManagement/AllEvent";
-import RegisterEvent from "./components/EventManagement/RegisterEvent";
+import RegisterEvent from "./components/User/RegisterEvent";
 import AllRegisterEvent from "./components/EventManagement/AllRegisterEvent";
-import AllEventUser from "./components/EventManagement/AllEventUser";
+import AllEventUser from "./components/User/AllEventUser";
 import EditEvent from "./components/EventManagement/EditEvent";
 import AddEventFeedback from "./components/EventManagement/AddEventFeedback";
 import AllEventFeedback from "./components/EventManagement/AllEventFeedback";

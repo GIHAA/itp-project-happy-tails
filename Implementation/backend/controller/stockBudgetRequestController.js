@@ -37,10 +37,12 @@ const editStockBudget = asyncHandler(async (req, res) => {
     supplier_name,
     item_name,
     description,
-    total,
+    total,status,
   });
 
-     supplier_name,item_name,description,total,status
+  pay
+  ? res.status(201).json(pay)
+  : res.status(400).json({ message: "payment not updated" });
   })
 
 //get one stock budget request
