@@ -27,12 +27,13 @@ export default function InvAddItem() {
     axios
       .post("http://localhost:8080/api/inventory/items", newItem)
       .then(() => {
-        toast.success("item added", { position: toast.POSITION.BOTTOM_RIGHT });
+        toast.error("item added", { position: toast.POSITION.BOTTOM_RIGHT });
       })
       .catch((err) => {
         if (err.response.status === 409)
-          alert("Cannot insert !! item already exists !!");
-        else alert(`Item insert unsuccessful ${err}`);
+        toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
+        else 
+        toast.error(`Item insert unsuccessful ${err}`);
       });
   }
 
@@ -136,7 +137,7 @@ export default function InvAddItem() {
 
                   <div className="flex mt-24 h-10">
                     <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
-                      <Link to="/inventory">Cancel</Link>
+                      <Link to="/items">Cancel</Link>
                     </button>
 
                     <button
