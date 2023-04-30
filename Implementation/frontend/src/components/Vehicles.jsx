@@ -6,11 +6,6 @@ import VSideBar from "./VSideBar";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 export default function Vehicle() {
   const [Vehicles, setVehicles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,10 +44,6 @@ export default function Vehicle() {
   function generatePDF() {
     const doc = new jsPDF();
     doc.autoTable({
-<<<<<<< HEAD
-      head: [["Plate Number", "Driver ID", "Agent ID", "Vehicle Model", "Insurance Expiration Date"]],
-      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.vModel, vehicle.insuranceExpirationDate]),
-=======
       head: [
         [
           "Plate Number",
@@ -69,7 +60,6 @@ export default function Vehicle() {
         vehicle.vModel,
         vehicle.insuranceExpirationDate,
       ]),
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
     });
     doc.save("All-vehicles-report.pdf");
   }
@@ -112,19 +102,6 @@ export default function Vehicle() {
           </div>
         </div>
 
-<<<<<<< HEAD
-                    <thead className=" bg-[#FF9F00] text-white sticky top-0">
-                        <tr>
-                        <th className="p-3">Plate Number</th>
-                        <th className="p-3">Vehicle Model</th>
-                        <th className="p-3">Insurance Expiration Date</th>
-                        <th className="p-3">Availability</th> 
-                        <th className="p-3">Action</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody  className="bg-white text-center">
-=======
         {/*Body Part*/}
         <div
           style={{ backgroundImage: `url(${bgimg})` }}
@@ -144,7 +121,6 @@ export default function Vehicle() {
                   <th className="p-3">Action</th>
                 </tr>
               </thead>
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
               <tbody className="bg-white text-center">
                 {Vehicles.filter((val) => {
@@ -172,42 +148,11 @@ export default function Vehicle() {
                       VehicleInsuranceExpirationDate={
                         vehicle.insuranceExpirationDate
                       }
-<<<<<<< HEAD
-                    }).map((vehicle) => (
-                      <TableDataRow 
-                          key={vehicle._id}
-                          id={vehicle._id}
-                          VehiclePlateNo={vehicle.plateNo}
-                          VehicleVModel={vehicle.vModel}
-                          VehicleInsuranceExpirationDate={vehicle.insuranceExpirationDate}
-                          VehicleStatus={vehicle.status}
-                          toggleAvailability={toggleAvailability}
-                          isAvailable={vehicle.status === 'AVAILABLE'}
-                    />
-
-                    ))}
-
-
-                  
-                    </tbody>
-                    </table>
-
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
-                              onClick={() => generatePDF()}>
-                        Generate Report
-                      </button>
-
-                    </div>
-
-                </div>
-=======
                     />
                   );
                 })}
               </tbody>
             </table>
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
             <div style={{ display: "flex", justifyContent: "center" }}>
               <button
@@ -226,38 +171,13 @@ export default function Vehicle() {
   );
 }
 
-<<<<<<< HEAD
-function TableDataRow(props){
-  
-
-=======
 function TableDataRow(props) {
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
   return (
     <>
       <tr>
         <td className="p-3">{props.VehiclePlateNo}</td>
         <td className="p-3">{props.VehicleVModel}</td>
         <td className="p-3">{props.VehicleInsuranceExpirationDate}</td>
-<<<<<<< HEAD
-        <td className="p-3"><button
-          onClick={() => props.toggleAvailability(props.id, props.isAvailable)}
-          style={{ backgroundColor: props.isAvailable ? 'red' : 'green' }}
-        >
-          {props.isAvailable ? 'uav' : 'av'}
-        </button></td>
-
-
-
-        
-
-      
-        <td className="p-3">
-            <button className="px-3 py-1 mr-5 bg-[#2E4960] rounded-full" style={{ color: "white" }}>
-              <Link to={`/editvehicle/${props.id}`}>EDIT</Link>
-            </button>
-=======
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
         <td className="p-3">
           <button
@@ -282,17 +202,6 @@ function TableDataRow(props) {
 }
 
 function onDelete(id) {
-<<<<<<< HEAD
-
-  axios.delete(`http://localhost:8080/api/vehicle/${id}`)
-  .then((res) => {
-      alert("vehicle deleted")
-  })
-  .catch(err => alert(err))
-
-}
-
-=======
   axios
     .delete(`http://localhost:8080/api/vehicle/${id}`)
     .then((res) => {
@@ -300,4 +209,3 @@ function onDelete(id) {
     })
     .catch((err) => alert(err));
 }
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
