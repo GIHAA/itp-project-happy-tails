@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const transportSchema = mongoose.Schema(
   {
@@ -8,31 +8,30 @@ const transportSchema = mongoose.Schema(
         required: [true, 'Please add a customerId'],
         default: 'temp userName',
     },
-    
 
     plocation: {
-        type: String,
-        required: [true, 'Please enter address'],
+      type: String,
+      required: [true, "Please enter address"],
     },
 
     dlocation: {
       type: String,
-      required: [true, 'Please enter address'],
+      required: [true, "Please enter address"],
     },
 
     petType: {
-        type: String,
-        required: [true, 'Please add type of pet'],
+      type: String,
+      required: [true, "Please add type of pet"],
     },
 
     date: {
-        type: String,
-        required: [true, 'Please add a date'],
+      type: String,
+      required: [true, "Please add a date"],
     },
 
     time: {
-        type: String,
-        required: [true, 'Please add a time'],
+      type: String,
+      required: [true, "Please add a time"],
     },
 
 
@@ -48,8 +47,8 @@ const transportSchema = mongoose.Schema(
 
     status: {
       type: String,
-      enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
-      default: 'PENDING', 
+      enum: ["PENDING", "ACCEPTED", "REJECTED"],
+      default: "PENDING",
     },
 
 
@@ -59,6 +58,6 @@ const transportSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-module.exports = mongoose.model('Transport', transportSchema)
+module.exports = mongoose.model("Transport", transportSchema);

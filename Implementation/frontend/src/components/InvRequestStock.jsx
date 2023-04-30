@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import inv from "../assets/inv.jpg"
 import InventorySideBar from "./InventorySideBar";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function InvRequestStock() {
 
-    const [item_code,setItemCode] = useState("")
-    const [item_name,setItemName] = useState("")
-    const [item_brand,setItemBrand] = useState("")
-    const [category,setItemCategory] = useState("")
+    const [selected,setSelected] = useState("")
     const [qty,setItemQty] = useState("")
-
-    const [canceled, setCanceled] = useState(false);
     const [Items , setItems] = useState([]);
 
 
@@ -30,44 +27,33 @@ function InvRequestStock() {
     function requestStock(e) {
       e.preventDefault();
 
-      if (canceled) {
-        return;
-      }
-
       const newRequest = {
-          item_code,
-          item_name,
-          item_brand,
-          category,
+          item_code: selected.item_code,
+          item_name: selected.item_name,
+          item_brand: selected.item_brand,
+          category: selected.category,
           qty
       }
 
       axios.post("http://localhost:8080/api/inventory/stockrequest",newRequest)
       .then(()=>{
-          alert("stock request successful")
+          toast.success("stock request successful", {position: toast.POSITION.BOTTOM_RIGHT,})
 
      }).catch((err)=>{
-              alert(`stock request unsuccessful ${err}`)
+          toast.error(`stock request unsuccessful ${err}`, {position: toast.POSITION.BOTTOM_RIGHT,})
      })
 
 
   }
 
   const handleReset = () => {
-    setCanceled(true);
+    setSelected("");
   };
 
 
   const handleItemCodeChange = (e) => {
     const itemCode = e.target.value;
-    const selectedItem = Items.find((item) => item.item_code === itemCode);
-    console.log(selectedItem)
-
-
-    setItemCode(selectedItem.item_code)
-    setItemName(selectedItem.item_name)
-    setItemBrand(selectedItem.item_brand)
-    setItemCategory(selectedItem.category)
+    setSelected(Items.find((item) => item.item_code === itemCode));
   };
 
 
@@ -107,7 +93,7 @@ function InvRequestStock() {
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
 
-          <div className="w-[800px] h-[450px] mx-auto rounded-2xl bg-white mt-8">
+          <div className="w-[800px] h-[500px] mx-auto rounded-2xl bg-white mt-8">
 
         <h1 
         className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
@@ -137,7 +123,7 @@ function InvRequestStock() {
                         <label className="">Item Name :</label>
                         <input type="text"
                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                        value={item_name} readOnly/>                        
+                        value={selected.item_name} readOnly/>                        
                     </div>
                 </div>
 
@@ -146,13 +132,13 @@ function InvRequestStock() {
                         <label className="">Item Brand :</label>
                         <input type="text" 
                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                        value={item_brand} readOnly/>                        
+                        value={selected.item_brand} readOnly/>                        
                     </div>
 
                     <div className=" w-[50%]  ">
                         <label className="">Item Category :</label>
                         <select 
-                        value={category}
+                        value={selected.category}
                         className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] "
                         readOnly>
                               <option>Select a category</option>
@@ -166,11 +152,21 @@ function InvRequestStock() {
                         </select>
                                             
                     </div>
+                </div>
 
+                <div className="flex mt-6">
+                <div className=" w-[50%]  ">
+                        <label className="">Available Quantity :</label>
+                        <input
+                        className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] "
+                        value={selected.qty} readOnly>
+                          
+                        </input>
+                                            
                 </div>
 
                 <div className=" w-[50%] mb-6 ">
-                    <label className="">Item Quantity :</label>
+                    <label className="">Request Quantity :</label>
                     <input type="number"
                     min={1}
                     className="rounded-3xl py-2.5 px-5 w-[50vh] 
@@ -179,8 +175,8 @@ function InvRequestStock() {
                     onChange={(e)=>{
                       setItemQty(e.target.value)}} />
                 </div>
-                    
-
+              </div>
+                
                 <div className="flex mt-14">
 
                     <button type="reset"

@@ -1,5 +1,5 @@
-const asyncHandler = require('express-async-handler')
-const Transport = require('../models/transportModel')
+const asyncHandler = require("express-async-handler");
+const Transport = require("../models/transportModel");
 
 const addTransport = asyncHandler(async (req, res) =>{    
     const { userName, plocation, dlocation, petType, date, time, count, selectedVehicle  } = req.body
@@ -71,8 +71,8 @@ const assignVehicle = asyncHandler(async (req, res) => {
 
 
 const getCount = asyncHandler(async (req, res) => {
-  const pendingCount = await Transport.countDocuments({ status: 'PENDING' });
-  const acceptedCount = await Transport.countDocuments({ status: 'ACCEPTED' });
+  const pendingCount = await Transport.countDocuments({ status: "PENDING" });
+  const acceptedCount = await Transport.countDocuments({ status: "ACCEPTED" });
   res.json({ pendingCount, acceptedCount });
 });
 
@@ -84,5 +84,3 @@ module.exports = {
   assignVehicle,
   getCount,
 };
-
-

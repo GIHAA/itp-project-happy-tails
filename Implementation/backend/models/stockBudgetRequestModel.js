@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const stockBudgetRequestSchema  = mongoose.Schema(
   {
@@ -24,10 +24,9 @@ const stockBudgetRequestSchema  = mongoose.Schema(
       },
       status: {
         type: String,
+        enum: ['Accepted', 'Requested', 'Pending', 'FINISHED'],
         default: "Pending",
+        required: true
       }
-
-  }
-)
-
-module.exports = mongoose.model('stockBudget', stockBudgetRequestSchema)
+    });
+module.exports = mongoose.model("stockBudget", stockBudgetRequestSchema);

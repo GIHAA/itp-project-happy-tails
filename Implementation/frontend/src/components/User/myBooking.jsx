@@ -38,11 +38,33 @@ const Booking = (props) => {
   };
 
   const handleDelete = (booking) => {
-    const response = bookingServices.deleteBooking(formData);
-    console.log(response);
-    if (response) toast.success("Booking deleted successfully");
 
-    refreshTable();
+    toast.warn(
+      <div>
+        <p class="text-red-700 ml-8">Do you want to delete ?</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            style={{ marginRight: "1rem" }}
+            onClick={() => {
+              const response = bookingServices.deleteBooking(formData);
+              toast.success("Booking deleted successfully", {
+                autoClose: 1000,
+              });
+              setTimeout(() => {
+                refreshTable();
+              },2000);
+            }}
+          >
+            Yes
+          </button>
+          <button onClick={() => toast.dismiss()}>No</button>
+        </div>
+      </div>,
+      { autoClose: false }
+    );
+
+
+
   };
 
   const handleMainInputChange = (event) => {
@@ -58,7 +80,6 @@ const Booking = (props) => {
   };
 
   const refreshTable = () => {
-    setData([]);
     bookingServices.getAllBookings(user).then((res) => {
       setData(res);
     });
@@ -68,6 +89,11 @@ const Booking = (props) => {
     const response = bookingServices.updateBooking(formData);
     setShowEditModal(false);
     if (response) toast.success("Booking updated successfully");
+
+    setTimeout(() => {
+      refreshTable();
+    },2000);
+
   };
 
   return (
@@ -79,14 +105,14 @@ const Booking = (props) => {
               My Bookings
             </h1>
 
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <button
                 className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]"
                 onClick={() => refreshTable()}
               >
                 Refresh
               </button>
-            </div>
+            </div> */}
 
             {isLoading ? (
               <Spinner />
@@ -109,7 +135,10 @@ const Booking = (props) => {
                       key={item._id}
                       className="h-[55px] border-[1px] border-gray-400"
                     >
-                      <td className="text-center" onClick={() => handleDescription(item)}>
+                      <td
+                        className="text-center"
+                        onClick={() => handleDescription(item)}
+                      >
                         {item.bid}
                       </td>
                       <td className="text-center">{item.petCount}</td>
@@ -201,8 +230,16 @@ const Booking = (props) => {
             </form>
             <br />
             <div className="flex">
-              <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setShowEditModal(false)}>Close</button>
-              <button className="bg-secondary text-white h-[35px] w-[90px] rounded-full ml-auto" onClick={handleEditSubmit}>
+              <button
+                className="bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => setShowEditModal(false)}
+              >
+                Close
+              </button>
+              <button
+                className="bg-secondary text-white h-[35px] w-[90px] rounded-full ml-auto"
+                onClick={handleEditSubmit}
+              >
                 Submit
               </button>
             </div>
@@ -246,60 +283,61 @@ const Booking = (props) => {
               </tbody>
             </table>
             <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-2">
-            {selectedBooking.mini.map((item, index) => (
-              <>
-                <table class="border-collapse w-full">
-                  <tbody>
-                    <tr class="bg-gray-100">
-                      <td class="border border-gray-400 px-4 py-1 font-medium">
-                        Pet num {index + 1} details
-                      </td>
-                      <td class="border border-gray-400 px-4 py-1"></td>
-                    </tr>
-                    <tr class="bg-gray-200">
-                      <td class="border border-gray-400 px-4 py-1 font-medium">
-                        Pet ID
-                      </td>
-                      <td class="border border-gray-400 px-4 py-1">
-                        {item.pid}
-                      </td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                      <td class="border border-gray-400 px-4 py-1 font-medium">
-                        Pet Type
-                      </td>
-                      <td class="border border-gray-400 px-4 py-1">
-                        {item.type}
-                      </td>
-                    </tr>
-                    <tr class="bg-gray-200">
-                      <td class="border border-gray-400 px-4 py-1 font-medium">
-                        Pet name
-                      </td>
-                      <td class="border border-gray-400 px-4 py-1">
-                        {item.name}
-                      </td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                      <td class="border border-gray-400 px-4 py-1 font-medium">
-                        Pet Description
-                      </td>
-                      <td class="border border-gray-400 px-4 py-1">
-                        {item.description}
-                      </td>
-                    </tr>
-                
-                  </tbody>
-                </table>
-              </>
-            ))}
+              {selectedBooking.mini.map((item, index) => (
+                <>
+                  <table class="border-collapse w-full">
+                    <tbody>
+                      <tr class="bg-gray-100">
+                        <td class="border border-gray-400 px-4 py-1 font-medium">
+                          Pet num {index + 1} details
+                        </td>
+                        <td class="border border-gray-400 px-4 py-1"></td>
+                      </tr>
+                      <tr class="bg-gray-200">
+                        <td class="border border-gray-400 px-4 py-1 font-medium">
+                          Pet ID
+                        </td>
+                        <td class="border border-gray-400 px-4 py-1">
+                          {item.pid}
+                        </td>
+                      </tr>
+                      <tr class="bg-gray-100">
+                        <td class="border border-gray-400 px-4 py-1 font-medium">
+                          Pet Type
+                        </td>
+                        <td class="border border-gray-400 px-4 py-1">
+                          {item.type}
+                        </td>
+                      </tr>
+                      <tr class="bg-gray-200">
+                        <td class="border border-gray-400 px-4 py-1 font-medium">
+                          Pet name
+                        </td>
+                        <td class="border border-gray-400 px-4 py-1">
+                          {item.name}
+                        </td>
+                      </tr>
+                      <tr class="bg-gray-100">
+                        <td class="border border-gray-400 px-4 py-1 font-medium">
+                          Pet Description
+                        </td>
+                        <td class="border border-gray-400 px-4 py-1">
+                          {item.description}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </>
+              ))}
             </div>
             <div className="flex justify-end">
-            <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setShowDescriptonModal(false)}>
-              Close
-            </button>
-              </div>
-            
+              <button
+                className="bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => setShowDescriptonModal(false)}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

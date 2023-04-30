@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   readTransport,
@@ -7,8 +7,12 @@ const {
   deleteTransport,
   assignVehicle,
   getCount,
-} = require('../controller/transportController');
-const { protect, userProtect, adminProtect } = require('../middleware/authMiddleware');
+} = require("../controller/transportController");
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
 
 router.post('/', addTransport);
 router.get('/', readTransport);

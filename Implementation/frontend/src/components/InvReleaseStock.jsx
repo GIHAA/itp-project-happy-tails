@@ -31,13 +31,13 @@ export default function InvReleaseStock() {
   async function handleRelease ({item_code, item_name, item_brand, category, qty}, newQty) {
     console.log(newQty)
     if(qty < 1) {
-        alert('Cannot release, item is out of stock')
+        toast.error(`Cannot release, item is out of stock`, {position: toast.POSITION.BOTTOM_RIGHT,})
     
     }else if(newQty < 1){
-        alert('please enter valid qty')
+        toast.error(`please enter valid qty`, {position: toast.POSITION.BOTTOM_RIGHT,})
 
     }else if(qty < newQty){
-        alert('Cannot release, insufficient qty')
+        toast.error(`Cannot release, insufficient qty`, {position: toast.POSITION.BOTTOM_RIGHT,})
 
     }else{
 
@@ -58,8 +58,7 @@ export default function InvReleaseStock() {
             toast.success(`Sucessfully released ${newQty} ${item_brand} ${item_name}s`, {position: toast.POSITION.BOTTOM_RIGHT,})
 
         }).catch((err)=>{
-                    alert(`${err.response.data.message}`)
-                    console.log(err)
+            toast.error(`${err.response.data.message}`, {position: toast.POSITION.BOTTOM_RIGHT,})
         })
 
         //creating the object to send the item to backend to update qty
