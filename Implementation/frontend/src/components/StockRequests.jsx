@@ -22,6 +22,15 @@ export default function StockRequests() {
       .catch((err) => alert(err));
   }, []);
 
+  // const refreshTable = () => {
+  //   axios
+  //     .get("http://localhost:8080/api/inventory/stockrequest/")
+  //     .then((res) => {
+  //       setStockReq(res.data);
+  //     })
+  //     .catch((err) => alert(err));
+  // }
+
   function generatePDF() {
     const doc = new jsPDF();
     const today = new Date();

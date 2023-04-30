@@ -12,6 +12,7 @@ export default function PendingBookings() {
       .get("http://localhost:8080/api/transport/")
       .then((res) => {
         setTransports(res.data);
+        console.log(res.data);
       })
       .catch((err) => alert(err));
   }, []);
@@ -21,15 +22,15 @@ export default function PendingBookings() {
       .put(`http://localhost:8080/api/transport/${_id}`, { status: "ACCEPTED" })
       .then((res) => {
         const updatedTransport = res.data;
-        setTransports((prevState) => {
-          const updatedTransports = prevState.map((transport) => {
-            if (transport._id === _id) {
-              return updatedTransport;
-            }
-            return transport;
-          });
-          return updatedTransports;
-        });
+        // setTransports((prevState) => {
+        //   const updatedTransports = prevState.map((transport) => {
+        //     if (transport._id === _id) {
+        //       return updatedTransport;
+        //     }
+        //     return transport;
+        //   });
+        //   return updatedTransports;
+        // });
       })
       .catch((err) => alert(err));
   };

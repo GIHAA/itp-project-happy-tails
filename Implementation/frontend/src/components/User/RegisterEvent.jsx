@@ -132,16 +132,16 @@ function RegisterEvent() {
   function addbooking(e) {
     e.preventDefault();
 
-    console.log(eid);
+
     const newregister = {
       eid,
       bookid: bookid,
       eventName,
-      cusName,
+      cusName : user.name,
       noOfTicket,
       total: dbprice * noOfTicket,
-      email,
-      phoneNumber,
+      email : user.email,
+      phoneNumber : user.phone,
     };
 
     const newamount = {
@@ -188,6 +188,7 @@ function RegisterEvent() {
         // }, 5000);
       })
       .catch((err) => {
+        alert(JSON.stringify(newregister));
         toast.error(`Please fill all fields`);
       });
   }
@@ -331,6 +332,7 @@ function RegisterEvent() {
                 type="text"
                 name="cusName"
                 id="cusName"
+                value={user.name}
                 required
                 onChange={(e) => {
                   setName(e.target.value);
