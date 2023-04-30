@@ -2,10 +2,25 @@ import React from 'react'
 import logo from "../assets/logo.png"
 import v from "../assets/v.png"
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import logoutImg from "../assets/logout.png";
+import { logout, reset } from "../services/auth/authSlice";
 
 
+  
 
 function VSideBar() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
 
     <div className=" bg-[#FF9F00] h-[100vh] flex-[15%] sticky top-0">
@@ -56,7 +71,17 @@ function VSideBar() {
     </div>
 
     <div>
-      <hr className="mt-[80px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
+        <button
+          onClick={onLogout}
+          className="flex items-center px-5 py-1 ml-12 mr-5 mt-[50px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
+        >
+          <img src={logoutImg} alt="Logout" className="w-4 h-4 mr-2" />
+          <span>Logout</span>
+        </button>
+      </div>
+
+    <div>
+      <hr className="mt-[10px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
       <img src={v} className=" w-[140px] h-[140px] mx-auto"></img>
     </div>
   
