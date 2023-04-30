@@ -15,37 +15,6 @@ export default function AddTBooking() {
   const [vaccineStatus, setVaccineStatus] = useState("");
   const [count, setCount] = useState("");
 
-<<<<<<< HEAD
-    const[userName, setUserName] = useState("");
-    const[plocation, setPlocation] = useState("");
-    const[dlocation, setDlocation] = useState("");
-    const[petType, setPetType] = useState("");
-    const[petGender, setPetGender] = useState("");
-    const[date, setDate] = useState("");
-    const[time, setTime] = useState("");
-    const[vaccineStatus, setVaccineStatus] = useState("");
-    const[count, setCount] = useState("");
-
-
-
-
-    function addTBooking(e) {
-        e.preventDefault();
-
-        const newTBooking = {
-
-            userName,
-            plocation,
-            dlocation,
-            petType,
-            petGender,
-            date,
-            time,
-            vaccineStatus,
-            count
-
-    }
-=======
   function addTBooking(e) {
     e.preventDefault();
 
@@ -60,7 +29,6 @@ export default function AddTBooking() {
       vaccineStatus,
       count,
     };
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
     console.log(newTBooking);
 
@@ -98,110 +66,6 @@ export default function AddTBooking() {
           </div>
         </div>
 
-<<<<<<< HEAD
-                <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll"> 
-
-                    <div className="w-[800px] h-[400px] mx-auto rounded-2xl bg-white mt-8">
-
-                    <h1 
-                    className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
-                    >Enter Details</h1>
-
-                    <div className=" pl-5">
-
-                        <form className="mx-auto" onSubmit={addTBooking}>
-                        
-
-                                <div className="flex mb-6">
-                                    <div>
-                                        <label className="">User Name  : </label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setUserName(e.target.value)}} required />                        
-                                    </div>
-
-                                    
-                                </div>
-
-                                <div className="flex mb-6">
-
-                                    <div>
-                                        <label className="">Pick-up Location :</label>
-                                        <input type="text"
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setPlocation(e.target.value)}} required />                        
-                                    </div>
-
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Drop-off Location :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setDlocation(e.target.value)}} required />                        
-                                    </div>
-
-
-                                </div>
-
-                                <div className="flex mb-6">
-
-                                    
-
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Date :</label>
-                                        <input type="Date" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setDate(e.target.value)}} required />                        
-                                    </div>
-
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Time :</label>
-                                        <input type="Time" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setTime(e.target.value)}} required />                        
-                                    </div>
-
-
-                                    
-                                </div>
-                                <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
-                                        <label className="">Pet types :</label>
-                                        <input type="text" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setPetType(e.target.value)}} required />                        
-                                    </div>
-
-                                    <div className=" w-[50%]  ">
-                                        <label className="">Number of pets :</label>
-                                        <input type="Number" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setCount(e.target.value)}} required />                        
-                                    </div>
-                                </div>
-
-            
-                                
-                                <div className="flex mt-24 h-10">
-
-                                    <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]"><Link to='/pending'>Cancel</Link></button>
-
-                                    <button type="submit" 
-                                    className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[130px]"
-                                    >Submit</button>
-
-
-                                </div>
-                        </form>
-                        </div>
-=======
         {/*Body Part*/}
         <div
           style={{ backgroundImage: `url(${bgimg})` }}
@@ -212,7 +76,6 @@ export default function AddTBooking() {
               <h1 className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md">
                 Enter Details
               </h1>
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
               <div className=" pl-5">
                 <form className="mx-auto" onSubmit={addTBooking}>

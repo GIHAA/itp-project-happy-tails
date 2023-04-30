@@ -17,26 +17,6 @@ function EditVehicle() {
   const [vModel, setVModel] = useState("");
   const [insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
 
-<<<<<<< HEAD
-    const [vehicle, setVehicle] = useState({});
-    const [plateNo, setPlateNo] = useState("");
-    const [vModel, setVModel] = useState("");
-    const [insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
-    const [status, setStatus] = useState("");
-
-  
-
-    async function getVehicle() {
-      try {
-        const res = await axios.get(`http://localhost:8080/api/vehicle/${id}`);
-        const oneVehicle = res.data.vehicle;
-        console.log(oneVehicle);
-        setVehicle(oneVehicle)
-
-      } catch (err) {
-        console.error(err);
-      }
-=======
   async function getVehicle() {
     try {
       const res = await axios.get(`http://localhost:8080/api/vehicle/${id}`);
@@ -45,7 +25,6 @@ function EditVehicle() {
       setVehicle(oneVehicle);
     } catch (err) {
       console.error(err);
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
     }
   }
 
@@ -57,13 +36,7 @@ function EditVehicle() {
     setPlateNo(vehicle.plateNo);
     setVModel(vehicle.vModel);
     setInsuranceExpirationDate(vehicle.insuranceExpirationDate);
-<<<<<<< HEAD
-    setStatus(vehicle.status);
-
-
-=======
   }, [vehicle]);
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
   async function UpdateVehicle(e) {
     console.log("clicked");
@@ -79,23 +52,9 @@ function EditVehicle() {
         insuranceExpirationDate,
       };
 
-<<<<<<< HEAD
-      plateNo,
-      vModel,
-      insuranceExpirationDate,
-      status
-
-    }
-
-      await axios.put(`http://localhost:8080/api/vehicle/${id}`, newVehicle)
-      alert("Vehicle info Updated !!")
-
-    }catch (err){
-=======
       await axios.put(`http://localhost:8080/api/vehicle/${id}`, newVehicle);
       alert("Vehicle info Updated !!");
     } catch (err) {
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
       console.error(err);
     }
   }
@@ -197,83 +156,6 @@ function EditVehicle() {
                   </div>
                 </div>
 
-<<<<<<< HEAD
-                 <h1 
-                 className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
-                 >Edit Vehicle Details</h1>
-
-                     <form className="mx-auto" onSubmit={UpdateVehicle}>
-                         <div className=" px-4">
-
-                             <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
-                                     <label className="">Plate Number :</label>
-                                     <input type="text" 
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={plateNo}
-                                     readOnly/>                        
-                                </div>
-
-                              </div>
-
-
-                              <div className="flex mb-6">
-
-                                  <div className=" w-[50%]  ">
-                                      <label className="">Vehicle Model :</label>
-                                      <input type="text" 
-                                      className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                      value={vModel}
-                                      onChange={(e)=>{
-                                          setVModel(e.target.value)}} required />                        
-                                  </div>
-                             </div>
-                            
-
-
-                            <div className="flex mb-6">
-                                 <div className=" w-[50%]  ">
-                                     <label className="">Insurance Expiration Date :</label>
-                                     <input type="text" 
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={insuranceExpirationDate}
-                                     onChange={(e)=>{
-                                      setInsuranceExpirationDate(e.target.value)}} required />                        
-                                 </div>
-                            </div>
-
-
-                            <div className="flex mb-6">
-                                 <div className=" w-[50%]  ">
-                                     <label className="">Availability :</label>
-                                     <input type="text" 
-                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                     value={status}
-                                     onChange={(e)=>{
-                                         setStatus(e.target.value)}} required />                        
-                                 </div>
-                             </div>
-                                 
-                        </div>
-                            <center>
-
-                             <button type="submit" 
-                             className="text-white bg-[#FF9F00] hover:bg-[#2E4960] mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-l w-full sm:w-auto px-5 py-2.5 text-center "
-                             >Submit</button></center>
-                     </form>
-
-                 </div>
-                
-             </div>
- 
-       </div>
-
-     </div> {/*Right Side container end*/}
-   </div> //Main container end
-
- )
-=======
                 <button
                   type="submit"
                   className="text-white bg-[#FF9F00] hover:bg-[#2E4960] mb-5 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-l w-full sm:w-auto px-5 py-2.5 text-center"
@@ -288,7 +170,6 @@ function EditVehicle() {
       {/*Right Side container end*/}
     </div> //Main container end
   );
->>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 }
 
 export default EditVehicle;
