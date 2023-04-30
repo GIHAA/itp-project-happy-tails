@@ -83,7 +83,7 @@ function VSideBar() {
       </div>
 >>>>>>> 735415bdc6eb34bc6e06195684fd1681ae098d8a
 
-      <div className="my-6 ">
+      <div className=" ">
         <NavLink
           to="/vhome"
           activeClassName=" bg-[#797979]"
@@ -135,18 +135,19 @@ function VSideBar() {
         <div>
           <button
             onClick={onLogout}
-            className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
+            className="flex items-center px-5 py-1 ml-12 mr-5  bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
           >
             <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
             <span>Logout</span>
           </button>
         </div>
-      </div>
+
 
       <div>
         <hr className="mt-[20px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
-        <img src={v} className=" w-[140px] h-[140px] mx-auto"></img>
+        <img src={v} className=" w-[120px] h-[100px] mx-auto"></img>
       </div>
+    </div>
     </div>
   );
 }
