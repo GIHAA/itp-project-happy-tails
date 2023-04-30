@@ -27,7 +27,7 @@ export default function InvAddItem() {
     axios
       .post("http://localhost:8080/api/inventory/items", newItem)
       .then(() => {
-        toast.error("item added", { position: toast.POSITION.BOTTOM_RIGHT });
+        toast.success("item added", { position: toast.POSITION.BOTTOM_RIGHT });
       })
       .catch((err) => {
         if (err.response.status === 409)
