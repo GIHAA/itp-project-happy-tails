@@ -27,8 +27,8 @@ export default function Vehicle() {
   function generatePDF() {
     const doc = new jsPDF();
     doc.autoTable({
-      head: [["Plate Number", "Driver ID", "Agent ID", "Vehicle Model", "Insurance Expiration Date"]],
-      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.driverId, vehicle.agentId, vehicle.vModel, vehicle.insuranceExpirationDate]),
+      head: [["Plate Number", "Vehicle Model", "Availability", "Insurance Expiration Date"]],
+      body: Vehicles.map((vehicle) => [vehicle.plateNo, vehicle.vModel, vehicle.ava,vehicle.insuranceExpirationDate]),
     });
     doc.save("All-vehicles-report.pdf");
   }
@@ -58,7 +58,15 @@ export default function Vehicle() {
 
                 <Link to='/addnvehicle' 
                 className=" bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
-                >+ADD</Link> 
+                >+ADD</Link>
+
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
+                              onClick={() => generatePDF()}>
+                        Generate Report
+                      </button>
+
+                    </div> 
 
                 </div>
                 
@@ -130,13 +138,7 @@ export default function Vehicle() {
                     </tbody>
                     </table>
 
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
-                              onClick={() => generatePDF()}>
-                        Generate Report
-                      </button>
-
-                    </div>
+                    
 
                 </div>
 
