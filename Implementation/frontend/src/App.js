@@ -14,6 +14,7 @@ import InvRequestedStock from "./components/InvRequestedStock";
 import InvReleaseStock from "./components/InvReleaseStock";
 import InvStockIn from "./components/InvStockIn";
 import InvStockOut from "./components/InvStockOut";
+import InvEventStocks from "./components/InvEventStocks";
 
 import VehicleDashboard from "./components/VehicleDashboard";
 import EditVehicle from "./components/EditVehicle";
@@ -48,9 +49,9 @@ import PortalHandler from "./components/PortalHandler";
 
 import AddEvent from "./components/EventManagement/AddEvent";
 import AllEvent from "./components/EventManagement/AllEvent";
-import RegisterEvent from "./components/EventManagement/RegisterEvent";
+import RegisterEvent from "./components/User/RegisterEvent";
 import AllRegisterEvent from "./components/EventManagement/AllRegisterEvent";
-import AllEventUser from "./components/EventManagement/AllEventUser";
+import AllEventUser from "./components/User/AllEventUser";
 import EditEvent from "./components/EventManagement/EditEvent";
 import AddEventFeedback from "./components/EventManagement/AddEventFeedback";
 import AllEventFeedback from "./components/EventManagement/AllEventFeedback";
@@ -96,6 +97,7 @@ import AddSuppliers from "./components/AddSuppliers";
 import ManageSuppliers from "./components/ManageSuppliers";
 import UpdateSupplier from "./components/UpdateSupplier";
 import StockRequests from "./components/StockRequests";
+import EventStockReqs from "./components/EventStockReqs";
 import StockBudgetRequests from "./components/StockBudgetRequests";
 import StockBudgetRequestForm from "./components/StockBudgetRequestForm";
 import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
@@ -130,6 +132,7 @@ function App() {
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />
             <Route path="/updateSuppliers/:id" element={<UpdateSupplier />} />
             <Route path="/stockRequests" element={<StockRequests />} />
+            <Route path="/eventstockReqs" element={<EventStockReqs />} />
             <Route
               path="/StockBudgetRequests"
               element={<StockBudgetRequests />}
@@ -250,6 +253,7 @@ function App() {
             <Route path="/releasestock" element={<InvReleaseStock />} />
             <Route path="/stockin" element={<InvStockIn />} />
             <Route path="/stockout" element={<InvStockOut />} />
+            <Route path="/eventstocks" element={<InvEventStocks />} />
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
             <Route path="/manageSuppliers" element={<ManageSuppliers />} />

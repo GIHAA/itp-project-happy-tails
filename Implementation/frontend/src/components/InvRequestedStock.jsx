@@ -4,6 +4,8 @@ import axios from "axios";
 import inv from "../assets/inv.jpg";
 import InventorySideBar from "./InventorySideBar";
 import filterImg from "../assets/filter.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const moment = require("moment");
 
 function InvRequestedStock() {
@@ -126,8 +128,15 @@ function InvRequestedStock() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockReq
-                  .filter((val) => {
+                {stockReq.sort((a, b) => {
+                  if (a.status.toLowerCase() === 'acepted') {
+                    return -1; 
+                  } else if (b.status.toLowerCase() === 'accepted') {
+                    return 1; 
+                  } else {
+                    return 0; 
+                  }
+                }).filter((val) => {
                     if (selectedCategory === "") {
                       return val;
                     } else if (
@@ -172,11 +181,7 @@ function InvRequestedStock() {
 }
 
 function TableDataRow(props) {
-  async function handleClick(id, itemCode, newqty) {
-    console.log(id);
-    console.log(itemCode);
-    console.log(newqty);
-
+  async function handleClick(id, itemCode, newqty, itemName) {
     const now = moment();
     const formatted = now.format("YYYY-MM-DD, h:mm a"); // Returns a formatted date string like "2023-10-10, 4:28 pm"
 
@@ -188,7 +193,7 @@ function TableDataRow(props) {
           rec_date: formatted,
         }
       );
-      alert("Status Updated !!");
+      toast.success(`Sucessfully received ${itemName} ${newqty}`, {position: toast.POSITION.BOTTOM_RIGHT,})
     } catch (err) {
       console.error(err);
     }
@@ -228,7 +233,7 @@ function TableDataRow(props) {
         <td className="p-3">
           {props.status.toLowerCase() === "accepted" ? (
             <button
-              onClick={() => handleClick(props.id, props.itemCode, props.qty)}
+              onClick={() => handleClick(props.id, props.itemCode, props.itemName, props.qty)}
               className="px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
             >
               ✓ Received

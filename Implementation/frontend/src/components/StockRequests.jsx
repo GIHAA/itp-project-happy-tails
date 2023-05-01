@@ -22,19 +22,29 @@ export default function StockRequests() {
       .catch((err) => alert(err));
   }, []);
 
+  // const refreshTable = () => {
+  //   axios
+  //     .get("http://localhost:8080/api/inventory/stockrequest/")
+  //     .then((res) => {
+  //       setStockReq(res.data);
+  //     })
+  //     .catch((err) => alert(err));
+  // }
+
   function generatePDF() {
     const doc = new jsPDF();
     const today = new Date();
     const date = `${today.getFullYear()}-${
       today.getMonth() + 1
     }-${today.getDate()}`;
-    doc.text(`Stock Requests Report Generated- ${date}`, 14, 16);
-    doc.addImage(logo2, "JPG", 10, 20, 0, 50);
+    doc.setFontSize(15);
+    doc.text(`Still Pending Stock Requests\nGenerated on ${date}`, 14, 55);
+    doc.addImage(logo2, "JPG", 85, 7, 50, 50);
     doc.setFontSize(25);
-    doc.text(70, 35, "Happy Tails");
+    doc.text(15, 20, "Happy Tails");
     doc.setFontSize(10);
-    doc.text(70, 40, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
-    doc.text(70, 55, "Tel : 01123457689");
+    doc.text(15, 30, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
+    doc.text(15, 43, "Tel : 01123457689");
     doc.autoTable({
       startY: 80,
       head: [
@@ -99,7 +109,7 @@ export default function StockRequests() {
                   <th className="p-3">item_brand</th>
                   <th className="p-3">category</th>
                   <th className="p-3">qty</th>
-                  <th className="p-3">total_amount</th>
+                  {/* <th className="p-3">total_amount</th> */}
                   <th className="p-3">status</th>
                   <th className="p-3">action</th>
                 </tr>
@@ -116,7 +126,7 @@ export default function StockRequests() {
                         itemBrand={stockrequest.item_brand}
                         category={stockrequest.category}
                         qty={stockrequest.qty}
-                        totalAmount={stockrequest.totalAmount}
+                        // totalAmount={stockrequest.totalAmount}
                         date={stockrequest.date}
                         status={stockrequest.status}
                       />
@@ -171,15 +181,15 @@ function TableDataRow(props) {
         <td className="p-3">{props.itemBrand}</td>
         <td className="p-3">{props.category}</td>
         <td className="p-3">{props.qty}</td>
-        <td className="p-3">
+        {/* <td className="p-3">
           {props.status.toLowerCase() === "pending" ? (
-            <input
-              type="string"
-              className="w-full p-1 border-gray-300 border rounded-lg"
-              onChange={(e) => handleChange(e.target.value)} // Handle input change
-            />
+            // <input
+            //   type="string"
+            //   className="w-full p-1 border-gray-300 border rounded-lg"
+            //   onChange={(e) => handleChange(e.target.value)} // Handle input change
+            // />
           ) : null}
-        </td>
+        </td> */}
         <td className="p-3">{props.status}</td>
         <td className="p-3">
           {props.status.toLowerCase() === "pending" ? (

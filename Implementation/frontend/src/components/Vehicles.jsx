@@ -19,6 +19,28 @@ export default function Vehicle() {
       .catch((err) => alert(err));
   }, []);
 
+  
+  function toggleAvailability(id, isAvailable) {
+    axios.put(`http://localhost:8080/api/vehicle/${id}`, {status: isAvailable ? 'AVAILABLE' : 'UNAVAILABLE'})
+      .then(res => {
+        setVehicles(prevVehicles => {
+          return prevVehicles.map(vehicle => {
+            if (vehicle._id === id) {
+              return {...vehicle, status: isAvailable ? 'UNAVAILABLE' : 'AVAILABLE'}
+            } else {
+              return vehicle;
+            }
+          });
+        });
+      })
+      .catch(err => alert(err))
+  }
+  
+  
+
+
+
+
   function generatePDF() {
     const doc = new jsPDF();
     doc.autoTable({
@@ -80,25 +102,16 @@ export default function Vehicle() {
           </div>
         </div>
 
-        {/*Body Part*/}
-        <div
-          style={{ backgroundImage: `url(${bgimg})` }}
-          className="bg-cover bg-center h-screen w-full fixed"
-        >
-          {/*White box*/}
-          <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll">
-            {/*Table*/}
-            <table className="mx-auto my-10 w-[1000px]">
-              <thead className=" bg-[#FF9F00] text-white sticky top-0">
-                <tr>
-                  <th className="p-3">Plate Number</th>
-                  <th className="p-3">Driver ID</th>
-                  <th className="p-3">Agent ID</th>
-                  <th className="p-3">Vehicle Model</th>
-                  <th className="p-3">Insurance Expiration Date</th>
-                  <th className="p-3">Action</th>
-                </tr>
-              </thead>
+                    <thead className=" bg-[#FF9F00] text-white sticky top-0">
+                        <tr>
+                        <th className="p-3">Plate Number</th>
+                        <th className="p-3">Vehicle Model</th>
+                        <th className="p-3">Insurance Expiration Date</th>
+                        <th className="p-3">Availability</th> 
+                        <th className="p-3">Action</th>
+                        </tr>
+                    </thead>
+                    
 
               <tbody className="bg-white text-center">
                 {Vehicles.filter((val) => {
@@ -115,22 +128,35 @@ export default function Vehicle() {
                   ) {
                     return val;
                   }
-                }).map((vehicle) => {
-                  return (
-                    <TableDataRow
-                      id={vehicle._id}
-                      VehiclePlateNo={vehicle.plateNo}
-                      VehicleDriverId={vehicle.driverId}
-                      VehicleAgentId={vehicle.agentId}
-                      VehicleVModel={vehicle.vModel}
-                      VehicleInsuranceExpirationDate={
-                        vehicle.insuranceExpirationDate
-                      }
+               
+                    }).map((vehicle) => (
+                      <TableDataRow 
+                          key={vehicle._id}
+                          id={vehicle._id}
+                          VehiclePlateNo={vehicle.plateNo}
+                          VehicleVModel={vehicle.vModel}
+                          VehicleInsuranceExpirationDate={vehicle.insuranceExpirationDate}
+                          VehicleStatus={vehicle.status}
+                          toggleAvailability={toggleAvailability}
+                          isAvailable={vehicle.status === 'AVAILABLE'}
                     />
-                  );
-                })}
-              </tbody>
-            </table>
+
+                    ))}
+
+
+                  
+                    </tbody>
+                
+
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
+                              onClick={() => generatePDF()}>
+                        Generate Report
+                      </button>
+
+                    </div>
+
+                </div>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
               <button
@@ -142,22 +168,32 @@ export default function Vehicle() {
               </button>
             </div>
           </div>
-        </div>
-      </div>{" "}
-      {/*Right Side container end*/}
-    </div> //Main container end
+      
   );
 }
 
-function TableDataRow(props) {
+function TableDataRow(props){
+  
+
   return (
     <>
       <tr>
         <td className="p-3">{props.VehiclePlateNo}</td>
-        <td className="p-3">{props.VehicleDriverId}</td>
-        <td className="p-3">{props.VehicleAgentId}</td>
         <td className="p-3">{props.VehicleVModel}</td>
         <td className="p-3">{props.VehicleInsuranceExpirationDate}</td>
+        <td className="p-3"><button
+          onClick={() => props.toggleAvailability(props.id, props.isAvailable)}
+          style={{ backgroundColor: props.isAvailable ? 'red' : 'green' }}
+        >
+          {props.isAvailable ? 'uav' : 'av'}
+        </button></td>
+
+
+
+        
+
+      
+        
 
         <td className="p-3">
           <button
@@ -182,10 +218,12 @@ function TableDataRow(props) {
 }
 
 function onDelete(id) {
-  axios
-    .delete(`http://localhost:8080/api/vehicle/${id}`)
-    .then((res) => {
-      alert("vehicle deleted");
-    })
-    .catch((err) => alert(err));
+
+  axios.delete(`http://localhost:8080/api/vehicle/${id}`)
+  .then((res) => {
+      alert("vehicle deleted")
+  })
+  .catch(err => alert(err))
+
 }
+

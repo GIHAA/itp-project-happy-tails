@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/userspets/";
+const API_URL = "http://localhost:8080/api/feedback/";
 
 const view = async (userData) => {
-    const response = await axios.get(API_URL + "update", userData, {
+    const response = await axios.get(API_URL, {
       headers: {
         Authorization: `Bearer ${userData.token}`,
       },
@@ -13,7 +13,7 @@ const view = async (userData) => {
   };
 
 const add = async (userData) => {
-    const response = await axios.post(API_URL + "update", userData, {
+    const response = await axios.post(API_URL , userData, {
       headers: {
         Authorization: `Bearer ${userData.token}`,
       },
@@ -23,7 +23,7 @@ const add = async (userData) => {
   };
 
 const update = async (userData) => {
-    const response = await axios.post(API_URL + "update", userData, {
+    const response = await axios.put(API_URL + userData._id, {
       headers: {
         Authorization: `Bearer ${userData.token}`,
       },
@@ -32,8 +32,8 @@ const update = async (userData) => {
     return response.data;
   };
 
-const deleteup = async (userData) => {
-  const response = await axios.post(API_URL + "update", userData, {
+const deletefeedback = async (userData) => {
+  const response = await axios.delete (API_URL + userData._id, {
     headers: {
       Authorization: `Bearer ${userData.token}`,
     },
@@ -42,11 +42,11 @@ const deleteup = async (userData) => {
   return response.data;
 };
 
-userpetservices = {
+const feedbackServices = {
     view,
     add,
     update,
-    deleteup,
+    deletefeedback,
 }
 
-export default userpetservices;
+export default feedbackServices;
