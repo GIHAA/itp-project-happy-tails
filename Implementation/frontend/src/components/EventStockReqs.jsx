@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import inv from "../assets/inv.jpg";
-import InventorySideBar from "./InventorySideBar";
+import SupplierSideBar from "./SupplierSideBar";
 import filterImg from "../assets/filter.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function InvEventStocks() {
-  const [stockreqs, setStockRequests] = useState([]);
-  const [statusFilter, setStatusFilter] = useState("");
-  
+export default function EventStockReqs() {
+    const [stockreqs, setStockRequests] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [eventAmount, setEventAmount] = useState([]);
 
   useEffect(() => {
     axios
@@ -25,37 +25,83 @@ export default function InvEventStocks() {
       });
   }, []);
 
+  useEffect(() => {
+    async function geteamount() {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/eventamount/geteamounts"
+        );
+        console.log(res.data.alleamount);
+        setEventAmount(res.data.alleamount);
+      } catch (err) {
+        toast.error(err);
+      }
+    }
+    geteamount();
+  }, []);
 
-  async function handleClick(id, eid, eventName, items, description, response){
-
+  async function handleSend(id, eid, eventName, items, description,totalExpense){
+    if(totalExpense < 1)
+      toast.error(`Please enter valid amount`, {position: toast.POSITION.BOTTOM_RIGHT,})
+    else{
+        
       try {
         const newStock = {
           eid,
           eventName,
           items,
           description,
-          status: response,
+          status: "Sent",
         };
   
         await axios.put(`http://localhost:8080/api/eventstock/editstock/${id}`,newStock);
-        response === "Rejected" ? toast.success("Request Rejected") : toast.success("Request Accepted");
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        toast.success("Stock Sent Successfully");
       } catch (err) {
         toast.error(err);
       }
+
+      const amount = eventAmount.find((amount) => amount.eid === eid);
+      const eventAmountId = amount ? amount._id : null;
+      console.log(eventAmountId);
+      const res = await axios.get(`http://localhost:8080/api/eventamount/geteamount/${eventAmountId}`);
+      console.log(res.data.eamount)
+      const singleData = res.data.eamount;
+
+      var totalin = singleData.totalIncome;
+      var finalResult;
+      var finalRate;
+
+      if (totalExpense === 0 || totalin === 0) {
+        finalResult = "Not started";
+        finalRate = 0;
+      } else {
+        finalResult = totalin > totalExpense ? "Profit" : "Loss";
+        finalRate = ((totalin - totalExpense) / totalExpense) * 100;
+      }
+
+      const newamount = {
+        eid: eid,
+        eventName: singleData.eventName,
+        price: singleData.price,
+        noOfTicket: singleData.ticketCount,
+        totalIncome: singleData.totalin,
+        totalExpense: totalExpense,
+        result: finalResult,
+        rate: finalRate,
+      };
+
+      axios.put(`http://localhost:8080/api/eventamount/editeamount/${eventAmountId}`,newamount
+      ).catch((error) => console.error("Error updating event amount:", error));
+
+    }
   }
 
-  const handleStatusFilter = (event) => {
-    setStatusFilter(event.target.value);
-  };
 
 
   return (
     //Main container
     <div className="flex scroll-smooth">
-      <InventorySideBar />
+        <SupplierSideBar />
       {/*Right Side container start*/}
       <div className="bg-[#d9d9d9] flex-[85%]">
         {/*Header Part*/}
@@ -83,23 +129,6 @@ export default function InvEventStocks() {
         >
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
-          <div className="relative mt-6 ml-[1100px] mb-1">
-              <img
-                src={filterImg}
-                className="absolute top-2 left-2 w-4 h-4"
-              />
-              <select
-                className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
-                value={statusFilter}
-                 onChange={handleStatusFilter}
-              >
-                <option value="">All</option>
-                <option value="pending">Pending</option>
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-                <option value="sent">Sent</option>
-              </select>
-            </div>
 
             {/*Table*/}
             <table className="mx-auto w-[1250px]">
@@ -116,22 +145,12 @@ export default function InvEventStocks() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockreqs.sort((a, b) => {
-                  if (a.status.toLowerCase() === 'pending') {
-                    return -1; 
-                  } else if (b.status.toLowerCase() === 'pending') {
-                    return 1; 
-                  } else {
-                    return 0;
-                  }
-                }).filter((val) => {
-                    if (statusFilter === "") {
-                      return val;
-                    } else if (
-                      statusFilter.toLowerCase() === val.status.toLowerCase()
-                    ) {
-                      return val;
-                    }
+                {stockreqs.filter((val) => {
+                     if (val.status.toLowerCase() === "accepted") {
+                        return true;
+                      } else{
+                        return false;
+                      }
                   }).map((req) => {
                     return (
                       <>
@@ -139,7 +158,7 @@ export default function InvEventStocks() {
                           <td className="p-3">{req.stockid}</td>
                           <td className="p-3 w-[150px]">{req.eventName}</td>
                           
-                          {req.items.map((item, itemIndex) => ( 
+                          {req.items.map((item, itemIndex) => (
                             <tr key={itemIndex}>
                               <td className="p-3 w-[250px]">
                                 {item.product} - {item.quantity}
@@ -155,46 +174,30 @@ export default function InvEventStocks() {
 
                           <td className="p-3">
                             <span
-                              className={`inline-block px-2 rounded-xl text-sm ${
-                                req.status.toLowerCase() === "pending"
-                                  ? "bg-yellow-200 text-yellow-800"
-                                  : req.status.toLowerCase() === "accepted"
-                                  ? "bg-green-200 text-green-800"
-                                  : req.status.toLowerCase() === "sent"
-                                  ? "bg-blue-200 text-blue-800"
-                                  : "bg-red-500 text-red-100"
-                              }`}
+                              className={`inline-block px-2 rounded-xl text-sm bg-green-200 text-green-800"`}
                             >
                               {req.status}
                             </span>
                           </td>
 
                           <td className="p-3">
-                            {req.status.toLowerCase() === "pending" ? 
+                            
                               <div className="flex">
+                              <input type="number"
+                                placeholder="Enter total.." 
+                                onChange={(e)=> {
+                                    setTotal(e.target.value)
+                                }}
+                                className=" bg-[#E4EBF7]  text-gray-900 border-0 border-b-2 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                required/>
 
                               <button
-                                onClick={() => handleClick( req._id, req.eid, req.eventName, req.items, req.description, "Accepted")}
+                                onClick={() => handleSend( req._id, req.eid, req.eventName, req.items, req.description, total)}
                                 className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
                               >
-                                ✔️ Accept
-                              </button>
-
-                              
-                              <button
-                                onClick={() => handleClick( req._id, req.eid, req.eventName, req.items, req.description, "Rejected")}
-                                className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
-                              >
-                                ❌Reject
+                                ✓ Send
                               </button>
                               </div>
-
-                              : req.status.toLowerCase() === "rejected" ? 
-                               "You have rejected the request"
-                               : req.status.toLowerCase() === "sent" ? 
-                               "Supplier manager has sent the stocks"
-                              : "You have accepted the request"
-                          }
                           </td>
                         </tr>
                       </>
@@ -209,4 +212,6 @@ export default function InvEventStocks() {
       {/*Right Side container end*/}
     </div> //Main container end
   );
+
+  
 }

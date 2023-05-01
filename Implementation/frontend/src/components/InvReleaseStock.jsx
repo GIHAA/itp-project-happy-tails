@@ -14,6 +14,7 @@ export default function InvReleaseStock() {
   const [newQty, setNewQty] = useState(0);
   const [searchTerm , setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
 
 
   useEffect(()=>{
@@ -106,6 +107,10 @@ export default function InvReleaseStock() {
     setSelectedCategory(event.target.value);
   };
 
+  const handleStockFilter = (event) => {
+    setSelectedFilter(event.target.value);
+  };
+
   
     return (
        //Main container
@@ -152,8 +157,24 @@ export default function InvReleaseStock() {
             className="bg-cover bg-center h-screen w-full fixed" >
                 {/*White box*/}
                 <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">  
+                <div className="flex">
+                <div className="relative mt-6 ml-[830px] mb-1">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedFilter}
+                  onChange={handleStockFilter}
+                >
+                  <option value="">All</option>
+                  <option value="inStock">In Stock</option>
+                  <option value="outOfStock">Out of Stock</option>
+                </select>
+              </div>
 
-                <div className="relative mt-6 ml-[1000px] mb-1">
+                <div className="relative mt-6 ml-[10px] mb-1">
                   <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
                   <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                   value={selectedCategory} onChange={handleCategoryChange}>
@@ -167,6 +188,7 @@ export default function InvReleaseStock() {
                     <option value="OTHER">OTHER</option>
                   </select>
                 </div>
+              </div>
 
 
                 {/*Table*/}
@@ -187,18 +209,28 @@ export default function InvReleaseStock() {
                     <tbody  className="bg-white text-center">
 
                     {Items.filter((val)=>{
-                      if(searchTerm == "") {
+                      if(searchTerm === "") {
                         return val;
                       }else if(val.item_name.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
                       }else if(val.item_code.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
-                      }
+                      }else 
+                      return null;
                     }).filter((val)=>{
                       if(selectedCategory === "") {
                         return val;
                       }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
                         return val;
+                      }else 
+                      return null;
+                    }).filter((val) => {
+                      if (selectedFilter === "") {
+                        return val;
+                      } else if (selectedFilter === "inStock") {
+                        return val.qty > 0;
+                      } else if (selectedFilter === "outOfStock") {
+                        return val.qty <= 0;
                       }
                     }).map((item) => {
                       return(

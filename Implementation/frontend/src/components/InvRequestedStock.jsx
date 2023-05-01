@@ -128,8 +128,15 @@ function InvRequestedStock() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockReq
-                  .filter((val) => {
+                {stockReq.sort((a, b) => {
+                  if (a.status.toLowerCase() === 'acepted') {
+                    return -1; 
+                  } else if (b.status.toLowerCase() === 'accepted') {
+                    return 1; 
+                  } else {
+                    return 0; 
+                  }
+                }).filter((val) => {
                     if (selectedCategory === "") {
                       return val;
                     } else if (
@@ -224,7 +231,7 @@ function TableDataRow(props) {
           </span>
         </td>
         <td className="p-3">
-          {props.status.toLowerCase() === "accepted" && props.category.toLowerCase() !== "event-items"? (
+          {props.status.toLowerCase() === "accepted" ? (
             <button
               onClick={() => handleClick(props.id, props.itemCode, props.itemName, props.qty)}
               className="px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "

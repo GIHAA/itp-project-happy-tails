@@ -63,6 +63,9 @@ function InvItemUpdate() {
         newItem
       );
       toast.success("item Updated !!", {position: toast.POSITION.BOTTOM_RIGHT,})
+      setTimeout(() => {
+        window.location.href = "/items";
+      }, 3000);
     } catch (err) {
       console.error(err);
       toast.error(err, {position: toast.POSITION.BOTTOM_RIGHT,})
