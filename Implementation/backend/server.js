@@ -31,6 +31,8 @@ app.use("/api/users", require("./routes/userRoutes.js"));
 app.use("/api/booking/", require("./routes/bookingRoutes.js"));
 app.use("/api/sendEmail/", require("./routes/sendEmailRoutes.js"));
 app.use("/api/userspets", require("./routes/usersPetsRoutes"));
+app.use('/api/feedback', require('./routes/feedBackRoutes'))
+
 
 app.use("/api/vehicle/", require("./routes/vehicleRoutes.js"));
 app.use("/api/transport/", require("./routes/transportRoutes.js"));
