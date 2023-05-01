@@ -75,7 +75,7 @@ function SupplierSideBar() {
       <div>
         <button
           onClick={onLogout}
-          className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
+          className="flex items-center px-5 py-1 ml-12 mr-5 mt-[80px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
         >
           <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
           <span>Logout</span>
