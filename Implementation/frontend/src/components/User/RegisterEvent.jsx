@@ -141,7 +141,7 @@ function RegisterEvent() {
       noOfTicket,
       total: dbprice * noOfTicket,
       email : user.email,
-      phoneNumber : user.phone,
+      phoneNumber : phoneNumber,
     };
 
     const newamount = {
