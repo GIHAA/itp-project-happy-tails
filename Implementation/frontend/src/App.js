@@ -105,6 +105,8 @@ import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 import Spinner from "./components/common/Spinner";
 
 import Employee from "./components/admin/Employee";
+import Feedback from "./components/admin/Feedback";
+
 
 function App() {
   return (
@@ -118,6 +120,7 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="shelterpet" element={<ShelterPet />} />
             <Route path="adoptpet" element={<AdoptPet />} />
+            <Route path="/feedback" element={<Feedback />} />
             //user
             <Route path="user" element={<UserPortal />} />
             <Route path="profile" element={<Profile />} />
