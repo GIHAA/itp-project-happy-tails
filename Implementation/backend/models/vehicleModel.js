@@ -28,6 +28,8 @@ const vehicleSchema = mongoose.Schema(
       required: [true, "Please add Insurance Expiration date "],
     },
   },
+
+  
   {
     timestamps: true,
   }

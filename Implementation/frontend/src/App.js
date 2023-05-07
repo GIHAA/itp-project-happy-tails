@@ -49,9 +49,9 @@ import PortalHandler from "./components/PortalHandler";
 
 import AddEvent from "./components/EventManagement/AddEvent";
 import AllEvent from "./components/EventManagement/AllEvent";
-import RegisterEvent from "./components/EventManagement/RegisterEvent";
+import RegisterEvent from "./components/User/RegisterEvent";
 import AllRegisterEvent from "./components/EventManagement/AllRegisterEvent";
-import AllEventUser from "./components/EventManagement/AllEventUser";
+import AllEventUser from "./components/User/AllEventUser";
 import EditEvent from "./components/EventManagement/EditEvent";
 import AddEventFeedback from "./components/EventManagement/AddEventFeedback";
 import AllEventFeedback from "./components/EventManagement/AllEventFeedback";
@@ -88,7 +88,6 @@ import Footer from "./components/common/Footer";
 import ShelterPet from "./components/User/ShelterPet";
 import UserPortal from "./components/User/UserProtal";
 import Booking from "./components/User/myBooking";
-import Events from "./components/User/Events";
 import Pets from "./components/User/myPets";
 import Profile from "./components/User/myProfile";
 
@@ -105,6 +104,10 @@ import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 import Spinner from "./components/common/Spinner";
 
 import Employee from "./components/admin/Employee";
+import Feedback from "./components/admin/Feedback";
+import ForgotPassWord from "./components/ForgotPassWord"
+
+
 
 function App() {
   return (
@@ -115,9 +118,11 @@ function App() {
           <Routes>
             <Route path="/" element={<PortalHandler />} />
             <Route path="login" element={<Login />} />
+            <Route path="forgot" element={<ForgotPassWord />} />
             <Route path="register" element={<Register />} />
             <Route path="shelterpet" element={<ShelterPet />} />
             <Route path="adoptpet" element={<AdoptPet />} />
+            <Route path="/feedback" element={<Feedback />} />
             //user
             <Route path="user" element={<UserPortal />} />
             <Route path="profile" element={<Profile />} />

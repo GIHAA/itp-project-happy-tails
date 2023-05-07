@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-
+const nodemailer = require("nodemailer");
 
 const viewUsers = asyncHandler(async (req, res) => {
   const users = await User.find({})
@@ -213,6 +213,96 @@ const generateToken = (id) => {
   });
 };
 
+const forgotUser = asyncHandler(async (req, res) => {
+
+  function generatePassword(length) {
+    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+    var password = "";
+    for (var i = 0; i < length; i++) {
+      var randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    return password;
+  }
+  
+  const password = generatePassword(8);
+  const email = req.body.email;
+
+  const salt = await bcrypt.genSalt(10);
+
+  let hashedPassword =  await bcrypt.hash(password, salt);
+
+  let user = await User.findOne({ email });
+
+  if(user){
+
+    user.password = hashedPassword;
+
+    const updatedUser = await user.save();
+
+    if(updatedUser){
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASS,
+        },
+      });
+      const message = `
+        <h1>Password Reset Successful</h1>
+        <p>Dear ${updatedUser.name},</p>
+        <p>Your password has been successfully reset. Please use the following temporary password to log in to your account:</p>
+        <p><strong>${password}</strong></p>
+        <p>Once you have logged in, please go to your account settings to update your password to a new one of your choice.</p>
+        <p>Thank you for using our service!</p>
+        <p>Best regards,</p>
+        <p>The Happy Tails Team</p>
+      `;
+
+      const mailOptions = {
+        from: "Happy Tails",
+        to: email,
+        subject: "Password Reset",
+        html: message,
+      };
+    
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+          res.status(500).send('Error sending email');
+        } else {
+          console.log('Email sent: ' + info.response);
+          res.send('Email sent successfully');
+        }
+      });
+
+      res.json({
+        _id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        address: updatedUser.address,
+        phone: updatedUser.phone,
+        token: generateToken(updatedUser._id),
+        role: updatedUser.role,
+        image: updatedUser.image,
+      });
+
+    }else{
+      res.status(400);
+      throw new Error("User failed to save")
+    }
+
+  }else{
+    res.status(400);
+    throw new Error("User doesn't exist")
+  }
+
+});
+
+
+
+
 module.exports = {
   registerUser,
   loginUser,
@@ -220,5 +310,6 @@ module.exports = {
   updateUser,
   deleteUser,
   deleteAdmin,
-  updateAdmin
+  updateAdmin,
+  forgotUser
 };

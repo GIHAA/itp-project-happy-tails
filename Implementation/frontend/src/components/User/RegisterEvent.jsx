@@ -8,6 +8,7 @@ import QRCode from "qrcode";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
+import { useSelector } from "react-redux";
 
 function RegisterEvent() {
   const param = useParams();
@@ -40,6 +41,9 @@ function RegisterEvent() {
   const [remaining, setRemaining] = useState("");
   const [bookid, setBookId] = useState("");
   const [button, setButton] = useState(true);
+
+
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function getevent() {
@@ -128,16 +132,16 @@ function RegisterEvent() {
   function addbooking(e) {
     e.preventDefault();
 
-    console.log(eid);
+
     const newregister = {
       eid,
       bookid: bookid,
       eventName,
-      cusName,
+      cusName : user.name,
       noOfTicket,
       total: dbprice * noOfTicket,
-      email,
-      phoneNumber,
+      email : user.email,
+      phoneNumber : phoneNumber,
     };
 
     const newamount = {
@@ -184,6 +188,7 @@ function RegisterEvent() {
         // }, 5000);
       })
       .catch((err) => {
+        alert(JSON.stringify(newregister));
         toast.error(`Please fill all fields`);
       });
   }
@@ -286,7 +291,7 @@ function RegisterEvent() {
     <>
       <Header />
 
-      <div className="flex justify-center items-center h-full w-full ">
+      <div className="flex justify-center items-center h-full w-full my-[50px]">
         <div
           className="w-1/2 bg-white rounded-lg shadow-2xl p-8 m-4"
           style={{ backgroundColor: "#2E4960" }}
@@ -327,6 +332,7 @@ function RegisterEvent() {
                 type="text"
                 name="cusName"
                 id="cusName"
+                value={user.name}
                 required
                 onChange={(e) => {
                   setName(e.target.value);
@@ -423,6 +429,7 @@ function RegisterEvent() {
                 type="email"
                 name="email"
                 id="email"
+                value={user.email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -444,6 +451,7 @@ function RegisterEvent() {
                 minLength={10}
                 name="phoneNumber"
                 id="phoneNumber"
+                value={user.phone}
                 required
                 onChange={(e) => {
                   if (e.target.value.length !== 10) {
@@ -468,8 +476,8 @@ function RegisterEvent() {
             </div>
 
             <button
-              style={{ backgroundColor: "#F2994A" }}
-              className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text-lg mx-auto p-2 rounded"
+ 
+              className="block bg-[#F2994A] hover:opacity-90 rounded-full text-white font-bold uppercase text-lg mx-auto p-2 w-[200px]"
               type="submit"
               disabled={!button}
             >

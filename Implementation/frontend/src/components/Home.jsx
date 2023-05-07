@@ -6,10 +6,30 @@ import bg2 from "../assets/back2.png";
 import { Link } from "react-router-dom";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import { AiFillHeart } from "react-icons/ai";
+import feedbackservices from "../services/api/feedBack";
 
 function Home() {
   const { user } = useSelector((state) => state.auth);
 
+  const [showFeedbackModal, setshowFeedbackModal] = useState(false);
+
+  const [FormData, setFormData] = useState({
+    name: user ? user.name : "",
+    email: user ? user.email : "",
+    message: "",
+  });
+
+  const { name, email, message } = FormData;
+
+  const onChange = (e) => {
+    setFormData({ ...FormData, [e.target.name]: e.target.value });
+  };
+
+  const submitFeedback = () => {
+    feedbackservices.add(FormData);
+    console.log(FormData);
+  };
 
   return (
     <>
@@ -20,6 +40,17 @@ function Home() {
         className="snap-start bg-cover bg-center h-screen w-full"
       >
         <div className="max-w-[1200px] mx-auto px-8 flex flex-col justify-center h-full">
+          {user ? ( <div className="fixed right-0 bottom-0 mr-5 mb-5">
+            <button
+              onClick={() => setshowFeedbackModal(true)}
+              className="rounded-full bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
+            >
+              <AiFillHeart className="mr-2" />
+              Feedback
+            </button>
+          </div>):(<> </>)}
+         
+
           <p className="text-2xl font-po pl-2 text-secondary">
             HI {user ? user.name : ""}, Welcome to
           </p>
@@ -30,17 +61,21 @@ function Home() {
             Trusted care for your furry friends, while you're away!
           </h2>
           <div className="pt-6">
-
-            {user ? (<button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
-              <Link to="shelterpet" smooth={true} duration={500}>
-                BOOK NOW
-              </Link>
-            </button>):(<><button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
-              <Link to="register" smooth={true} duration={500}>
-                REGISTER NOW
-              </Link>
-            </button></>)}
-
+            {user ? (
+              <button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
+                <Link to="shelterpet" smooth={true} duration={500}>
+                  BOOK NOW
+                </Link>
+              </button>
+            ) : (
+              <>
+                <button className="rounded-full bg-primary text-white group border-2  px-6 py-3 my-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
+                  <Link to="register" smooth={true} duration={500}>
+                    REGISTER NOW
+                  </Link>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -81,6 +116,57 @@ function Home() {
         className="snap-start bg-cover bg-center h-screen w-auto"
       ></div>
       <Footer />
+
+      {showFeedbackModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-8 w-[500px]">
+            <label className="font-semibold text-sm text-gray-600 pb-1 block">
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={name}
+              onChange={onChange}
+              type="text"
+              className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+            />
+
+            <label className="font-semibold text-sm text-gray-600 pb-1 block">
+              E-mail
+            </label>
+            <input
+              id="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              type="text"
+              className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+            />
+
+            <label className="font-semibold text-sm text-gray-600 pb-1 block">
+              Enter message
+            </label>
+            <input
+              id="message"
+              name="message"
+              value={message}
+              onChange={onChange}
+              type="text"
+              className="border rounded-lg px-3 py-2 mt-1 mb-5 h-10 text-sm w-full"
+            />
+
+            <div className="flex">
+              <button className="" onClick={() => setshowFeedbackModal(false)}>
+                Close
+              </button>
+              <button className="ml-auto" onClick={() => submitFeedback()}>
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

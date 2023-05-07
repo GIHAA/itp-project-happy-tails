@@ -31,7 +31,7 @@ const FinaGetVehicle = () => {
     const income = payData
 
       .filter(({ status }) => status === "Accepted")
-      .reduce((total, { payment }) => total + payment, 0);
+      .reduce((total1, { total }) => total1 + total, 0);
 
     return income;
   }
@@ -40,7 +40,7 @@ const FinaGetVehicle = () => {
 
   function filterPayments(data) {
     const filtered = data.filter((payment) =>
-      payment.req_title
+      payment.supplier_name
         .toString()
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
@@ -63,7 +63,7 @@ const FinaGetVehicle = () => {
     <>
       {/* //BALANCE BAR */}
 
-      <div class="flex ml-48 justify-center flex-cols-1 gap-4 mt-20 ">
+      <div class="flex ml-48 justify-center flex-cols-1 gap-4 mt-28 ">
         <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
           <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
             <svg
@@ -83,7 +83,7 @@ const FinaGetVehicle = () => {
             </svg>
           </div>
           <div class="text-right">
-            <p class="text-2xl"> &nbsp; Rs. {max ? max.toString() : ""}</p>
+            <p class="text-2xl"> &nbsp; Rs. {max}</p>
             <p>Expenses</p>
           </div>
         </div>
@@ -139,7 +139,7 @@ const FinaGetVehicle = () => {
 
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {filteredPayData.map((data) => {
-                  const { _id, supplier_name, item_name, total, status } = data;
+                  const { _id, supplier_name, item_name, total, status,description } = data;
 
                   const notify = () =>
                     toast.success("Request Accepted ", {
@@ -158,13 +158,13 @@ const FinaGetVehicle = () => {
                       status: "Accepted",
                       supplier_name: supplier_name,
                       item_name: item_name,
-                      status: status,
-                      total: total.toString(),
+                      total: total,
+                      description:description,
                     };
 
                     axios
                       .put(
-                        `http://localhost:8080/api/VehReqPayment/${_id}`,
+                        `http://localhost:8080/api/stockBudget/${_id}`,
                         updatedTransaction
                       )
                       .then((response) => {

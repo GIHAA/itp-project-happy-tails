@@ -52,6 +52,7 @@ function ShelterPet() {
     description: "",
     startDate: new Date(),
     endDate: new Date(),
+    total,
   });
 
   const handleSliderChange = (event) => {
@@ -65,6 +66,7 @@ function ShelterPet() {
       ...prevFormData,
       petCount: numMiniForms,
       mini: miniForms,
+      total: total,
     }));
 
     calculateTotal();
@@ -72,7 +74,8 @@ function ShelterPet() {
 
   const handleMainInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value , total: total}));
+
     calculateTotal();
   };
 

@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import AddPayment from "./AddPayment";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import name from "../../assets/Fina.logo.png";
+import name from "../../assets/logo2.png";
 
-// Call the generatePDF function from another file
+
 
 const GetPayment = () => {
   const [payData, setpayData] = useState([]);
@@ -99,10 +99,21 @@ const GetPayment = () => {
         return [payment.cus_id, payment.pet_id, paymentStr, payment.status];
       });
 
+      const today = new Date();
+      const dateTime = `${today.getFullYear()}-${today.getMonth() + 1
+        }-${today.getDate()}`;
+
+      doc.setFontSize(10);
+      doc.text(`Pyment Report Generated ${dateTime}`, 470, 45);
+
       doc.addImage(name, "JPG", 65, 20, 100, 100);
+      doc.setFontSize(20);
+      doc.text(180, 55, "Happy Tails");
+      doc.setFontSize(10);
+      doc.text(180, 65, "Address : Happy tails shelter,\nNew Kandy road,\nMalabe");
+      doc.text(180, 95, "Tel : 01123457689");
 
       doc.setFontSize(18);
-      doc.setFont("arial", "bold");
       const textWidth =
         (doc.getStringUnitWidth("CUSTOMER PAYMENTS") *
           doc.internal.getFontSize()) /
@@ -110,13 +121,21 @@ const GetPayment = () => {
       const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
       doc.text("CUSTOMER PAYMENTS", textOffset, 120);
 
+
+
       doc.autoTable({
         head: [headers],
         body: rows,
         startY: 140,
+
       });
 
+      doc.setFontSize(12);
+      doc.text(`Total Payments: Rs. ${max}`, 470, doc.autoTable.previous.finalY + 28);
+
+
       doc.save("PaymentReports.pdf");
+
     }
   };
 
@@ -290,7 +309,7 @@ const GetPayment = () => {
                         updatedTransaction
                       )
                       .then((response) => {
-                        console.log(response.data);
+                        // console.log(response.data);
                         calculatePayment();
                       })
                       .catch((error) => {

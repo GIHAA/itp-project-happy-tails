@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import { ToastContainer, toast } from "react-toastify";
 
@@ -9,25 +10,47 @@ const GetBooking = () => {
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
 
+  const { user } = useSelector((state) => state.auth);
+
   function refreshPage() {
     setTimeout(function () {
-      window.location.reload(false);
-    }, 2000);
+      // window.location.reload(false);
+      axios.get("http://localhost:8080/api/booking", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      }, 
+  })
+  .then((response) => {
+      const data = response.data;
+      console.log(response);
+      setpayData(data);
+      const petCounts = data.map((item) => item.mini.length);
+      const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
+      setPetCount(totalPetCount);
+      setPetCountsByIndex(petCounts);
+  })
+  .catch((error) => setIsError(error.message));
+    }, 3000);
   }
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/booking")
-      .then((response) => {
-        const data = response.data;
-        console.log(response);
-        setpayData(data);
-        const petCounts = data.map((item) => item.mini.length);
-        const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
-        setPetCount(totalPetCount);
-        setPetCountsByIndex(petCounts);
-      })
-      .catch((error) => setIsError(error.message));
+ 
+    axios.get("http://localhost:8080/api/booking", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      }
+  })
+  .then((response) => {
+      const data = response.data;
+      console.log(response);
+      setpayData(data);
+      const petCounts = data.map((item) => item.mini.length);
+      const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
+      setPetCount(totalPetCount);
+      setPetCountsByIndex(petCounts);
+  })
+  .catch((error) => setIsError(error.message));
+  
   }, []);
 
   function filterContent(book, searchTerm) {
