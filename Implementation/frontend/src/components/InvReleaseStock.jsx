@@ -6,6 +6,7 @@ import InventorySideBar from "./InventorySideBar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 
 export default function InvReleaseStock() {
@@ -15,11 +16,16 @@ export default function InvReleaseStock() {
   const [searchTerm , setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
 
   useEffect(()=>{
 
-        axios.get("http://localhost:8080/api/inventory/items/")
+    axios.get("http://localhost:8080/api/inventory/items/", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
         .then((res) => {
           setItems(res.data)
           console.log(Items)
@@ -54,7 +60,11 @@ export default function InvReleaseStock() {
 
 
         //sending the item object to the releasestock backend
-        await axios.post("http://localhost:8080/api/inventory/releasestock", item)
+        await axios.post("http://localhost:8080/api/inventory/releasestock", item, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(()=>{
             toast.success(`Sucessfully released ${newQty} ${item_brand} ${item_name}s`, {position: toast.POSITION.BOTTOM_RIGHT,})
 
@@ -68,11 +78,12 @@ export default function InvReleaseStock() {
             release_qty : newQty
         }
 
-        console.log(obj)
-
-
         //sending the object to the item backend to update the qty
-        await axios.put(`http://localhost:8080/api/inventory/items/subtractqty` , obj)
+        await axios.put(`http://localhost:8080/api/inventory/items/subtractqty` , obj, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(()=>{ 
 
           const updatedQty = qty - newQty 

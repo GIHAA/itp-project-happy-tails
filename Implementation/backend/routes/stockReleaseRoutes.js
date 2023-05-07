@@ -7,8 +7,15 @@ const {
   groupByCategory,
 } = require("../controller/stockReleaseController");
 
-router.post("/releasestock", addRelease);
-router.get("/readreleasestock", readAllReleases);
-router.get("/releasestockprocessed", groupByCategory);
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
+
+
+router.post("/releasestock",protect, addRelease);
+router.get("/readreleasestock",protect, readAllReleases);
+router.get("/releasestockprocessed",protect, groupByCategory);
 
 module.exports = router;
