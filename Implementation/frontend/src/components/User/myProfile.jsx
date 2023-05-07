@@ -121,22 +121,39 @@ const Profile = (props) => {
     doc.text("Email: info@happytails.com", 70, 85);
     doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
     
+    doc.line(20, 110, 190, 110);
+
+    doc.addImage(user.image, "PNG", 20, 120, 40, 40);
+    doc.text(`User ID: ${user._id}`, 70, 123);
+    doc.text(`Name: ${user.name}`, 70, 130);
+    doc.text(`Email: ${user.email}`, 70, 137);
+    doc.text(`Address: ${user.address}`, 70, 144);
+    doc.text(`Phone: ${user.phone}`, 70, 151);
+    doc.text(`User since: ${user.createdAt.substring(0, 10)}`, 70, 158);
+    doc.text(`Last updated: ${user.updatedAt.substring(0, 10)}`, 70, 165);
+
+    // doc.line(20, 20, 180, 20);
+    doc.setTextColor("#5A5A5A");
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text(`Booking History`, 83, 190);
+
     // Add table with data
+        doc.setTextColor("#999999");
     doc.setFontSize(12);
     doc.setTextColor("#000000");
     doc.autoTable({
-      startY: 110,
+      startY: 200,
       head: [["Date" , "Bid", "Customer name", "Contact", "Number of pets", "Status", "Price"]],
       body: bookings
-        .filter((request) => request.status.toLowerCase() === "pending")
         .map((request) => [
-          request.startDate,
+          request.createdAt.toLocaleString("en-US", { timeZone: "Asia/Colombo" }).substring(0,10),
           request.bid,
           request.cus_name,
           request.contactNumbers,
           request.petCount,
           request.status,
-          request.status,
+          request.price,
         ]),
       theme: "grid",
     });
@@ -197,7 +214,7 @@ const Profile = (props) => {
 </div>
 
           <div className="w-2/3  h-64">
-            <div>
+            {/* <div>
               <pre>User ID - {user._id}</pre>{" "}
             </div>
             <div>
@@ -217,8 +234,8 @@ const Profile = (props) => {
                   user.updatedAt.substring(11, 16) +
                   " UTC"}
               </pre>{" "}
-            </div>
-            <h3 className="text-center mb-5 mt-5 text-[22px] font-bold">
+            </div> */}
+            <h3 className="text-center mb-5 mt-5 text-gray-800 text-[22px] font-bold">
               Update profile
             </h3>
             <label className="font-semibold text-sm text-gray-600 pb-1 block">

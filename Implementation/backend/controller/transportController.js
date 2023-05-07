@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Transport = require("../models/transportModel");
 
 const addTransport = asyncHandler(async (req, res) =>{    
-    const { userName, plocation, dlocation, petType, date, time, count, selectedVehicle  } = req.body
+    const { userName, plocation, dlocation, petType, date, time, count, selectedVehicle , phone  } = req.body
     const transport = await Transport.create({
         userName,
         plocation,
@@ -12,6 +12,7 @@ const addTransport = asyncHandler(async (req, res) =>{
         time,
         count,
         selectedVehicle,
+        phone,
         status : 'PENDING'
         
     })

@@ -10,12 +10,20 @@ import { Link } from "react-router-dom";
 import userServices from "../services/api/user";
 
 
+
 const ForgotPassWord = () => {
 
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
 
   const onSubmit = () =>{
-    userServices.forgot({email})
+    userServices.forgot({email}).then(() => {
+      toast.success("Please check your email to reset your password");
+      navigate("/login")
+    }).catch((err) =>{
+      toast.error(err.response.data.message);
+    })
+  
   }
 
 

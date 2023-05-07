@@ -5,46 +5,48 @@ const transportSchema = mongoose.Schema(
 
     userName: {
         type: String,
-        required: [true, 'Please add a customerId'],
+        required: [false, 'Please add a customerId'],
         default: 'temp userName',
     },
 
     plocation: {
       type: String,
-      required: [true, "Please enter address"],
+      required: [false, "Please enter address"],
     },
 
     dlocation: {
       type: String,
-      required: [true, "Please enter address"],
+      required: [false, "Please enter address"],
     },
 
     petType: {
       type: String,
-      required: [true, "Please add type of pet"],
+      required: [false, "Please add type of pet"],
     },
 
     date: {
       type: String,
-      required: [true, "Please add a date"],
+      required: [false, "Please add a date"],
     },
 
     time: {
       type: String,
-      required: [true, "Please add a time"],
+      required: [false, "Please add a time"],
     },
-
 
     count: {
         type: Number,
-        required: [true, 'Please add no of pets'],
+        required: [false, 'Please add no of pets'],
     },
 
     selectedVehicle: {
       type: String,
       default: 'tempPlateNo', 
     },
-
+    phone: {
+      type: String,
+      required: [false, "Please add a phone number"],
+    },
     status: {
       type: String,
       enum: ["PENDING", "ACCEPTED", "REJECTED"],
@@ -52,11 +54,9 @@ const transportSchema = mongoose.Schema(
     },
 
 
-    
-
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
 

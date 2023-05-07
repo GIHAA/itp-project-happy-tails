@@ -27,7 +27,7 @@ const addBooking = asyncHandler(async (req, res) => {
     startDate,
     endDate,
     mini,
-    total
+    price
   });
 
   booking

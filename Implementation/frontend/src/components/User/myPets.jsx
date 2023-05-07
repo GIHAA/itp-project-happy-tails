@@ -62,12 +62,12 @@ const Booking = (props) => {
           <div className="w-full ">
             <h1 className="text-center text-[20px] font-bold mb-5">My Pets</h1>
             <div className="flex justify-end">
-              <button
+              {/* <button
                 className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]"
                 onClick={() => refreshTable()}
               >
                 Refresh
-              </button>
+              </button> */}
             </div>
             {isLoading ? (
               <Spinner />
