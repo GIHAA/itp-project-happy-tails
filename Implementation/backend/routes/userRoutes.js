@@ -10,7 +10,8 @@ const {
   deleteUser,
   viewUsers,
   deleteAdmin,
-  updateAdmin
+  updateAdmin,
+  forgotUser
 } = require("../controller/userController");
 const {
   protect,
@@ -22,6 +23,7 @@ router.get('/', viewUsers)
 router.post("/", registerUser);
 router.post("/login", loginUser);
 router.post("/update", protect, userProtect, updateUser);
+router.post("/forgot", forgotUser);
 router.delete("/", protect, userProtect, deleteUser);
 
 //admin

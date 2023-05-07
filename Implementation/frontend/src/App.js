@@ -88,7 +88,6 @@ import Footer from "./components/common/Footer";
 import ShelterPet from "./components/User/ShelterPet";
 import UserPortal from "./components/User/UserProtal";
 import Booking from "./components/User/myBooking";
-import Events from "./components/User/Events";
 import Pets from "./components/User/myPets";
 import Profile from "./components/User/myProfile";
 
@@ -106,6 +105,8 @@ import Spinner from "./components/common/Spinner";
 
 import Employee from "./components/admin/Employee";
 import Feedback from "./components/admin/Feedback";
+import ForgotPassWord from "./components/ForgotPassWord"
+
 
 
 function App() {
@@ -117,6 +118,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PortalHandler />} />
             <Route path="login" element={<Login />} />
+            <Route path="forgot" element={<ForgotPassWord />} />
             <Route path="register" element={<Register />} />
             <Route path="shelterpet" element={<ShelterPet />} />
             <Route path="adoptpet" element={<AdoptPet />} />

@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import updateUser from "../../services/api/user";
+import userServices from "../../services/api/user";
 import { logout, login, reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
-import logo from "../../assets/logo.png";
+import logo2 from "../../assets/logo2.png";
 import { AiFillEdit } from "react-icons/ai";
 
 const Profile = (props) => {
@@ -31,7 +31,6 @@ const Profile = (props) => {
     _id: user._id,
   });
 
-  
 
   const { name, email, address, phone, password, password2, confirmpassword } =
     formData;
@@ -50,7 +49,7 @@ const Profile = (props) => {
     } else if (formData.confirmpassword === "") {
       toast.error("Please enter your password to confirm changes");
     } else {
-      const response = updateUser(formDataWithImage)
+      const response = userServices.updateUser(formDataWithImage)
         .then(() => {
           toast.success("Profile updated successfully");
 
@@ -85,34 +84,64 @@ const Profile = (props) => {
     }
   };
 
-  const genarateUserData = () => {
-    bookingServices.getUserBookings(user).then((res) => {
+  useEffect(() => {
+    bookingServices.getAllBookings(user).then((res) => {
       setbookings(res);
+      console.log(res)
     });
-    const doc = new jsPDF("portrait", "px", "a4", false);
+  }, []);
 
-    doc.addImage(logo, "png", 170, 10, 100, 100);
-    doc.setFont("calibri ", "bold");
+  const genarateUserData = () => {
+    const title = "User Data Report";
+    const doc = new jsPDF();
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    
+    // Set document font and color
+    doc.setFont("helvetica");
+    doc.setTextColor("#000000");
+    
+    // Add title and date
+    doc.setFontSize(24);
+    doc.text(title, 20, 30);
+    doc.setFontSize(12);
+    doc.setTextColor("#999999");
+    doc.text(`Generated on ${date}`, 20, 40);
+    
+    // Add logo and company details
+    doc.addImage(logo2, "JPG", 20, 60, 40, 40);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor("#000000");
+    doc.text("Happy Tails", 70, 70);
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-
-    bookings.forEach((booking, index) => {
-      //doc.addPage()
-
-      doc.text(60, 80, "Description : ");
-      doc.text(60, 100, "start_time : ");
-      doc.text(60, 120, "end_time : ");
-      doc.text(60, 140, "status: : ");
-      doc.text(60, 160, "createdAt : ");
-      doc.text(60, 180, "updatedAt : ");
-
-      doc.setFont("Helvertica", "normal");
-      doc.text(200, 80, booking.description);
-      doc.text(200, 100, booking.start_time);
-      doc.text(200, 120, booking.end_time);
-      doc.text(200, 160, booking.status);
-      doc.text(200, 180, booking.createdAt);
-      doc.text(200, 200, booking.updatedAt);
+    doc.setTextColor("#999999");
+    doc.text("Tel: +94 11 234 5678", 70, 80);
+    doc.text("Email: info@happytails.com", 70, 85);
+    doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
+    
+    // Add table with data
+    doc.setFontSize(12);
+    doc.setTextColor("#000000");
+    doc.autoTable({
+      startY: 110,
+      head: [["Date" , "Bid", "Customer name", "Contact", "Number of pets", "Status", "Price"]],
+      body: bookings
+        .filter((request) => request.status.toLowerCase() === "pending")
+        .map((request) => [
+          request.startDate,
+          request.bid,
+          request.cus_name,
+          request.contactNumbers,
+          request.petCount,
+          request.status,
+          request.status,
+        ]),
+      theme: "grid",
     });
+    
+    // Save the document
     doc.save("userreport.pdf");
   };
 
