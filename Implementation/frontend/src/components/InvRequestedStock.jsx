@@ -6,16 +6,23 @@ import InventorySideBar from "./InventorySideBar";
 import filterImg from "../assets/filter.png";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 const moment = require("moment");
+
 
 function InvRequestedStock() {
   const [stockReq, setStockReq] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/")
+      .get("http://localhost:8080/api/inventory/stockrequest/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setStockReq(res.data);
       })
@@ -181,6 +188,7 @@ function InvRequestedStock() {
 }
 
 function TableDataRow(props) {
+  const {user} = useSelector((state)=>state.auth);
   async function handleClick(id, itemCode, newqty, itemName) {
     const now = moment();
     const formatted = now.format("YYYY-MM-DD, h:mm a"); // Returns a formatted date string like "2023-10-10, 4:28 pm"
@@ -191,8 +199,11 @@ function TableDataRow(props) {
         {
           status: "RECEIVED",
           rec_date: formatted,
-        }
-      );
+        }, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
       toast.success(`Sucessfully received ${itemName} ${newqty}`, {position: toast.POSITION.BOTTOM_RIGHT,})
     } catch (err) {
       console.error(err);
@@ -200,8 +211,11 @@ function TableDataRow(props) {
 
     try {
       await axios.put(
-        `http://localhost:8080/api/inventory/items/${itemCode}/${newqty}`
-      );
+        `http://localhost:8080/api/inventory/items/${itemCode}/${newqty}`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
       alert("Qty Updated !!");
     } catch (err) {
       console.error(err);

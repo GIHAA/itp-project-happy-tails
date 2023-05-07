@@ -5,17 +5,23 @@ import inv from "../assets/inv.jpg"
 import InventorySideBar from "./InventorySideBar";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
 
 function InvRequestStock() {
 
     const [selected,setSelected] = useState("")
     const [qty,setItemQty] = useState("")
     const [Items , setItems] = useState([]);
+    const {user} = useSelector((state)=>state.auth);
 
 
       useEffect(()=>{
 
-        axios.get("http://localhost:8080/api/inventory/items/")
+        axios.get("http://localhost:8080/api/inventory/items/", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((res) => {
           setItems(res.data)
         })
@@ -35,7 +41,11 @@ function InvRequestStock() {
           qty
       }
 
-      axios.post("http://localhost:8080/api/inventory/stockrequest",newRequest)
+      axios.post("http://localhost:8080/api/inventory/stockrequest", newRequest, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then(()=>{
           toast.success("stock request successful", {position: toast.POSITION.BOTTOM_RIGHT,})
 

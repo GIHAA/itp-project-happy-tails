@@ -4,14 +4,20 @@ import axios from "axios";
 import inv from "../assets/inv.jpg";
 import InventorySideBar from "./InventorySideBar";
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function InvStockOut() {
   const [stockReq, setStockReq] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/readreleasestock/")
+      .get("http://localhost:8080/api/inventory/readreleasestock/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setStockReq(res.data);
       })
