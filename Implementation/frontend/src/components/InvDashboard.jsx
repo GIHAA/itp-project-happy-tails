@@ -152,28 +152,44 @@ export default function InvDashboard() {
   const generatePDF = () => {
     const now = moment();
     const month = now.format("MMMM"); //april,july
-    const date = now.format("YYYY-MM-DD"); //for report 2023-02-01
     const date2 = now.format("YYYY-MM"); //2023-02
 
-    const doc = new jsPDF("landscape", "px", "a4", false);
-    doc.addImage(logo, "JPG", 65, 20, 50, 50);
-    doc.setFont("times", "bold");
-
-    doc.setFontSize(25);
-    doc.text(45, 80, "Happy Tails");
+    const title = "Inventory Data Report";
+    const doc = new jsPDF();
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    
+    // Set document font and color
+    doc.setFont("helvetica");
+    doc.setTextColor("#000000");
+    
+    // Add title and date
+    doc.setFontSize(24);
+    doc.text(title, 20, 30);
+    doc.setFontSize(12);
+    doc.setTextColor("#999999");
+    doc.text(`Generated on ${date}`, 20, 40);
+    
+    // Add logo and company details
+    doc.addImage(logo, "JPG", 20, 60, 40, 40);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor("#000000");
+    doc.text("Happy Tails", 70, 70);
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(45, 95, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
-    doc.text(45, 120, "Tel : 01123457689");
-    doc.text(45, 128, `Generated : ${date}`);
+    doc.setTextColor("#999999");
+    doc.text("Tel: +94 11 234 5678", 70, 80);
+    doc.text("Email: info@happytails.com", 70, 85);
+    doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
 
-    doc.setFontSize(30);
-    doc.text(220, 80, "Inventory Stock Report");
+  
+    doc.text(85, 115, `Received Stocks In ${month}`);
 
-    doc.setFontSize(20);
-    doc.text(210, 150, `Received Stocks In ${month}`);
-
+    doc.setFontSize(12);
+    doc.setTextColor("#000000");
     doc.autoTable({
-      startY: 160,
+      startY: 120,
       head: [
         [
           "Date",
@@ -199,11 +215,12 @@ export default function InvDashboard() {
 
     const previousAutoTable = doc.lastAutoTable;
 
-    doc.setFontSize(20);
-    doc.text(210, previousAutoTable.finalY + 30, `Released Stocks In ${month}`);
+    doc.setFontSize(10);
+    doc.setTextColor("#999999");
+    doc.text(85, previousAutoTable.finalY + 30, `Released Stocks In ${month}`);
 
     doc.autoTable({
-      startY: previousAutoTable.finalY + 50,
+      startY: previousAutoTable.finalY + 35,
       head: [
         [
           "Date",
@@ -411,7 +428,7 @@ export default function InvDashboard() {
                 </div>
               </div>
 
-              <div className=" flex place-content-around h-[350px] mt-5">
+              <div className=" flex place-content-around h-[500px] mt-5">
                 {receivedProcessed && receivedProcessed.datasets && (
                   <div className="w-6/12 h-full bg-white p-20 shadow-lg rounded-xl">
                     <Bar data={receivedProcessed} />
