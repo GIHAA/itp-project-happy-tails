@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import SupplierSideBar from "./SupplierSideBar";
 import { ToastContainer, toast } from "react-toastify";
 import supp from "../assets/supp.jpg";
+import { useSelector } from "react-redux";
 
 export default function UpdateSupplier() {
   const param = useParams();
@@ -17,10 +18,17 @@ export default function UpdateSupplier() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [type, setType] = useState("");
+  const {user} = useSelector((state)=>state.auth);
+
+
 
   async function getSupplierProfile() {
     try {
-      const res = await axios.get(`http://localhost:8080/api/suppliers/${id}`);
+      const res = await axios.get(`http://localhost:8080/api/suppliers/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       console.log(res);
       const oneProfile = res.data.supplier;
       //console.log(res.data.profile);
@@ -45,22 +53,31 @@ export default function UpdateSupplier() {
   async function UpdateData(e) {
     e.preventDefault();
 
+    const newSupplier = {
+      name,
+      phone,
+      email,
+      address,
+      type,
+    };
+
     try {
-      const newSupplier = {
-        name,
-        phone,
-        email,
-        address,
-        type,
-      };
+     
       console.log(newSupplier);
       await axios
-        .put(`http://localhost:8080/api/suppliers/${id}`, newSupplier)
+        .put(`http://localhost:8080/api/suppliers/${id}`, newSupplier,{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(() => {
-          toast.success("supplier details updated", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
+          toast.success("supplier details updated", {position: toast.POSITION.TOP_RIGHT});
+
+          setTimeout(() => {
+            window.location.href = "/ManageSuppliers";
+          }, 3000);
         });
+
     } catch (err) {
       console.error(err);
     }

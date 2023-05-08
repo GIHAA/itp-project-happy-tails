@@ -112,12 +112,12 @@ export default function EventStockReqs() {
 
           <div className="flex">
             <div className=" flex p-5">
-              <Link
+              {/* <Link
                 to="/stockin"
                 className=" bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
               >
                 Received
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
