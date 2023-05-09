@@ -31,11 +31,21 @@ const Booking = (props) => {
     setShowDescriptonModal(true);
   };
 
-  const handleDelete = (booking) => {
-    const response = adpotServices.delete(formData);
+  const handleDelete = (pet) => {
+
+    pet = {
+      petId:pet.petId ,
+      bookedmarked: "no",
+      token: user.token,
+      owenerId: user._id,
+    };
+    const response = adpotServices.updateOne(pet);
     console.log(response);
 
-    if (response) toast.success("Booking deleted successfully");
+    if (response) toast.success("Pet Successfully Removed from wish list");
+    setTimeout(() => {
+      refreshTable();
+    },2000);
   };
 
   const refreshTable = () => {
@@ -81,12 +91,12 @@ const Booking = (props) => {
                     <th className="">Birth</th>
                     <th className="">Gender</th>
                     <th className="">Status</th>
-                    {/* <th className="text-center">Delete</th> */}
+                    <th className="text-center">Remove</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.map((item) =>
-                    item.bookedmarked ? (
+                    item.bookedmarked === "yes" ? (
                       <>
                         <tr
                           key={item._id}
@@ -108,7 +118,7 @@ const Booking = (props) => {
                             </p>
                           </td>
 
-                          {/* <td className="text-center">
+                          <td className="text-center">
                       <button
                         onFocus={() =>
                           setFormData((prevFormData) => ({
@@ -120,7 +130,7 @@ const Booking = (props) => {
                       >
                         Delete
                       </button>
-                    </td> */}
+                    </td>
                         </tr>
                       </>
                     ) : (
