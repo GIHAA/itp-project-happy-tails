@@ -87,7 +87,7 @@ useEffect(() => {
   const chartData2 = {
     labels: ['accepted', 'pending'],
     datasets: [{
-        label: 'Number of accepted or pendig requests',
+        label: 'Number of accepted and pendig requests',
       data: [
         stockRequestData.filter(stockrequest => stockrequest.status === 'accepted').length,
         stockRequestData.filter(stockrequest => stockrequest.status === 'pending').length,
@@ -105,7 +105,7 @@ useEffect(() => {
   const chartData3 = {
     labels: ['Pending', 'Accepted'],
     datasets: [{
-      label: 'Number of accepted or pendig requests',
+      label: 'Number of accepted and pendig requests',
       data: [
         stockBudgetRequestData.filter(budget => budget.status === 'Pending').length,
         stockBudgetRequestData.filter(budget => budget.status === 'Accepted').length,
@@ -157,42 +157,29 @@ return (
              className=" bg-[#f3f3f3] w-[85%] h-[100%] absolute overflow-scroll">
              
 
-               <div className="mt-4 ml-4">
+             <div className="mt-4 ml-4">
+                <div className="flex justify-between">
+                  <div className="w-6/12 bg-white p-8 shadow-lg rounded-xl">
+                    <b><h2>Supplier Types of Happy Tails</h2></b><br></br>
+                    <Bar data={chartData1} options={options} />
+                  </div>
 
-               <div className=" flex place-content-around h-[350px] mt-5">
-               {(
-                     <div className=" w-6/12 h-full bg-white p-20 shadow-lg rounded-xl">
-                         <b><h2>Supplier Types of Happy Tails</h2></b><br></br>
-                      <Bar data={chartData1} options={options} />
-                     </div>
-                   )} 
-                 </div>
+                  <div className="w-6/12 bg-white p-8 shadow-lg rounded-xl ml-2">
+                    <b><h2>Stock Requests Status</h2></b><br></br>
+                    <Bar data={chartData2} options={options} />
+                  </div>
+                </div>
+
+                <div className="w-6/12 bg-white p-8 shadow-lg rounded-xl mt-5">
+                  <b><h2>Stock Budget Requests Status</h2></b><br></br>
+                  <Bar data={chartData3} options={options} />
+                </div>
+
+                <div className="h-52"></div>
+             </div>
 
 
-                   <div className=" flex place-content-around h-[350px] mt-5">
-                   {(
-                     <div className=" w-6/12 h-full bg-white p-20 shadow-lg rounded-xl">
-                         <b><h2>Stock Requests Status</h2></b><br></br>
-                      <Bar data={chartData2} options={options} />
-                     </div>
-                   )} 
 
-                   </div>
-                   <div className=" flex place-content-around h-[350px] mt-5">
-                   {(
-                     <div className=" w-6/12 h-full bg-white p-20 shadow-lg rounded-xl">
-                         <b><h2>Stock Budget Requests Status</h2></b><br></br>
-                      <Bar data={chartData3} options={options} />
-                     </div>
-                   )} 
-                    </div>
-                 
-                   {/* <div className=" flex place-content-around h-[350px] mt-5">
-                
-                   </div> */}
-
-                   <div className=" h-52"></div>
-                 </div>
 
              </div>
 

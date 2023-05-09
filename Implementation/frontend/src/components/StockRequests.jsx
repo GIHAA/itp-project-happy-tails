@@ -53,7 +53,7 @@ export default function StockRequests() {
     // doc.text(15, 30, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
     // doc.text(15, 43, "Tel : 01123457689");
     
-    const title = "Pending Stock Request Report";
+    const title = "Still Pending Stock Request Report ";
     const doc = new jsPDF();
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
