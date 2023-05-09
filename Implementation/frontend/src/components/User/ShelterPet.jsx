@@ -63,6 +63,7 @@ function ShelterPet() {
     plocation: "",
     phone: "",
     time: "",
+    email: user.email
   });
 
   const handleSliderChange = (event) => {
