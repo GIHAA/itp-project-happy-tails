@@ -106,7 +106,7 @@ import Spinner from "./components/common/Spinner";
 import Employee from "./components/admin/Employee";
 import Feedback from "./components/admin/Feedback";
 import ForgotPassWord from "./components/ForgotPassWord"
-
+import Scanner from "./components/User/Scanner"
 
 
 function App() {
@@ -131,6 +131,7 @@ function App() {
             <Route path="events" element={<AllEventUser />} />
             <Route path="registerevent/:id" element={<RegisterEvent />} />
             <Route path="feedbackevent/:id" element={<AddEventFeedback />} />
+            <Route path="/scanner" element={<Scanner />}/> 
             //
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
