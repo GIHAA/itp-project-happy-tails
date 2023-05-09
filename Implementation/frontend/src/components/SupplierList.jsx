@@ -5,15 +5,21 @@ import { Link } from "react-router-dom";
 import { Bar, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import supp from "../assets/supp.jpg";
+import { useSelector } from "react-redux";
 
 const moment = require('moment');
 export default function SupplierList() {
     const [supplierData, setSupplierData] = useState([]);
     const [stockRequestData, setStockRequestData]=useState([]);
     const [stockBudgetRequestData, setStockBudgetRequestData]=useState([]);
+    const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/suppliers/")
+    axios.get("http://localhost:8080/api/suppliers/",{
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
       .then(response => {
         setSupplierData(response.data);
       })
@@ -24,7 +30,11 @@ export default function SupplierList() {
 
   useEffect(()=>{
   
-    axios.get("http://localhost:8080/api/inventory/stockrequest/")
+    axios.get("http://localhost:8080/api/inventory/stockrequest/",{
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
     .then((res) => {
         setStockRequestData(res.data)
     })
@@ -34,7 +44,11 @@ export default function SupplierList() {
 
 useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget/")
+      .get("http://localhost:8080/api/stockBudget/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setStockBudgetRequestData(res.data);
       })

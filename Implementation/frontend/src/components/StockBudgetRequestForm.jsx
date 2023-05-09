@@ -4,6 +4,7 @@ import SupplierSideBar from "./SupplierSideBar";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import stockBgt from "../assets/stockBgt.jpg";
+import { useSelector } from "react-redux";
 
 export default function StockBudgetRequestForm() {
   const [supplier_name, setName] = useState("");
@@ -11,6 +12,7 @@ export default function StockBudgetRequestForm() {
   const [description, setDesc] = useState("");
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState("Pending");
+  const {user} = useSelector((state)=>state.auth);
 
   function addRequest(e) {
     e.preventDefault();
@@ -24,16 +26,19 @@ export default function StockBudgetRequestForm() {
     console.log(newRequest);
 
     axios
-      .post("http://localhost:8080/api/stockBudget/", newRequest)
+      .post("http://localhost:8080/api/stockBudget/", newRequest,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then(() => {
         toast.success("request added", { position: toast.POSITION.TOP_RIGHT });
 
-        setName("");
-        setItems("");
-        setDesc("");
-        setTotal("");
-        setStatus("");
-      })
+        
+        setTimeout(() => {
+          window.location.href = "/StockBudgetRequests";
+        }, 3000);
+       })
       .catch((err) => {
         alert(`Request insert unsuccessful ${err}`);
       });

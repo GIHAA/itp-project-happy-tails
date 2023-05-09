@@ -8,10 +8,16 @@ const {
   editStockBudget,
 } = require("../controller/stockBudgetRequestController");
 
-router.post("/", createStockBudget);
-router.get("/", getStockBudgets);
-router.delete("/:id", deleteStockBudget);
-router.get("/:id", getStockBudget);
-router.put("/:id", editStockBudget);
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
+
+router.post("/", protect,createStockBudget);
+router.get("/", protect,getStockBudgets);
+router.delete("/:id", protect,deleteStockBudget);
+router.get("/:id", protect,getStockBudget);
+router.put("/:id",protect, editStockBudget);
 
 module.exports = router;

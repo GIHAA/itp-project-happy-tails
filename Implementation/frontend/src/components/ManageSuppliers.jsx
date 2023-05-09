@@ -8,15 +8,21 @@ import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import PortalHeader from "./common/PortalHeader";
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/")
+      .get("http://localhost:8080/api/suppliers/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setSuppliers(res.data);
       })
@@ -25,7 +31,11 @@ export default function ManageSuppliers() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/suppliers/${id}`)
+      .delete(`http://localhost:8080/api/suppliers/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         toast.success("Supplier deleted", {
           position: toast.POSITION.TOP_RIGHT,
