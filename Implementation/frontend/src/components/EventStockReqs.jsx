@@ -129,6 +129,9 @@ export default function EventStockReqs() {
         >
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
+          <div className="flex">
+              <div className="relative mt-6 ml-[1060px] "></div>
+            </div>
 
             {/*Table*/}
             <table className="mx-auto w-[1250px]">

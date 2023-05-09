@@ -53,7 +53,7 @@ export default function StockBudgetRequests() {
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
@@ -159,11 +159,20 @@ export default function StockBudgetRequests() {
                           <td className="p-3">{budget.item_name}</td>
                           <td className="p-3">{budget.description}</td>
                           <td className="p-3">{budget.total}</td>
-                          <td className="p-3">{budget.status}</td>
+                          <td className="p-3">
+                            <span
+                              className={`inline-block px-2 rounded-xl text-sm ${
+                                budget.status === "Accepted" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"
+                              }`}
+                            >
+                              {budget.status}
+                            </span>
+                          </td>
+
 
                           <td className="p-3">
                             <div className="flex ml-12">
-                            <button
+                            {/* <button
                               className={`items-center px-5 py-1 mr-5 ${
                                 budget.status === "Accepted" ? "bg-gray-300" : "bg-[#2E4960]"
                               } text-white font-semibold hover:bg-[#2E4960] rounded-xl`}
@@ -173,7 +182,7 @@ export default function StockBudgetRequests() {
                                 <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
                                 Edit
                               </Link>
-                            </button>
+                            </button> */}
 
 
                               <button

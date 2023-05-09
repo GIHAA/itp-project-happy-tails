@@ -54,7 +54,7 @@ export default function ManageSuppliers() {
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
