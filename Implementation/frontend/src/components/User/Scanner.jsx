@@ -11,7 +11,7 @@ import axios from "axios";
 function Scanner() {
   const [data, setData] = useState("No result");
   const [ booking , setBooking ] = useState([])
-  const [showBookingModal , setshowBookingModal] = useState(true)
+  const [showBookingModal , setshowBookingModal] = useState(false)
 
   const { user } = useSelector((state) => state.auth);
 
@@ -41,8 +41,8 @@ function Scanner() {
       .get(text)
       .then((res) => {
         setBooking(res.data[0]);
-        console.log(res.data[0])
-        showBookingModal(true)
+        setshowBookingModal(true)
+        
       })
       .catch((err) => {
         toast.error(err);
