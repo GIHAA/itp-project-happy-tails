@@ -1,0 +1,8 @@
+def recc(n):
+    if n == 1:
+        print(n)
+    else:
+        recc(n-1)
+        print(n+(n-1))
+
+recc(3)

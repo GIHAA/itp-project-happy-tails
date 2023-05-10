@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function EventManagerPortal() {
-  return (
-    <h1 className='text-4xl text-center'>EventManagerPortal</h1>
-  )
+  return <h1 className="text-4xl text-center">EventManagerPortal</h1>;
 }
 
-export default EventManagerPortal
+export default EventManagerPortal;

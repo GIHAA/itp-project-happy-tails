@@ -1,42 +1,34 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const vehicleSchema = mongoose.Schema(
   {
-   
     plateNo: {
       type: String,
-      required: [true, 'Please add an vehicle plate number'],
+      required: [true, "Please add an vehicle plate number"],
       unique: true,
-   },
-
-    driverId: {
-        type: String,
-        required: [true, 'Please add an driver id'],
     },
-
-    agentId: {
-        type: String,
-        required: [true, 'Please add an agent id'],
-    },
-
 
     vModel: {
       type: String,
-      required: [true, 'Please add an model of vehicle'],
+      required: [true, "Please add an model of vehicle"],
+    },
+
+    fuelType: {
+      type: String,
+      required: [true, "Please add an model of vehicle"],
     },
 
 
-    insuranceExpirationDate : {
-    type: String,
-    required: [true, 'Please add Insurance Expiration date '],
+    insuranceExpirationDate: {
+      type: String,
+      required: [true, "Please add Insurance Expiration date "],
     },
-
-    
- 
   },
+
+  
   {
     timestamps: true,
   }
-)
+);
 
-module.exports = mongoose.model('Vehicle', vehicleSchema)
+module.exports = mongoose.model("Vehicle", vehicleSchema);

@@ -7,10 +7,13 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Header from "./common/Header";
 import Footer from "./common/Footer";
+import emailServices from "../services/api/emails/user";
+import registrationbackground from "../assets/registrationbackground.png";
+import { GrMapLocation } from "react-icons/gr";
+import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [image, setImage] = useState("");
-  const [img, setAll] = useState([]);
 
   const convertToBase64 = (e) => {
     console.log(e);
@@ -51,6 +54,27 @@ const Registration = () => {
     setFormData({ ...formData, image: image });
   };
 
+  const handleMapClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
+          fetch(apiURL)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+              const address = data.results[0].formatted_address;
+              setFormData((prevData) => ({ ...prevData, address }));
+            })
+            .catch((error) => console.log(error));
+        },
+        (error) => console.log(error)
+      );
+    }
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -72,7 +96,7 @@ const Registration = () => {
 
   const isNumberAndTenDigit = (str) => {
     return /^\d{10}$/.test(str);
-  }
+  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -93,13 +117,12 @@ const Registration = () => {
       };
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // replace with your email address
 
       if (emailRegex.test(email)) {
-        if( isNumberAndTenDigit(phone))
-        dispatch(register(userData));
-        else
-        toast.error("Phone number should be 10 digit number");
+        if (isNumberAndTenDigit(phone)) {
+          dispatch(register(userData));
+          emailServices.register(userData);
+        } else toast.error("Phone number should be 10 digit number");
       } else {
         toast.error("The email address is invalid.");
       }
@@ -125,11 +148,14 @@ const Registration = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
-        <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-          <h1 className="font-bold text-center text-2xl mb-5">Register</h1>
-          <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+      <div
+        style={{ backgroundImage: `url(${registrationbackground})` }}
+        className="min-h-screen bg-cover bg-gray-100 flex flex-col justify-center "
+      >
+        <div className="p-10 xs:p-0 mx-auto w-[700px]">
+          <div className="bg-white drop-shadow-2xl shadow w-[500px] mx-auto rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
+              <h1 className="font-bold text-center text-2xl mb-5">Register</h1>
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Name
               </label>
@@ -152,17 +178,27 @@ const Registration = () => {
                 type="text"
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
+              
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Address
               </label>
-              <input
-                id="address"
-                name="address"
-                value={address}
-                onChange={onChange}
-                type="text"
-                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-              />
+              <div className="flex">
+                <input
+                  id="address"
+                  name="address"
+                  value={address}
+                  onChange={onChange}
+                  type="text"
+                  className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+                />
+                <div
+                  className="flex rounded-lg content-center border h-[40px] m-1 cursor-pointer"
+                  onClick={handleMapClick}
+                >
+                  <GrMapLocation className="m-[15px]" />
+                </div>
+              </div>
+              
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Phone Number
               </label>
@@ -186,7 +222,7 @@ const Registration = () => {
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
-                repeat Password
+                Confirm Password
               </label>
               <input
                 id="password2"
@@ -196,8 +232,11 @@ const Registration = () => {
                 type="text"
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
+              <label className="font-semibold text-sm text-gray-600 pb-1 block">
+                Add Image
+              </label>
               <input
-                className="w-full h-full py-6 pb-8 file:rounded-full file:h-[45px] file:w-[130px] file:bg-secondary file:text-white "
+                className="w-full h-full py-5 pb-8 file:rounded-full file:h-[45px] file:w-[130px] file:bg-secondary file:text-white "
                 accept="image/*"
                 type="file"
                 onChange={convertToBase64}

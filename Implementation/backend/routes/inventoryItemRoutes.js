@@ -1,30 +1,30 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
-    addItem,
-    readAllItems,
-    getOneItem,
-    updateItem,
-    deleteItem,
-    addQuantity,
-    subtractQuantity,
-    groupByCategory
+  addItem,
+  readAllItems,
+  getOneItem,
+  updateItem,
+  deleteItem,
+  addQuantity,
+  subtractQuantity,
+  groupByCategory,
+} = require("../controller/inventoryItemController");
 
-} = require('../controller/inventoryItemController');
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
 
-const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware');
-
-router.post('/items', addItem);
-router.get('/items', readAllItems);
-router.get('/items/qtyprocessed', groupByCategory);
-router.get('/items/:id', getOneItem);
-router.put('/items/subtractqty', subtractQuantity);
-router.put('/items/:id', updateItem);
-router.delete('/items/:id', deleteItem);
-router.put('/items/:itemcode/:qty', addQuantity);
-
-
-
+router.post("/items",protect, addItem);
+router.get("/items",protect, readAllItems);
+router.get("/items/qtyprocessed",protect, groupByCategory);
+router.get("/items/:id",protect , getOneItem);
+router.put("/items/subtractqty",protect, subtractQuantity);
+router.put("/items/:id",protect, updateItem);
+router.delete("/items/:id", protect, deleteItem);
+router.put("/items/:itemcode/:qty",protect, addQuantity);
 
 module.exports = router;

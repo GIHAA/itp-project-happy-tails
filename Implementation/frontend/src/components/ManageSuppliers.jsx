@@ -2,19 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SupplierSideBar from "./SupplierSideBar";
-import { ToastContainer, toast } from 'react-toastify';
-import supp from "../assets/supp.jpg"
+import { ToastContainer, toast } from "react-toastify";
+import supp from "../assets/supp.jpg";
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import PortalHeader from "./common/PortalHeader";
+import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
-  const [searchTerm , setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/")
+      .get("http://localhost:8080/api/suppliers/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setSuppliers(res.data);
       })
@@ -23,57 +31,95 @@ export default function ManageSuppliers() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/suppliers/${id}`)
+      .delete(`http://localhost:8080/api/suppliers/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
-      toast.success("Supplier deleted", {position: toast.POSITION.TOP_RIGHT,})
-      setSuppliers(suppliers.filter(suppliers => suppliers._id !== id));
+        toast.success("Supplier deleted", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setSuppliers(suppliers.filter((suppliers) => suppliers._id !== id));
       })
       .catch((err) => alert(err));
   }
 
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
   return (
     <div className="flex scroll-smooth">
-      
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
             MANAGE SUPPLIERS
           </h1>
           <div className="flex mt-6">
-
-          <div className="ml-5">
-            <Link
-              to='/addSuppliers'
-              className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] 
+            <div className="ml-5">
+              <Link
+                to="/addSuppliers"
+                className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[8px] rounded-[120px] 
               font-bold text-white text-[12px] block w-[100px] text-center mr-2"
-            >
-              +ADD
-            </Link>
-          </div>
+              >
+                +ADD
+              </Link>
+            </div>
 
-          {/*search */}
-          <div className="ml-[800px] mb-7">
-                <input type="text" 
+            {/*search */}
+            <div className="ml-[800px] mb-7">
+              <input
+                type="text"
                 className=" rounded-3xl py-2.5 px-5 w-[40vh]
                  text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300
                   appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] mr-2"
-                placeholder="Search by supplier name,type " 
-                onChange={(e) => {setSearchTerm(e.target.value)}}
-                /> 
-          </div>
+                placeholder="Search by supplier name,type "
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Body Part */}
-        <div 
-         style={{ backgroundImage: `url(${supp})` }}
-        className="bg-cover bg-center h-screen w-full fixed">
+        <div
+          style={{ backgroundImage: `url(${supp})` }}
+          className="bg-cover bg-center h-screen w-full fixed"
+        >
           {/* White box */}
           <div className="bg-white bg-opacity-90 w-[75%] h-[75%] absolute top-5 left-[80px] overflow-scroll">
+          <div className="flex">
+              <div className="relative mt-6 mb-1 ml-[860px]">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="">All Categories</option>
+                  <option value="FOOD">FOOD</option>
+                  <option value="MEDICINE">MEDICINE</option>
+                  <option value="TOYS">TOYS</option>
+                  <option value="BATHROOM-ESSENTIALS">
+                    BATHROOM ESSENTIALS
+                  </option>
+                  <option value="GROOMING-EQUIPMENTS">
+                    GROOMING EQUIPMENTS
+                  </option>
+                  <option value="EVENT-ITEMS">EVENT ITEMS</option>
+                  <option value="OTHER">OTHER</option>
+                </select>
+              </div>
+            </div>
             {/* Table */}
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
@@ -89,18 +135,32 @@ export default function ManageSuppliers() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {suppliers.filter((val)=>{
-                      if(searchTerm == "") {
-                        return val;
-                      }else if(val.name.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }else if(val.type.toLowerCase().includes(searchTerm.toLowerCase())){
-                        return val;
-                      }
-                    }).map((supplier) =>{
-                      return(
-
-                        <>
+                {suppliers
+                  .filter((val) => {
+                    if (searchTerm == "") {
+                      return val;
+                    } else if (
+                      val.name.toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                      return val;
+                    } else if (
+                      val.type.toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .filter((val) => {
+                    if (selectedCategory === "") {
+                      return val;
+                    } else if (
+                      selectedCategory.toLowerCase() ===val.type.toLowerCase()
+                    ) {
+                      return val;
+                    }
+                  })
+                  .map((supplier) => {
+                    return (
+                      <>
                         <tr>
                           {/* <td className="p-3">{supplier._id}</td> */}
                           <td className="p-3">{supplier.name}</td>
@@ -108,31 +168,40 @@ export default function ManageSuppliers() {
                           <td className="p-3">{supplier.email}</td>
                           <td className="p-3">{supplier.address}</td>
                           <td className="p-3">{supplier.type}</td>
-                        
+
                           <td className="p-3">
-                          <div className="flex ml-12">
+                            <div className="flex ml-12">
                               <button className=" items-center px-5 py-1 w-[110px] mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
-                                <Link to={`/updateSuppliers/${supplier._id}`}
-                                className="flex">
-                                <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
+                                <Link
+                                  to={`/updateSuppliers/${supplier._id}`}
+                                  className="flex"
+                                >
+                                  <img
+                                    src={editImg}
+                                    alt="editimage"
+                                    className="w-4 h-4 mr-2 mt-1"
+                                  />
                                   Edit
                                 </Link>
                               </button>
-                  
-                              <button className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
-                              onClick={() => handleDelete(supplier._id)}>
-                              <img src={deleteImg} alt="deleteimage" className="w-4 h-4 mr-2 mt-1" />
+
+                              <button
+                                className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
+                                onClick={() => handleDelete(supplier._id)}
+                              >
+                                <img
+                                  src={deleteImg}
+                                  alt="deleteimage"
+                                  className="w-4 h-4 mr-2 mt-1"
+                                />
                                 Delete
                               </button>
                             </div>
                           </td>
-
-                        
                         </tr>
-                        </>
-
-                      )
-                    })}
+                      </>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -140,8 +209,5 @@ export default function ManageSuppliers() {
       </div>
       {/* Right Side container end */}
     </div>
-  
   );
 }
-
-  

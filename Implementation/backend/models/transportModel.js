@@ -1,69 +1,63 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const transportSchema = mongoose.Schema(
   {
 
-    customerId: {
+    userName: {
         type: String,
-        required: [true, 'Please add a customerId'],
-        default: 'temp customerId',
+        required: [false, 'Please add a customerId'],
+        default: 'temp userName',
     },
-    
 
     plocation: {
-        type: String,
-        required: [true, 'Please enter address'],
+      type: String,
+      required: [false, "Please enter address"],
     },
 
     dlocation: {
       type: String,
-      required: [true, 'Please enter address'],
+      required: [false, "Please enter address"],
     },
 
     petType: {
-        type: String,
-        required: [true, 'Please add type of pet'],
-    },
-
-    petGender: {
       type: String,
-      required: [true, 'Please add gender of pet'],
+      required: [false, "Please add type of pet"],
     },
 
     date: {
-        type: String,
-        required: [true, 'Please add a date'],
+      type: String,
+      required: [false, "Please add a date"],
     },
 
     time: {
-        type: String,
-        required: [true, 'Please add a time'],
-    },
-
-
-    vaccineStatus: {
       type: String,
-      enum: ['VACCINATED', 'NOT_VACCINATED'],
-      required: [false, 'Please specify vaccine details']
+      required: [false, "Please add a time"],
     },
-
 
     count: {
         type: Number,
-        required: [true, 'Please add no of pets'],
+        required: [false, 'Please add no of pets'],
     },
 
+    email: {
+      type: String,
+      required: [true, 'Please add a gmail'],
+    },
+    phone: {
+      type: String,
+      required: [false, "Please add a phone number"],
+    },
     status: {
       type: String,
-      enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
-      default: 'PENDING', 
+      enum: ["PENDING", "ACCEPTED", "REJECTED"],
+      default: "PENDING",
     },
-    
+
 
   },
   {
-    timestamps: true,
+    timestamps: false,
   }
-)
+);
 
-module.exports = mongoose.model('Transport', transportSchema)
+module.exports = mongoose.model("Transport", transportSchema);

@@ -31,11 +31,21 @@ const Booking = (props) => {
     setShowDescriptonModal(true);
   };
 
-  const handleDelete = (booking) => {
-    const response = adpotServices.delete(formData);
+  const handleDelete = (pet) => {
+
+    pet = {
+      petId:pet.petId ,
+      bookedmarked: "no",
+      token: user.token,
+      owenerId: user._id,
+    };
+    const response = adpotServices.updateOne(pet);
     console.log(response);
 
-    if (response) toast.success("Booking deleted successfully");
+    if (response) toast.success("Pet Successfully Removed from wish list");
+    setTimeout(() => {
+      refreshTable();
+    },2000);
   };
 
   const refreshTable = () => {
@@ -43,7 +53,7 @@ const Booking = (props) => {
     adpotServices.getAll(user).then((res) => {
       setData(res.profiles);
     });
-  }
+  };
 
   const handleMainInputChange = (event) => {
     const { name, value } = event.target;
@@ -55,59 +65,60 @@ const Booking = (props) => {
     }));
   };
 
-
   return (
     <div>
       <div className="w-full bg-bgsec pb-[80px]">
         <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[830px]  w-[1000px]">
           <div className="w-full ">
-            <h1 className="text-center text-[20px] font-bold mb-5">
-              My Pets
-            </h1>
+            <h1 className="text-center text-[20px] font-bold mb-5">My Pets</h1>
             <div className="flex justify-end">
-            <button className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]" onClick={() => refreshTable()}>Refresh</button>
+              {/* <button
+                className="bg-secondary h-[27px] w-[80px] rounded-[30px] text-white mb-[10px]"
+                onClick={() => refreshTable()}
+              >
+                Refresh
+              </button> */}
             </div>
-            {isLoading ? ( 
-        <Spinner />
-      ) : (
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <table className="w-full bg-bgsec rounded-[10px]" id="myTable">
+                <thead className="bg-secondary rounded-[10px] text-white">
+                  <tr className="h-[40px]">
+                    <th className="w-[20%]">Pet id</th>
+                    <th className="">Name</th>
+                    <th className="">Breed</th>
+                    <th className="">Birth</th>
+                    <th className="">Gender</th>
+                    <th className="">Status</th>
+                    <th className="text-center">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item) =>
+                    item.bookedmarked === "yes" ? (
+                      <>
+                        <tr
+                          key={item._id}
+                          className="h-[55px] border-[1px] border-gray-400"
+                        >
+                          <td
+                            className="pl-4"
+                            onClick={() => handleDescription(item)}
+                          >
+                            {item.petId}
+                          </td>
+                          <td className="text-center">{item.petName}</td>
+                          <td className="text-center">{item.breed}</td>
+                          <td className="text-center">{item.birth}</td>
+                          <td className="text-center">{item.gender}</td>
+                          <td className="text-center pr-5 rounded-[100px] text-white">
+                            <p className="bg-green-600 h-[27px]  rounded-[30px]">
+                              {item.petStatus}
+                            </p>
+                          </td>
 
-            <table className="w-full bg-bgsec rounded-[10px]" id="myTable">
-              <thead className="bg-secondary rounded-[10px] text-white">
-                <tr className="h-[40px]">
-                  <th className="w-[20%]">Pet id</th>
-                  <th className="">Name</th>
-                  <th className="">Breed</th>
-                  <th className="">Birth</th>
-                  <th className="">Gender</th>
-                  <th className="">Status</th>
-                  {/* <th className="text-center">Delete</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item) => (
-
-                   item.bookedmarked ? (<><tr
-                    key={item._id}
-                    className="h-[55px] border-[1px] border-gray-400"
-                  >
-                    <td className="pl-4" onClick={() => handleDescription(item)}>{item.petId}</td>
-                    <td className="text-center">{item.petName}</td>
-                    <td className="text-center">
-                      {item.breed}
-                    </td>
-                    <td className="text-center">
-                      {item.birth}
-                    </td>
-                    <td className="text-center">
-                      {item.gender}
-                    </td>
-                    <td className="text-center pr-5 rounded-[100px] text-white">
-                      <p className="bg-green-600 h-[27px]  rounded-[30px]">
-                        {item.petStatus}
-                      </p>
-                    </td>
-
-                    {/* <td className="text-center">
+                          <td className="text-center">
                       <button
                         onFocus={() =>
                           setFormData((prevFormData) => ({
@@ -119,12 +130,16 @@ const Booking = (props) => {
                       >
                         Delete
                       </button>
-                    </td> */}
-                  </tr></>): (<></>)
-                  
-                ))}
-              </tbody>
-            </table> )}
+                    </td>
+                        </tr>
+                      </>
+                    ) : (
+                      <></>
+                    )
+                  )}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
@@ -135,10 +150,12 @@ const Booking = (props) => {
             <h2 className="text-lg font-bold mb-4 ">
               Pet ID {selectedBooking.petId}
             </h2>
-              <img src={selectedBooking.image} className="w-[300px] h-[300px]">
-              </img>
-                <br></br>
-              <table class="border-collapse w-full">
+            <img
+              src={selectedBooking.image}
+              className="w-[300px] h-[300px]"
+            ></img>
+            <br></br>
+            <table class="border-collapse w-full">
               <tbody>
                 <tr class="bg-gray-200">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
@@ -150,7 +167,7 @@ const Booking = (props) => {
                 </tr>
                 <tr class="bg-gray-100">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
-                  Species 
+                    Species
                   </td>
                   <td class="border border-gray-400 px-4 py-2">
                     {selectedBooking.species}
@@ -158,7 +175,7 @@ const Booking = (props) => {
                 </tr>
                 <tr class="bg-gray-200">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
-                  Gender
+                    Gender
                   </td>
                   <td class="border border-gray-400 px-4 py-2">
                     {selectedBooking.gender}

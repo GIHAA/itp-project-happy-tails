@@ -10,6 +10,8 @@ function Adoptpet() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [petType, setPetType] = useState("");
+
 
   const { user } = useSelector((state) => state.auth);
 
@@ -20,15 +22,24 @@ function Adoptpet() {
     });
   }, []);
 
+  const refreshTable = () => {
+    adpotServices.getAll().then((res) => {
+      setData(res.profiles);
+    });
+  }
+
   const handleAdopt = (card) => {
     card = {
-      ...card,
+      petId:card.petId,
       bookedmarked: "yes",
       token: user.token,
       owenerId: user._id,
     };
     const res = adpotServices.updateOne(card).then((res) => {
-      toast.success("Adopted successfully");
+      toast.success("Animal added to watch list");
+      setTimeout(() => {
+        refreshTable();
+      },4000)
     });
 
     console.log(res);
@@ -38,16 +49,21 @@ function Adoptpet() {
     setSearchTerm(document.getElementById("search").value);
   };
 
-  const filteredData = data.filter(
-    (card) =>
-      card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.species.toLowerCase().includes(searchTerm.toLowerCase())
+ const filteredData = data
+  .filter((card) =>
+    card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    card.color.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  .filter((card) =>
+    petType === "" || card.species.toLowerCase() === petType.toLowerCase()
   );
+
   return (
     <>
-    <Header/>
+      <Header />
       <div className="h-full overflow-y-scrollf bg-bgsec">
-        
         <div className="flex justify-center pt-5">
           <input
             id="search"
@@ -55,10 +71,19 @@ function Adoptpet() {
             placeholder="Search for pets... ex: dog, cat, pet name etc"
             className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
+          <select
+  value={petType}
+  onChange={(e) => setPetType(e.target.value)}
+  className="ml-3 border-b-[1px] pl-6 w-[150px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-1 focus:ring-gray-200 rounded-[50px]"
+>
+  <option value="">All</option>
+  <option value="Dog">Dog</option>
+  <option value="Cat">Cat</option>
+</select>
 
           <button
             onClick={handleSearch}
-            className="ml-5 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
+            className="ml-2 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
           >
             Search
           </button>
@@ -69,7 +94,7 @@ function Adoptpet() {
         ) : (
           <div className="pb-[200px]">
             {filteredData.map((card, index) =>
-              card.petStatus === "Available" && !card.bookedmarked ? (
+              card.petStatus === "Available" && !card.bookedmarked || card.bookedmarked === "no" ? (
                 <div className="grid grid-cols-1 gap-[70px] px-[80px] py-[40px] h-[200px]p-[50px] rounded-[20px]">
                   <div className="grid grid-cols-3 gap-[20px] px-[120px] h-[300px] ">
                     <div className="bg-cover bg-center rounded-[20px] flex justify-center">
@@ -98,9 +123,9 @@ function Adoptpet() {
                       <div className="flex justify-end pt-3">
                         <button
                           onClick={() => handleAdopt(card)}
-                          className="rounded-[20px] w-[100px] h-[40px] border-[1px] bg-secondary text-white font-bold-sm "
+                          className="rounded-[20px] w-[140px] h-[40px] border-[1px] bg-secondary text-white font-bold-sm "
                         >
-                          Adopt
+                          Add to Watch list
                         </button>
                       </div>
                     </div>
@@ -113,7 +138,7 @@ function Adoptpet() {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

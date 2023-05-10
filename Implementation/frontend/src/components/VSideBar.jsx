@@ -2,13 +2,13 @@ import React from 'react'
 import logo from "../assets/logo.png"
 import v from "../assets/v.png"
 import { Link, NavLink } from 'react-router-dom';
-import { logout, reset } from "../services/auth/authSlice";
-import logoutimg from "../assets/logout.png"
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import logoutImg from "../assets/logout.png";
+import { logout, reset } from "../services/auth/authSlice";
 
 
-
+  
 
 function VSideBar() {
 
@@ -43,11 +43,6 @@ function VSideBar() {
         >HOME</NavLink>
 
 
-        <NavLink to='/vehicledashboard' activeClassName =" bg-[#797979]"
-        className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
-        >DASHBOARD</NavLink>
-
-
         <NavLink to='/vehicles' activeClassName =" bg-[#797979]"
         className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
         >VEHICLES</NavLink>
@@ -66,27 +61,24 @@ function VSideBar() {
         className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
         >BUDGET REQUESTS </NavLink>
 
-        <div>
-            <button onClick={onLogout}
-                className="flex items-center px-5 py-1 ml-12 mr-5 mt-[180px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl">
-                <img src={logoutimg} alt="Logout" className="w-4 h-4 mr-2" />
-                <span>Logout</span>
-              </button>
-
-      </div>
-
         
 
     </div>
 
     <div>
-      <hr className="mt-[20px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
-      <img src={v} className=" w-[140px] h-[140px] mx-auto"></img>
-    </div>
+        <button
+          onClick={onLogout}
+          className="flex items-center px-5 py-1 ml-14 mr-5 mt-[150px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
+        >
+          <img src={logoutImg} alt="Logout" className="w-4 h-4 mr-2" />
+          <span>Logout</span>
+        </button>
+      </div>
+
   
 </div>
    
   )
 }
 
-export default VSideBar
+export default VSideBar;

@@ -1,20 +1,23 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 const {
- readSuppliers,
- addSuppliers,
- updateSuppliers,
- deleteSuppliers,
- getProfile
-} = require('../controller/suppliersController')
-const { protect , userProtect , adminProtect} = require('../middleware/authMiddleware')
+  readSuppliers,
+  addSuppliers,
+  updateSuppliers,
+  deleteSuppliers,
+  getProfile,
+} = require("../controller/suppliersController");
 
-router.post('/',addSuppliers )
-router.get('/' ,readSuppliers )
-router.put('/:id' , updateSuppliers)
-router.get('/:id' , getProfile)
-router.delete('/:id' ,deleteSuppliers )
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
 
+router.post("/",protect, addSuppliers);
+router.get("/",protect, readSuppliers);
+router.put("/:id",protect, updateSuppliers);
+router.get("/:id",protect, getProfile);
+router.delete("/:id",protect, deleteSuppliers);
 
-
-module.exports = router
+module.exports = router;
