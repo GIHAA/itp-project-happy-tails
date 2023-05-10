@@ -14,6 +14,8 @@ function AddHealth() {
         const handleSubmit = async (event) => {
             event.preventDefault();
 
+            //Validate Discription Has or not
+
             const newDescription = description || "No description";
 
             const newreport = { 

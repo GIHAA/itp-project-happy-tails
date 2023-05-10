@@ -63,6 +63,8 @@ export default function EditEvent(){
     }, []);
     
     console.log(eventAmount.rate)
+    console.log(startTime);
+
   
     useEffect(() => {
         
@@ -171,6 +173,8 @@ console.log(rat)
           toast.error("Error while editing event");
         }
       }
+
+      
       
     function convertTimeFormat(timeString) {
 //console.log(timeString)
@@ -273,7 +277,7 @@ console.log(period); // Output: AM
     </div>
             <div class="flex flex-col mb-4">
                 <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} for="startTime">Start Time</label>
-                <input class="border py-2 px-3 text-grey-800 rounded-lg" style={{ width: "65%", alignSelf:'center' }} type="time" name="startTime" id="startTime" defaultValue={convertTimeFormat(event.startTime)} required
+                <input class="border py-2 px-3 text-grey-800 rounded-lg" style={{ width: "65%", alignSelf:'center' }} type="time" name="startTime" id="startTime" Value={startTime} required
                 onChange={(e)=>{
                    const timeString = e.target.value; // get the time string in the format "HH:MM"
                     const timeArray = timeString.split(':'); // split the time string into hours and minutes
@@ -290,6 +294,30 @@ console.log(period); // Output: AM
                     setStart(formattedTime); // set the state to the formatted time string
         }}/>
             </div>
+
+
+            <div class="flex flex-col mb-4">
+                <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} for="startTime">Start Time</label>
+                <input class="border py-2 px-3 text-grey-800 rounded-lg" style={{ width: "65%", alignSelf:'center' }} type="text" name="startTime" id="startTime" Value={startTime} required
+                
+        />
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div class="flex flex-col mb-4">
                 <label class="mb-2 text-lg text-white" style={{marginLeft:'17.5%'}} for="endTime">End Time</label>
                 <input class="border py-2 px-3 text-grey-800 rounded-lg" style={{ width: "65%", alignSelf:'center' }} type="time" name="endTime" id="endTime" defaultValue={endTime} required

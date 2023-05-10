@@ -164,13 +164,13 @@ const GetBooking = () => {
                   function updateTransaction() {
                     const updatedTransaction = {
                       status: 'SHELTERED',
-                      cus_name: cus_name,
+                      id: _id,
                       bid: bid,
                       contactNumbers: contactNumbers,
                       description: description,
                     };
 
-                    axios.put(`http://localhost:8080/api/booking/${_id}`, updatedTransaction)
+                    axios.put(`http://localhost:8080/api/booking/`, updatedTransaction)
                       .then(response => {
 
                         console.log(_id);

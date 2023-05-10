@@ -120,8 +120,6 @@ export default function VetPortal() {
           </div>
         </div>
 
-
-
       </aside>
       <Outlet />
     </>
