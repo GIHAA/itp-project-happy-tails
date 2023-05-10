@@ -4,6 +4,7 @@ import inv from "../assets/inv.jpg";
 import axios from "axios";
 import InventorySideBar from "./InventorySideBar";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function InvAddItem() {
   const [item_code, setItemCode] = useState("");
@@ -11,6 +12,7 @@ export default function InvAddItem() {
   const [item_brand, setItemBrand] = useState("");
   const [category, setItemCategory] = useState("");
   const [qty, setItemQty] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   function addItem(e) {
     e.preventDefault();
@@ -24,18 +26,28 @@ export default function InvAddItem() {
     };
     console.log(newItem);
 
-    axios
-      .post("http://localhost:8080/api/inventory/items", newItem)
+    axios.post("http://localhost:8080/api/inventory/items", newItem, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
       .then(() => {
         toast.success("item added", { position: toast.POSITION.BOTTOM_RIGHT });
       })
       .catch((err) => {
-        if (err.response.status === 409)
-        toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
-        else 
-        toast.error(`Item insert unsuccessful ${err}`);
+        if (err.response.status === 409) {
+          toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
+        } else {
+          toast.error(`Item insert unsuccessful ${err}`);
+        }
       });
   }
+  
+  const handleReset = () => {
+    setTimeout(() => {
+      window.location.href = "/items";
+    });
+  };
 
   return (
     //Main container
@@ -71,7 +83,7 @@ export default function InvAddItem() {
               </h1>
 
               <div className=" pl-5">
-                <form className="mx-auto" onSubmit={addItem}>
+                <form className="mx-auto" onSubmit={addItem} onReset={handleReset}>
                   <div className="flex mb-6">
                     <div>
                       <label className="">Item Code :</label>
@@ -136,7 +148,8 @@ export default function InvAddItem() {
                   </div>
 
                   <div className="flex mt-24 h-10">
-                    <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
+                    <button type="reset"
+                    className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
                       <Link to="/items">Cancel</Link>
                     </button>
 

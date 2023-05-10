@@ -6,16 +6,22 @@ import inv from "../assets/inv.jpg";
 import { ToastContainer, toast } from "react-toastify";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { useSelector } from "react-redux";
 import logo2 from "../assets/logo2.png";
 
 const moment = require("moment");
 
 export default function StockRequests() {
   const [stockReq, setStockReq] = useState([]);
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/")
+      .get("http://localhost:8080/api/inventory/stockrequest/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setStockReq(res.data);
       })
@@ -32,20 +38,51 @@ export default function StockRequests() {
   // }
 
   function generatePDF() {
+
+    // const doc = new jsPDF();
+    // const today = new Date();
+    // const date = `${today.getFullYear()}-${
+    //   today.getMonth() + 1
+    // }-${today.getDate()}`;
+    // doc.setFontSize(15);
+    // doc.text(`Still Pending Stock Requests\nGenerated on ${date}`, 14, 55);
+    // doc.addImage(logo2, "JPG", 85, 7, 50, 50);
+    // doc.setFontSize(25);
+    // doc.text(15, 20, "Happy Tails");
+    // doc.setFontSize(10);
+    // doc.text(15, 30, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
+    // doc.text(15, 43, "Tel : 01123457689");
+    
+    const title = "Still Pending Stock Request Report ";
     const doc = new jsPDF();
     const today = new Date();
-    const date = `${today.getFullYear()}-${
-      today.getMonth() + 1
-    }-${today.getDate()}`;
-    doc.text(`Stock Requests Report Generated- ${date}`, 14, 16);
-    doc.addImage(logo2, "JPG", 10, 20, 0, 50);
-    doc.setFontSize(25);
-    doc.text(70, 35, "Happy Tails");
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    
+    // Set document font and color
+    doc.setFont("helvetica");
+    doc.setTextColor("#000000");
+    
+    // Add title and date
+    doc.setFontSize(24);
+    doc.text(title, 20, 30);
+    doc.setFontSize(12);
+    doc.setTextColor("#999999");
+    doc.text(`Generated on ${date}`, 20, 40);
+    
+    // Add logo and company details
+    doc.addImage(logo2, "JPG", 20, 60, 40, 40);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor("#000000");
+    doc.text("Happy Tails", 70, 70);
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
-    doc.text(70, 40, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
-    doc.text(70, 55, "Tel : 01123457689");
+    doc.setTextColor("#999999");
+    doc.text("Tel: +94 11 234 5678", 70, 80);
+    doc.text("Email: info@happytails.com", 70, 85);
+    doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
     doc.autoTable({
-      startY: 80,
+      startY: 105,
       head: [
         ["Date", "Item Code", "Item Name", "Item Brand", "Category", "Qty"],
       ],
@@ -102,13 +139,13 @@ export default function StockRequests() {
             <table className="mx-auto my-10 w-[1000px]">
               <thead className=" bg-[#FF9F00] text-white sticky top-0">
                 <tr>
-                  <th className="p-3">date</th>
+                  <th className="p-3">Requested date</th>
                   <th className="p-3">item_code</th>
                   <th className="p-3">item_name</th>
                   <th className="p-3">item_brand</th>
                   <th className="p-3">category</th>
                   <th className="p-3">qty</th>
-                  <th className="p-3">total_amount</th>
+                  {/* <th className="p-3">total_amount</th> */}
                   <th className="p-3">status</th>
                   <th className="p-3">action</th>
                 </tr>
@@ -125,7 +162,7 @@ export default function StockRequests() {
                         itemBrand={stockrequest.item_brand}
                         category={stockrequest.category}
                         qty={stockrequest.qty}
-                        totalAmount={stockrequest.totalAmount}
+                        // totalAmount={stockrequest.totalAmount}
                         date={stockrequest.date}
                         status={stockrequest.status}
                       />
@@ -145,6 +182,7 @@ export default function StockRequests() {
 }
 
 function TableDataRow(props) {
+  const {user} = useSelector((state)=>state.auth);
   async function handleClick(id, total_amount) {
     console.log(id);
 
@@ -157,9 +195,18 @@ function TableDataRow(props) {
         {
           status: "ACCEPTED",
           total: total_amount,
+        },{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         }
       );
       toast.success("Status updated", { position: toast.POSITION.TOP_RIGHT });
+
+      setTimeout(() => {
+        window.location.href = "#";
+      }, 3000);
+
     } catch (err) {
       console.error(err);
     }
@@ -180,15 +227,15 @@ function TableDataRow(props) {
         <td className="p-3">{props.itemBrand}</td>
         <td className="p-3">{props.category}</td>
         <td className="p-3">{props.qty}</td>
-        <td className="p-3">
+        {/* <td className="p-3">
           {props.status.toLowerCase() === "pending" ? (
-            <input
-              type="string"
-              className="w-full p-1 border-gray-300 border rounded-lg"
-              onChange={(e) => handleChange(e.target.value)} // Handle input change
-            />
+            // <input
+            //   type="string"
+            //   className="w-full p-1 border-gray-300 border rounded-lg"
+            //   onChange={(e) => handleChange(e.target.value)} // Handle input change
+            // />
           ) : null}
-        </td>
+        </td> */}
         <td className="p-3">{props.status}</td>
         <td className="p-3">
           {props.status.toLowerCase() === "pending" ? (

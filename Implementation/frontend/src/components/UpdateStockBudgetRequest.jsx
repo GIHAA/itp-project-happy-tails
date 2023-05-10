@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import SupplierSideBar from "./SupplierSideBar";
 import { ToastContainer, toast } from "react-toastify";
 import stockBgt from "../assets/stockBgt.jpg";
+import { useSelector } from "react-redux";
 
 export default function UpdateStockBudgetRequest() {
   const param = useParams();
@@ -16,11 +17,16 @@ export default function UpdateStockBudgetRequest() {
   const [item_name, setItems] = useState("");
   const [description, setDesc] = useState("");
   const [total, setTotal] = useState(0);
+  const {user} = useSelector((state)=>state.auth);
 
   async function getRequest() {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/stockBudget/${id}`
+        `http://localhost:8080/api/stockBudget/${id}`,{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       console.log(res);
       const oneRequest = res.data;
@@ -54,7 +60,11 @@ export default function UpdateStockBudgetRequest() {
       };
       console.log(newReq);
       await axios
-        .put(`http://localhost:8080/api/stockBudget/${id}`, newReq)
+        .put(`http://localhost:8080/api/stockBudget/${id}`, newReq,{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(() => {
           toast.success("Request details updated", {
             position: toast.POSITION.TOP_RIGHT,

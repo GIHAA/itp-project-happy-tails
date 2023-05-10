@@ -7,14 +7,22 @@ import supp from "../assets/supp.jpg";
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import PortalHeader from "./common/PortalHeader";
+import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/")
+      .get("http://localhost:8080/api/suppliers/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setSuppliers(res.data);
       })
@@ -23,7 +31,11 @@ export default function ManageSuppliers() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/suppliers/${id}`)
+      .delete(`http://localhost:8080/api/suppliers/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         toast.success("Supplier deleted", {
           position: toast.POSITION.TOP_RIGHT,
@@ -33,12 +45,16 @@ export default function ManageSuppliers() {
       .catch((err) => alert(err));
   }
 
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
   return (
     <div className="flex scroll-smooth">
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
@@ -78,6 +94,32 @@ export default function ManageSuppliers() {
         >
           {/* White box */}
           <div className="bg-white bg-opacity-90 w-[75%] h-[75%] absolute top-5 left-[80px] overflow-scroll">
+          <div className="flex">
+              <div className="relative mt-6 mb-1 ml-[860px]">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                >
+                  <option value="">All Categories</option>
+                  <option value="FOOD">FOOD</option>
+                  <option value="MEDICINE">MEDICINE</option>
+                  <option value="TOYS">TOYS</option>
+                  <option value="BATHROOM-ESSENTIALS">
+                    BATHROOM ESSENTIALS
+                  </option>
+                  <option value="GROOMING-EQUIPMENTS">
+                    GROOMING EQUIPMENTS
+                  </option>
+                  <option value="EVENT-ITEMS">EVENT ITEMS</option>
+                  <option value="OTHER">OTHER</option>
+                </select>
+              </div>
+            </div>
             {/* Table */}
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
@@ -103,6 +145,15 @@ export default function ManageSuppliers() {
                       return val;
                     } else if (
                       val.type.toLowerCase().includes(searchTerm.toLowerCase())
+                    ) {
+                      return val;
+                    }
+                  })
+                  .filter((val) => {
+                    if (selectedCategory === "") {
+                      return val;
+                    } else if (
+                      selectedCategory.toLowerCase() ===val.type.toLowerCase()
                     ) {
                       return val;
                     }

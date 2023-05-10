@@ -6,14 +6,22 @@ import { ToastContainer, toast } from "react-toastify";
 import stockBgt from "../assets/stockBgt.jpg";
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
+import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function StockBudgetRequests() {
   const [budget, setBudget] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget/")
+      .get("http://localhost:8080/api/stockBudget/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setBudget(res.data);
       })
@@ -22,7 +30,11 @@ export default function StockBudgetRequests() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/stockBudget/${id}`)
+      .delete(`http://localhost:8080/api/stockBudget/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         toast.success("Request deleted", {
           position: toast.POSITION.TOP_RIGHT,
@@ -32,12 +44,16 @@ export default function StockBudgetRequests() {
       .catch((err) => alert(err));
   }
 
+  const handleStockFilter = (event) => {
+    setSelectedFilter(event.target.value);
+  };
+
   return (
     <div className="flex scroll-smooth">
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
@@ -75,7 +91,24 @@ export default function StockBudgetRequests() {
           className="bg-cover bg-center h-screen w-full fixed"
         >
           {/* White box */}
-          <div className="bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll">
+          <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
+            <div className="flex">
+              <div className="relative mt-6 ml-[1060px] ">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedFilter}
+                  onChange={handleStockFilter}
+                >
+                  <option value="">All</option>
+                  <option value="Accepted">Accepted</option>
+                  <option value="Pending">Pending</option>
+                </select>
+              </div>
+            </div>
             {/* Table */}
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
@@ -108,6 +141,16 @@ export default function StockBudgetRequests() {
                       return val;
                     }
                   })
+                  .filter((val) => {
+                    if (selectedFilter === "") {
+                      return val;
+                    } else if (
+                      selectedFilter.toLowerCase() ===
+                      val.status.toLowerCase()
+                    ) {
+                      return val;
+                    }
+                  })
                   .map((budget) => {
                     return (
                       <>
@@ -116,35 +159,44 @@ export default function StockBudgetRequests() {
                           <td className="p-3">{budget.item_name}</td>
                           <td className="p-3">{budget.description}</td>
                           <td className="p-3">{budget.total}</td>
-                          <td className="p-3">{budget.status}</td>
+                          <td className="p-3">
+                            <span
+                              className={`inline-block px-2 rounded-xl text-sm ${
+                                budget.status === "Accepted" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"
+                              }`}
+                            >
+                              {budget.status}
+                            </span>
+                          </td>
+
 
                           <td className="p-3">
                             <div className="flex ml-12">
-                              <button className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
-                                <Link
-                                  to={`/UpdateStockBudgetRequest/${budget._id}`}
-                                  className="flex"
-                                >
-                                  <img
-                                    src={editImg}
-                                    alt="editimage"
-                                    className="w-4 h-4 mr-2 mt-1"
-                                  />
-                                  Edit
-                                </Link>
-                              </button>
+                            {/* <button
+                              className={`items-center px-5 py-1 mr-5 ${
+                                budget.status === "Accepted" ? "bg-gray-300" : "bg-[#2E4960]"
+                              } text-white font-semibold hover:bg-[#2E4960] rounded-xl`}
+                              disabled={budget.status === "Accepted"}
+                            >
+                              <Link to={`/UpdateStockBudgetRequest/${budget._id}`} className="flex">
+                                <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
+                                Edit
+                              </Link>
+                            </button> */}
+
 
                               <button
-                                className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
+                                className={`flex px-5 py-1 mr-5 ${
+                                  budget.status === "Accepted" ? "bg-gray-300" : "bg-[#d11818]"
+                                } text-white font-semibold hover:bg-gray-300 rounded-xl`}
+                                disabled={budget.status === "Accepted"}
                                 onClick={() => handleDelete(budget._id)}
                               >
-                                <img
-                                  src={deleteImg}
-                                  alt="deleteimage"
-                                  className="w-4 h-4 mr-2 mt-1"
-                                />
+                                <img src={deleteImg} alt="deleteimage" className="w-4 h-4 mr-2 mt-1" />
                                 Delete
                               </button>
+
+
                             </div>
                           </td>
                         </tr>

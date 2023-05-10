@@ -6,6 +6,7 @@ import InventorySideBar from "./InventorySideBar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 
 export default function InvReleaseStock() {
@@ -14,11 +15,17 @@ export default function InvReleaseStock() {
   const [newQty, setNewQty] = useState(0);
   const [searchTerm , setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
 
   useEffect(()=>{
 
-        axios.get("http://localhost:8080/api/inventory/items/")
+    axios.get("http://localhost:8080/api/inventory/items/", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
         .then((res) => {
           setItems(res.data)
           console.log(Items)
@@ -53,7 +60,11 @@ export default function InvReleaseStock() {
 
 
         //sending the item object to the releasestock backend
-        await axios.post("http://localhost:8080/api/inventory/releasestock", item)
+        await axios.post("http://localhost:8080/api/inventory/releasestock", item, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(()=>{
             toast.success(`Sucessfully released ${newQty} ${item_brand} ${item_name}s`, {position: toast.POSITION.BOTTOM_RIGHT,})
 
@@ -67,11 +78,12 @@ export default function InvReleaseStock() {
             release_qty : newQty
         }
 
-        console.log(obj)
-
-
         //sending the object to the item backend to update the qty
-        await axios.put(`http://localhost:8080/api/inventory/items/subtractqty` , obj)
+        await axios.put(`http://localhost:8080/api/inventory/items/subtractqty` , obj, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then(()=>{ 
 
           const updatedQty = qty - newQty 
@@ -104,6 +116,10 @@ export default function InvReleaseStock() {
 
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
+  };
+
+  const handleStockFilter = (event) => {
+    setSelectedFilter(event.target.value);
   };
 
   
@@ -152,8 +168,24 @@ export default function InvReleaseStock() {
             className="bg-cover bg-center h-screen w-full fixed" >
                 {/*White box*/}
                 <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">  
+                <div className="flex">
+                <div className="relative mt-6 ml-[830px] mb-1">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={selectedFilter}
+                  onChange={handleStockFilter}
+                >
+                  <option value="">All</option>
+                  <option value="inStock">In Stock</option>
+                  <option value="outOfStock">Out of Stock</option>
+                </select>
+              </div>
 
-                <div className="relative mt-6 ml-[1000px] mb-1">
+                <div className="relative mt-6 ml-[10px] mb-1">
                   <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
                   <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                   value={selectedCategory} onChange={handleCategoryChange}>
@@ -167,6 +199,7 @@ export default function InvReleaseStock() {
                     <option value="OTHER">OTHER</option>
                   </select>
                 </div>
+              </div>
 
 
                 {/*Table*/}
@@ -187,18 +220,28 @@ export default function InvReleaseStock() {
                     <tbody  className="bg-white text-center">
 
                     {Items.filter((val)=>{
-                      if(searchTerm == "") {
+                      if(searchTerm === "") {
                         return val;
                       }else if(val.item_name.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
                       }else if(val.item_code.toLowerCase().includes(searchTerm.toLowerCase())){
                         return val;
-                      }
+                      }else 
+                      return null;
                     }).filter((val)=>{
                       if(selectedCategory === "") {
                         return val;
                       }else if(selectedCategory.toLowerCase() === val.category.toLowerCase()){
                         return val;
+                      }else 
+                      return null;
+                    }).filter((val) => {
+                      if (selectedFilter === "") {
+                        return val;
+                      } else if (selectedFilter === "inStock") {
+                        return val.qty > 0;
+                      } else if (selectedFilter === "outOfStock") {
+                        return val.qty <= 0;
                       }
                     }).map((item) => {
                       return(

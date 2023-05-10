@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import editImg from "../assets/edit.png";
 import deleteImg from "../assets/delete.png";
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function InvItems() {
   const [Items, setItems] = useState([]);
@@ -15,9 +16,14 @@ export default function InvItems() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
 
+  const {user} = useSelector((state)=>state.auth);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/inventory/items/")
+    axios.get("http://localhost:8080/api/inventory/items/", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
       .then((res) => {
         setItems(res.data);
       })
@@ -27,8 +33,11 @@ export default function InvItems() {
   console.log(Items);
 
   const onDelete = (id) => {
-    axios
-      .delete(`http://localhost:8080/api/inventory/items/${id}`)
+    axios.delete(`http://localhost:8080/api/inventory/items/${id}`, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
       .then((res) => {
         toast.success("item deleted", {
           position: toast.POSITION.BOTTOM_RIGHT,

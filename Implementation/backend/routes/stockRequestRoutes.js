@@ -8,9 +8,15 @@ const {
   groupByCategory,
 } = require("../controller/stockRequestController");
 
-router.post("/stockrequest", requestStock);
-router.get("/stockrequest", getAllRequests);
-router.get("/receivedstockprocessed", groupByCategory);
-router.put("/stockrequest/:id", updateRequestField);
+const {
+  protect,
+  userProtect,
+  adminProtect,
+} = require("../middleware/authMiddleware");
+
+router.post("/stockrequest",protect, requestStock);
+router.get("/stockrequest",protect, getAllRequests);
+router.get("/receivedstockprocessed",protect, groupByCategory);
+router.put("/stockrequest/:id",protect, updateRequestField);
 
 module.exports = router;

@@ -23,7 +23,7 @@ const readAllPayment = asyncHandler(async (req, res) => {
   const payment = await Payment.find({});
 
   res.json(payment);
-  console.log(payment);
+  // console.log(payment);
 });
 
 //get user payment by id
@@ -33,7 +33,7 @@ const readPayment = asyncHandler(async (req, res) => {
   const payment = await Payment.findByIdAndUpdate(id, {});
 
   res.json(payment);
-  console.log(payment);
+  // console.log(payment);
 });
 
 //put user payment

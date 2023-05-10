@@ -8,15 +8,16 @@ const {
   getallprofile,
   Qr,
   shelterpets,
+  bookedmarkStatusUpdate
 } = require("../controller/petProfileController");
 
 router.post("/addpet", registerPet);
 router.put("/updateprofile/:id", profileUpdate);
+router.put("/bookedmarkStatusUpdate/:id", bookedmarkStatusUpdate);
 router.get("/profile/:profileId", getProfile);
 router.delete("/deleteprofile/:id", deleteProfile);
 router.get("/getallprofile", getallprofile);
 
 // router.get('/pets/qrcode/:id',Qr)
 // router.get('/spets',shelterpets)
-
 module.exports = router;

@@ -11,14 +11,17 @@ import Footer from "../common/Footer";
 import { useSelector } from "react-redux";
 
 function RegisterEvent() {
+
+
+  const { user } = useSelector((state) => state.auth);
   const param = useParams();
   const id = param.id;
   //console.log(id)
   const [cusName, setName] = useState("");
   const [noOfTicket, setTic] = useState("");
   const [total, setTotal] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhone] = useState("");
+  const [email, setEmail] = useState(user.email);
+  const [phoneNumber, setPhone] = useState(user.phone);
   const [eid, setEventId] = useState("");
   const [eventName, setEventname] = useState("");
 
@@ -43,7 +46,6 @@ function RegisterEvent() {
   const [button, setButton] = useState(true);
 
 
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function getevent() {
@@ -133,6 +135,15 @@ function RegisterEvent() {
     e.preventDefault();
 
 
+    const isNumberAndTenDigit = (str) => {
+      return /^\d{10}$/.test(str);
+    };
+
+    if (!isNumberAndTenDigit(phoneNumber)) {
+      toast.error("Please enter a valid phone number");
+      return;
+    }
+
     const newregister = {
       eid,
       bookid: bookid,
@@ -141,7 +152,7 @@ function RegisterEvent() {
       noOfTicket,
       total: dbprice * noOfTicket,
       email : user.email,
-      phoneNumber : user.phone,
+      phoneNumber : phoneNumber,
     };
 
     const newamount = {
@@ -166,9 +177,10 @@ function RegisterEvent() {
       ),
     ])
       .then(() => {
-        const text = `${eid} \n ${bookid} \n  \n Dear ${cusName} \n You have successfully registered for the ${eventName} event\n Total = Ticket count * Price \n Total = ${noOfTicket} * ${dbprice} \n Total = ${
-          noOfTicket * dbprice
-        } \n Thank you`;
+        // const text = `${eid} \n ${bookid} \n  \n Dear ${cusName} \n You have successfully registered for the ${eventName} event\n Total = Ticket count * Price \n Total = ${noOfTicket} * ${dbprice} \n Total = ${
+        //   noOfTicket * dbprice
+        // } \n Thank you`;
+        const text = `http://localhost:8080/qr/event/${bookid},$`
         QRCode.toDataURL(text).then((data) => {
           setQRCodeSrc(data);
           setShowQRCode(true);
@@ -188,7 +200,6 @@ function RegisterEvent() {
         // }, 5000);
       })
       .catch((err) => {
-        alert(JSON.stringify(newregister));
         toast.error(`Please fill all fields`);
       });
   }
@@ -429,7 +440,7 @@ function RegisterEvent() {
                 type="email"
                 name="email"
                 id="email"
-                value={user.email}
+                value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -451,27 +462,27 @@ function RegisterEvent() {
                 minLength={10}
                 name="phoneNumber"
                 id="phoneNumber"
-                value={user.phone}
+                value={phoneNumber}
                 required
                 onChange={(e) => {
-                  if (e.target.value.length !== 10) {
-                    e.target.setCustomValidity(
-                      "Phone number must be 10 digits"
-                    );
-                  } else {
-                    e.target.setCustomValidity("");
+                  // if (e.target.value.length !== 10) {
+                  //   e.target.setCustomValidity(
+                  //     "Phone number must be 10 digits"
+                  //   );
+                  // } else {
+                    // e.target.setCustomValidity("");
                     setPhone(e.target.value);
-                  }
-                }}
-                onKeyPress={(e) => {
-                  /* to restrict other character and accept only integer*/
-                  const charCode = e.which ? e.which : e.keyCode;
-                  if (charCode < 48 || charCode > 57) {
-                    e.preventDefault();
-                    toast.error("Please enter only 10 numbers");
-                    console.log("Please enter only 10 numbers");
-                  }
-                }}
+                  }}
+                // }}
+                // onKeyPress={(e) => {
+                //   /* to restrict other character and accept only integer*/
+                //   const charCode = e.which ? e.which : e.keyCode;
+                //   if (charCode < 48 || charCode > 57) {
+                //     e.preventDefault();
+                //     toast.error("Please enter only 10 numbers");
+                //     console.log("Please enter only 10 numbers");
+                //   }
+                // }}
               />
             </div>
 

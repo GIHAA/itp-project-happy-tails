@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import editImg from "../../assets/edit.png";
 import deleteImg from "../../assets/delete.png";
+import emailServices from "../../services/api/emails/user";
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -67,6 +68,9 @@ const Users = () => {
       .post("http://localhost:8080/api/users/", formData)
       .then((res) => {
         toast.success("Users added successfully");
+        emailServices.register(formData).then((res) => {
+          toast.success("Logins emailed successfully");
+        });
       })
       .catch((err) => alert(err));
     } else {
@@ -117,7 +121,6 @@ const Users = () => {
                 >
                   <option value="">All</option>
                   <option value="ADMIN">Admin</option>
-                  <option value="USER">User</option>
                   <option value="EVENT_MANAGER">Event Manager</option>
                   <option value="INVENTORY_MANAGER">Inventory Manager</option>
                   <option value="VEHICLE_MANAGER">Vehicle Manager</option>

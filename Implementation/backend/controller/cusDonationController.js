@@ -25,7 +25,7 @@ const readcusAllDonation = asyncHandler(async (req, res) => {
   const Customer = await Cus.find({});
 
   res.json(Customer);
-  console.log(Customer);
+  // console.log(Customer);
 });
 
 //get customer donation by id
@@ -35,7 +35,7 @@ const readcusDonation = asyncHandler(async (req, res) => {
   const Customer = await Cus.findByIdAndUpdate(id, {});
 
   res.json(Customer);
-  console.log(Customer);
+  // console.log(Customer);
 });
 
 //put customer donation

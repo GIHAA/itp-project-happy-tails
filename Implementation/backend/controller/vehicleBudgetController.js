@@ -24,7 +24,7 @@ const VehreadAllPayment = asyncHandler(async (req, res) => {
   const payment = await VehReqPayment.find({});
 
   res.json(payment);
-  console.log(payment);
+  
 });
 
 //get vehicle payment by id
@@ -34,7 +34,7 @@ const VehreadPayment = asyncHandler(async (req, res) => {
   const payment = await VehReqPayment.findByIdAndUpdate(id, {});
 
   res.json(payment);
-  console.log(payment);
+  
 });
 
 //put vehicle payment
