@@ -11,19 +11,17 @@ const addAvailability = asyncHandler(async (req, res) => {
     reason,
     since,
     to,
-    status,
-  });
+    status : "AVAILABLE"
+  })
 
-  availability
-    ? res.status(201).json(availability)
-    : res.status(400).json({ message: "Availability not created" });
+  availability ? res.status(201).json(availability) : res.status(400).json({ message: "Availability not created" });
 });
 
 //get
 const readAvailability = asyncHandler(async (req, res) => {
   const availability = await Availability.find({});
   res.json(availability);
-});
+})
 
 //get one Availability
 const getOneAvailability = async (req, res) => {
@@ -32,7 +30,7 @@ const getOneAvailability = async (req, res) => {
   let availability = null;
 
   try {
-    availability = await Availability.findOne({ id: id });
+    availability = await Availability.findOne({ _id: id });
   } catch (err) {
     console.error(err);
     return res.status(500).json({
@@ -52,15 +50,15 @@ const getOneAvailability = async (req, res) => {
 //put
 const updateAvailability = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const { plateNo, reason, since, to, status } = req.body;
+  const {  reason, since, to, status } = req.body;
 
   const availability = await Availability.findByIdAndUpdate(id, {
-    plateNo,
+ 
     reason,
     since,
     to,
     status,
-  });
+  }, { new: true });
 
   availability
     ? res.status(201).json(availability)

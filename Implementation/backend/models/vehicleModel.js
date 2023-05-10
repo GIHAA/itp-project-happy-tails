@@ -8,20 +8,16 @@ const vehicleSchema = mongoose.Schema(
       unique: true,
     },
 
-    driverId: {
-      type: String,
-      required: [true, "Please add an driver id"],
-    },
-
-    agentId: {
-      type: String,
-      required: [true, "Please add an agent id"],
-    },
-
     vModel: {
       type: String,
       required: [true, "Please add an model of vehicle"],
     },
+
+    fuelType: {
+      type: String,
+      required: [true, "Please add an model of vehicle"],
+    },
+
 
     insuranceExpirationDate: {
       type: String,

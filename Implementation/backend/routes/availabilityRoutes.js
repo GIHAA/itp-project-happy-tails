@@ -13,9 +13,9 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post("/", addAvailability);
-router.get("/", readAvailability);
-router.get("/:id", getOneAvailability);
+router.post("/",protect, addAvailability);
+router.get("/",protect, readAvailability);
+router.get("/:id",protect, getOneAvailability);
 router.put("/:id", updateAvailability);
 router.delete("/:id", deleteAvailability);
 

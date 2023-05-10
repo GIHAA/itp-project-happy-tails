@@ -16,7 +16,6 @@ import InvStockIn from "./components/InvStockIn";
 import InvStockOut from "./components/InvStockOut";
 import InvEventStocks from "./components/InvEventStocks";
 
-import VehicleDashboard from "./components/VehicleDashboard";
 import EditVehicle from "./components/EditVehicle";
 import Vehicles from "./components/Vehicles";
 import AddNewVehicle from "./components/AddNewVehicle";
@@ -178,10 +177,6 @@ function App() {
             </Route>
             //Vehicle Management
             <Route path="/vhome" exact element={<VHome />} />
-            <Route
-              path="/vehicledashboard"
-              exactelement={<VehicleDashboard />}
-            />
             <Route path="/vehicles" exact element={<Vehicles />} />
             <Route path="/editvehicle/:id" exact element={<EditVehicle />} />
             <Route path="/addnvehicle" exact element={<AddNewVehicle />} />
