@@ -531,7 +531,7 @@ function ShelterPet() {
       {showaskTransportModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8">
-            <h2 className="text-lg font-bold mb-4">a
+            <h2 className="text-lg font-bold mb-4">
               Would you like to request Transport for your pets
             </h2>
             <div className="flex">
@@ -572,8 +572,10 @@ function ShelterPet() {
             <img src={qrCodeSrc} alt="QR code" />
           </div>
           <div class="flex justify-center mt-4">
-          <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-              <a href={`/`}>Close</a>
+          <button onClick={() => {
+                  setShowQRCode(false);
+          }} className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+             Close
             </button>
             <button
              className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
