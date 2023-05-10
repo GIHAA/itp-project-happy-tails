@@ -4,14 +4,14 @@ const VehReqPayment = require("../models/vehicleBudgetModel");
 //post vehicle payment
 
 const VehaddPayment = asyncHandler(async (req, res) => {
-  const { req_title, plateNo, date, payment, status } = req.body;
+  const { req_title, plateNo, date, payment } = req.body;
 
   const pay = await VehReqPayment.create({
     req_title,
     plateNo,
     date,
     payment,
-    status,
+    status : "Requested"
   });
   pay
     ? res.status(201).json(pay)
@@ -67,10 +67,14 @@ const VehdeletePayment = asyncHandler(async (req, res) => {
     : res.status(400).json({ message: "payment not deleted" });
 });
 
+
+
+
 module.exports = {
   VehaddPayment,
   VehreadPayment,
   VehupdatePayment,
   VehdeletePayment,
   VehreadAllPayment,
+  
 };

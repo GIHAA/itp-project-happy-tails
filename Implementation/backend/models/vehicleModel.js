@@ -13,11 +13,11 @@ const vehicleSchema = mongoose.Schema(
       required: [true, "Please add an model of vehicle"],
     },
 
-    status: {
+    fuelType: {
       type: String,
-      enum: ["AVAILABLE", "UNAVAILABLE"],
-      default: "AVAILABLE",
+      required: [true, "Please add an model of vehicle"],
     },
+
 
     insuranceExpirationDate: {
       type: String,

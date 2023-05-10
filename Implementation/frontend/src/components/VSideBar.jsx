@@ -43,11 +43,6 @@ function VSideBar() {
         >HOME</NavLink>
 
 
-        <NavLink to='/vehicledashboard' activeClassName =" bg-[#797979]"
-        className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
-        >DASHBOARD</NavLink>
-
-
         <NavLink to='/vehicles' activeClassName =" bg-[#797979]"
         className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
         >VEHICLES</NavLink>
@@ -73,17 +68,13 @@ function VSideBar() {
     <div>
         <button
           onClick={onLogout}
-          className="flex items-center px-5 py-1 ml-12 mr-5 mt-[50px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
+          className="flex items-center px-5 py-1 ml-14 mr-5 mt-[150px] bg-[#ffffff] text-[#2E4960] shadow-lg font-semibold hover:bg-[#818181] hover:text-white rounded-xl"
         >
           <img src={logoutImg} alt="Logout" className="w-4 h-4 mr-2" />
           <span>Logout</span>
         </button>
       </div>
 
-    <div>
-      <hr className="mt-[10px] mb-[15px] border-[#2E4960] w-40 mx-auto"></hr>
-      <img src={v} className=" w-[140px] h-[140px] mx-auto"></img>
-    </div>
   
 </div>
    

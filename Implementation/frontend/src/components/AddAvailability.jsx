@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg";
 import axios from "axios";
 import VSideBar from "./VSideBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
+
 
 export default function AddAvailability() {
   const [plateNo, setPlateNo] = useState("");
@@ -10,10 +15,41 @@ export default function AddAvailability() {
   const [since, setSince] = useState("");
   const [to, setTo] = useState("");
   const [status, setStatus] = useState("");
+  const{user} = useSelector ((state) => state.auth);
+
 
   function addAvailability(e) {
     e.preventDefault();
 
+    
+    axios
+      .get(`http://localhost:8080/api/availability/${plateNo}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.length === 0) {
+          addNewAvailability();
+        } else {
+          const hasDifferentStatus = response.data.some(
+            (availability) => availability.status !== status
+          );
+          if (hasDifferentStatus) {
+            toast.error(`Cannot insert!! ${plateNo} already exists with a different status!!`, { position: toast.POSITION.TOP_RIGHT });
+
+            
+          } else {
+            addNewAvailability();
+          }
+        }
+      })
+      .catch((err) => {
+        addNewAvailability();
+      });
+  }
+
+  function addNewAvailability() {
     const newAvailability = {
       plateNo,
       reason,
@@ -22,20 +58,24 @@ export default function AddAvailability() {
       status,
     };
 
-    console.log(newAvailability);
-
     axios
-      .post("http://localhost:8080/api/availability/", newAvailability)
-
+      .post("http://localhost:8080/api/availability/", newAvailability ,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then(() => {
-        alert("Availability added");
+        toast.success("Maintenance record added successfully", { position: toast.POSITION.TOP_RIGHT });
+
       })
       .catch((err) => {
-        if (err.response.status === 409)
-          alert("Cannot insert !! availability already exists !!");
-        else alert(`Availability insert unsuccessful ${err}`);
+        toast.error(`Maintenance record insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
+        
       });
+      
+      
   }
+  
 
   return (
     //Main container
@@ -102,7 +142,7 @@ export default function AddAvailability() {
                     <div className=" w-[50%]  ">
                       <label className="">Since :</label>
                       <input
-                        type="text"
+                        type="date"
                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
                         onChange={(e) => {
                           setSince(e.target.value);
@@ -114,7 +154,7 @@ export default function AddAvailability() {
                     <div className=" w-[50%]  ">
                       <label className="">To :</label>
                       <input
-                        type="text"
+                        type="date"
                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
                         onChange={(e) => {
                           setTo(e.target.value);
@@ -126,9 +166,11 @@ export default function AddAvailability() {
 
                   <div className="flex mb-6">
                     <div className=" w-[50%]  ">
-                      <label className="">Availability :</label>
+                    <label>Availability : (AVAILABLE or UNAVAILABLE)</label>
                       <input
                         type="text"
+                        pattern="(AVAILABLE|UNAVAILABLE)"
+                        title="Please enter either 'AVAILABLE' or 'UNAVAILABLE'"
                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
                         onChange={(e) => {
                           setStatus(e.target.value);
@@ -137,6 +179,7 @@ export default function AddAvailability() {
                       />
                     </div>
                   </div>
+
 
                   <div className="flex mt-24 h-10">
                     <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">

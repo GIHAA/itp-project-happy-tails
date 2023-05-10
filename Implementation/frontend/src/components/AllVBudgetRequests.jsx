@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import bgimg from "../assets/bgimg.jpg";
+import bgimg from "../assets/bgimg.jpg"
+import deleteImg from "../assets/delete.png"
+
 import axios from "axios";
 import VSideBar from "./VSideBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
+
 
 export default function AllVBudgetRequests() {
   const [Payments, setPayments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const{user} = useSelector ((state) => state.auth);
+
+
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/VehReqPayment/`)
+      .get(`http://localhost:8080/api/VehReqPayment/`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setPayments(res.data);
       })
@@ -118,12 +132,17 @@ function TableDataRow(props) {
 
         <td className="p-3">
           <button
-            className="px-3 py-1 bg-[#b41a1a] rounded-full "
-            style={{ color: "white" }}
-            onClick={() => onDelete(props.id)}
-          >
-            DELETE
-          </button>
+              className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
+              style={{ color: "white" }}
+              onClick={() => onDelete(props.id)}
+            >
+              <img
+                src={deleteImg}
+                alt="deleteimage"
+                className="w-4 h-4 mr-2 mt-1"
+                />
+              DELETE
+            </button>
         </td>
       </tr>
       <hr className="border-2" />
@@ -135,7 +154,9 @@ function onDelete(id) {
   axios
     .delete(`http://localhost:8080/api/VehReqPayment/${id}`)
     .then((res) => {
-      alert("request deleted");
+      toast.success("Request removed successfully", { position: toast.POSITION.TOP_RIGHT });
+
+      
     })
     .catch((err) => alert(err));
 }

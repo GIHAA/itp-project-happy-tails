@@ -14,15 +14,6 @@ const transportSchema = mongoose.Schema(
       required: [true, "Please enter address"],
     },
 
-    dlocation: {
-      type: String,
-      required: [true, "Please enter address"],
-    },
-
-    petType: {
-      type: String,
-      required: [true, "Please add type of pet"],
-    },
 
     date: {
       type: String,
@@ -40,10 +31,11 @@ const transportSchema = mongoose.Schema(
         required: [true, 'Please add no of pets'],
     },
 
-    selectedVehicle: {
+    email: {
       type: String,
-      default: 'tempPlateNo', 
+      required: [true, 'Please add a gmail'],
     },
+
 
     status: {
       type: String,

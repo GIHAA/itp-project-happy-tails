@@ -4,6 +4,11 @@ import { useParams } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg"
 import axios from 'axios'
 import VSideBar from "./VSideBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
+
 
 function EditVehicle() {
 
@@ -14,14 +19,20 @@ function EditVehicle() {
     const [vehicle, setVehicle] = useState({});
     const [plateNo, setPlateNo] = useState("");
     const [vModel, setVModel] = useState("");
+    const [fuelType, setFuelType] = useState("");
     const [insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
-    const [status, setStatus] = useState("");
+    const{user} = useSelector ((state) => state.auth);
+
 
   
 
     async function getVehicle() {
       try {
-        const res = await axios.get(`http://localhost:8080/api/vehicle/${id}`);
+        const res = await axios.get(`http://localhost:8080/api/vehicle/${id}`,{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
         const oneVehicle = res.data.vehicle;
         console.log(oneVehicle);
         setVehicle(oneVehicle)
@@ -43,8 +54,8 @@ function EditVehicle() {
     
     setPlateNo(vehicle.plateNo);
     setVModel(vehicle.vModel);
+    setFuelType(vehicle.fuelType);
     setInsuranceExpirationDate(vehicle.insuranceExpirationDate);
-    setStatus(vehicle.status);
 
 
   },[vehicle])
@@ -62,13 +73,19 @@ function EditVehicle() {
 
       plateNo,
       vModel,
-      insuranceExpirationDate,
-      status
+      fuelType,
+      insuranceExpirationDate
+      
 
     }
 
-      await axios.put(`http://localhost:8080/api/vehicle/${id}`, newVehicle)
-      alert("Vehicle info Updated !!")
+      await axios.put(`http://localhost:8080/api/vehicle/${id}`, newVehicle,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      toast.success("Vehicle Record Updated Successfully !!", { position: toast.POSITION.TOP_RIGHT });
+
 
     }catch (err){
       console.error(err);
@@ -131,6 +148,17 @@ function EditVehicle() {
                                  </div>
                             </div>
 
+                            <div className="flex mb-6">
+                                 <div className=" w-[50%]  ">
+                                     <label className="">Fuel Type :</label>
+                                     <input type="text" 
+                                     className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                     value={fuelType}
+                                     onChange={(e)=>{
+                                         setFuelType(e.target.value)}} required />                        
+                                 </div>
+                             </div>
+
 
                             <div className="flex mb-6">
                                  <div className=" w-[50%]  ">
@@ -143,22 +171,7 @@ function EditVehicle() {
                                  </div>
                              </div>
 
-                             <div className="flex mb-6">
-                                <div className="w-[50%]">
-                                  <label>Availability:</label>
-                                  <input
-                                    type="text"
-                                    pattern="(AVAILABLE|UNAVAILABLE)"
-                                    title="Please enter either 'AVAILABLE' or 'UNAVAILABLE'"
-                                    className="rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
-                                    value={status}
-                                    onChange={(e) => {
-                                      setStatus(e.target.value);
-                                    }}
-                                    required
-                                  />
-                                </div>
-                              </div>
+                         
 
                                  
                         </div>
