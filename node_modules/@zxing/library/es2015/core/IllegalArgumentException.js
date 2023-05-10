@@ -1,0 +1,8 @@
+import Exception from './Exception';
+/**
+ * Custom Error class of type Exception.
+ */
+export default class IllegalArgumentException extends Exception {
+}
+IllegalArgumentException.kind = 'IllegalArgumentException';
+//# sourceMappingURL=IllegalArgumentException.js.map
