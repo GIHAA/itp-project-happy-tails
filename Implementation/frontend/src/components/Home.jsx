@@ -28,6 +28,10 @@ function Home() {
   };
 
   const submitFeedback = () => {
+    if(FormData.message){
+      toast.error("Please enter the feedback")
+      return
+    }
     feedbackservices.add(FormData);
     toast.success("Thank you for the Feedback")
     setshowFeedbackModal(false)
