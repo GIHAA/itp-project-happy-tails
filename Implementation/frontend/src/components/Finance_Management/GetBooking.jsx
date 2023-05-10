@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 const GetBooking = () => {
@@ -8,7 +8,7 @@ const GetBooking = () => {
   const [isError, setIsError] = useState("");
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
-
+  const{user} = useSelector ((state) => state.auth);
   function refreshPage() {
     setTimeout(function () {
       window.location.reload(false);
@@ -17,7 +17,11 @@ const GetBooking = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking")
+      .get("http://localhost:8080/api/booking",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
         const data = response.data;
         console.log(response);

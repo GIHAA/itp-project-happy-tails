@@ -11,23 +11,15 @@ const transporter = nodemailer.createTransport({
 });
 
 const addTransport = asyncHandler(async (req, res) =>{    
-<<<<<<< HEAD
-    const { userName, plocation, date, time, count, email  } = req.body
-=======
     const { userName, plocation, dlocation, petType, date, time, count, selectedVehicle , phone  } = req.body
->>>>>>> e81165080bf94b7aa9195a0e632c305649a34b23
     const transport = await Transport.create({
         userName,
         plocation,
         date,
         time,
         count,
-<<<<<<< HEAD
-        email,
-=======
         selectedVehicle,
         phone,
->>>>>>> e81165080bf94b7aa9195a0e632c305649a34b23
         status : 'PENDING'
         
     })

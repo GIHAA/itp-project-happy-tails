@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import { useSelector } from "react-redux";
 const FinaGetVehicle = () => {
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
-
+  const{user} = useSelector ((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPayData, setFilteredPayData] = useState([]);
 
@@ -17,7 +17,11 @@ const FinaGetVehicle = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget")
+      .get("http://localhost:8080/api/stockBudget",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setpayData(response.data);
@@ -165,8 +169,12 @@ const FinaGetVehicle = () => {
                     axios
                       .put(
                         `http://localhost:8080/api/stockBudget/${_id}`,
-                        updatedTransaction
-                      )
+                        updatedTransaction,{
+                          headers: {
+                            Authorization: `Bearer ${user.token}`,
+                          },
+                        })
+                      
                       .then((response) => {
                         console.log(response.data);
                         calculateprice();
