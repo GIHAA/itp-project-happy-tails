@@ -20,7 +20,7 @@ function FinaLeftBar() {
   };
   return (
     <>
-      <nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5  fixed top-0 left-0 w-full z-5">
+      <nav className="bg-[#2E4960] border-gray-200 px-2 sm:px-4 py-2.5  fixed top-0 left-0 w-full z-50">
         <div className="container flex flex-wrap items-center justify-start mx-auto ">
           <Link to="/" className="flex items-center"></Link>
 

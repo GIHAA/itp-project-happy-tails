@@ -1,0 +1,1 @@
+{"version":3,"file":"BrowserAztecCodeReader.js","sourceRoot":"","sources":["../../../src/browser/BrowserAztecCodeReader.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,qBAAqB,CAAC;AACxD,OAAO,WAAW,MAAM,2BAA2B,CAAC;AAEpD;;;;;GAKG;AACH,MAAM,OAAO,sBAAuB,SAAQ,iBAAiB;IACzD;;;;;OAKG;IACH,YAAmB,yBAAiC,GAAG;QACnD,KAAK,CAAC,IAAI,WAAW,EAAE,EAAE,sBAAsB,CAAC,CAAC;IACrD,CAAC;CACJ"}

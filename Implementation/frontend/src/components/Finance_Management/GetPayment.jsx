@@ -45,7 +45,7 @@ const GetPayment = () => {
     axios
       .delete(`http://localhost:8080/api/payment/${id}`)
       .then((res) => {
-        alert("Delete Transaction ?");
+       
 
         refreshPage();
       })
@@ -108,7 +108,7 @@ const GetPayment = () => {
 
       doc.addImage(name, "JPG", 65, 20, 100, 100);
       doc.setFontSize(20);
-      doc.text(180, 55, "Happy Tails");
+      doc.text(180, 45, "Happy Tails");
       doc.setFontSize(10);
       doc.text(180, 65, "Address : Happy tails shelter,\nNew Kandy road,\nMalabe");
       doc.text(180, 95, "Tel : 01123457689");
@@ -409,7 +409,7 @@ const GetPayment = () => {
                             type="text"
                             name="title"
                             defaultValue={selectedData.cus_id}
-                            required
+                            
                             class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                           />{" "}
                         </label>{" "}
@@ -418,7 +418,7 @@ const GetPayment = () => {
                           Pet ID{" "}
                           <input
                             type="text"
-                            name="title"
+                            name="id"
                             defaultValue={selectedData.pet_id}
                             class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                           />{" "}

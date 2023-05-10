@@ -3,41 +3,75 @@ import { Link } from 'react-router-dom';
 import bgimg from "../assets/bgimg.jpg"
 import axios from 'axios'
 import VSideBar from "./VSideBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
 
 export default function AddNewVehicle() {
 
     const[plateNo, setPlateNo] = useState("");
     const[vModel, setVModel] = useState("");
-    const[availability, setAvailability] = useState("");
+    const[fuelType, setFuelType] = useState("");
     const[insuranceExpirationDate, setInsuranceExpirationDate] = useState("");
+    const{user} = useSelector ((state) => state.auth);
 
-    function addVehicle(e) {
+
+    const resetForm = () => {
+        setPlateNo("");
+        setVModel("");
+        setFuelType("");
+        setInsuranceExpirationDate("");
+      }
+
+
+      function addVehicle(e) {
         e.preventDefault();
+    
+        axios.get("http://localhost:8080/api/vehicle",{
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
+            .then((response) => {
+                const vehicles = response.data;
 
-        const newVehicle = {
+                const existingVehicle = vehicles.find((vehicle) => vehicle.plateNo === plateNo);
+                if (existingVehicle) {
+                    toast.error("Cannot insert! Vehicle with this plate number already exists.", { position: toast.POSITION.TOP_RIGHT });
 
-      plateNo,
-      availability,
-      vModel,
-      insuranceExpirationDate
+                    resetForm();
+                    return;
+                }
+    
+                
+                const newVehicle = {
+                    plateNo,
+                    vModel,
+                    fuelType,
+                    insuranceExpirationDate
+                };
+    
+                axios.post("http://localhost:8080/api/vehicle", newVehicle,{
+                    headers: {
+                      Authorization: `Bearer ${user.token}`,
+                    },
+                  })
+                    .then(() => {
+                        toast.success("New Vehicle record added successfully  !!", { position: toast.POSITION.TOP_RIGHT });
 
+                        resetForm();
+                    })
+                    .catch((err) => {
+                        toast.error(`Vehicle insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
+
+                    });
+            })
+            .catch((err) => {
+                toast.error(`Error fetching existing vehicles: ${err}`, { position: toast.POSITION.TOP_RIGHT });
+            });
     }
-
-
-        axios.post("http://localhost:8080/api/vehicle",newVehicle)
-        .then(()=>{
-            alert("Vehicle added")
-
-       }).catch((err)=>{
-            if(err.response.status === 409)
-                alert("Cannot insert !! vehicle already exists !!")
-            else
-                alert(`Vehicle insert unsuccessful ${err}`)
-       })
-
-
-    }
-
+    
     return (
        //Main container
         <div className="flex scroll-smooth">
@@ -66,7 +100,7 @@ export default function AddNewVehicle() {
 
                 <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll"> 
 
-                    <div className="w-[800px] h-[400px] mx-auto rounded-2xl bg-white mt-8">
+                    <div className="w-[800px] h-[500px] mx-auto rounded-2xl bg-white mt-8">
 
                     <h1 
                     className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
@@ -78,7 +112,7 @@ export default function AddNewVehicle() {
                         
 
                                 <div className="flex mb-6">
-                                    <div>
+                                    <div className=" w-[50%]  ">
                                         <label className="">Plate Number :</label>
                                         <input type="text" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
@@ -100,21 +134,29 @@ export default function AddNewVehicle() {
                                             setVModel(e.target.value)}} required />                        
                                     </div>
 
+                                </div>
+
+
+                                <div className="flex mb-6">
+
                                     <div className=" w-[50%]  ">
-                                        <label className="">Availability :</label>
+                                        <label className="">Fuel Type :</label>
                                         <input type="text" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                         onChange={(e)=>{
-                                            setAvailability(e.target.value)}} required />                        
+                                            setFuelType(e.target.value)}} required />                        
                                     </div>
 
+                                    
                                 </div>
+
+
 
                                 <div className="flex mb-6">
 
                                     <div className=" w-[50%]  ">
                                         <label className="">Insurance Expiration Date :</label>
-                                        <input type="text" 
+                                        <input type="date" 
                                         className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
                                         onChange={(e)=>{
                                             setInsuranceExpirationDate(e.target.value)}} required />                        
@@ -122,10 +164,17 @@ export default function AddNewVehicle() {
 
                                     
                                 </div>
+
+                                
+
+                                
+
+                                    
+                               
                                 
                                 <div className="flex mt-24 h-10">
 
-                                    <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]"><Link to='/vehicles'>Cancel</Link></button>
+                                    <button type="reset" className = "text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]" onClick={resetForm} >Cancel</button>
 
                                     <button type="submit" 
                                     className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[130px]"

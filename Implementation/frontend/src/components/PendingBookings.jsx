@@ -2,17 +2,30 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import VSideBar from "./VSideBar";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+
+
 
 export default function PendingBookings() {
   const [transports, setTransports] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
+
+
+ const{user} = useSelector ((state) => state.auth);
+
+
 
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/transport/")
+      .get("http://localhost:8080/api/transport/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setTransports(res.data.map((transport) => ({
           ...transport,
@@ -23,7 +36,11 @@ export default function PendingBookings() {
       .catch((err) => alert(err));
     
     axios
-      .get("http://localhost:8080/api/vehicle/")
+      .get("http://localhost:8080/api/vehicle/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setVehicles(res.data.filter(vehicle => vehicle.status === "AVAILABLE"));
       })
@@ -35,6 +52,10 @@ export default function PendingBookings() {
       .put(`http://localhost:8080/api/transport/${id}`, {
         status: "ACCEPTED",
         vehicleId: vehicleId,
+      },{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       })
       .then((res) => {
         const updatedTransport = res.data;
@@ -50,19 +71,48 @@ export default function PendingBookings() {
       })
       .catch((err) => alert(err));
   };
-  
-  const handleReject = (id) => {
+
+  console.log();
+
+
+
+  const handleReject = (id, vehicleId) => {
     axios
-      .delete(`http://localhost:8080/api/transport/${id}`)
+      .put(`http://localhost:8080/api/transport/${id}`, {
+        status: "REJECTED",
+        vehicleId: vehicleId,
+      },{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
-        setTransports([...transports.filter((transport) => transport._id !== id)]);
+        const updatedTransport = res.data;
+        setTransports((prevState) => {
+          const updatedTransports = prevState.map((transport) => {
+            if (transport._id === id) {
+              return updatedTransport;
+            }
+            return transport;
+          });
+          return updatedTransports;
+        });
       })
       .catch((err) => alert(err));
   };
 
+
+
   const filterAccepted = () => {
     setTransports(prevState => {
       const filteredTransports = prevState.filter(transport => transport.status === "ACCEPTED");
+      return filteredTransports;
+    });
+  };
+
+  const filterRejected = () => {
+    setTransports(prevState => {
+      const filteredTransports = prevState.filter(transport => transport.status === "REJECTED");
       return filteredTransports;
     });
   };
@@ -74,28 +124,6 @@ export default function PendingBookings() {
     });
   };
 
-  const handleVehicleSelect = (_id, selectedPlateNo) => {
-    setSelectedVehicle(selectedPlateNo);
-  
-    axios.post('http://localhost:8080/api/transport/assign-vehicle', { selectedPlateNo })
-      .then(response => {
-        const updatedTransport = response.data;
-        setTransports(prevState => {
-          const updatedTransports = prevState.map((transport) => {
-            if (transport._id === updatedTransport._id) {
-              return {
-                ...transport,
-                selectedVehicle: selectedPlateNo,
-                assigned: true,
-              };
-            }
-            return transport;
-          });
-          return updatedTransports;
-        });
-      })
-      .catch(error => console.log(error));
-  };
   
 
   
@@ -133,6 +161,14 @@ export default function PendingBookings() {
                 onClick={() => filterPending()}
               >
                 Pending
+              </button>
+
+              <button
+                type="button"
+                className="ml-9 bg-[#000000] rounded-xl text-sm px-3 py-2 text-white hover:text-black hover:bg-gray-500"
+                onClick={() => filterRejected()}
+              >
+                Rejected
               </button>
 
             </div>
@@ -198,12 +234,16 @@ export default function PendingBookings() {
                                 Pick-up  : {transport.plocation} 
                             </h4>
                           </li>
-                          <li style={{ display: 'inline-block', marginLeft: '200px' }}>
+
+
+                          <li style={{ display: 'inline-block',  padding: 0, marginLeft: 80 }}>
                             <h4 className="text-ml font-bold mb-2  leading-7">
-                                Drop-off  : {transport.dlocation} 
+                                Mail  : {transport.email} 
                             </h4>
-                              
                           </li>
+
+
+
                           
                         </ul>
 
@@ -229,25 +269,17 @@ export default function PendingBookings() {
                       </span>
                     </div>
                     <div className="flex items-center">
-                        <div className="flex">
-                          <select value={selectedVehicle} onChange={(e) => handleVehicleSelect(e.target.value)} className="rounded-md bg-[#db9bb5] p-2 mr-2">
-                            <option value="">Select a vehicle</option>
-                            {vehicles.map(vehicle => (
-                              <option key={vehicle._id} value={vehicle.plateNo}>{vehicle.plateNo}</option>
-                            ))}
-                          </select>
-                          <button type ="button" className="bg-[#ff006a] rounded-xl text-sm px-3 py-2 text-white hover:text-black hover:bg-gray-500"
-                           onClick={() => handleVehicleSelect(transport._id)}>ASSIGN</button>
-                        </div>
+                        
 
                       <button
                         type="button"
                         className="ml-2 bg-[#FF9F00] rounded-xl text-sm px-3 py-2 text-white hover:text-black hover:bg-gray-500"
                         onClick={() => handleAccept(transport._id)}
-                        disabled={transport.status === 'ACCEPTED'}
+                        disabled={transport.status === 'ACCEPTED'|| transport.status === 'REJECTED' }
                       >
                         <span>{transport.status === 'ACCEPTED' ? 'ACCEPTED' : 'ACCEPT'}</span>
                       </button>
+
                       <button
                         type="button"
                         className="ml-2 bg-[#2E4960] rounded-xl text-sm px-3 py-2 text-white hover:text-black hover:bg-gray-500"
@@ -256,6 +288,8 @@ export default function PendingBookings() {
                       >
                         <span>{transport.status === 'REJECTED' ? 'REJECTED' : 'REJECT'}</span>
                       </button>
+
+                      
 
                     </div>
                   </div>

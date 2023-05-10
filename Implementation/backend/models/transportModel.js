@@ -39,9 +39,9 @@ const transportSchema = mongoose.Schema(
         required: [false, 'Please add no of pets'],
     },
 
-    selectedVehicle: {
+    email: {
       type: String,
-      default: 'tempPlateNo', 
+      required: [true, 'Please add a gmail'],
     },
     phone: {
       type: String,

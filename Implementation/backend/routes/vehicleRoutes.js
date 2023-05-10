@@ -7,6 +7,7 @@ const {
   updateVehicle,
   deleteVehicle,
   searchVehicleByPlateNo,
+  getVCount,
 } = require("../controller/vehicleController");
 const {
   protect,
@@ -14,11 +15,13 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post("/", addVehicle);
-router.get("/", readVehicle);
-router.get("/:id", getOneVehicle);
-router.put("/:id", updateVehicle);
+router.post("/",protect, addVehicle);
+router.get("/",protect, readVehicle);
+router.get("/:id",protect, getOneVehicle);
+router.put("/:id",protect, updateVehicle);
 router.delete("/:id", deleteVehicle);
-router.get("/search/:plateNo", searchVehicleByPlateNo);
+router.get("/search/:plateNo",protect, searchVehicleByPlateNo);
+router.get("/vcount",protect, getVCount);
+
 
 module.exports = router;
