@@ -496,30 +496,31 @@ function RegisterEvent() {
             </button>
           </form>
           {showQRCode && (
-            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-              <div class="bg-white p-4 rounded-lg">
-                <div class="text-black text-center">
-                  QR Code for your booking
-                </div>
-                <div class="text-red text-center">
-                  Please take photo or download QR code
-                </div>
-                <div class="flex justify-center">
-                  <img src={qrCodeSrc} alt="QR code" />
-                </div>
-                <div class="flex justify-center mt-4">
-                  <button
-                    class="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                    onClick={handleDownloadQRCode}
-                  >
-                    Download QR Code
-                  </button>
-                  <button class="bg-red-500 text-white px-4 py-2 rounded-lg ml-4">
-                    <a href={`/events`}>Close</a>
-                  </button>
-                </div>
-              </div>
-            </div>
+             <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+             <div class="bg-white p-4 rounded-lg">
+               <div class="text-black text-center">
+                 QR Code for your booking
+               </div>
+               <div class="text-red text-center">
+                 Please take photo or download QR code
+               </div>
+               <div class="flex justify-center">
+                 <img src={qrCodeSrc} alt="QR code" />
+               </div>
+               <div class="flex justify-center mt-4">
+               <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                   <a href={`/events`}>Close</a>
+                 </button>
+                 <button
+                  className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                   onClick={handleDownloadQRCode}
+                 >
+                   Download QR Code
+                 </button>
+            
+               </div>
+             </div>
+           </div>
           )}
         </div>
       </div>

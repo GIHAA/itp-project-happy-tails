@@ -154,7 +154,7 @@ export default function AllEvent() {
         </div>
           
           {/* <div className="flex justify-center pt-5">
-          <input
+          <inputF
             id="search"
             type="text"
             placeholder="Search for pets... ex: dog, cat, pet name etc"
