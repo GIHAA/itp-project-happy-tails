@@ -112,12 +112,12 @@ export default function EventStockReqs() {
 
           <div className="flex">
             <div className=" flex p-5">
-              <Link
+              {/* <Link
                 to="/stockin"
                 className=" bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[100px] text-center mr-2"
               >
                 Received
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -129,6 +129,9 @@ export default function EventStockReqs() {
         >
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
+          <div className="flex">
+              <div className="relative mt-6 ml-[1060px] "></div>
+            </div>
 
             {/*Table*/}
             <table className="mx-auto w-[1250px]">

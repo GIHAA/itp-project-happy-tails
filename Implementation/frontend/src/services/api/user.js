@@ -12,4 +12,18 @@ const updateUser = async (userData) => {
   return response.data;
 };
 
-export default updateUser;
+const forgot = async (userData) => {
+  const response = await axios.post(API_URL + "forgot", userData, {
+    headers: {
+      Authorization: `Bearer ${userData.token}`,
+    },
+  });
+
+  return response.data;
+};
+
+const userServices = {
+  updateUser,
+  forgot
+}
+export default userServices;

@@ -64,6 +64,7 @@ const Registration = () => {
           fetch(apiURL)
             .then((response) => response.json())
             .then((data) => {
+              console.log(data)
               const address = data.results[0].formatted_address;
               setFormData((prevData) => ({ ...prevData, address }));
             })

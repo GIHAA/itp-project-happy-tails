@@ -4,6 +4,7 @@ import SupplierSideBar from "./SupplierSideBar";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import supp from "../assets/supp.jpg";
+import { useSelector } from "react-redux";
 
 export default function AddSuppliers() {
   const [name, setName] = useState("");
@@ -11,9 +12,11 @@ export default function AddSuppliers() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [type, setType] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   function addSuppliers(e) {
     e.preventDefault();
+
     const newSupplier = {
       name,
       phone,
@@ -21,23 +24,25 @@ export default function AddSuppliers() {
       address,
       type,
     };
-    console.log(newSupplier);
 
+    try{
+    console.log(newSupplier);
     axios
-      .post("http://localhost:8080/api/suppliers/", newSupplier)
+      .post("http://localhost:8080/api/suppliers/", newSupplier,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then(() => {
         toast.success("supplier added", { position: toast.POSITION.TOP_RIGHT });
 
-        setName("");
-        setPhone("");
-        setEmail("");
-        setEmail("");
-        setAddress("");
-        setType("");
-      })
-      .catch((err) => {
-        alert(`Supplier insert unsuccessful ${err}`);
+        setTimeout(() => {
+          window.location.href = "/ManageSuppliers";
+        }, 3000);
       });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (

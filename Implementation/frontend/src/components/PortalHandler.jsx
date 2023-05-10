@@ -73,7 +73,6 @@ function PortalHandler() {
       case "SUPPLIER_MANAGER":
         return (
           <>
-            <PortalHeader />
             <SupplierList />
           </>
         );

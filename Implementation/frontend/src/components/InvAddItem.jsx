@@ -4,6 +4,7 @@ import inv from "../assets/inv.jpg";
 import axios from "axios";
 import InventorySideBar from "./InventorySideBar";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function InvAddItem() {
   const [item_code, setItemCode] = useState("");
@@ -11,6 +12,7 @@ export default function InvAddItem() {
   const [item_brand, setItemBrand] = useState("");
   const [category, setItemCategory] = useState("");
   const [qty, setItemQty] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   function addItem(e) {
     e.preventDefault();
@@ -24,16 +26,20 @@ export default function InvAddItem() {
     };
     console.log(newItem);
 
-    axios
-      .post("http://localhost:8080/api/inventory/items", newItem)
+    axios.post("http://localhost:8080/api/inventory/items", newItem, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
       .then(() => {
         toast.success("item added", { position: toast.POSITION.BOTTOM_RIGHT });
       })
       .catch((err) => {
-        if (err.response.status === 409)
-        toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
-        else 
-        toast.error(`Item insert unsuccessful ${err}`);
+        if (err.response.status === 409) {
+          toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
+        } else {
+          toast.error(`Item insert unsuccessful ${err}`);
+        }
       });
   }
   

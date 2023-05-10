@@ -7,15 +7,21 @@ import stockBgt from "../assets/stockBgt.jpg";
 import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import filterImg from "../assets/filter.png";
+import { useSelector } from "react-redux";
 
 export default function StockBudgetRequests() {
   const [budget, setBudget] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
+  const {user} = useSelector((state)=>state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget/")
+      .get("http://localhost:8080/api/stockBudget/",{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setBudget(res.data);
       })
@@ -24,7 +30,11 @@ export default function StockBudgetRequests() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/stockBudget/${id}`)
+      .delete(`http://localhost:8080/api/stockBudget/${id}`,{
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         toast.success("Request deleted", {
           position: toast.POSITION.TOP_RIGHT,
@@ -43,7 +53,7 @@ export default function StockBudgetRequests() {
       <SupplierSideBar />
 
       {/* Right Side container start */}
-      <div className="bflex-[85%]">
+      <div className="bg-[#d9d9d9] flex-[85%]">
         {/* Header Part */}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
@@ -149,35 +159,44 @@ export default function StockBudgetRequests() {
                           <td className="p-3">{budget.item_name}</td>
                           <td className="p-3">{budget.description}</td>
                           <td className="p-3">{budget.total}</td>
-                          <td className="p-3">{budget.status}</td>
+                          <td className="p-3">
+                            <span
+                              className={`inline-block px-2 rounded-xl text-sm ${
+                                budget.status === "Accepted" ? "bg-yellow-200 text-yellow-800" : "bg-green-200 text-green-800"
+                              }`}
+                            >
+                              {budget.status}
+                            </span>
+                          </td>
+
 
                           <td className="p-3">
                             <div className="flex ml-12">
-                              <button className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl">
-                                <Link
-                                  to={`/UpdateStockBudgetRequest/${budget._id}`}
-                                  className="flex"
-                                >
-                                  <img
-                                    src={editImg}
-                                    alt="editimage"
-                                    className="w-4 h-4 mr-2 mt-1"
-                                  />
-                                  Edit
-                                </Link>
-                              </button>
+                            {/* <button
+                              className={`items-center px-5 py-1 mr-5 ${
+                                budget.status === "Accepted" ? "bg-gray-300" : "bg-[#2E4960]"
+                              } text-white font-semibold hover:bg-[#2E4960] rounded-xl`}
+                              disabled={budget.status === "Accepted"}
+                            >
+                              <Link to={`/UpdateStockBudgetRequest/${budget._id}`} className="flex">
+                                <img src={editImg} alt="editimage" className="w-4 h-4 mr-2 mt-1" />
+                                Edit
+                              </Link>
+                            </button> */}
+
 
                               <button
-                                className="flex px-5 py-1 mr-5 bg-[#d11818] text-white font-semibold hover:bg-[#760d0d] rounded-xl "
+                                className={`flex px-5 py-1 mr-5 ${
+                                  budget.status === "Accepted" ? "bg-gray-300" : "bg-[#d11818]"
+                                } text-white font-semibold hover:bg-gray-300 rounded-xl`}
+                                disabled={budget.status === "Accepted"}
                                 onClick={() => handleDelete(budget._id)}
                               >
-                                <img
-                                  src={deleteImg}
-                                  alt="deleteimage"
-                                  className="w-4 h-4 mr-2 mt-1"
-                                />
+                                <img src={deleteImg} alt="deleteimage" className="w-4 h-4 mr-2 mt-1" />
                                 Delete
                               </button>
+
+
                             </div>
                           </td>
                         </tr>

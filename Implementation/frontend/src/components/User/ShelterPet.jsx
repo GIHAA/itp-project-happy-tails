@@ -19,6 +19,8 @@ function ShelterPet() {
   const [bid, setBid] = useState(0);
   const [total, setTotal] = useState(0);
   const [isDateValid, setIsDateValid] = useState(false);
+  const [showaskTransportModal, setshowaskTransportModal] = useState(false);
+  const [showTransportModal, setshowTransportModal] = useState(false);
 
   const fetchPid = async () => {
     const result = await axios.post("http://localhost:8080/api/counter");
@@ -52,6 +54,16 @@ function ShelterPet() {
     description: "",
     startDate: new Date(),
     endDate: new Date(),
+    total,
+  });
+
+  const [tformData, settFormData] = useState({
+    userName: user.name,
+    date: new Date(),
+    plocation: "",
+    phone: "",
+    time: "",
+    email: user.email
   });
 
   const handleSliderChange = (event) => {
@@ -65,6 +77,7 @@ function ShelterPet() {
       ...prevFormData,
       petCount: numMiniForms,
       mini: miniForms,
+      total: total,
     }));
 
     calculateTotal();
@@ -72,33 +85,45 @@ function ShelterPet() {
 
   const handleMainInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+      total: total,
+    }));
+
     calculateTotal();
   };
 
+  const handleTransportChange = (event) => {
+    const { name, value } = event.target;
+    console.log(tformData);
+    settFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const rememberChecked = document.getElementById("remember").checked;
 
-    
     const isNumberAndTenDigit = (str) => {
       return /^\d{10}$/.test(str);
     };
 
     if (rememberChecked) {
-
-      if( !isNumberAndTenDigit(formData.contactNumbers) ){
+      if (!isNumberAndTenDigit(formData.contactNumbers)) {
         toast.error("Please enter a valid contact number");
         return;
       }
-      if( !isDateValid ){
+      if (!isDateValid) {
         toast.error("Please enter a valid date range");
-        return; 
+        return;
       }
       try {
         bookingServices.addBooking(formData);
         toast.success("Booking added successfully");
+        
         setFormData({
           cus_id: user._id,
           cus_name: user.name,
@@ -119,23 +144,68 @@ function ShelterPet() {
     } else {
       toast.error("Please agree to the terms and conditions");
     }
+
+    setshowaskTransportModal(true)
   };
+
+  const submitTransportation = () => {
+
+    const isNumberAndTenDigit = (str) => {
+      return /^\d{10}$/.test(str);
+    };
+    
+    const { userName , plocation , time , phone } = tformData 
+    console.log(phone)
+    if(userName && plocation && time && phone){
+      console.log(phone)
+
+      if (isNumberAndTenDigit(tformData.phone)) {
+        axios.post("http://localhost:8080/api/transport/", tformData).then((res) => {
+          toast.success("Transportation Request sent")
+        }).catch(err => alert(err))
+        setshowTransportModal(false);
+      }
+      else{
+        toast.error("Please enter a valid contact number");
+      }
+    }
+    else{
+      toast.error("Please fill all the fields");
+    }
+  }
 
   const calculateTotal = () => {
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
 
-    if (startDate > endDate) 
-      setIsDateValid(false);
-    else 
-      setIsDateValid(true);
-    
+    if (startDate > endDate) setIsDateValid(false);
+    else setIsDateValid(true);
+
     const diffTime = Math.abs(endDate - startDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     setTotal(diffDays * formData.petCount * 2000);
   };
 
-
+  const handleMapClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
+          fetch(apiURL)
+            .then((response) => response.json())
+            .then((data) => {
+              const address = data.results[0].formatted_address;
+              settFormData((prevData) => ({ ...prevData, plocation: address }));
+              console.log(tformData);
+            })
+            .catch((error) => console.log(error));
+        },
+        (error) => console.log(error)
+      );
+    }
+  };
 
   return (
     <>
@@ -151,6 +221,7 @@ function ShelterPet() {
                 label="Contact number"
                 name="contactNumbers"
                 variant="outlined"
+                type="phone"
                 value={formData.contactNumbers}
                 onChange={handleMainInputChange}
                 required={true}
@@ -207,9 +278,13 @@ function ShelterPet() {
                 End date set to : {formData.endDate.toString().substring(0, 16)}
               </h2>
             } */}
-            {
-              (formData.startDate > formData.endDate) ? (<><p className="text-red-600">Invalid dates selected</p></>) : (<></>) 
-            }
+            {formData.startDate > formData.endDate ? (
+              <>
+                <p className="text-red-600">Invalid dates selected</p>
+              </>
+            ) : (
+              <></>
+            )}
             {<h2 className="mt-5">Number of pets: {formData.petCount}</h2>}
 
             <div>
@@ -334,6 +409,126 @@ function ShelterPet() {
         </div>
       </div>
       <Footer />
+
+      {showTransportModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-8 w-[500px]">
+            <h2 className="text-lg font-bold mb-4">
+              Add Transportation Details
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <TextField
+                id="outlined-basic"
+                label="Customer name"
+                name="userName"
+                variant="outlined"
+                value={user.name}
+                onChange={handleTransportChange}
+                required={true}
+              />
+              <TextField
+                label="Date of pickyp"
+                name="date"
+                type="date"
+                id="start"
+                value={new Date(tformData.date).toISOString().substr(0, 10)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  min: new Date().toISOString().substr(0, 10),
+                }}
+                onChange={handleTransportChange}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Contact number"
+                name="phone"
+                variant="outlined"
+                value={tformData.phone}
+                onChange={handleTransportChange}
+                required={true}
+              />
+                            <TextField
+                id="outlined-basic"
+                label="Pick up time"
+                name="time"
+                variant="outlined"
+                type="time"
+    
+                onChange={handleTransportChange}
+                required={true}
+              />
+
+              <div className="flex">
+                <TextField
+                  id="outlined-basic"
+                  label="Pick up location"
+                  name="plocation"
+                  variant="outlined"
+                  value={tformData.plocation}
+                  onChange={handleTransportChange}
+                  required={true}
+                  className="w-[300px]"
+                />
+                <button
+                  onClick={handleMapClick}
+                  className="ml-auto text-[15px] rounded-[8px] text-white bg-[#2E4960] hover:bg-[#1c2c3a] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                >
+                  locate me
+                </button>
+              </div>
+            </div>
+            <div className="flex mt-7">
+              <button
+                onClick={() => setshowTransportModal(false)}
+                type="submit"
+                className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                onClick={() => {
+                  submitTransportation();
+                }}
+                className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showaskTransportModal && (
+        <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-8">
+            <h2 className="text-lg font-bold mb-4">
+              Would you like to request Transport for your pets
+            </h2>
+            <div className="flex">
+              <button
+                onClick={() => setshowaskTransportModal(false)}
+                type="submit"
+                className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Skip
+              </button>
+              <button
+                type="submit"
+                onClick={() => {
+                  setshowTransportModal(true);
+                  setshowaskTransportModal(false);
+                }}
+                className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

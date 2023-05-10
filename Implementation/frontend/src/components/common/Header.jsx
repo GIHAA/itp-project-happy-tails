@@ -64,6 +64,15 @@ function Header() {
                     Events
                   </Link>
                 </li>
+                
+                <li className="text-[15px] font-bold">
+                  <Link
+                    to="/scanner"
+                    className="block py-2 pl-3 pr-4  text-secondary rounded hover:text-gray-800 md:bg-transparent md:p-0 "
+                  >
+                    QR Scanner
+                  </Link>
+                </li>
               </>
             ) : (
               <></>

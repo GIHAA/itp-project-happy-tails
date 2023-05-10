@@ -88,7 +88,6 @@ import Footer from "./components/common/Footer";
 import ShelterPet from "./components/User/ShelterPet";
 import UserPortal from "./components/User/UserProtal";
 import Booking from "./components/User/myBooking";
-import Events from "./components/User/Events";
 import Pets from "./components/User/myPets";
 import Profile from "./components/User/myProfile";
 
@@ -105,6 +104,10 @@ import UpdateStockBudgetRequest from "./components/UpdateStockBudgetRequest";
 import Spinner from "./components/common/Spinner";
 
 import Employee from "./components/admin/Employee";
+import Feedback from "./components/admin/Feedback";
+import ForgotPassWord from "./components/ForgotPassWord"
+import Scanner from "./components/User/Scanner"
+
 
 function App() {
   return (
@@ -115,9 +118,11 @@ function App() {
           <Routes>
             <Route path="/" element={<PortalHandler />} />
             <Route path="login" element={<Login />} />
+            <Route path="forgot" element={<ForgotPassWord />} />
             <Route path="register" element={<Register />} />
             <Route path="shelterpet" element={<ShelterPet />} />
             <Route path="adoptpet" element={<AdoptPet />} />
+            <Route path="/feedback" element={<Feedback />} />
             //user
             <Route path="user" element={<UserPortal />} />
             <Route path="profile" element={<Profile />} />
@@ -126,6 +131,7 @@ function App() {
             <Route path="events" element={<AllEventUser />} />
             <Route path="registerevent/:id" element={<RegisterEvent />} />
             <Route path="feedbackevent/:id" element={<AddEventFeedback />} />
+            <Route path="/scanner" element={<Scanner />}/> 
             //
             <Route path="/supplierList" element={<SupplierList />} />
             <Route path="/addSuppliers" element={<AddSuppliers />} />
