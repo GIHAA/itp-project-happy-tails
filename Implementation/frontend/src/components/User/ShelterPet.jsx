@@ -67,6 +67,7 @@ function ShelterPet() {
     phone: "",
     time: "",
     email: user.email,
+    count: 2
   });
 
   const handleSliderChange = (event) => {
@@ -113,40 +114,44 @@ function ShelterPet() {
       return /^\d{10}$/.test(str);
     };
 
-    if (rememberChecked) {
-      if (!isNumberAndTenDigit(formData.contactNumbers)) {
-        toast.error("Please enter a valid contact number");
-        return;
-      }
-      if (!isDateValid) {
-        toast.error("Please enter a valid date range");
-        return;
-      }
-      try {
-        bookingServices.addBooking(formData);
-        toast.success("Booking added successfully");
-        setshowaskTransportModal(true);
-
-        setFormData({
-          cus_id: user._id,
-          cus_name: user.name,
-          bid,
-          token: user.token,
-          bid: 0,
-          petCount: 1,
-          mini: [{ name: "", description: "", type: "cat", pid: 0 }],
-          contactNumbers: "",
-          description: "",
-          startDate: new Date(),
-          endDate: new Date(),
-        });
-        setTotal(0);
-      } catch (error) {
-        toast.error("Something went wrong");
-      }
-    } else {
-      toast.error("Please agree to the terms and conditions");
+    if(formData.petCount === 0 ){
+      toast.error("Number of pets can't be zero")
+      return
     }
+      if (rememberChecked) {
+        if (!isNumberAndTenDigit(formData.contactNumbers)) {
+          toast.error("Please enter a valid contact number");
+          return;
+        }
+        if (!isDateValid) {
+          toast.error("Please enter a valid date range");
+          return;
+        }
+        try {
+          bookingServices.addBooking(formData);
+          toast.success("Booking added successfully");
+          setshowaskTransportModal(true);
+
+          setFormData({
+            cus_id: user._id,
+            cus_name: user.name,
+            bid,
+            token: user.token,
+            bid: 0,
+            petCount: 0,
+            mini: [{ name: "", description: "", type: "cat", pid: 0 }],
+            contactNumbers: "",
+            description: "",
+            startDate: new Date(),
+            endDate: new Date(),
+          });
+          setTotal(0);
+        } catch (error) {
+          toast.error("Something went wrong");
+        }
+      } else {
+        toast.error("Please agree to the terms and conditions");
+      }
 
     
   };
@@ -330,6 +335,7 @@ function ShelterPet() {
                       id="outlined-basic"
                       label="Enter Name"
                       variant="outlined"
+                      required={true}
                       value={formData.mini[index]?.name || ""}
                       onChange={(event) =>
                         setFormData((prevFormData) => {
