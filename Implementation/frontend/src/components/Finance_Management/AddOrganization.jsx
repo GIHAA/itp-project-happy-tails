@@ -35,6 +35,25 @@ function AddOrganization({ closeModal }) {
     });
   }
 
+  
+  function convertToBase64(e) {
+    var reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = btoa(reader.result);
+      setData((prevData) => ({
+        ...prevData,
+        org_logo: base64Image,
+        
+      }));
+      
+    };
+    reader.onerror = (error) => {
+      console.log("Error: ", error);
+    };
+    reader.readAsBinaryString(e.target.files[0]);
+  }
+  
+
   function handle(e) {
     const newdata = { ...data };
     newdata[e.target.id] = e.target.value;
@@ -47,7 +66,7 @@ function AddOrganization({ closeModal }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-[#2E4960] bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+    <div className="z-50 fixed inset-0 bg-[#2E4960] bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
       <form
         className=" w-3/6 font-medium text-gray-400 dark:text-gray-400 p-4 mt-2 border-solid border-2 mr-1 bg-gray-100 dark:bg-gray-800 border-sky-500 mb-3 ml-48 rounded-md "
         onSubmit={(e) => submit(e)}
@@ -151,12 +170,13 @@ function AddOrganization({ closeModal }) {
           <label class="font-medium text-sm mb-2 ml-1">
             Logo{" "}
             <input
-              type="text"
+              type="file"
               size="15px"
               required
-              onChange={(e) => handle(e)}
+              //onChange={(e) => handle(e)}
               id="org_logo"
-              value={org}
+              // value={data.org_logo}
+              onChange={convertToBase64}
               class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
             ></input>{" "}
           </label>
