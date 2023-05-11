@@ -9,6 +9,7 @@ const GetBooking = () => {
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
   const{user} = useSelector ((state) => state.auth);
+  
   function refreshPage() {
     setTimeout(function () {
       window.location.reload(false);

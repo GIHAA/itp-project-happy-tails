@@ -66,7 +66,11 @@ const GetBooking = () => {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/booking").then((res) => {
+    axios.get("http://localhost:8080/api/booking", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      }
+  }).then((res) => {
       if (res.data) {
         filterContent(res.data, searchTerm);
       }

@@ -36,22 +36,42 @@ export default function DisplayHealth() {
 
   const generatePDF = () => {
     const doc = new jsPDF("landscape", "px", "a4", false);
-    doc.addImage(logo, "JPG", 45, 10, 50, 50);
-    doc.setFont("times", "bold");
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    
+    const title = "Vaccination Report";
 
-    doc.text(40, 110, "Pet ID : ");
-    doc.text(90, 110, id);
+    // Set document font and color
+    doc.setFont("helvetica");
+    doc.setTextColor("#000000");
 
-    doc.text(40, 75, "Happy Tails");
-
-    doc.setFontSize(30);
-    doc.text(230, 50, "Vaccination Report");
-
+    
+    // Add title and date
+    doc.setFontSize(24);
+    doc.text(title, 20, 30);
     doc.setFontSize(12);
-    doc.text(225, 65, "( Happy Tails, No 221/B , Peradeniya Road , Kandy )");
+    doc.setTextColor("#999999");
+    doc.text(`Generated on ${date}`, 20, 40);
+
+    doc.setFontSize(16);
+    doc.setTextColor("#121212");
+    doc.text(40, 140, "Pet ID :  ");
+    doc.text(90, 140, id);
+
+    doc.addImage(logo, "JPG", 20, 60, 40, 40);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor("#000000");
+    doc.text("Happy Tails", 70, 70);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor("#999999");
+    doc.text("Tel: +94 11 234 5678", 70, 80);
+    doc.text("Email: info@happytails.com", 70, 90);
+    doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 100);
 
     doc.autoTable({
-      startY: 130,
+      startY: 150,
       head: [["Vac Name", "Date Given", "Expiration Date"]],
       body: vaccinations.map((vaccination) => [
         vaccination.name,

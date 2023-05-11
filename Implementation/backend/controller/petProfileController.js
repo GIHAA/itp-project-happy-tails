@@ -60,7 +60,7 @@ const registerPet = (req, res) => {
   });
 
     // Generate QR code
-    QRCode.toDataURL(`http://localhost:3000/petprofile/qrresult/${petId}`, function (err, url) {
+    QRCode.toDataURL(`http://localhost:3000/petprofile/profilepage/${petId}`, function (err, url) {
       if (err) {
         console.error(err);
 

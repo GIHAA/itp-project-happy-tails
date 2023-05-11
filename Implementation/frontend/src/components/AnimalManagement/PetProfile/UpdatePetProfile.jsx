@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,11 +23,17 @@ export default function UpdatePetProfile() {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
   const [allbreeds, setAllBreed] = useState([]);
+  const [nameError, setNameError] = useState("");
+  const{user} = useSelector((state) => state.auth);
 
   async function getProfile() {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/vet/profile/${id}`
+        `http://localhost:8080/api/vet/profile/${id}`,{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       const oneProfile = res.data;
       console.log(res.data);
@@ -67,9 +74,65 @@ export default function UpdatePetProfile() {
   }, [profile]);
 
   async function UpdateData(e) {
-    console.log(date);
+
 
     e.preventDefault();
+
+    if (nameError) {
+      toast.warn(`${nameError}`, {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if( parseInt(weight)>100){
+
+      toast.warn("Please set Valid Weight (<= 100Kg)", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(petStatus==""){
+
+      toast.warn("Please set the Pet Status", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(species==""){
+
+      toast.warn("Please set the Pet Species", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(breed==""){
+
+      toast.warn("Please set the Pet Breed", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    
+    if(gender==""){
+
+      toast.warn("Please set the Gender", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(parseInt(price)<10000){
+
+      toast.warn("Please set the Valid Price (>=Rs.5,000)", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
 
     try {
       const newpet = {
@@ -115,6 +178,15 @@ export default function UpdatePetProfile() {
     };
   }
 
+  function handleNameError(e) {
+    const name = e.target.value;
+    if (name.length > 15) {
+      setNameError("Pet name should not exceed 15 characters.");
+    } else {
+      setNameError("");
+    }
+  }
+
   return (
     <>
       <div class="flex justify-center items-center h-full w-full bg-white pt-20">
@@ -138,6 +210,7 @@ export default function UpdatePetProfile() {
               <input
                 class="border py-2 px-3 text-grey-800 w-full rounded-xl"
                 type="text"
+                onBlur={handleNameError}
                 name="petName"
                 id="petName"
                 value={petName}

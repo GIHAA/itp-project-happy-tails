@@ -16,6 +16,7 @@ function AddPetProfile() {
   const [petStatus, setStatus] = useState("");
   const [pId, setId] = useState("");
   const [image, setImage] = useState("");
+  const [nameError, setNameError] = useState("");
   const [price, setPrice] = useState("");
   const [allbreeds, setAllBreed] = useState([]);
 
@@ -48,7 +49,64 @@ function AddPetProfile() {
   console.log(breed);
 
   function addPet(e) {
+
     e.preventDefault();
+
+    if (nameError) {
+      toast.warn(`${nameError}`, {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if( parseInt(weight)>100){
+
+      toast.warn("Please set Valid Weight (<= 100Kg)", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(petStatus==""){
+
+      toast.warn("Please set the Pet Status", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(species==""){
+
+      toast.warn("Please set the Pet Species", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(breed==""){
+
+      toast.warn("Please set the Pet Breed", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    
+    if(gender==""){
+
+      toast.warn("Please set the Gender", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
+
+    if(parseInt(price)<10000){
+
+      toast.warn("Please set the Valid Price (>=Rs.5,000)", {
+        autoClose: 5000, // Display for 3 seconds
+      });
+      return;
+    }
 
     const newPet = {
       petName,
@@ -112,7 +170,15 @@ function AddPetProfile() {
     };
   }
 
-  console.log(allbreeds);
+  function handleNameError(e) {
+    const name = e.target.value;
+    if (name.length > 15) {
+      setNameError("Pet name should not exceed 15 characters.");
+    } else {
+      setNameError("");
+    }
+  }
+  
 
   return (
     <>
@@ -133,6 +199,7 @@ function AddPetProfile() {
               <input
                 class="border py-2 px-3 text-grey-800 w-full rounded-xl"
                 required
+                onBlur={handleNameError}
                 type="text"
                 placeholder='Pet Name or "Nil"'
                 name="petName"

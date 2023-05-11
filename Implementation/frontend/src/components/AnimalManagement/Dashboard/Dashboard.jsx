@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import React, { useState, useEffect, PureComponent } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   PieChart,
@@ -29,6 +30,8 @@ function Dashboard() {
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
   const [lastbreeds, setLastBreed] = useState([]);
   const [lastPet, setLastPet] = useState([]);
+
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function healthCounts() {
@@ -90,12 +93,17 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking")
+      .get("http://localhost:8080/api/booking", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        }
+    })
       .then((response) => {
         const data = response.data;
         setpayData(data);
         const filteredData = data.filter((item) => item.status === "SHELTERED");
         const petCounts = filteredData.map((item) => item.mini.length);
+        console.log(petCounts)
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);

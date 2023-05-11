@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,12 +10,17 @@ export default function ProfilePage() {
   const [qrCode, setQrCode] = useState("");
   const param = useParams();
   const pid = param.id;
+  const{user} = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function getProfile() {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/vet/profile/${pid}`
+          `http://localhost:8080/api/vet/profile/${pid}`,{
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
         );
         setProfile(res.data.profile);
         setQrCode(res.data.profile.qrCode);
@@ -129,7 +135,7 @@ export default function ProfilePage() {
             <div class="bg-[#D9D9D9] px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt class="text-lg text-black font-bold ml-16">Price</dt>
               <dd class="mt-1 text-lg  text-black sm:col-span-2 sm:mt-0">
-                {Profile.price}
+                Rs.{Profile.price}
               </dd>
             </div>
           </dl>

@@ -70,7 +70,7 @@ export default function QrPetProfile() {
 
   return (
     <>
-    <div class="overflow-hidden bg-secondary shadow sm:rounded-3xl max-w-screen-lg mx-auto mt-28 mb- ml-96">
+    <div class="overflow-hidden bg-secondary shadow sm:rounded-3xl max-w-screen-lg mx-auto mt-[35px] mb- ml-[270px]">
   <div class="px-4 py-5 sm:px-6">
     <h3 class="text-xl font-semibold leading-6 text-white">{Profile.petName}</h3>
     <p class="mt-1 max-w-2xl text-sm text-white">Pet Information.</p>

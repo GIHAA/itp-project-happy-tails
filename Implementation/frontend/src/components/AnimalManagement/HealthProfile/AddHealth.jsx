@@ -12,9 +12,7 @@ function AddHealth() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newDescription = description || "No description";
-
-            //Validate Discription Has or not
+    const newDescription = description || "No description"; //Validate Discription Has or not
     const newreport = {
       petId,
       currentHealthStatus,
@@ -42,21 +40,21 @@ function AddHealth() {
   };
 
   const handleVaccinationChange = (index, event) => {
-    const newVaccinations = [...vaccinations];
-    newVaccinations[index][event.target.name] = event.target.value;
+    const newVaccinations = [...vaccinations]; // create new vaccination element with already exsits one
+    newVaccinations[index][event.target.name] = event.target.value; // set the vacination property given by user inside new vac element
     setVaccinations(newVaccinations);
   };
 
   const handleAddVaccination = () => {
     setVaccinations([
       ...vaccinations,
-      { name: "", dateGiven: "", expirationDate: "" },
+      { name: "", dateGiven: "", expirationDate: "" }, //give the new empty vaccination adding row dynamically
     ]);
   };
 
   const handleRemoveVaccination = (index) => {
     const newVaccinations = [...vaccinations];
-    newVaccinations.splice(index, 1);
+    newVaccinations.splice(index, 1); // delete 1 element specify by the index
     setVaccinations(newVaccinations);
   };
 
