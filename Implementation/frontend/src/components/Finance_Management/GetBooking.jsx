@@ -21,14 +21,17 @@ const GetBooking = () => {
         },
       })
       .then((response) => {
-        const data = response.data;
-        console.log(response);
+        const data = response.data
+        console.log(data)
         setpayData(data);
-        setpayData(response.data);
+        setFilteredPayData(data);
         const petCounts = data.map((item) => item.mini.length);
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);
+        // setTimeout(()=>{
+        //   setFilteredPayData(data);
+        // }, 2000)
       })
       .catch((error) => setIsError(error.message));
   }, []);
