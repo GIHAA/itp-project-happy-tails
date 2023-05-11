@@ -55,35 +55,70 @@ const Report = () => {
  
 
   const generatePDF = () => {
-    const now = moment();
-    const month = now.format('MMMM'); //april,july
-    const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
-    const date2 = now.format('YYYY-MM');
+    // const now = moment();
+    // const month = now.format('MMMM'); //april,july
+    // const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
+    // const date2 = now.format('YYYY-MM');
   
-    const doc = new jsPDF('landscape', 'px', 'a4', false);
-    doc.addImage(logo, 'JPG', 20, 20, 50, 50);
+    // const doc = new jsPDF('landscape', 'px', 'a4', false);
+    // doc.addImage(logo, 'JPG', 20, 20, 50, 50);
   
-    // Happy Tails, Address, Phone Number, and Generated Date left aligned
-    doc.setFontSize(12);
-    doc.text(20, 80, "Happy Tails");
-    doc.text(20, 90, "Address : Happy Tails shelter,");
-    doc.text(60, 100, "New Kandy Road,");
-    doc.text(60, 110, "Malabe");
-    doc.text(20, 120, "Tel : 01123457689");
-    doc.text(20, 130, `Generated : ${date}`);
+    // // Happy Tails, Address, Phone Number, and Generated Date left aligned
+    // doc.setFontSize(12);
+    // doc.text(20, 80, "Happy Tails");
+    // doc.text(20, 90, "Address : Happy Tails shelter,");
+    // doc.text(60, 100, "New Kandy Road,");
+    // doc.text(60, 110, "Malabe");
+    // doc.text(20, 120, "Tel : 01123457689");
+    // doc.text(20, 130, `Generated : ${date}`);
   
-    // Event Report center aligned
-    doc.setFontSize(18);
-    doc.setTextColor('#444444');
-    doc.text('Event Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
-    doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
+    // // Event Report center aligned
+    // doc.setFontSize(18);
+    // doc.setTextColor('#444444');
+    // doc.text('Event Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
+    // doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
   
-    // Add horizontal line after the header
-    doc.setLineWidth(0.5);
-    doc.setDrawColor('#444444');
-    doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
+    // // Add horizontal line after the header
+    // doc.setLineWidth(0.5);
+    // doc.setDrawColor('#444444');
+    // doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
   
-    const headers = [
+    const doc = new jsPDF("landscape", "px", "a4", false);
+    const today = new Date();
+      const date = `${today.getFullYear()}-${today.getMonth() + 1
+        }-${today.getDate()}`;
+
+        const title = "All Events Report";
+        doc.setFont("helvetica");
+      doc.setTextColor("#000000");
+
+      // Add title and date
+      doc.setFontSize(24);
+      doc.text(title, 20, 30);
+      doc.setFontSize(12);
+      doc.setTextColor("#999999");
+      doc.text(`Generated on ${date}`, 20, 40);
+      doc.addImage(logo, "JPG", 20, 60, 40, 40);
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor("#000000");
+      doc.text("Happy Tails", 70, 70);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.setTextColor("#999999");
+      doc.text("Tel: +94 11 234 5678", 70, 80);
+      doc.text("Email: info@happytails.com", 70, 90);
+      doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 100);
+
+      doc.setFontSize(18);
+      const textWidth =
+        (doc.getStringUnitWidth(`${filterStatus}`) *
+          doc.internal.getFontSize()) /
+        doc.internal.scaleFactor;
+      const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+      doc.text("CUSTOMER PAYMENTS", textOffset, 120);
+      
+      const headers = [
       'Event ID',
       'Event Name',
       'Description',
@@ -132,7 +167,7 @@ const Report = () => {
         data.settings.margin.top = startY;
       },
     });
-  
+    
     doc.save(`EventReport_${filterStatus}.pdf`);
   };
 
