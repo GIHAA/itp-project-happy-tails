@@ -13,6 +13,7 @@ const StockRequestForm = () => {
   const [event, setEvent] = useState("");
   const [eid, setId] = useState("");
   const [stockid, setStockId] = useState("");
+  const [total, setTotal] = useState("0");
 
   useEffect(() => {
     async function getstocks() {
@@ -60,10 +61,10 @@ const StockRequestForm = () => {
   const handleAddItem = () => {
     setItems([...items, { product: "", quantity: "" }]);
   };
-
+console.log(total)
   const handleSubmit = (e) => {
     e.preventDefault();
-    const request = { eid, stockid, eventName, items, description, status };
+    const request = { eid, stockid, eventName, items, description, status,total:total };
     axios
       .post("http://localhost:8080/api/eventstock/reqStock", request)
       .then((res) => {
