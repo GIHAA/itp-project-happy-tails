@@ -170,6 +170,7 @@ const FinaGetEvents = () => {
                             onClick={() => {
                               notify();
                               updateTransaction();
+                              refreshPage();
                             }}
                           >
                             Verify
