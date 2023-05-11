@@ -36,7 +36,7 @@ export default function InvAddItem() {
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          toast.error("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
+          toast.warn("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
         } else {
           toast.error(`Item insert unsuccessful ${err}`);
         }
