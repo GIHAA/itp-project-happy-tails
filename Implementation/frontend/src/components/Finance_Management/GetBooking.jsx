@@ -8,10 +8,13 @@ const GetBooking = () => {
   const [isError, setIsError] = useState("");
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredPayData, setFilteredPayData] = useState([]);
-  const { user } = useSelector((state) => state.auth);
- 
+  const{user} = useSelector ((state) => state.auth);
+  
+  function refreshPage() {
+    setTimeout(function () {
+      window.location.reload(false);
+    }, 2000);
+  }
 
   useEffect(() => {
     axios

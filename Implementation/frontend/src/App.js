@@ -30,19 +30,19 @@ import VHome from "./components/VHome";
 import "react-toastify/dist/ReactToastify.css";
 
 import VetPortal from "./components/portals/VetPortal";
-import AllPetProfile from "./components/Animal_Management/Pet_Profile/petProfile";
-import AddPetProfile from "./components/Animal_Management/Pet_Profile/AddPetProfile";
-import UpdatePetProfile from "./components/Animal_Management/Pet_Profile/UpdatePetProfile";
-import ProfilePage from "./components/Animal_Management/Pet_Profile/ProfilePage";
-import HealthProfile from "./components/Animal_Management/Health_Profile/HealthProfile";
-import AddHealth from "./components/Animal_Management/Health_Profile/AddHealth";
-import DisplayHealth from "./components/Animal_Management/Health_Profile/DisplayHealth";
-import Addvac from "./components/Animal_Management/Health_Profile/Addvac";
-
-import UpdateVac from "./components/Animal_Management/Health_Profile/UpdateVac";
-import Dashboard from "./components/Animal_Management/Dashboard/Dashboard";
-import Shelterpets from "./components/Animal_Management/Pet_Profile/ShelterPets";
-import Breed from "./components/Animal_Management/Pet_Profile/Breed";
+import AllPetProfile from "./components/AnimalManagement/PetProfile/petProfile";
+import AddPetProfile from "./components/AnimalManagement/PetProfile/AddPetProfile";
+import UpdatePetProfile from "./components/AnimalManagement/PetProfile/UpdatePetProfile";
+import ProfilePage from "./components/AnimalManagement/PetProfile/ProfilePage";
+import HealthProfile from "./components/AnimalManagement/HealthProfile/HealthProfile";
+import AddHealth from "./components/AnimalManagement/HealthProfile/AddHealth";
+import DisplayHealth from "./components/AnimalManagement/HealthProfile/DisplayHealth";
+import Addvac from "./components/AnimalManagement/HealthProfile/Addvac";
+import UpdateVac from "./components/AnimalManagement/HealthProfile/UpdateVac";
+import Dashboard from "./components/AnimalManagement/Dashboard/Dashboard";
+import Shelterpets from "./components/AnimalManagement/PetProfile/ShelterPets";
+import Breed from "./components/AnimalManagement/PetProfile/Breed";
+import QrPetProfile from "./components/AnimalManagement/PetProfile/QrPetProfile";
 
 import PortalHandler from "./components/PortalHandler";
 
@@ -106,6 +106,7 @@ import Employee from "./components/admin/Employee";
 import Feedback from "./components/admin/Feedback";
 import ForgotPassWord from "./components/ForgotPassWord"
 import Scanner from "./components/User/Scanner"
+
 
 
 function App() {
@@ -174,7 +175,9 @@ function App() {
               <Route path="spets" element={<Shelterpets />} />
               <Route path="breed" element={<Breed />} />
               <Route path="upvac/:id/:index/:state" element={<UpdateVac />} />
-            </Route>
+            </Route>    
+            <Route path="/petprofile/qrresult/:id" element={<QrPetProfile/>}/>
+
             //Vehicle Management
             <Route path="/vhome" exact element={<VHome />} />
             <Route path="/vehicles" exact element={<Vehicles />} />
