@@ -8,6 +8,8 @@ import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import filterImg from "../assets/filter.png";
 import { useSelector } from "react-redux";
+const moment = require('moment');
+
 
 export default function StockBudgetRequests() {
   const [budget, setBudget] = useState([]);
@@ -113,6 +115,7 @@ export default function StockBudgetRequests() {
             <table className="mx-auto my-10 w-[1100px]">
               <thead className="bg-[#FF9F00] text-white sticky top-0">
                 <tr>
+                  <th className="p-3">Reqested date</th>
                   <th className="p-3">Supplier Name</th>
                   <th className="p-3">Item name</th>
                   <th className="p-3">Description</th>
@@ -155,6 +158,7 @@ export default function StockBudgetRequests() {
                     return (
                       <>
                         <tr>
+                        <td className="p-3">{moment(budget.submittedAt).format('YY-MM-DD')}</td>
                           <td className="p-3">{budget.supplier_name}</td>
                           <td className="p-3">{budget.item_name}</td>
                           <td className="p-3">{budget.description}</td>
