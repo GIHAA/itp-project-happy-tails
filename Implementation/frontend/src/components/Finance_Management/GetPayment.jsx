@@ -45,7 +45,7 @@ const GetPayment = () => {
     axios
       .delete(`http://localhost:8080/api/payment/${id}`)
       .then((res) => {
-       
+
 
         refreshPage();
       })
@@ -100,18 +100,45 @@ const GetPayment = () => {
       });
 
       const today = new Date();
-      const dateTime = `${today.getFullYear()}-${today.getMonth() + 1
+      const date = `${today.getFullYear()}-${today.getMonth() + 1
         }-${today.getDate()}`;
 
-      doc.setFontSize(10);
-      doc.text(`Pyment Report Generated ${dateTime}`, 470, 45);
 
-      doc.addImage(name, "JPG", 65, 20, 100, 100);
-      doc.setFontSize(20);
-      doc.text(180, 45, "Happy Tails");
+      const title = "Customer Payment Report";
+
+      // Set document font and color
+      doc.setFont("helvetica");
+      doc.setTextColor("#000000");
+
+      // Add title and date
+      doc.setFontSize(24);
+      doc.text(title, 20, 30);
+      doc.setFontSize(12);
+      doc.setTextColor("#999999");
+      doc.text(`Generated on ${date}`, 20, 40);
+
+      // Add logo and company details
+      doc.addImage(name, "JPG", 20, 60, 40, 40);
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor("#000000");
+      doc.text("Happy Tails", 70, 70);
+      doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      doc.text(180, 65, "Address : Happy tails shelter,\nNew Kandy road,\nMalabe");
-      doc.text(180, 95, "Tel : 01123457689");
+      doc.setTextColor("#999999");
+      doc.text("Tel: +94 11 234 5678", 70, 80);
+      doc.text("Email: info@happytails.com", 70, 90);
+      doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 100);
+
+      // doc.setFontSize(10);
+      // doc.text(`Pyment Report Generated ${dateTime}`, 470, 45);
+
+      // doc.addImage(name, "JPG", 65, 20, 100, 100);
+      // doc.setFontSize(20);
+      // doc.text(180, 45, "Happy Tails");
+      // doc.setFontSize(10);
+      // doc.text(180, 65, "Address : Happy tails shelter,\nNew Kandy road,\nMalabe");
+      // doc.text(180, 95, "Tel : 01123457689");
 
       doc.setFontSize(18);
       const textWidth =
@@ -131,6 +158,7 @@ const GetPayment = () => {
       });
 
       doc.setFontSize(12);
+      doc.setTextColor("#121212");
       doc.text(`Total Payments: Rs. ${max}`, 470, doc.autoTable.previous.finalY + 28);
 
 
@@ -409,7 +437,7 @@ const GetPayment = () => {
                             type="text"
                             name="title"
                             defaultValue={selectedData.cus_id}
-                            
+
                             class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                           />{" "}
                         </label>{" "}

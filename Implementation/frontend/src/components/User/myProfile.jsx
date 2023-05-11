@@ -9,7 +9,7 @@ import { logout, login, reset } from "../../services/auth/authSlice";
 import bookingServices from "../../services/api/booking";
 import jsPDF from "jspdf";
 import logo2 from "../../assets/logo2.png";
-import { AiFillEdit } from "react-icons/ai";
+import { GrMapLocation } from "react-icons/gr";
 
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth);
@@ -31,7 +31,6 @@ const Profile = (props) => {
     _id: user._id,
   });
 
-
   const { name, email, address, phone, password, password2, confirmpassword } =
     formData;
 
@@ -42,14 +41,15 @@ const Profile = (props) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
-    
+
     const formDataWithImage = { ...formData, image: image };
     if (password !== password2) {
       toast.error("Passwords do not match");
     } else if (formData.confirmpassword === "") {
       toast.error("Please enter your password to confirm changes");
     } else {
-      const response = userServices.updateUser(formDataWithImage)
+      const response = userServices
+        .updateUser(formDataWithImage)
         .then(() => {
           toast.success("Profile updated successfully");
 
@@ -87,7 +87,7 @@ const Profile = (props) => {
   useEffect(() => {
     bookingServices.getAllBookings(user).then((res) => {
       setbookings(res);
-      console.log(res)
+      console.log(res);
     });
   }, []);
 
@@ -95,19 +95,21 @@ const Profile = (props) => {
     const title = "User Data Report";
     const doc = new jsPDF();
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
     // Set document font and color
     doc.setFont("helvetica");
     doc.setTextColor("#000000");
-    
+
     // Add title and date
     doc.setFontSize(24);
     doc.text(title, 20, 30);
     doc.setFontSize(12);
     doc.setTextColor("#999999");
     doc.text(`Generated on ${date}`, 20, 40);
-    
+
     // Add logo and company details
     doc.addImage(logo2, "JPG", 20, 60, 40, 40);
     doc.setFontSize(16);
@@ -120,7 +122,7 @@ const Profile = (props) => {
     doc.text("Tel: +94 11 234 5678", 70, 80);
     doc.text("Email: info@happytails.com", 70, 85);
     doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
-    
+
     doc.line(20, 110, 190, 110);
 
     doc.addImage(user.image, "PNG", 20, 120, 40, 40);
@@ -139,25 +141,36 @@ const Profile = (props) => {
     doc.text(`Booking History`, 83, 190);
 
     // Add table with data
-        doc.setTextColor("#999999");
+    doc.setTextColor("#999999");
     doc.setFontSize(12);
     doc.setTextColor("#000000");
     doc.autoTable({
       startY: 200,
-      head: [["Date" , "Bid", "Customer name", "Contact", "Number of pets", "Status", "Price"]],
-      body: bookings
-        .map((request) => [
-          request.createdAt.toLocaleString("en-US", { timeZone: "Asia/Colombo" }).substring(0,10),
-          request.bid,
-          request.cus_name,
-          request.contactNumbers,
-          request.petCount,
-          request.status,
-          request.price,
-        ]),
+      head: [
+        [
+          "Date",
+          "Bid",
+          "Customer name",
+          "Contact",
+          "Number of pets",
+          "Status",
+          "Price",
+        ],
+      ],
+      body: bookings.map((request) => [
+        request.createdAt
+          .toLocaleString("en-US", { timeZone: "Asia/Colombo" })
+          .substring(0, 10),
+        request.bid,
+        request.cus_name,
+        request.contactNumbers,
+        request.petCount,
+        request.status,
+        request.price,
+      ]),
       theme: "grid",
     });
-    
+
     // Save the document
     doc.save("userreport.pdf");
   };
@@ -197,21 +210,39 @@ const Profile = (props) => {
     };
   };
 
+  const handleMapClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
+          fetch(apiURL)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              const address = data.results[0].formatted_address;
+              setFormData((prevData) => ({ ...prevData, address }));
+            })
+            .catch((error) => console.log(error));
+        },
+        (error) => console.log(error)
+      );
+    }
+  };
+
   return (
     <>
       <div className="w-full bg-bgsec">
         <div className=" mx-auto rounded-[20px] bg-[#FFBE52] p-16 flex h-[1050px]  w-[1200px]">
-        <div className="w-1/3 h-full ">
-  <label className="relative w-[270px] h-[270px]">
-
-      
-      <img
-        src={user.image}
-        className="rounded-[50%] w-[270px] h-[270px]  border-bg border-[5px]"
-      />
-
-  </label>
-</div>
+          <div className="w-1/3 h-full ">
+            <label className="relative w-[270px] h-[270px]">
+              <img
+                src={user.image}
+                className="rounded-[50%] w-[270px] h-[270px]  border-bg border-[5px]"
+              />
+            </label>
+          </div>
 
           <div className="w-2/3  h-64">
             {/* <div>
@@ -267,15 +298,23 @@ const Profile = (props) => {
             <label className="font-semibold text-sm text-gray-600 pb-1 block">
               Location
             </label>
-            <input
-              id="address"
-              name="address"
-              value={address}
-              onChange={onChange}
-              placeholder={user.address}
-              type="text"
-              className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
-            />
+            <div className="flex">
+              <input
+                id="address"
+                name="address"
+                value={address}
+                onChange={onChange}
+                placeholder={user.address}
+                type="text"
+                className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
+              />
+              <div
+                className="flex rounded-lg content-center border h-[40px] bg-white m-1 cursor-pointer"
+                onClick={handleMapClick}
+              >
+                <GrMapLocation className="m-[15px]" />
+              </div>
+            </div>
 
             <label className="font-semibold text-sm text-gray-600 pb-1 block">
               Phone number
@@ -327,15 +366,15 @@ const Profile = (props) => {
               required
             />
 
-<label className="font-semibold text-sm text-gray-600 pb-1 block">
-                Add Image
-              </label>
-              <input
-                className="w-full h- py-5 pb-8 file:rounded-full file:h-[45px] file:w-[130px] file:bg-secondary file:text-white "
-                accept="image/*"
-                type="file"
-                onChange={convertToBase64}
-              />
+            <label className="font-semibold text-sm text-gray-600 pb-1 block">
+              Add Image
+            </label>
+            <input
+              className="w-full h- py-5 pb-8 file:rounded-full file:h-[45px] file:w-[130px] file:bg-secondary file:text-white "
+              accept="image/*"
+              type="file"
+              onChange={convertToBase64}
+            />
 
             <div className="flex mt-7">
               <button
