@@ -113,7 +113,7 @@ const editstock = async (req, res) => {
   }
 
   // Validate the request body
-  if (!eid || !eventName || !items || !description || !status || !eid || !total) {
+  if (!eid || !eventName || !items || !description || !status || !eid ) {
     return res.status(400).send({ error: "Missing required fields" });
   }
 
