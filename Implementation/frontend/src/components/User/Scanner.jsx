@@ -12,6 +12,7 @@ function Scanner() {
   const [data, setData] = useState("No result");
   const [ booking , setBooking ] = useState([])
   const [showBookingModal , setshowBookingModal] = useState(false)
+  const [isLoading , setIsLoading] = useState(false)
 
   const { user } = useSelector((state) => state.auth);
 
@@ -29,9 +30,11 @@ function Scanner() {
     
         displayBooking(text);
       } else {
+        
         console.log("Error: unrecognized endpoint");
       }
     } else {
+      window.open(text, "_blank");
       console.log("Error: invalid URL");
     }
   };
@@ -41,6 +44,7 @@ function Scanner() {
       .get(text)
       .then((res) => {
         setBooking(res.data[0]);
+        setIsLoading(false)
         setshowBookingModal(true)
         
       })
@@ -64,9 +68,10 @@ function Scanner() {
             onResult={(result, error) => {
               if (!!result) {
                 setData(result?.text);
+                setIsLoading(true)
                 setTimeout(() => {
                   display(result?.text)
-                },1000);
+                },2000);
               }
 
               if (!!error) {
@@ -75,9 +80,21 @@ function Scanner() {
             }}
             style={{ width: "75%" }}
           />
-          <p>{data}</p>
+          {/* <p>{data}</p> */}
         </div>
       </div>
+      {isLoading && (
+
+  
+   <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+   <div className="bg-[#ffffff]  rounded-full w-[200px] h-[200px] ">
+   <Spinner  />
+   </div>
+   </div>
+      
+
+)}
+
       <Footer />
 
 
@@ -117,7 +134,7 @@ function Scanner() {
      </tbody>
    </table>
    <div className="grid gap-6 mb-6 mt-4 lg:grid-cols-2">
-     {/* {booking.mini.map((item, index) => (
+     {booking.mini.map((item, index) => (
        <>
          <table class="border-collapse w-full">
            <tbody>
@@ -162,7 +179,7 @@ function Scanner() {
            </tbody>
          </table>
        </>
-     ))} */}
+     ))}
    </div>
    <div className="flex justify-end">
      <button

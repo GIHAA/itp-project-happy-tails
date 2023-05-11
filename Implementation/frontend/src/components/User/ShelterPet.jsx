@@ -11,6 +11,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
+import QRCode from "qrcode";
 
 function ShelterPet() {
   const { user } = useSelector((state) => state.auth);
@@ -21,6 +22,8 @@ function ShelterPet() {
   const [isDateValid, setIsDateValid] = useState(false);
   const [showaskTransportModal, setshowaskTransportModal] = useState(false);
   const [showTransportModal, setshowTransportModal] = useState(false);
+  const [showQRCode, setShowQRCode] = useState(false);
+  const [qrCodeSrc, setQRCodeSrc] = useState("");
 
   const fetchPid = async () => {
     const result = await axios.post("http://localhost:8080/api/counter");
@@ -63,7 +66,8 @@ function ShelterPet() {
     plocation: "",
     phone: "",
     time: "",
-    email: user.email
+    email: user.email,
+    count: 2
   });
 
   const handleSliderChange = (event) => {
@@ -96,7 +100,6 @@ function ShelterPet() {
 
   const handleTransportChange = (event) => {
     const { name, value } = event.target;
-    console.log(tformData);
     settFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -111,68 +114,74 @@ function ShelterPet() {
       return /^\d{10}$/.test(str);
     };
 
-    if (rememberChecked) {
-      if (!isNumberAndTenDigit(formData.contactNumbers)) {
-        toast.error("Please enter a valid contact number");
-        return;
-      }
-      if (!isDateValid) {
-        toast.error("Please enter a valid date range");
-        return;
-      }
-      try {
-        bookingServices.addBooking(formData);
-        toast.success("Booking added successfully");
-        
-        setFormData({
-          cus_id: user._id,
-          cus_name: user.name,
-          bid,
-          token: user.token,
-          bid: 0,
-          petCount: 1,
-          mini: [{ name: "", description: "", type: "cat", pid: 0 }],
-          contactNumbers: "",
-          description: "",
-          startDate: new Date(),
-          endDate: new Date(),
-        });
-        setTotal(0);
-      } catch (error) {
-        toast.error("Something went wrong");
-      }
-    } else {
-      toast.error("Please agree to the terms and conditions");
+    if(formData.petCount === 0 ){
+      toast.error("Number of pets can't be zero")
+      return
     }
+      if (rememberChecked) {
+        if (!isNumberAndTenDigit(formData.contactNumbers)) {
+          toast.error("Please enter a valid contact number");
+          return;
+        }
+        if (!isDateValid) {
+          toast.error("Please enter a valid date range");
+          return;
+        }
+        try {
+          bookingServices.addBooking(formData);
+          toast.success("Booking added successfully");
+          setshowaskTransportModal(true);
 
-    setshowaskTransportModal(true)
+          setFormData({
+            cus_id: user._id,
+            cus_name: user.name,
+            bid,
+            token: user.token,
+            bid: 0,
+            petCount: 0,
+            mini: [{ name: "", description: "", type: "cat", pid: 0 }],
+            contactNumbers: "",
+            description: "",
+            startDate: new Date(),
+            endDate: new Date(),
+          });
+          setTotal(0);
+        } catch (error) {
+          toast.error("Something went wrong");
+        }
+      } else {
+        toast.error("Please agree to the terms and conditions");
+      }
+
+    
   };
 
   const submitTransportation = () => {
-
     const isNumberAndTenDigit = (str) => {
       return /^\d{10}$/.test(str);
     };
-    
-    const { userName , plocation , time , phone } = tformData 
-    console.log(phone)
-    if(userName && plocation && time && phone){
-      console.log(phone)
+
+    const { userName, plocation, time, phone } = tformData;
+    console.log(phone);
+    if (userName && plocation && time && phone) {
+      console.log(phone);
 
       if (isNumberAndTenDigit(tformData.phone)) {
-        axios.post("http://localhost:8080/api/transport/", tformData).then((res) => {
-          toast.success("Transportation Request sent")
-        }).catch(err => alert(err))
+        axios
+          .post("http://localhost:8080/api/transport/", tformData)
+          .then((res) => {
+            toast.success("Transportation Request sent");
+            genarateQRcode()
+          })
+          .catch((err) => alert(err));
         setshowTransportModal(false);
-      }
-      else{
+      } else {
         toast.error("Please enter a valid contact number");
       }
-    }
-    else{
+    } else {
       toast.error("Please fill all the fields");
     }
-  }
+  };
 
   const calculateTotal = () => {
     const startDate = new Date(formData.startDate);
@@ -205,6 +214,23 @@ function ShelterPet() {
         (error) => console.log(error)
       );
     }
+  };
+
+  const handleDownloadQRCode = () => {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = qrCodeSrc;
+    downloadLink.download = "qrcode.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
+  const genarateQRcode = () => {
+    const text = `http://localhost:8080/qr/booking/B${bid}`
+    QRCode.toDataURL(text).then((data) => {
+      setQRCodeSrc(data);
+      setShowQRCode(true);
+    });
   };
 
   return (
@@ -309,6 +335,7 @@ function ShelterPet() {
                       id="outlined-basic"
                       label="Enter Name"
                       variant="outlined"
+                      required={true}
                       value={formData.mini[index]?.name || ""}
                       onChange={(event) =>
                         setFormData((prevFormData) => {
@@ -449,13 +476,12 @@ function ShelterPet() {
                 onChange={handleTransportChange}
                 required={true}
               />
-                            <TextField
+              <TextField
                 id="outlined-basic"
                 label="Pick up time"
                 name="time"
                 variant="outlined"
                 type="time"
-    
                 onChange={handleTransportChange}
                 required={true}
               />
@@ -481,7 +507,8 @@ function ShelterPet() {
             </div>
             <div className="flex mt-7">
               <button
-                onClick={() => setshowTransportModal(false)}
+                onClick={() => {setshowTransportModal(false)
+                  genarateQRcode()}}
                 type="submit"
                 className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
@@ -509,7 +536,9 @@ function ShelterPet() {
             </h2>
             <div className="flex">
               <button
-                onClick={() => setshowaskTransportModal(false)}
+              onClick={() => {setshowaskTransportModal(false)
+                genarateQRcode()
+              }}
                 type="submit"
                 className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
@@ -529,6 +558,36 @@ function ShelterPet() {
           </div>
         </div>
       )}
+
+{showQRCode && (
+      <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-4 rounded-lg">
+          <div class="text-black text-center">
+            QR Code for your booking
+          </div>
+          <div class="text-red text-center">
+            Please take photo or download QR code
+          </div>
+          <div class="flex justify-center">
+            <img src={qrCodeSrc} alt="QR code" />
+          </div>
+          <div class="flex justify-center mt-4">
+          <button onClick={() => {
+                  setShowQRCode(false);
+          }} className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+             Close
+            </button>
+            <button
+             className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              onClick={handleDownloadQRCode}
+            >
+              Download QR Code
+            </button>
+       
+          </div>
+        </div>
+      </div>
+    )}
     </>
   );
 }

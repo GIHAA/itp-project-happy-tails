@@ -1,0 +1,1 @@
+{"version":3,"file":"BrowserQRCodeReader.js","sourceRoot":"","sources":["../../../src/browser/BrowserQRCodeReader.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,qBAAqB,CAAC;AACxD,OAAO,YAAY,MAAM,6BAA6B,CAAC;AAEvD;;;;GAIG;AACH,MAAM,OAAO,mBAAoB,SAAQ,iBAAiB;IACtD;;;OAGG;IACH,YAAmB,yBAAiC,GAAG;QACnD,KAAK,CAAC,IAAI,YAAY,EAAE,EAAE,sBAAsB,CAAC,CAAC;IACtD,CAAC;CACJ"}

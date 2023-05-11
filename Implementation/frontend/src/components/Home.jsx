@@ -8,6 +8,7 @@ import Header from "./common/Header";
 import Footer from "./common/Footer";
 import { AiFillHeart } from "react-icons/ai";
 import feedbackservices from "../services/api/feedBack";
+import { toast } from "react-toastify";
 
 function Home() {
   const { user } = useSelector((state) => state.auth);
@@ -27,8 +28,16 @@ function Home() {
   };
 
   const submitFeedback = () => {
+    if(!FormData.message){
+      toast.error("Please enter the feedback")
+      return
+    }
     feedbackservices.add(FormData);
-    console.log(FormData);
+    toast.success("Thank you for the Feedback")
+    setshowFeedbackModal(false)
+    setFormData({    name: user ? user.name : "",
+    email: user ? user.email : "",
+    message: "",})
   };
 
   return (

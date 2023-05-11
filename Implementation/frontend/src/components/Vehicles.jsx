@@ -38,7 +38,7 @@ export default function Vehicle() {
   }, [])
   
   
-  const genarateUserData = () => {
+  const genarateReport = () => {
     const title = "Available Vehicles";
     const doc = new jsPDF();
     const today = new Date();
@@ -119,7 +119,7 @@ export default function Vehicle() {
 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
-                              onClick={() => genarateUserData()}>
+                              onClick={() => genarateReport()}>
                         Generate Report
                       </button>
 
