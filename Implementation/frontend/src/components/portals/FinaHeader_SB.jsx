@@ -147,17 +147,17 @@ function FinaLeftBar() {
             </Link>
 
             <Link
-              to="/FinaDashBoard/GetDoanation"
-              className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
-            >
-              DONATIONS
-            </Link>
-
-            <Link
               to="/FinaDashBoard/GetOrganization"
               className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
             >
               ORGANIZATIONS
+            </Link>
+
+            <Link
+              to="/FinaDashBoard/GetDoanation"
+              className=" bg-[#2E4960] hover:bg-[#797979] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[10px] block w-[150px] text-center mb-7 mx-auto"
+            >
+              DONATIONS
             </Link>
           </div>
         </div>
