@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector, useDispatch } from "react-redux";
 
 function AddEvent() {
   const [eventName, setEName] = useState("");
@@ -20,6 +21,8 @@ function AddEvent() {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const [firstId, setFirstId] = useState("");
+
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function getEvents() {
@@ -61,6 +64,7 @@ function AddEvent() {
     getEventAmounts();
   }, []);
 
+ 
   console.log(firstId);
   function addEvent(e) {
     e.preventDefault();
@@ -96,6 +100,7 @@ function AddEvent() {
           "Content-Type": "application/json",
           Accept: "application/json",
           "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${user.token}`,
         },
       }),
       axios.post("http://localhost:8080/api/eventamount/addeamount", newamount),
