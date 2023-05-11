@@ -218,7 +218,7 @@ const Registration = () => {
                 name="password"
                 value={password}
                 onChange={onChange}
-                type="text"
+                type="password"
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
@@ -229,7 +229,7 @@ const Registration = () => {
                 name="password2"
                 value={password2}
                 onChange={onChange}
-                type="text"
+                type="password"
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
               <label className="font-semibold text-sm text-gray-600 pb-1 block">

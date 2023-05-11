@@ -41,6 +41,45 @@ const Profile = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email) {
+      if (!emailRegex.test(email)) {
+        toast.error("Please enter a valid email");
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          password2: "",
+          confirmpassword: "",
+          image: "",
+          phone: "",
+          token: user.token,
+          _id: user._id,
+        });
+        return;
+      }
+    }
+
+    const isNumberAndTenDigit = (str) => {
+      return /^\d{10}$/.test(str);
+    };
+    if (phone) {
+      if (!isNumberAndTenDigit(phone)) {
+        toast.error("Please enter a valid phone number");
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          password2: "",
+          confirmpassword: "",
+          image: "",
+          phone: "",
+          token: user.token,
+          _id: user._id,
+        });
+        return;
+      }
+    }
     const formDataWithImage = { ...formData, image: image };
     if (password !== password2) {
       toast.error("Passwords do not match");
@@ -67,6 +106,7 @@ const Profile = (props) => {
             password2: "",
             confirmpassword: "",
             image: "",
+            phone: "",
             token: user.token,
             _id: user._id,
           });
@@ -244,7 +284,6 @@ const Profile = (props) => {
           </div>
 
           <div className="w-2/3  h-64">
-
             <h3 className="text-center mb-5 mt-5 text-gray-800 text-[22px] font-bold">
               Update profile
             </h3>
