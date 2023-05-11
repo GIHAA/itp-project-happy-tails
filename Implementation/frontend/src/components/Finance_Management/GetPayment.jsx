@@ -189,6 +189,18 @@ const GetPayment = () => {
       theme: "colored",
     });
 
+    const notify2 = () =>
+    toast.success("Payment Updated ", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
   function filterPayments(data) {
     const filtered = data.filter((payment) =>
       payment.cus_id.toString().toLowerCase().includes(searchTerm.toLowerCase())
@@ -485,12 +497,18 @@ const GetPayment = () => {
                         <button
                           type="submit"
                           class=" border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+                          onClick={() => {
+                            notify2();
+                            
+                            refreshPage();
+                          }}
                         >
                           Update Data
                         </button>
                         <button
                           onClick={() => setShowUpdateForm(false)}
                           class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                         
                         >
                           {" "}
                           CLOSE
