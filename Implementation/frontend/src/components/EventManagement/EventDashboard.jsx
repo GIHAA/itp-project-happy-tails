@@ -29,6 +29,7 @@ const EventDashboard = () => {
   const [sum, setSum] = useState(0);
   const [totalbud, setBudTotal] = useState(0);
   const [budget, setBudget] = useState([]);
+  const [stocks, setStocks] = useState([]);
   const [stock, setStock] = useState([]);
   const [totalstock, setStockTotal] = useState(0);
   const [event, setEvent] = useState([]);
@@ -45,10 +46,13 @@ const EventDashboard = () => {
   const [acceptBudgets, setAcceptBudgets] = useState(0);
   const [rejectBudgets, setRejectBudgets] = useState(0);
   const [filterBudget, setFilterBudget] = useState([]);
+  const [filterStock, setFilterStock] = useState([]);
   const [pendingStocks, setPendingStocks] = useState(0);
   const [acceptStocks, setAcceptStocks] = useState(0);
   const [rejectStocks, setRejectStocks] = useState(0);
+  const [currentTotal, setCurrentTotal] = useState(0);
 
+  
   useEffect(() => {
     const getEventAmount = async () => {
       try {
@@ -128,6 +132,13 @@ const EventDashboard = () => {
         );
         //   console.log(res.data.alleamount);
         setStock(res.data.getstocks);
+
+        // const total = res.data.getstocks.map((stock) => parseInt(stock.total));
+        // const sum = total.reduce(
+        //   (accumulator, currentValue) => accumulator + currentValue,
+        //   0
+        // );
+        setSum(sum);
       } catch (err) {
         toast.error(err);
       }
@@ -226,7 +237,7 @@ const EventDashboard = () => {
         console.log(res.data.allbudget);
 
         const allBudget = res.data.allbudget.filter(
-          (bud) => bud.status === "Accepted" && bud.amountStatus === "Paid"
+          (bud) => bud.status === "Accepted"
         );
         setFilterBudget(allBudget);
 
@@ -242,6 +253,34 @@ const EventDashboard = () => {
       }
     };
     allbudgets();
+  }, []);
+
+  useEffect(() => {
+    const allstocks = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/eventstock/getStocks"
+        );
+        setStocks(res.data.getstocks);
+        console.log(res.data.getstocks);
+
+        const allstock = res.data.getstocks.filter(
+          (stock) => stock.status === "Accepted"
+        );
+        setFilterStock(allstock);
+
+        const total = allstock.map((stock) => parseInt(stock.total));
+        const totalstock = total.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0
+        );
+        setStockTotal(totalstock);
+        console.log(totalstock);
+      } catch (err) {
+        toast.error(err);
+      }
+    };
+    allstocks();
   }, []);
 
   useEffect(() => {
@@ -423,8 +462,7 @@ const EventDashboard = () => {
         if (
           event.name === bud.eventName &&
           event.eid === bud.eid &&
-          bud.status === "Accepted" &&
-          bud.amountStatus === "Paid"
+          bud.status === "Accepted" 
         ) {
           expense += Number(bud.total);
         }
@@ -451,7 +489,9 @@ const EventDashboard = () => {
       name: eventName,
       Rate: Number(rate),
     }));
-
+    let total=0
+    total =  Number(totalbud)+Number(totalstock)
+    setCurrentTotal(total)
     setChartData(chartData);
     console.log(chartData);
   }, [datas]);
@@ -483,7 +523,7 @@ const EventDashboard = () => {
             </div>
             <div className="bg-gray-100 p-4 rounded-lg shadow-md">
               <h2 className="text-lg font-medium">Total Expenses</h2>
-              <p className="text-3xl font-bold">{totalbud}</p>
+              <p className="text-3xl font-bold">{currentTotal}</p>
             </div>
           </div>
 
