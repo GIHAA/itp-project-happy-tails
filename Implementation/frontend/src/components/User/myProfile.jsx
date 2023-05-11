@@ -195,7 +195,7 @@ const Profile = (props) => {
           }
         } else {
           if (height > MAX_HEIGHT) {
-            width *= MAX_HEIGHT / height;a
+            width *= MAX_HEIGHT / height;
             height = MAX_HEIGHT;
           }
         }
