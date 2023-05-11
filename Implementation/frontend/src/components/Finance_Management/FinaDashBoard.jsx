@@ -481,7 +481,7 @@ const FinaDashBoard = () => {
 
                 </div>
 
-                <div className=" ml-80 w-11/12 h-80  mx-4 -mt-80 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
+                <div className=" ml-80 w-11/12 h-80  mx-4 -my-5 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
 
                     {lineChartData1 && <canvas id="myChart2"></canvas>}
                 </div>
@@ -490,7 +490,7 @@ const FinaDashBoard = () => {
 
 
 
-                <div className=" ml-80 w-11/12 h-80   mx-4 -mt-80 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
+                <div className=" ml-80 w-11/12 h-80   mx-4 mt-5 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
 
                     {lineChartData2 && <canvas id="myChart0"></canvas>}
                 </div>
