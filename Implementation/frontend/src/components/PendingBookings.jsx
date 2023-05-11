@@ -228,19 +228,26 @@ export default function PendingBookings() {
                     <br />
                     <div className="mb-2">
                       <span className="text-opacity-50">
-                        <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+                        <ul style={{ listStyleType: 'none'}}>
                           <li style={{ display: 'inline-block' }}>
                             <h4 className="text-ml font-bold mb-2  leading-7">
                                 Pick-up  : {transport.plocation} 
                             </h4>
-                          </li>
+                          </li><br></br>
 
 
-                          <li style={{ display: 'inline-block',  padding: 0, marginLeft: 80 }}>
+                          <li style={{ display: 'inline-block' }}>
                             <h4 className="text-ml font-bold mb-2  leading-7">
                                 Mail  : {transport.email} 
                             </h4>
-                          </li>
+                          </li><br></br>
+
+
+                          <li style={{ display: 'inline-block'}}>
+                            <h4 className="text-ml font-bold mb-2  leading-7">
+                                Contact Number  : {transport.phone} 
+                            </h4>
+                          </li><br></br>
 
 
 
@@ -257,9 +264,7 @@ export default function PendingBookings() {
                         <li style={{ display: 'inline-block' }}>
                             User Name : {transport.userName}
                           </li>
-                         <li style={{ display: 'inline-block', marginLeft: '40px'  }}>
-                            Pet Type : {transport.petType}
-                          </li>
+                         
                           <li style={{ display: 'inline-block', marginLeft: '40px' }}>
                             Number of pets : {transport.count}
                           </li>

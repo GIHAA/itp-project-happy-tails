@@ -11,14 +11,14 @@ const transporter = nodemailer.createTransport({
 });
 
 const addTransport = asyncHandler(async (req, res) =>{    
-    const { userName, plocation, dlocation, petType, date, time, count, selectedVehicle , phone  } = req.body
+    const { userName, plocation, date, time, count, email, phone  } = req.body
     const transport = await Transport.create({
         userName,
         plocation,
         date,
         time,
         count,
-        selectedVehicle,
+        email,
         phone,
         status : 'PENDING'
         
@@ -33,7 +33,7 @@ const readTransport = asyncHandler(async (req, res) =>{
 
 const updateTransport = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const { userName, plocation, date, time, count, email, selectedVehicle, status } = req.body;
+  const { userName, plocation, date, time, count, email, phone, status } = req.body;
   const transport = await Transport.findByIdAndUpdate(id, {
     userName,
     plocation,
@@ -41,7 +41,7 @@ const updateTransport = asyncHandler(async (req, res) => {
     time,
     count,
     email,
-    selectedVehicle,
+    phone,
     status
   }, { new: true });
 

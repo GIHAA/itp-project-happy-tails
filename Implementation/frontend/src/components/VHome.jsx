@@ -102,7 +102,7 @@ export default function VHome() {
 
 
     <div className="bg-[#2E4960] h-40 w-full">
-            <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">DASHBOARD OF VEHICLE MANAGEMENT</h1>
+            <h1 style={{textAlign: 'center'}} className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">DASHBOARD OF VEHICLE MANAGEMENT</h1>
 
             <div className="flex"></div>
     </div>

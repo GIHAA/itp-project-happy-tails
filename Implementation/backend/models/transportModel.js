@@ -14,16 +14,6 @@ const transportSchema = mongoose.Schema(
       required: [false, "Please enter address"],
     },
 
-    dlocation: {
-      type: String,
-      required: [false, "Please enter address"],
-    },
-
-    petType: {
-      type: String,
-      required: [false, "Please add type of pet"],
-    },
-
     date: {
       type: String,
       required: [false, "Please add a date"],
@@ -43,10 +33,12 @@ const transportSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a gmail'],
     },
+    
     phone: {
       type: String,
       required: [false, "Please add a phone number"],
     },
+
     status: {
       type: String,
       enum: ["PENDING", "ACCEPTED", "REJECTED"],

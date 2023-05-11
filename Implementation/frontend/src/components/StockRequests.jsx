@@ -38,20 +38,6 @@ export default function StockRequests() {
   // }
 
   function generatePDF() {
-
-    // const doc = new jsPDF();
-    // const today = new Date();
-    // const date = `${today.getFullYear()}-${
-    //   today.getMonth() + 1
-    // }-${today.getDate()}`;
-    // doc.setFontSize(15);
-    // doc.text(`Still Pending Stock Requests\nGenerated on ${date}`, 14, 55);
-    // doc.addImage(logo2, "JPG", 85, 7, 50, 50);
-    // doc.setFontSize(25);
-    // doc.text(15, 20, "Happy Tails");
-    // doc.setFontSize(10);
-    // doc.text(15, 30, "Adress : Happy tails shelter,\nNew kandy road,\nMalabe");
-    // doc.text(15, 43, "Tel : 01123457689");
     
     const title = "Still Pending Stock Request Report ";
     const doc = new jsPDF();

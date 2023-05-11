@@ -6,6 +6,7 @@ import Spinner from "../common/Spinner";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import { QrReader } from "react-qr-reader";
+import loginbackground from "../../assets/loginbackground.png";
 import axios from "axios";
 
 function Scanner() {
@@ -62,8 +63,11 @@ function Scanner() {
     <>
       <Header />
 
-      <div className="w-auto px-[400px] ">
-        <div className="p-4 bg-secondary my-6 rounded-[20px]">
+      <div 
+      style={{ backgroundImage: `url(${loginbackground})` }}  
+      className="w-auto lg:px-[400px] py-10 px-5 bg-cover">
+        <div className="p-4 bg-secondary rounded-[20px]">
+          <h1 className="flex justify-center text-white font-semibold text-[25px] pt-3">QR CODE SCANNER</h1>
           <QrReader
             onResult={(result, error) => {
               if (!!result) {
