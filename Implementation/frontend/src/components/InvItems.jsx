@@ -33,18 +33,48 @@ export default function InvItems() {
   console.log(Items);
 
   const onDelete = (id) => {
-    axios.delete(`http://localhost:8080/api/inventory/items/${id}`, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
-      .then((res) => {
-        toast.success("item deleted", {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-        setItems(Items.filter((item) => item._id !== id));
-      })
-      .catch((err) => alert(err));
+
+    toast.warn(
+      <div>
+        <p class="text-red-700 ml-8">Do you want to delete ?</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            style={{ marginRight: "1rem" }}
+            onClick={() => {
+              axios
+                .delete(`http://localhost:8080/api/inventory/items/${id}`)
+                .then((res) => {})
+                .catch((err) => {
+                  toast.warning(err);
+                });
+              toast.success("Item Deleted successfully", {
+                autoClose: 1000,
+              });
+              setTimeout(() => {
+                window.location.href = `/items`;
+              }, 1500);
+            }}
+          >
+            Yes
+          </button>
+          <button onClick={() => toast.dismiss()}>No</button>
+        </div>
+      </div>,
+      { autoClose: false }
+    );
+
+    // axios.delete(`http://localhost:8080/api/inventory/items/${id}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${user.token}`,
+    //   },
+    // })
+    //   .then((res) => {
+    //     toast.success("item deleted", {
+    //       position: toast.POSITION.BOTTOM_RIGHT,
+    //     });
+    //     setItems(Items.filter((item) => item._id !== id));
+    //   })
+    //   .catch((err) => alert(err));
   };
 
   const handleCategoryChange = (event) => {
