@@ -172,9 +172,6 @@ const AllEventBudget = () => {
                     Status
                   </th>
                   <th scope="col" class="px-6 py-3" style={{ color: "white" }}>
-                    Amount Status
-                  </th>
-                  <th scope="col" class="px-6 py-3" style={{ color: "white" }}>
                     Action
                   </th>
                 </tr>
@@ -217,9 +214,6 @@ const AllEventBudget = () => {
                       {request.status}
                     </td>
                     <td class="px-6 py-4" style={{ color: "black" }}>
-                      {request.amountStatus}
-                    </td>
-                    <td class="px-6 py-4" style={{ color: "black" }}>
                       <div className="flex justify-center">
                         {request.status === "Accepted" &&
                         request.amountStatus === "Paid" ? (
@@ -232,7 +226,7 @@ const AllEventBudget = () => {
                               className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"
                               onClick={() =>
                                 toast.error(
-                                  "This event has already been accepted and paid by the financial manager. You cannot edit this."
+                                  "This event has already been accepted by the financial manager. You cannot edit this."
                                 )
                               }
                             >
@@ -243,7 +237,7 @@ const AllEventBudget = () => {
                               className=" bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-full w-20"
                               onClick={() =>
                                 toast.error(
-                                  "This event has already been accepted and paid by the financial manager. You cannot delete this."
+                                  "This event has already been accepted by the financial manager. You cannot delete this."
                                 )
                               }
                             >

@@ -19,21 +19,11 @@ export default function BudgetRequestEdit() {
   const [length, setLength] = useState(0);
   const [eid, setId] = useState("");
   const [event, setEvent] = useState("");
-  const [amountStatus, setAmountStatus] = useState("Not Paid");
+  
   const [retrieveAmountStatus, setRetrieveAmountStatus] = useState("");
   const [retrieveStatus, setRetrieveStatus] = useState("");
+  const [product,setProduct] = useState([]);
 
-  // const [amountOID, setAmountOID] = useState(null);
-
-  // const [amountName,setAmountName] = useState("")
-  // const [amountPrice,setAmountPrice] = useState("")
-  // const [amountTicket,setAmountTicket] = useState("")
-  // const [amountIncome,setAmountIncome] = useState("")
-  // const [amountExpense,setAmountExpense] = useState("")
-  // const [amountResult,setAmountResult] = useState("")
-  // const [amountRate,setAmountRate] = useState("")
-  // const [eventAmount,setEventAmount] = useState({});
-  // const [oldTotal,setOldTotal] = useState(0)
 
   async function getbudget() {
     try {
@@ -42,21 +32,14 @@ export default function BudgetRequestEdit() {
       );
       const oneBudget = res.data;
       console.log(oneBudget.bud);
+      setProduct(oneBudget.bud.items)
       if (oneBudget.bud) {
         setLength(oneBudget.bud.items.length);
         setBudget(oneBudget.bud);
         setRetrieveStatus(oneBudget.bud.status);
         setRetrieveAmountStatus(oneBudget.bud.amountStatus);
 
-        // const amountRes = await axios.get("http://localhost:8080/api/eventamount/geteamounts");
-        // const allEventAmounts = amountRes.data.alleamount;
-        // const amount = allEventAmounts.filter((ea) => ea.eid === oneBudget.bud.eid)[0];
-        // console.log(amount)
-        // setEventAmount(amount)
-
-        // const a = amount._id;
-        // console.log(a);
-        // setAmountOID(a);
+        
       }
     } catch (err) {
       toast.error(err);
@@ -70,7 +53,7 @@ export default function BudgetRequestEdit() {
   useEffect(() => {
     setEventName(budget.eventName);
     setId(budget.eid);
-    // setItems(budget.items);
+     setItems(budget.items);
     setDesc(budget.description);
     //  setOldTotal(budget.total)
     setTotal(budget.total);
@@ -78,58 +61,11 @@ export default function BudgetRequestEdit() {
     // console.log(event.startTime);
   }, [budget]);
 
-  //   useEffect(() => {
-  //     setAmountOID(eventAmount._id)
-  //    setAmountID(eventAmount.eid)
-  //    setAmountName(eventAmount.eventName);
-  //    setAmountPrice(eventAmount.price);
-  //    setAmountTicket(eventAmount.noOfTicket);
-  //    setAmountIncome(eventAmount.totalIncome);
-  //    setAmountExpense(eventAmount.totalExpense);
-  //    setAmountResult(eventAmount.result);
-  //    setAmountRate(eventAmount.rate);
-  //    console.log(eventAmount.eventName)
-  //  }, [eventAmount]);
+
 
   async function EditBudget(e) {
     e.preventDefault();
-    // if(retrieveStatus === 'Accepted' && retrieveAmountStatus === 'Not Paid'){
-    //     try{
-
-    //     const newBudget = {
-    //         eid,
-    //         eventName,
-    //         items,
-    //         description,
-    //         total,
-    //         status,
-    //         amountStatus
-    //     }
-
-    //     var expen = Number(amountExpense)-Number(oldTotal)
-    //     const newamount = {
-    //       eid: eid,
-    //       eventName: eventName,
-    //       price: amountPrice,
-    //       noOfTicket: amountTicket,
-    //       totalIncome: amountIncome,
-    //       totalExpense: expense,
-    //       result: finalResult,
-    //       rate: finalRate
-    //     };
-
-    //    await axios.put(`http://localhost:8080/api/eventbudget/editbudget/${id}`,newBudget)
-    //    .then(res => {
-    //     console.log(res.data);
-    //     toast.success("Budget request sent successfully")
-    //     setTimeout(() => {
-    //       window.location.href = "/eventdashboard/budget";
-    //     }, 5000);
-
-    //    })}catch (err){
-    //     toast.error(err);
-    //   };
-    // }else{
+    
     try {
       const newBudget = {
         eid,
@@ -138,7 +74,7 @@ export default function BudgetRequestEdit() {
         description,
         total,
         status,
-        amountStatus,
+      
       };
 
       await axios
@@ -312,7 +248,7 @@ export default function BudgetRequestEdit() {
               />
             </div>
 
-            {items.map((item, index) => (
+            {product.map((item, index) => (
               <div key={index}>
                 <div class="flex flex-col mb-4 block">
                   <label

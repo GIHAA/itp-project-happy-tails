@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
-import name from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 //import { getEvents} from '../service/api';
 import "jspdf-autotable";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import filterImg from "../../assets/filter.png";
+//import { eventManager } from "react-toastify/dist/core";
+
+const moment = require('moment');
 
 const Report = () => {
   const [events, setEvent] = useState([]);
@@ -18,7 +22,8 @@ const Report = () => {
   const [rate, setRate] = useState("");
   const [Register, setRegister] = useState([]);
   const [budgetRequests, setBudgetRequests] = useState([]);
-
+  const [filterStatus, setSelectedStatus] = useState('All');
+//  const [filteredEvents, setFilteredEvents] = useState([]);
   useEffect(() => {
     async function getevents() {
       try {
@@ -26,6 +31,8 @@ const Report = () => {
           "http://localhost:8080/api/event/getEvents"
         );
         setEvent(res3.data.allevents);
+       // setFilteredEvents(res3.data.allevents);
+
       } catch (err) {
         toast.error(err);
       }
@@ -34,46 +41,70 @@ const Report = () => {
     getevents(); // call the function to fetch events
   }, []);
 
+  
+
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+  const filteredEvents = events.filter((event) => {
+    if (filterStatus === 'All') {
+      return true; // show all events
+    }
+    return event.status === filterStatus; // only show events with matching status
+  });
+ 
+
   const generatePDF = () => {
-    const doc = new jsPDF("landscape", "px", "a4", false);
-    const imgWidth = 500;
-    const imgHeight = 400;
-    const xPos = 65;
-    const yPos = 20;
-
-    // Draw gray rectangle
-    doc.setFillColor(200);
-    doc.rect(xPos, yPos, imgWidth, imgHeight, "F");
-
-    // Add image on top of rectangle
-    doc.addImage(name, "JPG", xPos, yPos, imgWidth, imgHeight);
-    doc.addPage();
-
+    const now = moment();
+    const month = now.format('MMMM'); //april,july
+    const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
+    const date2 = now.format('YYYY-MM');
+  
+    const doc = new jsPDF('landscape', 'px', 'a4', false);
+    doc.addImage(logo, 'JPG', 20, 20, 50, 50);
+  
+    // Happy Tails, Address, Phone Number, and Generated Date left aligned
+    doc.setFontSize(12);
+    doc.text(20, 80, "Happy Tails");
+    doc.text(20, 90, "Address : Happy Tails shelter,");
+    doc.text(60, 100, "New Kandy Road,");
+    doc.text(60, 110, "Malabe");
+    doc.text(20, 120, "Tel : 01123457689");
+    doc.text(20, 130, `Generated : ${date}`);
+  
+    // Event Report center aligned
     doc.setFontSize(18);
-    doc.setTextColor("#444444");
-    doc.text("Happy Tails", doc.internal.pageSize.width / 2, 30, {
-      align: "center",
-    });
-    doc.text("All Event Report", doc.internal.pageSize.width / 2, 50, {
-      align: "center",
-    });
-
+    doc.setTextColor('#444444');
+    doc.text('Event Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
+    doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
+  
     // Add horizontal line after the header
     doc.setLineWidth(0.5);
-    doc.setDrawColor("#444444");
-    doc.line(20, 60, doc.internal.pageSize.width - 20, 60);
-
+    doc.setDrawColor('#444444');
+    doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
+  
     const headers = [
-      "Event ID",
-      "Event Name",
-      "Description",
-      "Date",
-      "Start Time",
-      "End Time",
-      "Venue",
-      "Price",
+      'Event ID',
+      'Event Name',
+      'Description',
+      'Date',
+      'Start Time',
+      'End Time',
+      'Venue',
+      'Price',
+      'Status',
     ];
-    const data = events.map((event) => [
+  
+    const filter = filteredEvents.filter((event) => {
+      if (filterStatus === 'All') {
+        
+        return true; // show all events
+      }
+      
+      return event.status === filterStatus; // only show events with matching status
+    });
+ 
+    const data = filter.map((event) => [
       event.eid,
       event.name,
       event.description,
@@ -82,16 +113,16 @@ const Report = () => {
       event.endTime,
       event.venue,
       event.price,
+      event.status,
     ]);
-
+  
     // Set table margin to center horizontally and position vertically up from top
     const tableWidth = 500; // Adjust table width as needed
     const tableHeight = 30 + data.length * 10; // Adjust table height as needed
-    const horizontalMargin =
-      (doc.internal.pageSize.getWidth() - tableWidth) / 2;
-    const verticalMargin = 100; // Adjust vertical margin as needed
-    const startY = verticalMargin - 20; // Subtract 20 to offset for table header
-
+    const horizontalMargin = (doc.internal.pageSize.getWidth() - tableWidth) / 2;
+    const verticalMargin = 150; // Adjust vertical margin as needed
+    const startY = verticalMargin + 20; // Add 20 to offset for space between line and table
+  
     // Create table with margin and didDrawPage properties
     doc.autoTable({
       head: [headers],
@@ -101,9 +132,11 @@ const Report = () => {
         data.settings.margin.top = startY;
       },
     });
-
-    doc.save("AllEventReport.pdf");
+  
+    doc.save(`EventReport_${filterStatus}.pdf`);
   };
+
+  
 
   function filterContent(report, searchTerm) {
     const result = report.filter(
@@ -166,7 +199,17 @@ const Report = () => {
         >
           Download PDF
         </button>
-
+        <div>
+        <label>
+          Select status:
+          <select value={filterStatus} onChange={handleStatusChange}>
+            <option value="All">All</option>
+            <option value="Available">Accepted</option>
+            <option value="Pending">Pending</option>
+            <option value="Finished">Finished</option>
+          </select>
+        </label>
+      </div>
         <div
           class="relative overflow-x-auto shadow-md sm:rounded-lg"
           style={{ marginTop: "10px" }}
@@ -205,8 +248,8 @@ const Report = () => {
               </tr>
             </thead>
             <tbody>
-              {events.length > 0 ? (
-                events.map((event, index) => (
+              {filteredEvents.length > 0 ? (
+                filteredEvents.map((event, index) => (
                   <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     style={{ backgroundColor: "#DBD9D5" }}

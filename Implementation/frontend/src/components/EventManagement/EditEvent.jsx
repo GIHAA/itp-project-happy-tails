@@ -311,6 +311,7 @@ console.log(period); // Output: AM
                   id="status"
                   style={{ width: "65%", alignSelf: "center" }}
                   required
+                  value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option selected></option>
@@ -333,22 +334,22 @@ console.log(period); // Output: AM
                   type="time"
                   name="startTime"
                   id="startTime"
-                  defaultValue={convertTimeFormat(event.startTime)}
+                  defaultValue={startTime}
                   required
                   onChange={(e) => {
-                    const timeString = e.target.value; // get the time string in the format "HH:MM"
-                    const timeArray = timeString.split(":"); // split the time string into hours and minutes
-                    let hours = parseInt(timeArray[0]); // parse the hours as an integer
-                    let amOrPm = "AM"; // set the default to "AM"
-                    if (hours >= 12) {
-                      hours = hours - 12; // convert to 12-hour format
-                      amOrPm = "PM"; // set to "PM"
-                    }
-                    if (hours === 0) {
-                      hours = 12; // handle the case of midnight (0 hours)
-                    }
-                    const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
-                    setStart(formattedTime); // set the state to the formatted time string
+                    // const timeString = e.target.value; // get the time string in the format "HH:MM"
+                    // const timeArray = timeString.split(":"); // split the time string into hours and minutes
+                    // let hours = parseInt(timeArray[0]); // parse the hours as an integer
+                    // let amOrPm = "AM"; // set the default to "AM"
+                    // if (hours >= 12) {
+                    //   hours = hours - 12; // convert to 12-hour format
+                    //   amOrPm = "PM"; // set to "PM"
+                    // }
+                    // if (hours === 0) {
+                    //   hours = 12; // handle the case of midnight (0 hours)
+                    // }
+                    // const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
+                    setStart(e.target.value); // set the state to the formatted time string
                   }}
                 />
               </div>
@@ -369,19 +370,19 @@ console.log(period); // Output: AM
                   defaultValue={endTime}
                   required
                   onChange={(e) => {
-                    const timeString = e.target.value; // get the time string in the format "HH:MM"
-                    const timeArray = timeString.split(":"); // split the time string into hours and minutes
-                    let hours = parseInt(timeArray[0]); // parse the hours as an integer
-                    let amOrPm = "AM"; // set the default to "AM"
-                    if (hours >= 12) {
-                      hours = hours - 12; // convert to 12-hour format
-                      amOrPm = "PM"; // set to "PM"
-                    }
-                    if (hours === 0) {
-                      hours = 12; // handle the case of midnight (0 hours)
-                    }
-                    const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
-                    setEnd(formattedTime); // set the state to the formatted time string
+                    // const timeString = e.target.value; // get the time string in the format "HH:MM"
+                    // const timeArray = timeString.split(":"); // split the time string into hours and minutes
+                    // let hours = parseInt(timeArray[0]); // parse the hours as an integer
+                    // let amOrPm = "AM"; // set the default to "AM"
+                    // if (hours >= 12) {
+                    //   hours = hours - 12; // convert to 12-hour format
+                    //   amOrPm = "PM"; // set to "PM"
+                    // }
+                    // if (hours === 0) {
+                    //   hours = 12; // handle the case of midnight (0 hours)
+                    // }
+                    // const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
+                    setEnd(e.target.value); // set the state to the formatted time string
                   }}
                 />
               </div>

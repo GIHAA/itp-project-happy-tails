@@ -5,11 +5,25 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import filterImg from "../../assets/filter.png";
 
 export default function AllEvent() {
   const [events, setEvent] = useState([]);
   const [eventid, setEventID] = useState("");
   const [eventAmount, setEventAmount] = useState([]);
+  const [filterStatus, setFilterStatus] = useState('All');
+  
+  const handleStatusChange = (e) => {
+    setFilterStatus(e.target.value);
+  };
+
+  const filteredEvents = events.filter((event) => {
+    if (filterStatus === 'All') {
+      return true; // show all events
+    }
+    return event.status === filterStatus; // only show events with matching status
+  });
+  
   useEffect(() => {
     async function getevents() {
       try {
@@ -17,7 +31,37 @@ export default function AllEvent() {
           "http://localhost:8080/api/event/getEvents"
         );
 
-        setEvent(res.data.allevents);
+        const formattedEvents = res.data.allevents.map((event) => {
+          // Formatting the start time
+          const timeArray = event.startTime.split(":");
+          let hours = parseInt(timeArray[0]);
+          let amOrPm = "AM";
+          if (hours >= 12) {
+            hours = hours - 12;
+            amOrPm = "PM";
+          }
+          if (hours === 0) {
+            hours = 12;
+          }
+          const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`;
+  
+          // Formatting the end time
+          const endtimeArray = event.endTime.split(":");
+          let endhours = parseInt(endtimeArray[0]);
+          let endamOrPm = "AM";
+          if (endhours >= 12) {
+            endhours = endhours - 12;
+            endamOrPm = "PM";
+          }
+          if (endhours === 0) {
+            endhours = 12;
+          }
+          const formattedEndTime = `${endhours}:${endtimeArray[1]} ${endamOrPm}`;
+  
+          return { ...event, startTime: formattedTime, endTime: formattedEndTime };
+        });
+  
+        setEvent(formattedEvents);
       } catch (err) {
         toast.error(err);
       }
@@ -159,9 +203,20 @@ export default function AllEvent() {
             </div>
 
             <h1 className="text-2xl font-bold mb-4">All Events</h1>
-
-            {events.length > 0 ? (
-              events.map((event, index) => (
+            <div class="flex flex-row-reverse space-x-1 space-x-reverse ...">
+<div className="relative mt-6 ml-[830px] mb-1">
+                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
+                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+ value={filterStatus} onChange={handleStatusChange}>
+        <option value="All">All</option>
+        <option value="Pending">Pending</option>
+        <option value="Available">Available</option>
+        <option value="Finished">Finished</option>
+      </select>
+      </div>
+      </div>
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((event, index) => (
                 <div
                   class="flex flex-col space-x-4 text-center bg-gray-500 shadow-lg shadow-gray-500/50 rounded-lg w-full mx-20"
                   style={{ margin: "20px", backgroundColor: "#EFF0F6" }}

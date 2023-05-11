@@ -26,14 +26,14 @@ const AllEventStock = () => {
     axios
       .delete(`http://localhost:8080/api/eventstock/deleteStock/${id}`)
       .then((res) => {
-        console.log(res); // Add this line to check if the then block is being executed
+        console.log(res); 
         toast.success("Requested Stock Deleted!!");
         setTimeout(() => {
           window.location.reload();
         }, 5000);
       })
       .catch((err) => {
-        console.log(err); // Add this line to check if there is an error
+        console.log(err); 
         toast.error(err);
       });
   };
@@ -152,6 +152,9 @@ const AllEventStock = () => {
                     Status
                   </th>
                   <th scope="col" class="px-6 py-3" style={{ color: "white" }}>
+                    Amount
+                  </th>
+                  <th scope="col" class="px-6 py-3" style={{ color: "white" }}>
                     Action
                   </th>
                 </tr>
@@ -190,6 +193,9 @@ const AllEventStock = () => {
 
                     <td class="px-6 py-4" style={{ color: "black" }}>
                       {request.status}
+                    </td>
+                    <td class="px-6 py-4" style={{ color: "black" }}>
+                      {request.total}
                     </td>
                     <td class="px-6 py-4" style={{ color: "black" }}>
                       <div className="flex justify-center">
