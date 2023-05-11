@@ -117,6 +117,15 @@ const updateUser = asyncHandler(async (req, res) => {
     user.password
   );
 
+  if(req.body.email){
+    const userExists = await User.findOne({ email :req.body.email });
+
+    if (userExists) {
+      res.status(400);
+      throw new Error("User already exists");
+    }
+  }
+
   if (user && passmatch) {
     const salt = await bcrypt.genSalt(10);
 
