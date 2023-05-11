@@ -8,13 +8,10 @@ const GetBooking = () => {
   const [isError, setIsError] = useState("");
   const [petCount, setPetCount] = useState(0);
   const [petCountsByIndex, setPetCountsByIndex] = useState([]);
-  const{user} = useSelector ((state) => state.auth);
-  
-  function refreshPage() {
-    setTimeout(function () {
-      window.location.reload(false);
-    }, 2000);
-  }
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPayData, setFilteredPayData] = useState([]);
+  const { user } = useSelector((state) => state.auth);
+ 
 
   useEffect(() => {
     axios
@@ -32,7 +29,9 @@ const GetBooking = () => {
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);
-
+        // setTimeout(()=>{
+        //   setFilteredPayData(data);
+        // }, 2000)
       })
       .catch((error) => setIsError(error.message));
   }, []);
@@ -278,4 +277,4 @@ const GetBooking = () => {
   );
 };
 
-export default GetBooking;
+export default GetBooking;
