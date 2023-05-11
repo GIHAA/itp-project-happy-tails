@@ -14,7 +14,6 @@ const reqBudget = (req, res) => {
     description,
     total,
     status,
-    amountStatus,
   } = req.body;
 
   // Create a new event
@@ -26,7 +25,6 @@ const reqBudget = (req, res) => {
     description,
     total,
     status,
-    amountStatus,
   });
 
   // Save the budget request to the database
@@ -115,7 +113,7 @@ const getbudget = async (req, res) => {
 // update budget request
 const editbudget = async (req, res) => {
   const { id } = req.params;
-  const { eid, eventName, items, description, total, status, amountStatus } =
+  const { eid, eventName, items, description, total, status } =
     req.body;
   const updatedBudgetData = {
     eid,
@@ -124,7 +122,6 @@ const editbudget = async (req, res) => {
     description,
     total,
     status,
-    amountStatus,
   };
 
   // Validate the id
@@ -139,8 +136,7 @@ const editbudget = async (req, res) => {
     !items ||
     !description ||
     !total ||
-    !status ||
-    !amountStatus
+    !status 
   ) {
     return res.status(400).send({ error: "Missing required fields" });
   }

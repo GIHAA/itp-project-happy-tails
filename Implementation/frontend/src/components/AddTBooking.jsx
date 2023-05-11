@@ -17,6 +17,7 @@ export default function AddTBooking() {
     const[date, setDate] = useState("");
     const[time, setTime] = useState("");
     const[count, setCount] = useState("");
+    const[phone, setPhone] = useState("");
     const[email, setEmail] = useState("");
 
 
@@ -33,6 +34,7 @@ export default function AddTBooking() {
             date,
             time,
             count,
+            phone,
             email
 
     }
@@ -83,7 +85,7 @@ export default function AddTBooking() {
 
                 <div className=" bg-white bg-opacity-90 w-[75%] h-[80%] absolute top-5 left-[80px] overflow-scroll"> 
 
-                    <div className="w-[800px] h-[400px] mx-auto rounded-2xl bg-white mt-8">
+                    <div className="w-[800px] h-[800px] mx-auto rounded-2xl bg-white mt-8">
 
                     <h1 
                     className=" text-[#ffffff] bg-[#FF9F00] rounded-t-2xl font-bold text-3xl h-20 mb-4 pt-5 text-center drop-shadow-md"
@@ -153,17 +155,37 @@ export default function AddTBooking() {
                                 </div>
 
                                 <div className="flex mb-6">
-
-                                <div className=" w-[50%]  ">
-                                        <label className="">Number of pets :</label>
-                                        <input type="number" 
-                                        className=" rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                        onChange={(e)=>{
-                                            setCount(e.target.value)}} required />                        
+                                    <div className="w-[50%]">
+                                        <label>Number of pets:</label>
+                                        <input 
+                                        type="number" 
+                                        className="rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
+                                        value={count}
+                                        onChange={(e) => {
+                                            if (e.target.value > 0) {
+                                            setCount(e.target.value)
+                                            }
+                                        }}
+                                        required 
+                                        />
+                                        {count <= 0 && (
+                                        <p className="text-red-500 text-sm mt-1">Number of pets must be larger than zero.</p>
+                                        )}
                                     </div>
-
-                                    
                                 </div>
+
+
+                                <div className="flex mb-6">
+                                    <div className="w-[50%]">
+                                        <label>Contact Number :</label>
+                                        <input type="tel" pattern="[0-9]{10}"
+                                            className="rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
+                                            onChange={(e) => {
+                                                setPhone(e.target.value);
+                                            }} required />
+                                    </div>
+                                </div>
+
 
                                 <div className="flex mb-6">
 

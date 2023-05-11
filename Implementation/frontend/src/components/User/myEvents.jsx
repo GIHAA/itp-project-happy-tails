@@ -33,13 +33,6 @@ const Booking = (props) => {
     setShowDescriptonModal(true);
   };
 
-  // const handleDelete = (booking) => {
-  //   const response = adpotServices.delete(formData);
-  //   console.log(response);
-
-  //   if (response) toast.success("Booking deleted successfully");
-  // };
-
   const refreshTable = () => {
     setData([]);
     axios
@@ -67,9 +60,7 @@ const Booking = (props) => {
             <h1 className="text-center text-[20px] font-bold mb-5">
               Registred Events
             </h1>
-            <div className="flex justify-end">
-       
-            </div>
+            <div className="flex justify-end"></div>
             {isLoading ? (
               <Spinner />
             ) : (
@@ -85,26 +76,24 @@ const Booking = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) =>
-                    (
-                      <>
-                        <tr
-                          key={item._id}
-                          className="h-[55px] border-[1px] border-gray-400"
+                  {data.map((item) => (
+                    <>
+                      <tr
+                        key={item._id}
+                        className="h-[55px] border-[1px] border-gray-400"
+                      >
+                        <td
+                          className="pl-4"
+                          onClick={() => handleDescription(item)}
                         >
-                          <td
-                            className="pl-4"
-                            onClick={() => handleDescription(item)}
-                          >
-                            {item.bookid}
-                          </td>
-                          <td className="text-center">{item.eid}</td>
-                          <td className="text-center">{item.eventName}</td>
-                          <td className="text-center">{item.noOfTicket}</td>
-                          <td className="text-center">{item.total}</td>
-                   
+                          {item.bookid}
+                        </td>
+                        <td className="text-center">{item.eid}</td>
+                        <td className="text-center">{item.eventName}</td>
+                        <td className="text-center">{item.noOfTicket}</td>
+                        <td className="text-center">{item.total}</td>
 
-                          {/* <td className="text-center">
+                        {/* <td className="text-center">
                       <button
                         onFocus={() =>
                           setFormData((prevFormData) => ({
@@ -117,10 +106,9 @@ const Booking = (props) => {
                         Delete
                       </button>
                     </td> */}
-                        </tr>
-                      </>
-                    ) 
-                  )}
+                      </tr>
+                    </>
+                  ))}
                 </tbody>
               </table>
             )}
@@ -132,45 +120,74 @@ const Booking = (props) => {
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8">
             <h2 className="text-lg font-bold mb-4 ">
-              Pet ID {selectedBooking.petId}
+              Event ID {selectedBooking.eid}
             </h2>
-            <img
+            {/* <img
               src={selectedBooking.image}
               className="w-[300px] h-[300px]"
-            ></img>
+            ></img> */}
             <br></br>
             <table class="border-collapse w-full">
               <tbody>
-                <tr class="bg-gray-200">
+                <tr class="bg-gray-100">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
-                    Name
+                    Event Name
                   </td>
                   <td class="border border-gray-400 px-4 py-2">
-                    {selectedBooking.petName}
+                    {selectedBooking.eventName}
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Customer Name
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.cusName}
                   </td>
                 </tr>
                 <tr class="bg-gray-100">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
-                    Species
+                    Number of tickets
                   </td>
                   <td class="border border-gray-400 px-4 py-2">
-                    {selectedBooking.species}
+                    {selectedBooking.noOfTicket}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Phone Number
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.phoneNumber}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Email
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {selectedBooking.email}
                   </td>
                 </tr>
                 <tr class="bg-gray-200">
                   <td class="border border-gray-400 px-4 py-2 font-medium">
-                    Gender
+                    Total
                   </td>
                   <td class="border border-gray-400 px-4 py-2">
-                    {selectedBooking.gender}
+                    {selectedBooking.total}
                   </td>
                 </tr>
                 <br></br>
               </tbody>
             </table>
-            <button className="" onClick={() => setShowDescriptonModal(false)}>
-              Close
-            </button>
+            <div className="flex justify-end">
+              <button
+                className="bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => setShowDescriptonModal(false)}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

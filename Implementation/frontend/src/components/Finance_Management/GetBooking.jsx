@@ -18,19 +18,21 @@ const GetBooking = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking",{
+      .get("http://localhost:8080/api/booking", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       })
       .then((response) => {
-        const data = response.data;
-        console.log(response);
+        const data = response.data
+        console.log(data)
         setpayData(data);
+        setFilteredPayData(data);
         const petCounts = data.map((item) => item.mini.length);
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);
+
       })
       .catch((error) => setIsError(error.message));
   }, []);
@@ -67,6 +69,44 @@ const GetBooking = () => {
   const max = calculateBooked();
   const countShel = calculateShel();
 
+  
+
+
+  function refreshPage() {
+    setTimeout(function () {
+      // window.location.reload(false);
+      axios.get("http://localhost:8080/api/booking", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+        .then((response) => {
+          const data = response.data;
+          console.log(response);
+          setpayData(data);
+          const petCounts = data.map((item) => item.mini.length);
+          const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
+          setPetCount(totalPetCount);
+          setPetCountsByIndex(petCounts);
+        })
+        .catch((error) => setIsError(error.message));
+    }, 3000);
+  }
+
+  function handleSearch(e) {
+    const selectedOption = e.target.value;
+    setSearchTerm(selectedOption);
+
+    if (selectedOption === "") {
+      setFilteredPayData(payData);
+    } else {
+      const filteredData = payData.filter(item => {
+        return item.status === selectedOption;
+      });
+      setFilteredPayData(filteredData);
+    }
+  }
+  console.log(searchTerm);
   return (
     <>
       {/* //BALANCE BAR */}
@@ -112,14 +152,26 @@ const GetBooking = () => {
                 <tr class="text-base font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th className="px-10 py-4">Customer Name</th>
                   <th className="px-10 py-4">Booking ID </th>
-                  <th className="px-10 py-4">Status </th>
+                  <th className="px-10 py-4">     <select
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-28 text-center  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                     <option className="text-center" value="" selected>All</option> 
+                     <option className="text-center" value="CLOSED">CLOSED</option> 
+                    <option className="text-center" value="SHELTERED">SHELTERED</option>
+                    <option className="text-center" value="BOOKED">BOOKED</option>
+
+
+
+                  </select> </th>
                   <th className="px-10 py-4">Pet Count</th>
                   <th className="px-10 py-4">Pet Id's</th>
                   <th className="px-10 py-4">Action</th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                {payData.map((data) => {
+                {filteredPayData.map((data) => {
                   const {
                     _id,
                     cus_name,
@@ -167,6 +219,7 @@ const GetBooking = () => {
                         console.log(cus_name);
                         console.log(response.data);
                         calculateprice();
+                        refreshPage()
                       })
                       .catch((error) => {
                         console.log(error);

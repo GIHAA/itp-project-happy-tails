@@ -31,6 +31,9 @@ const stockRequestSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  total: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("stockr", stockRequestSchema);

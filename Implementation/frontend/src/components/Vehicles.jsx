@@ -39,7 +39,7 @@ export default function Vehicle() {
   
   
   const genarateReport = () => {
-    const title = "Available Vehicles";
+    const title = "All Vehicles";
     const doc = new jsPDF();
     const today = new Date();
     const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;

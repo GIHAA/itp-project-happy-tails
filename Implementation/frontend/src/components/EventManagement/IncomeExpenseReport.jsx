@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
-import name from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 import "jspdf-autotable";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+const moment = require('moment');
 const IncomeExpenseReport = () => {
   const [events, setEvents] = useState([]);
   const [register, setRegister] = useState([]);
   const [budget, setBudget] = useState([]);
   const [data, setData] = useState([]);
   const [eventAmount, setEventAmount] = useState([]);
+  const [filterStatus, setSelectedStatus] = useState('All');
+
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+  const filteredEvents = eventAmount.filter((event) => {
+    if (filterStatus === 'All') {
+      return true; 
+    }
+    return event.result === filterStatus; 
+  });
+
 
   const generatePDFamount = () => {
-    const doc = new jsPDF("landscape", "px", "a4", false);
-    const imgWidth = 500;
-    const imgHeight = 400;
-    const xPos = 65;
-    const yPos = 20;
-
-    // Draw gray rectangle
-    doc.setFillColor(200);
-    doc.rect(xPos, yPos, imgWidth, imgHeight, "F");
-
-    // Add image on top of rectangle
-    doc.addImage(name, "JPG", xPos, yPos, imgWidth, imgHeight);
-    doc.addPage();
-
+    const now = moment();
+    const month = now.format('MMMM'); //april,july
+    const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
+    const date2 = now.format('YYYY-MM');
+  
+    const doc = new jsPDF('landscape', 'px', 'a4', false);
+    doc.addImage(logo, 'JPG', 20, 20, 50, 50);
+  
+    // Happy Tails, Address, Phone Number, and Generated Date left aligned
+    doc.setFontSize(12);
+    doc.text(20, 80, "Happy Tails");
+    doc.text(20, 90, "Address : Happy Tails shelter,");
+    doc.text(60, 100, "New Kandy Road,");
+    doc.text(60, 110, "Malabe");
+    doc.text(20, 120, "Tel : 01123457689");
+    doc.text(20, 130, `Generated : ${date}`);
+  
+    // Event Report center aligned
     doc.setFontSize(18);
-    doc.setTextColor("#444444");
-    doc.text("Happy Tails", doc.internal.pageSize.width / 2, 30, {
-      align: "center",
-    });
-    doc.text(
-      "All Event Income-Expense Report",
-      doc.internal.pageSize.width / 2,
-      50,
-      { align: "center" }
-    );
-
+    doc.setTextColor('#444444');
+    doc.text('Income-Expense Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
+    doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
+  
     // Add horizontal line after the header
     doc.setLineWidth(0.5);
-    doc.setDrawColor("#444444");
-    doc.line(20, 60, doc.internal.pageSize.width - 20, 60);
-
+    doc.setDrawColor('#444444');
+    doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
+  
     const headers = [
       "Event ID",
       "Event Name",
@@ -56,7 +65,16 @@ const IncomeExpenseReport = () => {
       "Result Rate",
     ];
 
-    const data = eventAmount.map((event) => {
+    const filter = filteredEvents.filter((event) => {
+      if (filterStatus === 'All') {
+        
+        return true; // show all events
+      }
+      
+      return event.result === filterStatus; // only show events with matching status
+    });
+ 
+    const data = filter.map((event) => {
       const {
         eid,
         eventName,
@@ -126,11 +144,10 @@ const IncomeExpenseReport = () => {
     // Set table margin to center horizontally and position vertically up from top
     const tableWidth = 500; // Adjust table width as needed
     const tableHeight = 30 + data.length * 10; // Adjust table height as needed
-    const horizontalMargin =
-      (doc.internal.pageSize.getWidth() - tableWidth) / 2;
-    const verticalMargin = 100; // Adjust vertical margin as needed
-    const startY = verticalMargin - 20; // Subtract 20 to offset for table header
-
+    const horizontalMargin = (doc.internal.pageSize.getWidth() - tableWidth) / 2;
+    const verticalMargin = 150; // Adjust vertical margin as needed
+    const startY = verticalMargin + 20; // Add 20 to offset for space between line and table
+  
     // Create table with margin and didDrawPage properties
     doc.autoTable({
       head: [headers],
@@ -141,7 +158,7 @@ const IncomeExpenseReport = () => {
       },
     });
 
-    doc.save("AllEventIncomeExpenseReport.pdf");
+    doc.save(`AllEventIncomeExpenseReport_${filterStatus}.pdf`);
   };
 
   useEffect(() => {
@@ -172,56 +189,7 @@ const IncomeExpenseReport = () => {
     };
     fetchData();
   }, []);
-  //console.log(eventAmount)
-  // useEffect(() => {
-  //   if (events.length === 0 || register.length === 0 || budget.length === 0) {
-  //     return;
-  //   }
-  //   const eventsData = events.map((event) => {
-  //     let ticketCount = 0;
-  //     let expense = 0;
-  //     let rate = 0;
-  //     let result = "";
-
-  //     register.forEach((reg) => {
-  //       if (event.name === reg.eventName) {
-  //         ticketCount += Number(reg.noOfTicket);
-  //       }
-  //     });
-
-  //     const income = ticketCount * event.price;
-
-  //     budget.forEach((bud) => {
-  //       if (event.name === bud.eventName &&
-  //           event.eid === bud.eid &&
-  //           bud.status === "Accepted" &&
-  //           bud.amountStatus === "Paid") {
-  //         expense += Number(bud.total);
-  //       }
-  //     });
-
-  //     if (expense === 0 || income === 0) {
-  //       result = "Not started";
-  //       rate = 0;
-  //     } else {
-  //       result = ticketCount * event.price > expense ? "Profit" : "Loss";
-  //       rate = ((ticketCount * event.price - expense) / expense) * 100;
-  //     }
-
-  //     return {
-  //       eid: event.eid,
-  //       eventName: event.name,
-  //       price: event.price,
-  //       ticketCount: ticketCount,
-  //       revenue: income,
-  //       expense: expense,
-  //       result: result,
-  //       rate: rate.toFixed(2),
-  //     };
-  //   });
-  //   setData(eventsData);
-  // }, [events, register, budget]);
-
+ 
   function filterContent(report, searchTerm) {
     const result = report.filter(
       (r) =>
@@ -284,7 +252,17 @@ const IncomeExpenseReport = () => {
           Download PDF
         </button>
         {/* <button style={{ backgroundColor: '#E471D2' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={(e) => addIncomeExpense(e)}>View Bar Chart</button> */}
-
+        <div>
+        <label>
+          Select status:
+          <select value={filterStatus} onChange={handleStatusChange}>
+            <option value="All">All</option>
+            <option value="Profit">Profit</option>
+            <option value="Loss">Loss</option>
+            <option value="Not Started">Not Started</option>
+          </select>
+        </label>
+      </div>
         <div
           class="relative overflow-x-auto shadow-md sm:rounded-lg"
           style={{ marginTop: "10px" }}
@@ -323,8 +301,8 @@ const IncomeExpenseReport = () => {
               </tr>
             </thead>
             <tbody>
-              {eventAmount.length > 0 ? (
-                eventAmount.map((event) => {
+              {filteredEvents.length > 0 ? (
+                filteredEvents.map((event) => {
                   return (
                     <tr
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"

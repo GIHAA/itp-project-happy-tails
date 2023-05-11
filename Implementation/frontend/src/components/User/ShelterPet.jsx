@@ -67,6 +67,7 @@ function ShelterPet() {
     phone: "",
     time: "",
     email: user.email,
+    count: 2
   });
 
   const handleSliderChange = (event) => {
@@ -113,40 +114,44 @@ function ShelterPet() {
       return /^\d{10}$/.test(str);
     };
 
-    if (rememberChecked) {
-      if (!isNumberAndTenDigit(formData.contactNumbers)) {
-        toast.error("Please enter a valid contact number");
-        return;
-      }
-      if (!isDateValid) {
-        toast.error("Please enter a valid date range");
-        return;
-      }
-      try {
-        bookingServices.addBooking(formData);
-        toast.success("Booking added successfully");
-        setshowaskTransportModal(true);
-
-        setFormData({
-          cus_id: user._id,
-          cus_name: user.name,
-          bid,
-          token: user.token,
-          bid: 0,
-          petCount: 1,
-          mini: [{ name: "", description: "", type: "cat", pid: 0 }],
-          contactNumbers: "",
-          description: "",
-          startDate: new Date(),
-          endDate: new Date(),
-        });
-        setTotal(0);
-      } catch (error) {
-        toast.error("Something went wrong");
-      }
-    } else {
-      toast.error("Please agree to the terms and conditions");
+    if(formData.petCount === 0 ){
+      toast.error("Number of pets can't be zero")
+      return
     }
+      if (rememberChecked) {
+        if (!isNumberAndTenDigit(formData.contactNumbers)) {
+          toast.error("Please enter a valid contact number");
+          return;
+        }
+        if (!isDateValid) {
+          toast.error("Please enter a valid date range");
+          return;
+        }
+        try {
+          bookingServices.addBooking(formData);
+          toast.success("Booking added successfully");
+          setshowaskTransportModal(true);
+
+          setFormData({
+            cus_id: user._id,
+            cus_name: user.name,
+            bid,
+            token: user.token,
+            bid: 0,
+            petCount: 0,
+            mini: [{ name: "", description: "", type: "cat", pid: 0 }],
+            contactNumbers: "",
+            description: "",
+            startDate: new Date(),
+            endDate: new Date(),
+          });
+          setTotal(0);
+        } catch (error) {
+          toast.error("Something went wrong");
+        }
+      } else {
+        toast.error("Please agree to the terms and conditions");
+      }
 
     
   };
@@ -330,6 +335,7 @@ function ShelterPet() {
                       id="outlined-basic"
                       label="Enter Name"
                       variant="outlined"
+                      required={true}
                       value={formData.mini[index]?.name || ""}
                       onChange={(event) =>
                         setFormData((prevFormData) => {
@@ -525,7 +531,7 @@ function ShelterPet() {
       {showaskTransportModal && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8">
-            <h2 className="text-lg font-bold mb-4">a
+            <h2 className="text-lg font-bold mb-4">
               Would you like to request Transport for your pets
             </h2>
             <div className="flex">
@@ -566,8 +572,10 @@ function ShelterPet() {
             <img src={qrCodeSrc} alt="QR code" />
           </div>
           <div class="flex justify-center mt-4">
-          <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-              <a href={`/`}>Close</a>
+          <button onClick={() => {
+                  setShowQRCode(false);
+          }} className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+             Close
             </button>
             <button
              className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"

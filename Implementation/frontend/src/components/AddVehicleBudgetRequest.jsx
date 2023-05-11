@@ -41,10 +41,7 @@ export default function AddVehicleBudgetRequestForm() {
 
       })
       .catch((err) => {
-        if (err.response.status === 409)
-         toast.error("Cannot insert !! Request already exists !!", { position: toast.POSITION.TOP_RIGHT });
-
-        else 
+       
         toast.error(`Request insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
 
       });

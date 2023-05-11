@@ -53,17 +53,17 @@ const adminProtect = asyncHandler(async (req, res, next) => {
   }
 });
 
-const shelterProtect = asyncHandler(async (req, res, next) => {
-  if (req.user.role == "SHELTER") {
+const eventProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "EVENT_MANAGER") {
     next();
   } else {
     res.status(401);
-    throw new Error("Not authorized, not a SHELTER_MANAGER");
+    throw new Error("Not authorized, not a EVENT_MANAGER");
   }
 });
 
-const eventProtect = asyncHandler(async (req, res, next) => {
-  if (req.user.role == "EVENT") {
+const iventoryProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "INVENTORY_MANAGER") {
     next();
   } else {
     res.status(401);
@@ -71,4 +71,42 @@ const eventProtect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = { protect, userProtect, adminProtect };
+const vehicleProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "VEHICLE_MANAGER") {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized, not an VEHICLE_MANAGER");
+  }
+});
+
+const animalProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "ANIMAL_MANAGER") {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized, not an ANIMAL_MANAGER");
+  }
+});
+
+const finacialProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "FINANCIAL_MANAGER") {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized, not an FINANCIAL_MANAGER");
+  }
+});
+
+const supplierProtect = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "SUPPLIER_MANAGER") {
+    next();
+  } else {
+    res.status(401);
+    throw new Error("Not authorized, not an SUPPLIER_MANAGER");
+  }
+});
+
+
+
+module.exports = { protect, userProtect, adminProtect ,eventProtect,iventoryProtect ,vehicleProtect ,animalProtect , finacialProtect , supplierProtect};

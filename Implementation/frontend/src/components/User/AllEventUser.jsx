@@ -209,11 +209,11 @@ export default function AllEvent() {
                               <div className="bg-cover bg-center rounded-[20px] flex justify-center">
                                 <img
                                   src={event.image}
-                                  className="w-auto h-[350px] rounded-[20px]"
+                                  className="w-auto lg:h-[350px] rounded-[20px]"
                                 />
                               </div>
 
-                              <div className="col-span-2 rounded-[20px] bg-bg p-4">
+                              <div className="col-span-2 sm:w=[400px] rounded-[20px] bg-bg p-4">
                                 <h1 className="font-bold text-secondary text-[30px] ">
                                   {event.petName}
                                 </h1>

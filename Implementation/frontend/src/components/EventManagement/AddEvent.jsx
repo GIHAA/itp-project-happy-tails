@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector, useDispatch } from "react-redux";
 
 function AddEvent() {
   const [eventName, setEName] = useState("");
@@ -21,11 +22,13 @@ function AddEvent() {
   const [size, setSize] = useState("");
   const [firstId, setFirstId] = useState("");
 
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
     async function getEvents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          "http://localhost:8080/api/event/getEvents",
         );
         // const eids = res.data.allevents.map((event) => event.eid);
         // const lastId = parseInt(eids[eids.length - 1], 10);
@@ -61,6 +64,7 @@ function AddEvent() {
     getEventAmounts();
   }, []);
 
+ 
   console.log(firstId);
   function addEvent(e) {
     e.preventDefault();
@@ -86,7 +90,7 @@ function AddEvent() {
       noOfTicket: 0,
       totalIncome: 0,
       totalExpense: 0,
-      result: "Not Stared",
+      result: "Not Started",
       rate: 0.0,
     };
     // console.log(eid);
@@ -96,6 +100,7 @@ function AddEvent() {
           "Content-Type": "application/json",
           Accept: "application/json",
           "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${user.token}`,
         },
       }),
       axios.post("http://localhost:8080/api/eventamount/addeamount", newamount),
@@ -219,19 +224,19 @@ function AddEvent() {
                   id="startTime"
                   required
                   onChange={(e) => {
-                    const timeString = e.target.value; // get the time string in the format "HH:MM"
-                    const timeArray = timeString.split(":"); // split the time string into hours and minutes
-                    let hours = parseInt(timeArray[0]); // parse the hours as an integer
-                    let amOrPm = "AM"; // set the default to "AM"
-                    if (hours >= 12) {
-                      hours = hours - 12; // convert to 12-hour format
-                      amOrPm = "PM"; // set to "PM"
-                    }
-                    if (hours === 0) {
-                      hours = 12; // handle the case of midnight (0 hours)
-                    }
-                    const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
-                    setStart(formattedTime); // set the state to the formatted time string
+                    // const timeString = e.target.value; // get the time string in the format "HH:MM"
+                    // const timeArray = timeString.split(":"); // split the time string into hours and minutes
+                    // let hours = parseInt(timeArray[0]); // parse the hours as an integer
+                    // let amOrPm = "AM"; // set the default to "AM"
+                    // if (hours >= 12) {
+                    //   hours = hours - 12; // convert to 12-hour format
+                    //   amOrPm = "PM"; // set to "PM"
+                    // }
+                    // if (hours === 0) {
+                    //   hours = 12; // handle the case of midnight (0 hours)
+                    // }
+                    // const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
+                    setStart(e.target.value); // set the state to the formatted time string
                   }}
                 />
               </div>
@@ -252,19 +257,19 @@ function AddEvent() {
                   id="endTime"
                   required
                   onChange={(e) => {
-                    const timeString = e.target.value; // get the time string in the format "HH:MM"
-                    const timeArray = timeString.split(":"); // split the time string into hours and minutes
-                    let hours = parseInt(timeArray[0]); // parse the hours as an integer
-                    let amOrPm = "AM"; // set the default to "AM"
-                    if (hours >= 12) {
-                      hours = hours - 12; // convert to 12-hour format
-                      amOrPm = "PM"; // set to "PM"
-                    }
-                    if (hours === 0) {
-                      hours = 12; // handle the case of midnight (0 hours)
-                    }
-                    const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
-                    setEnd(formattedTime); // set the state to the formatted time string
+                    // const timeString = e.target.value; // get the time string in the format "HH:MM"
+                    // const timeArray = timeString.split(":"); // split the time string into hours and minutes
+                    // let hours = parseInt(timeArray[0]); // parse the hours as an integer
+                    // let amOrPm = "AM"; // set the default to "AM"
+                    // if (hours >= 12) {
+                    //   hours = hours - 12; // convert to 12-hour format
+                    //   amOrPm = "PM"; // set to "PM"
+                    // }
+                    // if (hours === 0) {
+                    //   hours = 12; // handle the case of midnight (0 hours)
+                    // }
+                    // const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`; // create the formatted time string
+                    setEnd(e.target.value); // set the state to the formatted time string
                   }}
                 />
               </div>

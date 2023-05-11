@@ -6,16 +6,17 @@ import Spinner from "../common/Spinner";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import { QrReader } from "react-qr-reader";
+import loginbackground from "../../assets/loginbackground.png";
 import axios from "axios";
 
 function Scanner() {
   const [data, setData] = useState("No result");
   const [ booking , setBooking ] = useState([])
   const [showBookingModal , setshowBookingModal] = useState(false)
+  const [showEventModal , setshowEventModal] = useState(false)
   const [isLoading , setIsLoading] = useState(false)
 
   const { user } = useSelector((state) => state.auth);
-
 
   const display = (text) => {
     console.log(text)
@@ -26,8 +27,6 @@ function Scanner() {
       if (endpoint === "event") {
         displayEvent(text);
       } else if (endpoint === "booking") {
-
-    
         displayBooking(text);
       } else {
         
@@ -54,16 +53,29 @@ function Scanner() {
   };
   
 
-  const displayEvent =()=>{
-    
+  const displayEvent =(text)=>{
+    axios
+    .get(text)
+    .then((res) => {
+      setBooking(res.data[0]);
+      setIsLoading(false)
+      setshowEventModal(true)
+      
+    })
+    .catch((err) => {
+      toast.error(err);
+    });
   }
 
   return (
     <>
       <Header />
 
-      <div className="w-auto px-[400px] ">
-        <div className="p-4 bg-secondary my-6 rounded-[20px]">
+      <div 
+      style={{ backgroundImage: `url(${loginbackground})` }}  
+      className="w-auto lg:px-[400px] py-10 px-5 bg-cover">
+        <div className="p-4 bg-secondary rounded-[20px]">
+          <h1 className="flex justify-center text-white font-semibold text-[25px] pt-3">QR CODE SCANNER</h1>
           <QrReader
             onResult={(result, error) => {
               if (!!result) {
@@ -192,6 +204,87 @@ function Scanner() {
  </div>
 </div>
       )}
+
+
+      {
+
+        showEventModal && (
+          <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white rounded-lg p-8">
+            <h2 className="text-lg font-bold mb-4 ">
+              Event ID {booking.eid}
+            </h2>
+            {/* <img
+              src={selectedBooking.image}
+              className="w-[300px] h-[300px]"
+            ></img> */}
+            <br></br>
+            <table class="border-collapse w-full">
+              <tbody>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Event Name
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.eventName}
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Customer Name
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.cusName}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Number of tickets
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.noOfTicket}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Phone Number
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.phoneNumber}
+                  </td>
+                </tr>
+                <tr class="bg-gray-100">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Email
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.email}
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border border-gray-400 px-4 py-2 font-medium">
+                    Total
+                  </td>
+                  <td class="border border-gray-400 px-4 py-2">
+                    {booking.total}
+                  </td>
+                </tr>
+                <br></br>
+              </tbody>
+            </table>
+            <div className="flex justify-end">
+              <button
+                className="bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => setshowEventModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+        )
+
+      }
     </>
   );
 }

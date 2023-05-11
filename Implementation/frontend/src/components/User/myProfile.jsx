@@ -1,5 +1,4 @@
 import React from "react";
-import temp from "../../assets/temp.jpg";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -245,27 +244,7 @@ const Profile = (props) => {
           </div>
 
           <div className="w-2/3  h-64">
-            {/* <div>
-              <pre>User ID - {user._id}</pre>{" "}
-            </div>
-            <div>
-              <pre>
-                Member Since -{" "}
-                {user.createdAt.substring(0, 10) +
-                  " " +
-                  user.createdAt.substring(11, 16) +
-                  " UTC"}
-              </pre>{" "}
-            </div>
-            <div>
-              <pre>
-                Last Edited -{" "}
-                {user.updatedAt.substring(0, 10) +
-                  " " +
-                  user.updatedAt.substring(11, 16) +
-                  " UTC"}
-              </pre>{" "}
-            </div> */}
+
             <h3 className="text-center mb-5 mt-5 text-gray-800 text-[22px] font-bold">
               Update profile
             </h3>

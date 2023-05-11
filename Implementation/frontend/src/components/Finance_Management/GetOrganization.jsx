@@ -61,6 +61,23 @@ const GetOrganization = () => {
     }
   };
 
+  function convertToBase64(e) {
+    var reader = new FileReader();
+    reader.onload = () => {
+      const base64Image = btoa(reader.result);
+      setorgnzData((prevData) => ({
+        ...prevData,
+        org_logo: base64Image,
+        
+      }));
+     
+    };
+    reader.onerror = (error) => {
+      console.log("Error: ", error);
+    };
+    reader.readAsBinaryString(e.target.files[0]);
+  }
+
   return (
     <>
       {isError !== "" && <h2>{isError}</h2>}
@@ -95,9 +112,9 @@ const GetOrganization = () => {
             org_logo,
           } = data;
 
-          const imageUrl = `data:image/jpeg;base64,${org_logo}`;
+          // const imageUrl = `data:image/jpeg;base64,${org_logo}`;
 
-          console.log(imageUrl);
+          
 
           return (
             <div
@@ -105,7 +122,8 @@ const GetOrganization = () => {
               key={_id}
             >
               <div class=" w-40 items-center">
-                <img src={org_logo} alt={org_name} />
+              <img src={`data:image/png;base64,${org_logo}`} />
+
               </div>
 
               <div class="px-12 ">
@@ -122,7 +140,7 @@ const GetOrganization = () => {
               <br />
               <div class="ml-72 float-right mt-28">
                 <button
-                  class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+                  class="border border-red-500 bg-red-500 text-white rounded-full px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
                   type="button"
                   onClick={() => deleteOrganization(_id)}
                 >
@@ -130,7 +148,7 @@ const GetOrganization = () => {
                   Delete{" "}
                 </button>
                 <button
-                  class="border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
+                  class="border-green-500 bg-green-500  text-white rounded-full px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
                   onClick={() => {
                     setSelectedData(data);
                     setShowUpdateForm(true);
@@ -143,7 +161,7 @@ const GetOrganization = () => {
 
               <div>
                 {showUpdateForm && (
-                  <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+                  <div className="z-50 fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
                     <form
                       className="w-3/6 font-medium text-gray-400 dark:text-gray-400 p-4 mt-2 border-solid border-2 mr-1 bg-gray-100 dark:bg-gray-800 border-sky-500 mb-3 ml-48 rounded-md "
                       onSubmit={(e) => {
@@ -218,9 +236,10 @@ const GetOrganization = () => {
                             {" "}
                             Organization Logo{" "}
                             <input
-                              type="text"
+                              type="file"
                               name="logo"
-                              defaultValue={selectedData.org_logo}
+                             // defaultValue={selectedData.org_logo}
+                               onChange={convertToBase64}
                               class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                             />{" "}
                           </label>{" "}

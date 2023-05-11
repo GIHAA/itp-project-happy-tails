@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,7 +21,7 @@ const FinaDashBoard = () => {
     const [vehData, setvehData] = useState([]);
     const [stockData, setstockData] = useState([]);
     const [eventData, seteventData] = useState([]);
-
+    const{user} = useSelector ((state) => state.auth);
 
     // useEffect(() => {
 
@@ -188,11 +188,19 @@ const FinaDashBoard = () => {
     useEffect(() => {
 
         axios
-            .get("http://localhost:8080/api/booking")
+            .get("http://localhost:8080/api/booking",{
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              })
 
             .then((response) => {
                 console.log(response);
                 setbookData(response.data);
+                const filteredData = response.data.filter(
+                    (item) => item.status === "BOOKED" 
+                );
+                setbookData(filteredData);
             })
 
             .catch((error) => setIsError(error.message));
@@ -202,10 +210,14 @@ const FinaDashBoard = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/api/VehReqPayment")
+            .get("http://localhost:8080/api/VehReqPayment",{
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              })
             .then((response) => {
                 const filteredData = response.data.filter(
-                    (item) => item.status === "Requested"
+                    (item) => item.status === "Requested" || item.status==="PAID"
                 );
                 setvehData(filteredData);
             })
@@ -215,7 +227,11 @@ const FinaDashBoard = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/api/stockBudget")
+            .get("http://localhost:8080/api/stockBudget",{
+                headers: {
+                  Authorization: `Bearer ${user.token}`,
+                },
+              })
             .then((response) => {
                 const filteredData = response.data.filter(
                     (item) => item.status === "Pending"
@@ -344,7 +360,7 @@ const FinaDashBoard = () => {
 
             <div class="grid gap-10 grid-cols-2 mt-8">
 
-                <div className="ml-80 w-11/12 mx-4 my-4 items-center rounded-md shadow-sm shadow-zinc-500 border-blue-600  bg-[#e9ecec]">
+                <div className="ml-80 w-11/12 h-80 mx-4 my-4 items-center rounded-md shadow-sm shadow-zinc-500 border-blue-600  bg-[#e9ecec]">
 
                     {lineChartData && <canvas id="myChart1"></canvas>}
                 </div>
@@ -356,7 +372,7 @@ const FinaDashBoard = () => {
                             <thead>
                                 <tr>
                                     <th colSpan="4" className="bg-[#2E4960] py-3 px-6 text-center text-white text-base font-bold">
-                                        Vehicle Budget Request
+                                        Vehicle Budget Request 
                                     </th>
                                 </tr>
                                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -434,11 +450,38 @@ const FinaDashBoard = () => {
                     </table>
 
                 </div>
+                     <div class="ml-64 mx-4 my-4 items-center ">
+
+                    <table className="table-auto border-collapse w-full shadow-sm shadow-zinc-500 rounded-lg">
+                        <thead>
+                            <tr>
+                                <th colSpan="4" className="bg-[#2E4960] py-3 px-6 text-center text-white text-base font-bold">
+                                    Booking Request
+                                </th>
+                            </tr>
+                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th className="py-3 px-6 text-left">Customer Name</th>
+                                <th className="py-3 px-6 text-center">Booking ID</th>
+                                <th className="py-3 px-6 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-600 text-sm font-light">
+                            {bookData.map((item) => (
+                                <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                    <td className="py-3 px-6 text-left whitespace-nowrap">{item.cus_name}</td>
+                                    <td className="py-3 px-6 text-center">{item.bid}</td>
+                                    <td className="py-3 px-6 text-center">{item.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
 
 
                 </div>
 
-                <div className=" ml-80 w-11/12 mx-4 my-0 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
+                <div className=" ml-80 w-11/12 h-80  mx-4 -my-5 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
 
                     {lineChartData1 && <canvas id="myChart2"></canvas>}
                 </div>
@@ -447,7 +490,7 @@ const FinaDashBoard = () => {
 
 
 
-                <div className=" ml-80 w-11/12  mx-4 my-0 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
+                <div className=" ml-80 w-11/12 h-80   mx-4 mt-5 items-center rounded-md shadow-sm shadow-zinc-500  bg-[#e9ecec] ">
 
                     {lineChartData2 && <canvas id="myChart0"></canvas>}
                 </div>
@@ -456,75 +499,8 @@ const FinaDashBoard = () => {
 
             </div>
           
-          <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
-            <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <svg
-                width="30"
-                height="30"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </div>
-            <div class="text-right">
-              <p class="text-2xl"> &nbsp; Rs. {donations}</p>
-              <p>Donations</p>
-            </div>
-          </div>
-          <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
-            <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <svg
-                width="30"
-                height="30"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </div>
-            <div class="text-right">
-              <p class="text-2xl"> &nbsp; Rs. {payments}</p>
-              <p>Payments</p>
-            </div>
-          </div>
-          <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
-            <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-              <svg
-                width="30"
-                height="30"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </div>
-            <div class="text-right">
-              <p class="text-2xl"> &nbsp; Rs. {transaction}</p>
-              <p>Transactions</p>
-            </div>
-          </div>
+         
+          
        
       
 

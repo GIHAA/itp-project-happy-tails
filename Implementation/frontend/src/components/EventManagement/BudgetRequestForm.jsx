@@ -13,7 +13,6 @@ const BudgetRequestForm = () => {
   const [status, setStatus] = useState("Pending");
   const [event, setEvent] = useState("");
   const [eid, setId] = useState("");
-  const [amountStatus, setAmountStatus] = useState("Not Paid");
   const [budgetid, setBudgetId] = useState("");
 
   useEffect(() => {
@@ -86,7 +85,6 @@ const BudgetRequestForm = () => {
       description,
       total,
       status,
-      amountStatus,
     };
 
     axios

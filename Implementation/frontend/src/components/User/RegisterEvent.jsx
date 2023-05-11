@@ -180,7 +180,7 @@ function RegisterEvent() {
         // const text = `${eid} \n ${bookid} \n  \n Dear ${cusName} \n You have successfully registered for the ${eventName} event\n Total = Ticket count * Price \n Total = ${noOfTicket} * ${dbprice} \n Total = ${
         //   noOfTicket * dbprice
         // } \n Thank you`;
-        const text = `http://localhost:8080/qr/event/${bookid},$`
+        const text = `http://localhost:8080/qr/event/${bookid}`
         QRCode.toDataURL(text).then((data) => {
           setQRCodeSrc(data);
           setShowQRCode(true);
