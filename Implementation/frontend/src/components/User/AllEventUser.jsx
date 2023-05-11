@@ -209,7 +209,7 @@ export default function AllEvent() {
                               <div className="bg-cover bg-center rounded-[20px] flex justify-center">
                                 <img
                                   src={event.image}
-                                  className="w-auto hidden lg:h-[350px] rounded-[20px]"
+                                  className="w-auto lg:h-[350px] rounded-[20px]"
                                 />
                               </div>
 

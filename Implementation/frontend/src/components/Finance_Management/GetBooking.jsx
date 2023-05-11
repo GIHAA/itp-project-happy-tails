@@ -29,9 +29,7 @@ const GetBooking = () => {
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);
-        // setTimeout(()=>{
-        //   setFilteredPayData(data);
-        // }, 2000)
+
       })
       .catch((error) => setIsError(error.message));
   }, []);
