@@ -8,6 +8,9 @@ import deleteImg from "../assets/delete.png";
 import editImg from "../assets/edit.png";
 import filterImg from "../assets/filter.png";
 import { useSelector } from "react-redux";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import logo2 from "../assets/logo2.png";
 const moment = require('moment');
 
 
@@ -50,6 +53,113 @@ export default function StockBudgetRequests() {
     setSelectedFilter(event.target.value);
   };
 
+  function generatePDF() {
+    const title = "Stock Budget Requests Report";
+    const doc = new jsPDF();
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    
+    // Filter budget requests for the current month
+    const currentMonth = moment().format("YYYY-MM");
+    const currentMonthBudget = budget.filter(
+      (val) => moment(val.submittedAt).format("YYYY-MM") === currentMonth
+    );
+  
+    // Filter accepted and pending requests separately
+    const acceptedRequests = currentMonthBudget.filter(
+      (val) => val.status.toLowerCase() === "accepted"
+    );
+    const pendingRequests = currentMonthBudget.filter(
+      (val) => val.status.toLowerCase() === "pending"
+    );
+  
+    // Calculate subtotals for accepted and pending requests
+    const acceptedSubtotal = acceptedRequests.reduce(
+      (sum, val) => sum + val.total,
+      0
+    );
+    const pendingSubtotal = pendingRequests.reduce(
+      (sum, val) => sum + val.total,
+      0
+    );
+  
+    // Set document font and color
+    doc.setFont("helvetica");
+    doc.setTextColor("#000000");
+  
+    // Add title and date
+    doc.setFontSize(24);
+    doc.text(title, 20, 30);
+    doc.setFontSize(12);
+    doc.setTextColor("#999999");
+    doc.text(`Generated on ${date}`, 20, 40);
+
+     // Add logo and company details
+     doc.addImage(logo2, "JPG", 20, 60, 40, 40);
+     doc.setFontSize(16);
+     doc.setFont("helvetica", "bold");
+     doc.setTextColor("#000000");
+     doc.text("Happy Tails", 70, 70);
+     doc.setFont("helvetica", "normal");
+     doc.setFontSize(10);
+     doc.setTextColor("#999999");
+     doc.text("Tel: +94 11 234 5678", 70, 80);
+     doc.text("Email: info@happytails.com", 70, 85);
+     doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
+  
+// Add accepted requests
+doc.setFontSize(16);
+doc.setFont("helvetica", "bold");
+doc.text(`Accepted Requests in ${moment(today).format("MMMM")}`, 20, 115);
+doc.autoTable({
+  startY: 120,
+  head: [
+    ["Requested date", "Supplier Name", "Item Name", "Description", "Total Amount"],
+  ],
+  body: acceptedRequests.map((request) => [
+    moment(request.submittedAt).format("YYYY-MM-DD"),
+    request.supplier_name,
+    request.item_name,
+    request.description,
+    request.total,
+  ]),
+});
+
+// Calculate the height of the accepted requests table
+const acceptedRequestsTableHeight = doc.autoTable.previous.finalY;
+
+// Add the subtotal for accepted requests
+doc.setFont("helvetica", "normal");
+doc.setTextColor("#000000");
+doc.text(`Total Amount = = Rs. ${acceptedSubtotal.toFixed(2)}`, 20, acceptedRequestsTableHeight + 20);
+
+// Add pending requests
+doc.setTextColor("#999999");
+doc.setFont("helvetica", "bold");
+doc.text(`Pending Requests in ${moment(today).format("MMMM")}`, 20, acceptedRequestsTableHeight + 50);
+doc.autoTable({
+  startY: acceptedRequestsTableHeight + 60,
+  head: [
+    ["Requested date", "Supplier Name", "Item Name", "Description", "Total Amount"],
+  ],
+  body: pendingRequests.map((request) => [
+    moment(request.submittedAt).format("YYYY-MM-DD"),
+    request.supplier_name,
+    request.item_name,
+    request.description,
+    request.total,
+  ]),
+});
+
+// Add the subtotal for pending requests
+doc.setFont("helvetica", "normal");
+doc.setTextColor("#000000");
+doc.text(`Total Amount = Rs. ${pendingSubtotal.toFixed(2)}`, 20, doc.autoTable.previous.finalY + 20);
+
+doc.save("stock-budget-requests.pdf");
+
+  }
+
   return (
     <div className="flex scroll-smooth">
       <SupplierSideBar />
@@ -61,6 +171,7 @@ export default function StockBudgetRequests() {
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5">
             STOCK BUDGET REQUESTS
           </h1>
+
           <div className="flex mt-6">
             <div className="ml-5">
               <Link
@@ -71,13 +182,10 @@ export default function StockBudgetRequests() {
               </Link>
             </div>
 
-            {/*search */}
             <div className="ml-[800px] mb-5">
               <input
                 type="text"
-                className=" rounded-3xl py-2.5 px-5 w-[40vh]
-               text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300
-                appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] mr-2"
+                className="rounded-3xl py-2.5 px-5 w-[40vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] mr-2"
                 placeholder="Search by supplier name, item name.. "
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -85,6 +193,7 @@ export default function StockBudgetRequests() {
               />
             </div>
           </div>
+
         </div>
 
         {/* Body Part */}
@@ -119,7 +228,7 @@ export default function StockBudgetRequests() {
                   <th className="p-3">Supplier Name</th>
                   <th className="p-3">Item name</th>
                   <th className="p-3">Description</th>
-                  <th className="p-3">Total Amount</th>
+                  <th className="p-3">Price</th>
                   <th className="p-3">Status</th>
                   <th className="p-3">Action</th>
                 </tr>
@@ -158,7 +267,7 @@ export default function StockBudgetRequests() {
                     return (
                       <>
                         <tr>
-                        <td className="p-3">{moment(budget.submittedAt).format('YY-MM-DD')}</td>
+                        <td className="p-3">{moment(budget.submittedAt).format('YYYY-MM-DD')}</td>
                           <td className="p-3">{budget.supplier_name}</td>
                           <td className="p-3">{budget.item_name}</td>
                           <td className="p-3">{budget.description}</td>
@@ -187,8 +296,6 @@ export default function StockBudgetRequests() {
                                 Edit
                               </Link>
                             </button> */}
-
-
                               <button
                                 className={`flex px-5 py-1 mr-5 ${
                                   budget.status === "Accepted" ? "bg-gray-300" : "bg-[#d11818]"
@@ -209,6 +316,15 @@ export default function StockBudgetRequests() {
                   })}
               </tbody>
             </table>
+
+              <center>
+              <button
+                className="bg-[#E89100] hover:bg-[#8d5f10] px-[15px] py-[7px] rounded-[120px] font-bold text-white text-[11px] block w-[150px] text-center"
+                onClick={generatePDF}
+              >
+                DOWNLOAD REPORT
+              </button>
+              </center>
           </div>
         </div>
       </div>
