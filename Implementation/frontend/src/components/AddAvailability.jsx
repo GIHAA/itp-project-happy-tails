@@ -17,65 +17,68 @@ export default function AddAvailability() {
   const [status, setStatus] = useState("");
   const{user} = useSelector ((state) => state.auth);
 
-
+  
   function addAvailability(e) {
     e.preventDefault();
 
-    
-    axios
-      .get(`http://localhost:8080/api/availability/${plateNo}`,{
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data.length === 0) {
-          addNewAvailability();
-        } else {
-          const hasDifferentStatus = response.data.some(
-            (availability) => availability.status !== status
-          );
-          if (hasDifferentStatus) {
-            toast.error(`Cannot insert!! ${plateNo} already exists with a different status!!`, { position: toast.POSITION.TOP_RIGHT });
 
-            
-          } else {
-            addNewAvailability();
-          }
-        }
-      })
-      .catch((err) => {
-        addNewAvailability();
-      });
-  }
+    const resetForm = () => {
+      setPlateNo("");
+      setReason("");
+      setSince("");
+      setTo("");
+      setStatus("");
 
-  function addNewAvailability() {
-    const newAvailability = {
-      plateNo,
-      reason,
-      since,
-      to,
-      status,
-    };
+    }
 
-    axios
-      .post("http://localhost:8080/api/availability/", newAvailability ,{
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then(() => {
-        toast.success("Maintenance record added successfully", { position: toast.POSITION.TOP_RIGHT });
-
-      })
-      .catch((err) => {
-        toast.error(`Maintenance record insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
-        
-      });
-      
-      
-  }
   
+
+    
+      axios.get("http://localhost:8080/api/availability/",{
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+          .then((response) => {
+              const availabilities = response.data;
+
+              const existingAvailability = availabilities.find((availability) => availability.plateNo === plateNo );
+              if (existingAvailability) {
+                  toast.error("Cannot insert! Maintenance record with this plate number already exists.", { position: toast.POSITION.TOP_RIGHT });
+
+                  resetForm();
+                  return;
+              }
+  
+              
+              const newAvailability = {
+                plateNo,
+                reason,
+                since,
+                to,
+                status,
+              };
+  
+              axios.post("http://localhost:8080/api/availability/", newAvailability,{
+                  headers: {
+                    Authorization: `Bearer ${user.token}`,
+                  },
+                })
+                  .then(() => {
+                      toast.success("New Maintenance record added successfully  !!", { position: toast.POSITION.TOP_RIGHT });
+
+                      resetForm();
+                  })
+                  .catch((err) => {
+                      toast.error(`Maintenance  record insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
+
+                  });
+          })
+          .catch((err) => {
+              toast.error(`Error fetching existing record: ${err}`, { position: toast.POSITION.TOP_RIGHT });
+          });
+       }
+
 
   return (
     //Main container
@@ -86,7 +89,7 @@ export default function AddAvailability() {
         {/*Header Part*/}
         <div className="bg-[#2E4960] h-100 w-full">
           <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 ">
-            ADD AVAILABILTY
+            ADD MAINTENANCE RECORD
           </h1>
 
           <div className=" flex p-5">
