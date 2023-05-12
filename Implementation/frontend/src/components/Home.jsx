@@ -28,6 +28,15 @@ function Home() {
   };
 
   const submitFeedback = () => {
+
+    if(!FormData.name){
+      toast.error("Please enter the name")
+      return
+    }
+    if(!FormData.email){
+      toast.error("Please enter the email")
+      return
+    }
     if(!FormData.message){
       toast.error("Please enter the feedback")
       return
