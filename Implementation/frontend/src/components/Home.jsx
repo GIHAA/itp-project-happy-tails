@@ -59,13 +59,22 @@ function Home() {
       >
         <div className="max-w-[1200px] mx-auto px-8 flex flex-col justify-center h-full">
           {user ? ( <div className="fixed right-0 bottom-0 mr-5 mb-5">
+
+<div className="flex">
             <button
-              onClick={() => setshowFeedbackModal(true)}
-              className="rounded-full bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
-            >
-              <AiFillHeart className="mr-2" />
-              Feedback
-            </button>
+                className="rounded-full bg-secondary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
+              >
+                <AiFillHeart className="" />
+       
+              </button>
+              <button
+                onClick={() => setshowFeedbackModal(true)}
+                className="rounded-full bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
+              >
+                {/* <AiFillHeart className="mr-2" /> */}
+                Feedback
+              </button>
+</div>
           </div>):(<> </>)}
          
 
