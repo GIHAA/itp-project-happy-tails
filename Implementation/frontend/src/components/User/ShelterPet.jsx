@@ -393,7 +393,7 @@ function ShelterPet() {
             </div>
 
             <div className="mb-6">
-              <h2 className="md">Entimated price: Rs:{total}</h2>
+              <h2 className="md">Estimated price: Rs:{total}</h2>
             </div>
 
             <div className="flex items-start mb-6">

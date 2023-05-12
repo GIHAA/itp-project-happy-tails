@@ -128,7 +128,7 @@ const Booking = (props) => {
                         }
                         onClick={() => handleDelete(item)}
                       >
-                        Delete
+                        Remove
                       </button>
                     </td>
                         </tr>
