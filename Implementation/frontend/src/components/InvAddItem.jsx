@@ -17,6 +17,61 @@ export default function InvAddItem() {
   function addItem(e) {
     e.preventDefault();
 
+    if(item_code==""){
+
+      toast.warn("Item code cannot be empty", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
+    if(item_code.length > 10 ){
+
+      toast.warn("Please enter a valid item code", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
+    if(item_name=="" || item_name.length > 50){
+
+      toast.warn("Please enter a valid item name", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
+
+    if(item_brand==""){
+
+      toast.warn("Please enter the item brand", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
+    if(item_brand.length > 20){
+
+      toast.warn("Please enter a valid item brand", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
+    if(category==""){
+
+      toast.warn("Please set the category", {
+        autoClose: 5000,
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
+      return;
+    }
+
     const newItem = {
       item_code,
       item_name,
@@ -93,7 +148,6 @@ export default function InvAddItem() {
                         onChange={(e) => {
                           setItemCode(e.target.value);
                         }}
-                        required
                       />
                     </div>
 
@@ -105,7 +159,6 @@ export default function InvAddItem() {
                         onChange={(e) => {
                           setItemName(e.target.value);
                         }}
-                        required
                       />
                     </div>
                   </div>
@@ -119,7 +172,6 @@ export default function InvAddItem() {
                         onChange={(e) => {
                           setItemBrand(e.target.value);
                         }}
-                        required
                       />
                     </div>
 
@@ -131,7 +183,7 @@ export default function InvAddItem() {
                           setItemCategory(e.target.value);
                         }}
                       >
-                        <option>Select a category</option>
+                        <option value="">Select a category</option>
                         <option value="food">FOOD</option>
                         <option value="medicine">MEDICINE</option>
                         <option value="toys">TOYS</option>
@@ -141,7 +193,6 @@ export default function InvAddItem() {
                         <option value="grooming-equipments">
                           GROOMING EQUIPMENTS
                         </option>
-                        <option value="event-items">EVENT ITEMS</option>
                         <option value="other">OTHER</option>
                       </select>
                     </div>

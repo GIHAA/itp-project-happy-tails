@@ -33,6 +33,15 @@ function InvRequestStock() {
     function requestStock(e) {
       e.preventDefault();
 
+      if(qty==""){
+
+        toast.warn("Please enter the required quantity", {
+          autoClose: 5000,
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+        return;
+      }
+
       const newRequest = {
           item_code: selected.item_code,
           item_name: selected.item_name,
@@ -150,8 +159,8 @@ function InvRequestStock() {
                         <select 
                         value={selected.category}
                         className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#a6b0c4] border-0 border-b-2 border-gray-300 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00] "
-                        readOnly>
-                              <option>Select a category</option>
+                        readOnly required>
+                              <option value="">Select a category</option>
                               <option value="food">FOOD</option>
                               <option value="medicine">MEDICINE</option>
                               <option value="toys">TOYS</option>

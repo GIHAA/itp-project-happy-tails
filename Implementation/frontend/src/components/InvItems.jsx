@@ -42,17 +42,23 @@ export default function InvItems() {
             style={{ marginRight: "1rem" }}
             onClick={() => {
               axios
-                .delete(`http://localhost:8080/api/inventory/items/${id}`)
-                .then((res) => {})
+                .delete(`http://localhost:8080/api/inventory/items/${id}`, {
+                  headers: {
+                    Authorization: `Bearer ${user.token}`,
+                  }
+                })
+                .then((res) => {
+                  toast.success("Item Deleted successfully", {
+                    autoClose: 1000,
+                  });
+                  setTimeout(() => {
+                    window.location.href = `/items`;
+                  }, 1500);
+                })
                 .catch((err) => {
                   toast.warning(err);
                 });
-              toast.success("Item Deleted successfully", {
-                autoClose: 1000,
-              });
-              setTimeout(() => {
-                window.location.href = `/items`;
-              }, 1500);
+          
             }}
           >
             Yes
