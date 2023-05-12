@@ -13,10 +13,6 @@ import { GrMapLocation } from "react-icons/gr";
 const Profile = (props) => {
   const { user } = useSelector((state) => state.auth);
 
-  // if (!user) {
-  //   const user = {};
-  // }
-
   const [bookings, setbookings] = useState([]);
   const [image, setImage] = useState("");
   const [formData, setFormData] = useState({
@@ -299,7 +295,7 @@ const Profile = (props) => {
               type="text"
               className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
             />
-
+            
             <label className="font-semibold text-sm text-gray-600 pb-1 block">
               Email
             </label>

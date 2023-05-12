@@ -13,6 +13,7 @@ export default function StockBudgetRequestForm() {
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState("Pending");
   const {user} = useSelector((state)=>state.auth);
+  const [type, setType] = useState("");
   const [supplierNameOptions, setSupplierNameOptions] = useState([]);
   
 
@@ -29,7 +30,7 @@ export default function StockBudgetRequestForm() {
         },
       })
       .then((response) => {
-        const supplierNames = response.data.map((supplier) => supplier.name);
+        const supplierNames = response.data.map((supplier) => supplier);
         setSupplierNameOptions(supplierNames);
       })
       .catch((error) => {
@@ -102,7 +103,7 @@ export default function StockBudgetRequestForm() {
                         <option value="">Select Supplier Name</option>
                         {supplierNameOptions.map((supplierName) => (
                           <option key={supplierName} value={supplierName}>
-                            {supplierName}
+                            {supplierName.name} {supplierName.type}
                           </option>
                         ))}
                       </select>

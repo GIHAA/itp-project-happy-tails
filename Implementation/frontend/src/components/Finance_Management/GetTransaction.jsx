@@ -162,6 +162,8 @@ const GetTransaction = () => {
             <p class="text-2xl">&nbsp;Rs. {income}</p>
             <p>Expenses</p>
           </div>
+
+          
         </div>
       </div>
 
@@ -240,6 +242,7 @@ const GetTransaction = () => {
             tran_date,
             tran_time,
             tran_status,
+            createdAt,
           } = data;
 
           const notify = () =>
@@ -272,7 +275,8 @@ const GetTransaction = () => {
               <p> Amount : {tran_amount}</p>
               <p> Date : {tran_date}</p>
               <p> Time : {tran_time}</p>
-              <p> Status : {tran_status}</p>
+            
+              <p> Status : {createdAt}</p>
               <br />
               <div class="float-left ">
                 <button

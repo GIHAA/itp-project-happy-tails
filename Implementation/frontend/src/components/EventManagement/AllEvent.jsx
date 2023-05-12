@@ -217,6 +217,7 @@ export default function AllEvent() {
       </div>
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event, index) => (
+                
                 <div
                   class="flex flex-col space-x-4 text-center bg-gray-500 shadow-lg shadow-gray-500/50 rounded-lg w-full mx-20"
                   style={{ margin: "20px", backgroundColor: "#EFF0F6" }}

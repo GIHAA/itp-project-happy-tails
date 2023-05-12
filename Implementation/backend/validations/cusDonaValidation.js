@@ -54,8 +54,8 @@ const Transchema = joi.object({
     )
     .required(),
   tran_amount: joi.number().required(),
-  tran_date: joi.string().required(),
-  tran_time: joi.string().required(),
+  // tran_date: joi.string().required(),
+  // tran_time: joi.string().required(),
   tran_status: joi.string().valid("CANCELED", "PAID", "FINISHED").required(),
 });
 

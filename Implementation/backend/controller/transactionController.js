@@ -20,8 +20,8 @@ const addtransaction = asyncHandler(async (req, res) => {
     tran_type,
     tran_target,
     tran_amount,
-    tran_date,
-    tran_time,
+    // tran_date,
+    // tran_time,
     tran_status,
   });
   TRAN
@@ -57,8 +57,8 @@ const updatetransaction = asyncHandler(async (req, res) => {
     tran_type,
     tran_target,
     tran_amount,
-    tran_date,
-    tran_time,
+    // tran_date,
+    // tran_time,
     tran_status,
   } = req.body;
 
@@ -67,8 +67,8 @@ const updatetransaction = asyncHandler(async (req, res) => {
     tran_type,
     tran_target,
     tran_amount,
-    tran_date,
-    tran_time,
+    // tran_date,
+    // tran_time,
     tran_status,
   });
 

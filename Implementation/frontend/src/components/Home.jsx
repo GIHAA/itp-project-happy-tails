@@ -69,7 +69,7 @@ function Home() {
               </button>
               <button
                 onClick={() => setshowFeedbackModal(true)}
-                className="rounded-full bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
+                className="rounded-full ml-2 bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
               >
                 {/* <AiFillHeart className="mr-2" /> */}
                 Feedback
@@ -184,10 +184,10 @@ function Home() {
             />
 
             <div className="flex">
-              <button className="" onClick={() => setshowFeedbackModal(false)}>
+              <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setshowFeedbackModal(false)}>
                 Close
               </button>
-              <button className="ml-auto" onClick={() => submitFeedback()}>
+              <button className="ml-auto bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => submitFeedback()}>
                 Submit
               </button>
             </div>

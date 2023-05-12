@@ -300,17 +300,11 @@ function AddPetProfile() {
               <label class="mb-2 font-bold text-lg text-white ml-5" for="color">
                 Colour
               </label>
-              <input
-                class="border py-2 px-3 text-grey-800 w-full rounded-xl"
-                required
-                type="text"
-                placeholder="Eg: Black"
-                name="color"
-                id="color"
-                onChange={(e) => {
-                  setColor(e.target.value);
-                }}
-              />
+             <select>
+              <option value="black">Black</option>
+              <option value="black">Black</option>
+              <option value="black">Black</option>
+             </select>
             </div>
 
             <div class="flex flex-col mb-4 mr-5">

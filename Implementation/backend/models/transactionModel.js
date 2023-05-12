@@ -34,12 +34,12 @@ const tran_Schema = mongoose.Schema(
 
     tran_date: {
       type: String,
-      required: [true, "Please add a transaction_date"],
+      required: [false, "Please add a transaction_date"],
     },
 
     tran_time: {
       type: String,
-      required: [true, "Please add a transaction_time"],
+      required: [false, "Please add a transaction_time"],
     },
 
     tran_status: {
