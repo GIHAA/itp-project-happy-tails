@@ -64,7 +64,7 @@ function Header() {
                     Events
                   </Link>
                 </li>
-                
+
                 <li className="text-[15px] font-bold">
                   <Link
                     to="/scanner"

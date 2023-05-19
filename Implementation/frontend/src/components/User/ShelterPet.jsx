@@ -67,7 +67,7 @@ function ShelterPet() {
     phone: "",
     time: "",
     email: user.email,
-    count: 2
+    count: 2,
   });
 
   const handleSliderChange = (event) => {
@@ -114,46 +114,44 @@ function ShelterPet() {
       return /^\d{10}$/.test(str);
     };
 
-    if(formData.petCount === 0 ){
-      toast.error("Number of pets can't be zero")
-      return
+    if (formData.petCount === 0) {
+      toast.error("Number of pets can't be zero");
+      return;
     }
-      if (rememberChecked) {
-        if (!isNumberAndTenDigit(formData.contactNumbers)) {
-          toast.error("Please enter a valid contact number");
-          return;
-        }
-        if (!isDateValid) {
-          toast.error("Please enter a valid date range");
-          return;
-        }
-        try {
-          bookingServices.addBooking(formData);
-          toast.success("Booking added successfully");
-          setshowaskTransportModal(true);
-
-          setFormData({
-            cus_id: user._id,
-            cus_name: user.name,
-            bid,
-            token: user.token,
-            bid: 0,
-            petCount: 0,
-            mini: [{ name: "", description: "", type: "cat", pid: 0 }],
-            contactNumbers: "",
-            description: "",
-            startDate: new Date(),
-            endDate: new Date(),
-          });
-          setTotal(0);
-        } catch (error) {
-          toast.error("Something went wrong");
-        }
-      } else {
-        toast.error("Please agree to the terms and conditions");
+    if (rememberChecked) {
+      if (!isNumberAndTenDigit(formData.contactNumbers)) {
+        toast.error("Please enter a valid contact number");
+        return;
       }
+      if (!isDateValid) {
+        toast.error("Please enter a valid date range");
+        return;
+      }
+      try {
+        bookingServices.addBooking(formData);
+        toast.success("Booking added successfully");
+        setshowaskTransportModal(true);
 
-    
+        setFormData({
+          cus_id: user._id,
+          cus_name: user.name,
+          bid,
+          token: user.token,
+          bid: 0,
+          petCount: 0,
+          mini: [{ name: "", description: "", type: "cat", pid: 0 }],
+          contactNumbers: "",
+          description: "",
+          startDate: new Date(),
+          endDate: new Date(),
+        });
+        setTotal(0);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    } else {
+      toast.error("Please agree to the terms and conditions");
+    }
   };
 
   const submitTransportation = () => {
@@ -171,7 +169,7 @@ function ShelterPet() {
           .post("http://localhost:8080/api/transport/", tformData)
           .then((res) => {
             toast.success("Transportation Request sent");
-            genarateQRcode()
+            genarateQRcode();
           })
           .catch((err) => alert(err));
         setshowTransportModal(false);
@@ -226,7 +224,7 @@ function ShelterPet() {
   };
 
   const genarateQRcode = () => {
-    const text = `http://localhost:8080/qr/booking/B${bid}`
+    const text = `http://localhost:8080/qr/booking/B${bid}`;
     QRCode.toDataURL(text).then((data) => {
       setQRCodeSrc(data);
       setShowQRCode(true);
@@ -507,8 +505,10 @@ function ShelterPet() {
             </div>
             <div className="flex mt-7">
               <button
-                onClick={() => {setshowTransportModal(false)
-                  genarateQRcode()}}
+                onClick={() => {
+                  setshowTransportModal(false);
+                  genarateQRcode();
+                }}
                 type="submit"
                 className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
@@ -536,9 +536,10 @@ function ShelterPet() {
             </h2>
             <div className="flex">
               <button
-              onClick={() => {setshowaskTransportModal(false)
-                genarateQRcode()
-              }}
+                onClick={() => {
+                  setshowaskTransportModal(false);
+                  genarateQRcode();
+                }}
                 type="submit"
                 className="flex ml-auto text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
@@ -559,35 +560,35 @@ function ShelterPet() {
         </div>
       )}
 
-{showQRCode && (
-      <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-4 rounded-lg">
-          <div class="text-black text-center">
-            QR Code for your booking
-          </div>
-          <div class="text-red text-center">
-            Please take photo or download QR code
-          </div>
-          <div class="flex justify-center">
-            <img src={qrCodeSrc} alt="QR code" />
-          </div>
-          <div class="flex justify-center mt-4">
-          <button onClick={() => {
+      {showQRCode && (
+        <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div class="bg-white p-4 rounded-lg">
+            <div class="text-black text-center">QR Code for your booking</div>
+            <div class="text-red text-center">
+              Please take photo or download QR code
+            </div>
+            <div class="flex justify-center">
+              <img src={qrCodeSrc} alt="QR code" />
+            </div>
+            <div class="flex justify-center mt-4">
+              <button
+                onClick={() => {
                   setShowQRCode(false);
-          }} className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-             Close
-            </button>
-            <button
-             className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              onClick={handleDownloadQRCode}
-            >
-              Download QR Code
-            </button>
-       
+                }}
+                className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                Close
+              </button>
+              <button
+                className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                onClick={handleDownloadQRCode}
+              >
+                Download QR Code
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
     </>
   );
 }

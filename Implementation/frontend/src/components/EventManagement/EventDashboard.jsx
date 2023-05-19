@@ -52,7 +52,6 @@ const EventDashboard = () => {
   const [rejectStocks, setRejectStocks] = useState(0);
   const [currentTotal, setCurrentTotal] = useState(0);
 
-  
   useEffect(() => {
     const getEventAmount = async () => {
       try {
@@ -462,7 +461,7 @@ const EventDashboard = () => {
         if (
           event.name === bud.eventName &&
           event.eid === bud.eid &&
-          bud.status === "Accepted" 
+          bud.status === "Accepted"
         ) {
           expense += Number(bud.total);
         }
@@ -489,9 +488,9 @@ const EventDashboard = () => {
       name: eventName,
       Rate: Number(rate),
     }));
-    let total=0
-    total =  Number(totalbud)+Number(totalstock)
-    setCurrentTotal(total)
+    let total = 0;
+    total = Number(totalbud) + Number(totalstock);
+    setCurrentTotal(total);
     setChartData(chartData);
     console.log(chartData);
   }, [datas]);

@@ -12,7 +12,7 @@ export default function AllEvent() {
   const [totalTicket, setTotalNoOfTickets] = useState(0);
   const [size, setSize] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [petType , setpetType] = useState("");
+  const [petType, setpetType] = useState("");
 
   useEffect(() => {
     async function getevents() {
@@ -76,9 +76,8 @@ export default function AllEvent() {
   }
 
   const handleTextSearch = (e) => {
-    const searchTerm = document.getElementById("search").value
+    const searchTerm = document.getElementById("search").value;
     axios.get("http://localhost:8080/api/event/getEvents").then((res) => {
-    
       if (res.data.allevents) {
         filterContent(res.data.allevents, searchTerm);
       }
@@ -129,30 +128,27 @@ export default function AllEvent() {
     window.location.href = `registerevent/${eventId}`;
   };
 
-
-
   return (
     <>
       <Header />
       <div className="h-full overflow-y-scrollf bg-bgsec">
         <div className="flex justify-center pt-5">
-          
           <div className="flex justify-center pt-5">
-          <input
-            id="search"
-            type="text"
-            placeholder="Search for pets... ex: event name, event id"
-            className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
-          />
+            <input
+              id="search"
+              type="text"
+              placeholder="Search for pets... ex: event name, event id"
+              className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
+            />
 
-          <button
-            onClick={handleTextSearch}
-            className="ml-2 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
-          >
-            Search
-          </button>
-        </div>
-          
+            <button
+              onClick={handleTextSearch}
+              className="ml-2 bg-primary w-[90px] rounded-[40px] text-[16px] font-bold text-white"
+            >
+              Search
+            </button>
+          </div>
+
           {/* <div className="flex justify-center pt-5">
           <inputF
             id="search"
@@ -177,8 +173,6 @@ export default function AllEvent() {
             Search
           </button>
         </div> */}
-
-
         </div>
 
         {isLoading ? (
@@ -233,7 +227,7 @@ export default function AllEvent() {
                                   <li>Maximum Participant : {event.size}</li>
                                   <li>Description : {event.description}</li>
                                 </ul>
-                                <div className="flex mt-4 pt-3">                
+                                <div className="flex mt-4 pt-3">
                                   <button
                                     style={{ backgroundColor: "#459DE8" }}
                                     className="ml-auto mr-2 rounded-[20px] w-[140px] h-[40px] border-[1px] bg-secondary text-white font-bold-sm "

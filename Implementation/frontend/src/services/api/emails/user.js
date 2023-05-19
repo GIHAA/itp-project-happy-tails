@@ -4,11 +4,10 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api/sendEmail/";
 
 const register = asynchandler(async (userData) => {
-
-    userData = {
-        ...userData,
-        sub: `Welcome to Happy Tails, ${userData.name}!`,
-        message: `
+  userData = {
+    ...userData,
+    sub: `Welcome to Happy Tails, ${userData.name}!`,
+    message: `
         <html>
         <head>
             <style>
@@ -43,16 +42,16 @@ const register = asynchandler(async (userData) => {
             <p>The Happy Tails team</p>
         </body>
     </html>
-        `
-      };
-      
-  const response = await axios.post(API_URL , userData);
+        `,
+  };
+
+  const response = await axios.post(API_URL, userData);
 
   return response.data;
 });
 
 const emailServices = {
-    register,
-  };
+  register,
+};
 
 export default emailServices;

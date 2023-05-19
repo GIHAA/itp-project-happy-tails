@@ -8,7 +8,6 @@ import Footer from "./common/Footer";
 import loginbackground from "../assets/loginbackground.png";
 import { Link } from "react-router-dom";
 
-
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -47,18 +46,17 @@ const Login = () => {
     dispatch(login(userData));
   };
 
-
   return (
     <>
       <Header />
       <div
-       style={{ backgroundImage: `url(${loginbackground})` }}  
-      className="min-h-screen bg-cover  flex flex-col justify-center sm:py-12">
+        style={{ backgroundImage: `url(${loginbackground})` }}
+        className="min-h-screen bg-cover  flex flex-col justify-center sm:py-12"
+      >
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-
           <div className="bg-white drop-shadow-2xl shadow w-full rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
-            <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
+              <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
@@ -105,19 +103,19 @@ const Login = () => {
                 </svg>
               </button>
 
-                <p className="text-[14px] mt-[15px] text-gray-500">Don't have an account?<Link
-                to="/register"
-                className="ml-1"
-                >
-                   <span className="text-secondary font-[20px]">Register now</span>
-                </Link></p>
-   
-          </div>
+              <p className="text-[14px] mt-[15px] text-gray-500">
+                Don't have an account?
+                <Link to="/register" className="ml-1">
+                  <span className="text-secondary font-[20px]">
+                    Register now
+                  </span>
+                </Link>
+              </p>
+            </div>
             <div className="py-5">
               <div className="grid grid-cols-2 gap-1">
                 <div className="text-center sm:text-left whitespace-nowrap">
-  <Link
-  to='/forgot'>
+                  <Link to="/forgot">
                     <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +133,7 @@ const Login = () => {
                       </svg>
                       <span className="inline-block ml-1">Forgot Password</span>
                     </button>
-  </Link>
+                  </Link>
                 </div>
                 <div className="text-center sm:text-right  whitespace-nowrap">
                   <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">

@@ -12,7 +12,7 @@ export default function AddSuppliers() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [type, setType] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   function addSuppliers(e) {
     e.preventDefault();
@@ -25,21 +25,23 @@ export default function AddSuppliers() {
       type,
     };
 
-    try{
-    console.log(newSupplier);
-    axios
-      .post("http://localhost:8080/api/suppliers/", newSupplier,{
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then(() => {
-        toast.success("supplier added", { position: toast.POSITION.TOP_RIGHT });
+    try {
+      console.log(newSupplier);
+      axios
+        .post("http://localhost:8080/api/suppliers/", newSupplier, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then(() => {
+          toast.success("supplier added", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
 
-        setTimeout(() => {
-          window.location.href = "/ManageSuppliers";
-        }, 3000);
-      });
+          setTimeout(() => {
+            window.location.href = "/ManageSuppliers";
+          }, 3000);
+        });
     } catch (err) {
       console.error(err);
     }

@@ -13,7 +13,7 @@ function InventorySideBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [ data , setData] = useState([]);
+  const [data, setData] = useState([]);
 
   const onLogout = () => {
     dispatch(logout());
@@ -29,23 +29,15 @@ function InventorySideBar() {
       })
       .catch((err) => alert(err));
   }, []);
-  
-  const exportEmployee = () => {
 
+  const exportEmployee = () => {
     const unit = "pt";
     const size = "A4";
     const orientation = "landscape";
     const marginLeft = 40;
     const doc = new jsPDF(orientation, unit, size);
     const title = "Employee List Report ";
-    const headers = [
-      [
-        "Name",
-        "Email",
-        "Phone",
-        "roles",
-      ],
-    ];
+    const headers = [["Name", "Email", "Phone", "roles"]];
     const emp = data.map((Employee) => [
       Employee.name,
       Employee.email,
@@ -73,7 +65,7 @@ function InventorySideBar() {
           className=" w-[100px] h-[100px] mx-auto object-contain"
         ></img>
         <h3 className=" text-[#2E4960] font-bold text-l text-center w-[150px] leading-5 my-2 tracking-wide mx-auto">
-        Employee management
+          Employee management
         </h3>
       </div>
 
@@ -94,7 +86,6 @@ function InventorySideBar() {
           Employee
         </NavLink>
 
-        
         <NavLink
           to="/feedback"
           activeclassname="active"
@@ -105,15 +96,11 @@ function InventorySideBar() {
 
         <button
           onClick={exportEmployee}
-   
           activeclassname=" bg-[#797979]"
           className="link bg-[#2E4960] px-[15px] py-[8px] rounded-[120px] font-bold text-white text-[12px] block w-[150px] text-center mb-7 mx-auto"
         >
           Genarate Report
         </button>
-
-
-      
       </div>
 
       <div className="">

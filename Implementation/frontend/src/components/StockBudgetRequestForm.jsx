@@ -1,4 +1,4 @@
-import React, { useState,useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SupplierSideBar from "./SupplierSideBar";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,12 +12,10 @@ export default function StockBudgetRequestForm() {
   const [description, setDesc] = useState("");
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState("Pending");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [type, setType] = useState("");
   const [supplierNameOptions, setSupplierNameOptions] = useState([]);
-  
 
-  
   useEffect(() => {
     fetchSupplierNames();
   }, []);
@@ -50,7 +48,7 @@ export default function StockBudgetRequestForm() {
     console.log(newRequest);
 
     axios
-      .post("http://localhost:8080/api/stockBudget/", newRequest,{
+      .post("http://localhost:8080/api/stockBudget/", newRequest, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -58,11 +56,10 @@ export default function StockBudgetRequestForm() {
       .then(() => {
         toast.success("request added", { position: toast.POSITION.TOP_RIGHT });
 
-        
         setTimeout(() => {
           window.location.href = "/StockBudgetRequests";
         }, 3000);
-       })
+      })
       .catch((err) => {
         alert(`Request insert unsuccessful ${err}`);
       });
@@ -91,25 +88,25 @@ export default function StockBudgetRequestForm() {
               <div></div>
               <form className="mx-auto" onSubmit={addRequest}>
                 <div className="px-4">
-                <div className="px-4">
-                  <div>
-                    <center>
-                      <select
-                        value={supplier_name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
-                        required
-                      >
-                        <option value="">Select Supplier Name</option>
-                        {supplierNameOptions.map((supplierName) => (
-                          <option key={supplierName} value={supplierName}>
-                            {supplierName.name} {supplierName.type}
-                          </option>
-                        ))}
-                      </select>
-                    </center>
+                  <div className="px-4">
+                    <div>
+                      <center>
+                        <select
+                          value={supplier_name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="block rounded-3xl py-2.5 px-5 w-[50vh] text-sm text-gray-900 bg-[#E4EBF7] border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
+                          required
+                        >
+                          <option value="">Select Supplier Name</option>
+                          {supplierNameOptions.map((supplierName) => (
+                            <option key={supplierName} value={supplierName}>
+                              {supplierName.name} {supplierName.type}
+                            </option>
+                          ))}
+                        </select>
+                      </center>
+                    </div>
                   </div>
-                </div>
                   <br></br>
 
                   <div className>

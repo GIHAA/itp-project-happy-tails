@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const FinaGetVehicle = () => {
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
-  const{user} = useSelector ((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPayData, setFilteredPayData] = useState([]);
@@ -19,7 +19,7 @@ const FinaGetVehicle = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/VehReqPayment",{
+      .get("http://localhost:8080/api/VehReqPayment", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

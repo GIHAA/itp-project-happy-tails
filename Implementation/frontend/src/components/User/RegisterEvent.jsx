@@ -11,8 +11,6 @@ import Footer from "../common/Footer";
 import { useSelector } from "react-redux";
 
 function RegisterEvent() {
-
-
   const { user } = useSelector((state) => state.auth);
   const param = useParams();
   const id = param.id;
@@ -44,8 +42,6 @@ function RegisterEvent() {
   const [remaining, setRemaining] = useState("");
   const [bookid, setBookId] = useState("");
   const [button, setButton] = useState(true);
-
-
 
   useEffect(() => {
     async function getevent() {
@@ -134,7 +130,6 @@ function RegisterEvent() {
   function addbooking(e) {
     e.preventDefault();
 
-
     const isNumberAndTenDigit = (str) => {
       return /^\d{10}$/.test(str);
     };
@@ -148,11 +143,11 @@ function RegisterEvent() {
       eid,
       bookid: bookid,
       eventName,
-      cusName : user.name,
+      cusName: user.name,
       noOfTicket,
       total: dbprice * noOfTicket,
-      email : user.email,
-      phoneNumber : phoneNumber,
+      email: user.email,
+      phoneNumber: phoneNumber,
     };
 
     const newamount = {
@@ -180,7 +175,7 @@ function RegisterEvent() {
         // const text = `${eid} \n ${bookid} \n  \n Dear ${cusName} \n You have successfully registered for the ${eventName} event\n Total = Ticket count * Price \n Total = ${noOfTicket} * ${dbprice} \n Total = ${
         //   noOfTicket * dbprice
         // } \n Thank you`;
-        const text = `http://localhost:8080/qr/event/${bookid}`
+        const text = `http://localhost:8080/qr/event/${bookid}`;
         QRCode.toDataURL(text).then((data) => {
           setQRCodeSrc(data);
           setShowQRCode(true);
@@ -470,9 +465,9 @@ function RegisterEvent() {
                   //     "Phone number must be 10 digits"
                   //   );
                   // } else {
-                    // e.target.setCustomValidity("");
-                    setPhone(e.target.value);
-                  }}
+                  // e.target.setCustomValidity("");
+                  setPhone(e.target.value);
+                }}
                 // }}
                 // onKeyPress={(e) => {
                 //   /* to restrict other character and accept only integer*/
@@ -487,7 +482,6 @@ function RegisterEvent() {
             </div>
 
             <button
- 
               className="block bg-[#F2994A] hover:opacity-90 rounded-full text-white font-bold uppercase text-lg mx-auto p-2 w-[200px]"
               type="submit"
               disabled={!button}
@@ -496,31 +490,30 @@ function RegisterEvent() {
             </button>
           </form>
           {showQRCode && (
-             <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-             <div class="bg-white p-4 rounded-lg">
-               <div class="text-black text-center">
-                 QR Code for your booking
-               </div>
-               <div class="text-red text-center">
-                 Please take photo or download QR code
-               </div>
-               <div class="flex justify-center">
-                 <img src={qrCodeSrc} alt="QR code" />
-               </div>
-               <div class="flex justify-center mt-4">
-               <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                   <a href={`/events`}>Close</a>
-                 </button>
-                 <button
-                  className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-                   onClick={handleDownloadQRCode}
-                 >
-                   Download QR Code
-                 </button>
-            
-               </div>
-             </div>
-           </div>
+            <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div class="bg-white p-4 rounded-lg">
+                <div class="text-black text-center">
+                  QR Code for your booking
+                </div>
+                <div class="text-red text-center">
+                  Please take photo or download QR code
+                </div>
+                <div class="flex justify-center">
+                  <img src={qrCodeSrc} alt="QR code" />
+                </div>
+                <div class="flex justify-center mt-4">
+                  <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                    <a href={`/events`}>Close</a>
+                  </button>
+                  <button
+                    className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                    onClick={handleDownloadQRCode}
+                  >
+                    Download QR Code
+                  </button>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

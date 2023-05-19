@@ -12,62 +12,55 @@ export default function InvAddItem() {
   const [item_brand, setItemBrand] = useState("");
   const [category, setItemCategory] = useState("");
   const [qty, setItemQty] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   function addItem(e) {
     e.preventDefault();
 
-    if(item_code==""){
-
+    if (item_code == "") {
       toast.warn("Item code cannot be empty", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
 
-    if(item_code.length > 10 ){
-
+    if (item_code.length > 10) {
       toast.warn("Please enter a valid item code", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
 
-    if(item_name=="" || item_name.length > 50){
-
+    if (item_name == "" || item_name.length > 50) {
       toast.warn("Please enter a valid item name", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
 
-
-    if(item_brand==""){
-
+    if (item_brand == "") {
       toast.warn("Please enter the item brand", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
 
-    if(item_brand.length > 20){
-
+    if (item_brand.length > 20) {
       toast.warn("Please enter a valid item brand", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
 
-    if(category==""){
-
+    if (category == "") {
       toast.warn("Please set the category", {
         autoClose: 5000,
-        position: toast.POSITION.BOTTOM_RIGHT
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
       return;
     }
@@ -81,23 +74,26 @@ export default function InvAddItem() {
     };
     console.log(newItem);
 
-    axios.post("http://localhost:8080/api/inventory/items", newItem, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+    axios
+      .post("http://localhost:8080/api/inventory/items", newItem, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then(() => {
         toast.success("item added", { position: toast.POSITION.BOTTOM_RIGHT });
       })
       .catch((err) => {
         if (err.response.status === 409) {
-          toast.warn("Cannot insert !! item already exists !!", { position: toast.POSITION.BOTTOM_RIGHT });
+          toast.warn("Cannot insert !! item already exists !!", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
         } else {
           toast.error(`Item insert unsuccessful ${err}`);
         }
       });
   }
-  
+
   const handleReset = () => {
     setTimeout(() => {
       window.location.href = "/items";
@@ -138,7 +134,11 @@ export default function InvAddItem() {
               </h1>
 
               <div className=" pl-5">
-                <form className="mx-auto" onSubmit={addItem} onReset={handleReset}>
+                <form
+                  className="mx-auto"
+                  onSubmit={addItem}
+                  onReset={handleReset}
+                >
                   <div className="flex mb-6">
                     <div>
                       <label className="">Item Code :</label>
@@ -199,8 +199,10 @@ export default function InvAddItem() {
                   </div>
 
                   <div className="flex mt-24 h-10">
-                    <button type="reset"
-                    className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">
+                    <button
+                      type="reset"
+                      className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]"
+                    >
                       <Link to="/items">Cancel</Link>
                     </button>
 

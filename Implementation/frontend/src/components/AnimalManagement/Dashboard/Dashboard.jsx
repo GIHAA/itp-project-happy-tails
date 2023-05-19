@@ -96,14 +96,14 @@ function Dashboard() {
       .get("http://localhost:8080/api/booking", {
         headers: {
           Authorization: `Bearer ${user.token}`,
-        }
-    })
+        },
+      })
       .then((response) => {
         const data = response.data;
         setpayData(data);
         const filteredData = data.filter((item) => item.status === "SHELTERED");
         const petCounts = filteredData.map((item) => item.mini.length);
-        console.log(petCounts)
+        console.log(petCounts);
         const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
         setPetCount(totalPetCount);
         setPetCountsByIndex(petCounts);

@@ -9,12 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 const moment = require("moment");
 
-
 function InvRequestedStock() {
   const [stockReq, setStockReq] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
@@ -135,15 +134,17 @@ function InvRequestedStock() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockReq.sort((a, b) => {
-                  if (a.status.toLowerCase() === 'acepted') {
-                    return -1; 
-                  } else if (b.status.toLowerCase() === 'accepted') {
-                    return 1; 
-                  } else {
-                    return 0; 
-                  }
-                }).filter((val) => {
+                {stockReq
+                  .sort((a, b) => {
+                    if (a.status.toLowerCase() === "acepted") {
+                      return -1;
+                    } else if (b.status.toLowerCase() === "accepted") {
+                      return 1;
+                    } else {
+                      return 0;
+                    }
+                  })
+                  .filter((val) => {
                     if (selectedCategory === "") {
                       return val;
                     } else if (
@@ -188,7 +189,7 @@ function InvRequestedStock() {
 }
 
 function TableDataRow(props) {
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
   async function handleClick(id, itemCode, newqty, itemName) {
     const now = moment();
     const formatted = now.format("YYYY-MM-DD, h:mm a"); // Returns a formatted date string like "2023-10-10, 4:28 pm"
@@ -199,23 +200,29 @@ function TableDataRow(props) {
         {
           status: "RECEIVED",
           rec_date: formatted,
-        }, {
+        },
+        {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        });
-      toast.success(`Sucessfully received ${itemName} ${newqty}`, {position: toast.POSITION.BOTTOM_RIGHT,})
+        }
+      );
+      toast.success(`Sucessfully received ${itemName} ${newqty}`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     } catch (err) {
       console.error(err);
     }
 
     try {
       await axios.put(
-        `http://localhost:8080/api/inventory/items/${itemCode}/${newqty}`, {
+        `http://localhost:8080/api/inventory/items/${itemCode}/${newqty}`,
+        {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        });
+        }
+      );
       alert("Qty Updated !!");
     } catch (err) {
       console.error(err);
@@ -247,7 +254,9 @@ function TableDataRow(props) {
         <td className="p-3">
           {props.status.toLowerCase() === "accepted" ? (
             <button
-              onClick={() => handleClick(props.id, props.itemCode, props.itemName, props.qty)}
+              onClick={() =>
+                handleClick(props.id, props.itemCode, props.itemName, props.qty)
+              }
               className="px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
             >
               ✓ Received

@@ -2,26 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg";
 import logo2 from "../assets/logo2.png";
-import deleteImg from "../assets/delete.png"
-import editImg from "../assets/edit.png"
+import deleteImg from "../assets/delete.png";
+import editImg from "../assets/edit.png";
 import axios from "axios";
 import VSideBar from "./VSideBar";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-
 
 export default function Availabilities() {
   const [availabilities, setAvailabilities] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const{user} = useSelector ((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/availability/",{
+      .get("http://localhost:8080/api/availability/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -32,24 +31,25 @@ export default function Availabilities() {
       .catch((err) => alert(err));
   }, []);
 
-
   const genarateUserData = () => {
     const title = "Vehicle Maintenance Report";
     const doc = new jsPDF();
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
     // Set document font and color
     doc.setFont("helvetica");
     doc.setTextColor("#000000");
-    
+
     // Add title and date
     doc.setFontSize(24);
     doc.text(title, 20, 30);
     doc.setFontSize(12);
     doc.setTextColor("#999999");
     doc.text(`Generated on ${date}`, 20, 40);
-    
+
     // Add logo and company details
     doc.addImage(logo2, "JPG", 20, 60, 40, 40);
     doc.setFontSize(16);
@@ -62,7 +62,7 @@ export default function Availabilities() {
     doc.text("Tel: +94 11 234 5678", 70, 80);
     doc.text("Email: info@happytails.com", 70, 85);
     doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
-    
+
     // Add table with data
     doc.setFontSize(12);
     doc.setTextColor("#000000");
@@ -80,12 +80,10 @@ export default function Availabilities() {
         ]),
       theme: "grid",
     });
-    
+
     // Save the document
     doc.save("Maintenance Report.pdf");
   };
-
-
 
   console.log(availabilities);
 
@@ -110,14 +108,15 @@ export default function Availabilities() {
                 +ADD
               </Link>
 
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <button className="px-3 py-1 bg-[#1ab427] rounded-full" style={{ color: "white" }}
-                  onClick={() => genarateUserData()}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <button
+                  className="px-3 py-1 bg-[#1ab427] rounded-full"
+                  style={{ color: "white" }}
+                  onClick={() => genarateUserData()}
+                >
                   Generate Report
                 </button>
-
               </div>
-
             </div>
 
             {/*Search*/}
@@ -181,8 +180,6 @@ export default function Availabilities() {
                   })}
               </tbody>
             </table>
-
-           
           </div>
         </div>
       </div>{" "}
@@ -207,15 +204,14 @@ function TableDataRow(props) {
               className=" items-center px-5 py-1 mr-5 bg-[#2E4960] text-white font-semibold hover:bg-[#1b3348] rounded-xl"
               style={{ color: "white" }}
             >
-              <Link 
-              to={`/editavailability/${props.id}`}
-              className="flex">
+              <Link to={`/editavailability/${props.id}`} className="flex">
                 <img
                   src={editImg}
                   alt="editimage"
                   className="w-4 h-4 mr-2 mt-1"
-                  />
-                EDIT</Link>
+                />
+                EDIT
+              </Link>
             </button>
 
             <button
@@ -227,7 +223,7 @@ function TableDataRow(props) {
                 src={deleteImg}
                 alt="deleteimage"
                 className="w-4 h-4 mr-2 mt-1"
-                />
+              />
               DELETE
             </button>
           </div>
@@ -242,8 +238,9 @@ function onDelete(id) {
   axios
     .delete(`http://localhost:8080/api/availability/${id}`)
     .then((res) => {
-      toast.success("Maintenance Record Removed Successfully", { position: toast.POSITION.TOP_RIGHT });
-
+      toast.success("Maintenance Record Removed Successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     })
     .catch((err) => alert(err));
 }

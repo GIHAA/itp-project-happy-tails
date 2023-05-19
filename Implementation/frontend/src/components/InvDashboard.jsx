@@ -19,13 +19,14 @@ export default function InvDashboard() {
   const [stockRel, setStockRel] = useState([]);
   const [stockRelReport, setStockRelReport] = useState([]);
   const [stockReqPending, setStockReqPending] = useState([]);
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchStockOut = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/releasestockprocessed",{
+          "http://localhost:8080/api/inventory/releasestockprocessed",
+          {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
@@ -66,7 +67,8 @@ export default function InvDashboard() {
     const fetchStockIn = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/receivedstockprocessed" ,{
+          "http://localhost:8080/api/inventory/receivedstockprocessed",
+          {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
@@ -107,7 +109,8 @@ export default function InvDashboard() {
     const fetchInStock = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/items/qtyprocessed" ,{
+          "http://localhost:8080/api/inventory/items/qtyprocessed",
+          {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
@@ -171,19 +174,21 @@ export default function InvDashboard() {
     const title = "Inventory Data Report";
     const doc = new jsPDF();
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
     // Set document font and color
     doc.setFont("helvetica");
     doc.setTextColor("#000000");
-    
+
     // Add title and date
     doc.setFontSize(24);
     doc.text(title, 20, 30);
     doc.setFontSize(12);
     doc.setTextColor("#999999");
     doc.text(`Generated on ${date}`, 20, 40);
-    
+
     // Add logo and company details
     doc.addImage(logo, "JPG", 20, 60, 40, 40);
     doc.setFontSize(16);
@@ -197,7 +202,6 @@ export default function InvDashboard() {
     doc.text("Email: info@happytails.com", 70, 85);
     doc.text("Address: No 221/B, Peradeniya Road, Kandy", 70, 90);
 
-  
     doc.text(85, 115, `Received Stocks In ${month}`);
 
     doc.setFontSize(12);
@@ -264,7 +268,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/",{
+      .get("http://localhost:8080/api/inventory/stockrequest/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -288,7 +292,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/",{
+      .get("http://localhost:8080/api/inventory/stockrequest/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -309,7 +313,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/readreleasestock/",{
+      .get("http://localhost:8080/api/inventory/readreleasestock/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

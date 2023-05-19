@@ -24,8 +24,7 @@ function AddDonation({ closeModal }) {
       payment_date: data.payment_date,
       description: data.description,
       status: data.status,
-    })
-    .then((res) => {
+    }).then((res) => {
       console.log(res.data);
       //refreshPage();
     });

@@ -11,19 +11,19 @@ export default function AllEvent() {
   const [events, setEvent] = useState([]);
   const [eventid, setEventID] = useState("");
   const [eventAmount, setEventAmount] = useState([]);
-  const [filterStatus, setFilterStatus] = useState('All');
-  
+  const [filterStatus, setFilterStatus] = useState("All");
+
   const handleStatusChange = (e) => {
     setFilterStatus(e.target.value);
   };
 
   const filteredEvents = events.filter((event) => {
-    if (filterStatus === 'All') {
+    if (filterStatus === "All") {
       return true; // show all events
     }
     return event.status === filterStatus; // only show events with matching status
   });
-  
+
   useEffect(() => {
     async function getevents() {
       try {
@@ -44,7 +44,7 @@ export default function AllEvent() {
             hours = 12;
           }
           const formattedTime = `${hours}:${timeArray[1]} ${amOrPm}`;
-  
+
           // Formatting the end time
           const endtimeArray = event.endTime.split(":");
           let endhours = parseInt(endtimeArray[0]);
@@ -57,10 +57,14 @@ export default function AllEvent() {
             endhours = 12;
           }
           const formattedEndTime = `${endhours}:${endtimeArray[1]} ${endamOrPm}`;
-  
-          return { ...event, startTime: formattedTime, endTime: formattedEndTime };
+
+          return {
+            ...event,
+            startTime: formattedTime,
+            endTime: formattedEndTime,
+          };
         });
-  
+
         setEvent(formattedEvents);
       } catch (err) {
         toast.error(err);
@@ -204,20 +208,25 @@ export default function AllEvent() {
 
             <h1 className="text-2xl font-bold mb-4">All Events</h1>
             <div class="flex flex-row-reverse space-x-1 space-x-reverse ...">
-<div className="relative mt-6 ml-[830px] mb-1">
-                      <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
-                      <select className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
- value={filterStatus} onChange={handleStatusChange}>
-        <option value="All">All</option>
-        <option value="Pending">Pending</option>
-        <option value="Available">Available</option>
-        <option value="Finished">Finished</option>
-      </select>
-      </div>
-      </div>
+              <div className="relative mt-6 ml-[830px] mb-1">
+                <img
+                  src={filterImg}
+                  className="absolute top-2 left-2 w-4 h-4"
+                />
+                <select
+                  className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                  value={filterStatus}
+                  onChange={handleStatusChange}
+                >
+                  <option value="All">All</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Available">Available</option>
+                  <option value="Finished">Finished</option>
+                </select>
+              </div>
+            </div>
             {filteredEvents.length > 0 ? (
               filteredEvents.map((event, index) => (
-                
                 <div
                   class="flex flex-col space-x-4 text-center bg-gray-500 shadow-lg shadow-gray-500/50 rounded-lg w-full mx-20"
                   style={{ margin: "20px", backgroundColor: "#EFF0F6" }}

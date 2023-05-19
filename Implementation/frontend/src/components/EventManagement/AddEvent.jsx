@@ -28,7 +28,7 @@ function AddEvent() {
     async function getEvents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents",
+          "http://localhost:8080/api/event/getEvents"
         );
         // const eids = res.data.allevents.map((event) => event.eid);
         // const lastId = parseInt(eids[eids.length - 1], 10);
@@ -64,7 +64,6 @@ function AddEvent() {
     getEventAmounts();
   }, []);
 
- 
   console.log(firstId);
   function addEvent(e) {
     e.preventDefault();

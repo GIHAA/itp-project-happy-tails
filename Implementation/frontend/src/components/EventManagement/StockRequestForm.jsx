@@ -61,10 +61,18 @@ const StockRequestForm = () => {
   const handleAddItem = () => {
     setItems([...items, { product: "", quantity: "" }]);
   };
-console.log(total)
+  console.log(total);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const request = { eid, stockid, eventName, items, description, status,total:total };
+    const request = {
+      eid,
+      stockid,
+      eventName,
+      items,
+      description,
+      status,
+      total: total,
+    };
     axios
       .post("http://localhost:8080/api/eventstock/reqStock", request)
       .then((res) => {

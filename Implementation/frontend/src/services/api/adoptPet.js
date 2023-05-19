@@ -10,7 +10,6 @@ const getAll = asynchandler(async (userData) => {
 });
 
 const updateOne = asynchandler(async (userData) => {
-
   const response = await axios.put(
     API_URL + "bookedmarkStatusUpdate/" + userData.petId,
     userData,

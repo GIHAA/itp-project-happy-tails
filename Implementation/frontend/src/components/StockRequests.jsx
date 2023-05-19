@@ -13,11 +13,11 @@ const moment = require("moment");
 
 export default function StockRequests() {
   const [stockReq, setStockReq] = useState([]);
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/",{
+      .get("http://localhost:8080/api/inventory/stockrequest/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -38,23 +38,24 @@ export default function StockRequests() {
   // }
 
   function generatePDF() {
-    
     const title = "Still Pending Stock Request Report ";
     const doc = new jsPDF();
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
     // Set document font and color
     doc.setFont("helvetica");
     doc.setTextColor("#000000");
-    
+
     // Add title and date
     doc.setFontSize(24);
     doc.text(title, 20, 30);
     doc.setFontSize(12);
     doc.setTextColor("#999999");
     doc.text(`Generated on ${date}`, 20, 40);
-    
+
     // Add logo and company details
     doc.addImage(logo2, "JPG", 20, 60, 40, 40);
     doc.setFontSize(16);
@@ -168,7 +169,7 @@ export default function StockRequests() {
 }
 
 function TableDataRow(props) {
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
   async function handleClick(id, total_amount) {
     console.log(id);
 
@@ -181,7 +182,8 @@ function TableDataRow(props) {
         {
           status: "ACCEPTED",
           total: total_amount,
-        },{
+        },
+        {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -192,7 +194,6 @@ function TableDataRow(props) {
       setTimeout(() => {
         window.location.href = "#";
       }, 3000);
-
     } catch (err) {
       console.error(err);
     }

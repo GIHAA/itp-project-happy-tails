@@ -20,8 +20,7 @@ function AddPayment({ closeModal }) {
       pet_id: data.pet_id,
       payment: data.payment,
       status: data.status,
-    })
-    .then((res) => {
+    }).then((res) => {
       console.log(res.data);
       refreshPage();
     });

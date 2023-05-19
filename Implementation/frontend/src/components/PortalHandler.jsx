@@ -18,7 +18,6 @@ import EventPortal from "./portals/EventPortal";
 import VetPortal from "./portals/VetPortal";
 import Admin from "./admin/Admin";
 
-
 function PortalHandler() {
   const { user } = useSelector((state) => state.auth);
 

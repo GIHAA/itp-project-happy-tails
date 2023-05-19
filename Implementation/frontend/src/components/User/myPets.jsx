@@ -32,9 +32,8 @@ const Booking = (props) => {
   };
 
   const handleDelete = (pet) => {
-
     pet = {
-      petId:pet.petId ,
+      petId: pet.petId,
       bookedmarked: "no",
       token: user.token,
       owenerId: user._id,
@@ -45,7 +44,7 @@ const Booking = (props) => {
     if (response) toast.success("Pet Successfully Removed from wish list");
     setTimeout(() => {
       refreshTable();
-    },2000);
+    }, 2000);
   };
 
   const refreshTable = () => {
@@ -119,18 +118,18 @@ const Booking = (props) => {
                           </td>
 
                           <td className="text-center">
-                      <button
-                        onFocus={() =>
-                          setFormData((prevFormData) => ({
-                            ...prevFormData,
-                            id: item._id,
-                          }))
-                        }
-                        onClick={() => handleDelete(item)}
-                      >
-                        Remove
-                      </button>
-                    </td>
+                            <button
+                              onFocus={() =>
+                                setFormData((prevFormData) => ({
+                                  ...prevFormData,
+                                  id: item._id,
+                                }))
+                              }
+                              onClick={() => handleDelete(item)}
+                            >
+                              Remove
+                            </button>
+                          </td>
                         </tr>
                       </>
                     ) : (

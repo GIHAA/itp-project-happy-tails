@@ -154,7 +154,6 @@ export default function VetPortal() {
             </Link>
           </div>
         </div>
-
       </aside>
       <Outlet />
     </>

@@ -68,9 +68,7 @@ const GetOrganization = () => {
       setorgnzData((prevData) => ({
         ...prevData,
         org_logo: base64Image,
-        
       }));
-     
     };
     reader.onerror = (error) => {
       console.log("Error: ", error);
@@ -114,16 +112,13 @@ const GetOrganization = () => {
 
           // const imageUrl = `data:image/jpeg;base64,${org_logo}`;
 
-          
-
           return (
             <div
               class=" flex items-stretch   h-30 font-medium text-gray-600 dark:text-gray-400 p-4 mt-2 border-solid border-2 mr-1 bg-gray-100 dark:bg-gray-800 border-sky-500 mb-3 ml-2 rounded-md"
               key={_id}
             >
               <div class=" w-40 items-center">
-              <img src={`data:image/png;base64,${org_logo}`} />
-
+                <img src={`data:image/png;base64,${org_logo}`} />
               </div>
 
               <div class="px-12 ">
@@ -238,8 +233,8 @@ const GetOrganization = () => {
                             <input
                               type="file"
                               name="logo"
-                             // defaultValue={selectedData.org_logo}
-                               onChange={convertToBase64}
+                              // defaultValue={selectedData.org_logo}
+                              onChange={convertToBase64}
                               class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                             />{" "}
                           </label>{" "}

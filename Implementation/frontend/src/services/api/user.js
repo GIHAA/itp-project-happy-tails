@@ -24,6 +24,6 @@ const forgot = async (userData) => {
 
 const userServices = {
   updateUser,
-  forgot
-}
+  forgot,
+};
 export default userServices;

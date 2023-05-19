@@ -11,7 +11,6 @@ const GetBooking = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPayData, setFilteredPayData] = useState([]);
   const { user } = useSelector((state) => state.auth);
- 
 
   useEffect(() => {
     axios
@@ -21,8 +20,8 @@ const GetBooking = () => {
         },
       })
       .then((response) => {
-        const data = response.data
-        console.log(data)
+        const data = response.data;
+        console.log(data);
         setpayData(data);
         setFilteredPayData(data);
         const petCounts = data.map((item) => item.mini.length);
@@ -68,17 +67,15 @@ const GetBooking = () => {
   const max = calculateBooked();
   const countShel = calculateShel();
 
-  
-
-
   function refreshPage() {
     setTimeout(function () {
       // window.location.reload(false);
-      axios.get("http://localhost:8080/api/booking", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
+      axios
+        .get("http://localhost:8080/api/booking", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
         .then((response) => {
           const data = response.data;
           console.log(response);
@@ -99,7 +96,7 @@ const GetBooking = () => {
     if (selectedOption === "") {
       setFilteredPayData(payData);
     } else {
-      const filteredData = payData.filter(item => {
+      const filteredData = payData.filter((item) => {
         return item.status === selectedOption;
       });
       setFilteredPayData(filteredData);
@@ -151,19 +148,27 @@ const GetBooking = () => {
                 <tr class="text-base font-semibold tracking-wide  text-gray-500 uppercase border-b dark:border-gray-900 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                   <th className="px-10 py-4">Customer Name</th>
                   <th className="px-10 py-4">Booking ID </th>
-                  <th className="px-10 py-4">     <select
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-28 text-center  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                     <option className="text-center" value="" selected>All</option> 
-                     <option className="text-center" value="CLOSED">CLOSED</option> 
-                    <option className="text-center" value="SHELTERED">SHELTERED</option>
-                    <option className="text-center" value="BOOKED">BOOKED</option>
-
-
-
-                  </select> </th>
+                  <th className="px-10 py-4">
+                    {" "}
+                    <select
+                      value={searchTerm}
+                      onChange={handleSearch}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-28 text-center  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option className="text-center" value="" selected>
+                        All
+                      </option>
+                      <option className="text-center" value="CLOSED">
+                        CLOSED
+                      </option>
+                      <option className="text-center" value="SHELTERED">
+                        SHELTERED
+                      </option>
+                      <option className="text-center" value="BOOKED">
+                        BOOKED
+                      </option>
+                    </select>{" "}
+                  </th>
                   <th className="px-10 py-4">Pet Count</th>
                   <th className="px-10 py-4">Pet Id's</th>
                   <th className="px-10 py-4">Action</th>
@@ -218,7 +223,7 @@ const GetBooking = () => {
                         console.log(cus_name);
                         console.log(response.data);
                         calculateprice();
-                        refreshPage()
+                        refreshPage();
                       })
                       .catch((error) => {
                         console.log(error);
@@ -277,4 +282,4 @@ const GetBooking = () => {
   );
 };
 
-export default GetBooking;
+export default GetBooking;

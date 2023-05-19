@@ -26,8 +26,7 @@ function PostTransaction({ closeModal }) {
       tran_date: data.tran_date,
       tran_time: data.tran_time,
       tran_status: data.tran_status,
-    })
-    .then((res) => {
+    }).then((res) => {
       console.log(res.data);
       notify();
       refreshPage();
@@ -159,7 +158,6 @@ function PostTransaction({ closeModal }) {
             <input
               type="date"
               size="15px"
-              
               onChange={(e) => handle(e)}
               id="tran_date"
               value={data.tran_date}
@@ -172,7 +170,6 @@ function PostTransaction({ closeModal }) {
             <input
               type="time"
               size="15px"
-              
               onChange={(e) => handle(e)}
               id="tran_time"
               // value={data.tran_time}

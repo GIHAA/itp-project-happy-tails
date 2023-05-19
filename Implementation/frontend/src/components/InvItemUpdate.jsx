@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import inv from "../assets/inv.jpg";
 import axios from "axios";
 import InventorySideBar from "./InventorySideBar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 
 function InvItemUpdate() {
@@ -19,15 +19,18 @@ function InvItemUpdate() {
   const [item_brand, setItemBrand] = useState("");
   const [category, setItemCategory] = useState("");
   const [qty, setItemQty] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   async function getItem() {
     try {
-      const res = await axios.get(`http://localhost:8080/api/inventory/items/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:8080/api/inventory/items/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const oneItem = res.data.item;
       console.log(oneItem);
       setItem(oneItem);
@@ -62,23 +65,26 @@ function InvItemUpdate() {
     };
 
     try {
-
-      await axios.put(`http://localhost:8080/api/inventory/items/${id}`, newItem, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
+      await axios.put(
+        `http://localhost:8080/api/inventory/items/${id}`,
+        newItem,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      toast.success("item Updated !!", {
+        position: toast.POSITION.BOTTOM_RIGHT,
       });
-      toast.success("item Updated !!", { position: toast.POSITION.BOTTOM_RIGHT });
 
       setTimeout(() => {
         window.location.href = "/items";
       }, 3000);
-
     } catch (err) {
       console.error(err);
       toast.error(err, { position: toast.POSITION.BOTTOM_RIGHT });
     }
-
   }
 
   return (

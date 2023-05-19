@@ -9,15 +9,15 @@ import { useSelector } from "react-redux";
 export default function InvStockIn() {
   const [stockReq, setStockReq] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
-    .get("http://localhost:8080/api/inventory/stockrequest/", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+      .get("http://localhost:8080/api/inventory/stockrequest/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         const items = res.data;
         const receivedItems = items.filter(

@@ -19,11 +19,10 @@ export default function BudgetRequestEdit() {
   const [length, setLength] = useState(0);
   const [eid, setId] = useState("");
   const [event, setEvent] = useState("");
-  
+
   const [retrieveAmountStatus, setRetrieveAmountStatus] = useState("");
   const [retrieveStatus, setRetrieveStatus] = useState("");
-  const [product,setProduct] = useState([]);
-
+  const [product, setProduct] = useState([]);
 
   async function getbudget() {
     try {
@@ -32,14 +31,12 @@ export default function BudgetRequestEdit() {
       );
       const oneBudget = res.data;
       console.log(oneBudget.bud);
-      setProduct(oneBudget.bud.items)
+      setProduct(oneBudget.bud.items);
       if (oneBudget.bud) {
         setLength(oneBudget.bud.items.length);
         setBudget(oneBudget.bud);
         setRetrieveStatus(oneBudget.bud.status);
         setRetrieveAmountStatus(oneBudget.bud.amountStatus);
-
-        
       }
     } catch (err) {
       toast.error(err);
@@ -53,7 +50,7 @@ export default function BudgetRequestEdit() {
   useEffect(() => {
     setEventName(budget.eventName);
     setId(budget.eid);
-     setItems(budget.items);
+    setItems(budget.items);
     setDesc(budget.description);
     //  setOldTotal(budget.total)
     setTotal(budget.total);
@@ -61,11 +58,9 @@ export default function BudgetRequestEdit() {
     // console.log(event.startTime);
   }, [budget]);
 
-
-
   async function EditBudget(e) {
     e.preventDefault();
-    
+
     try {
       const newBudget = {
         eid,
@@ -74,7 +69,6 @@ export default function BudgetRequestEdit() {
         description,
         total,
         status,
-      
       };
 
       await axios

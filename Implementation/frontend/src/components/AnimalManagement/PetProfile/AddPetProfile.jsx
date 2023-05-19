@@ -49,7 +49,6 @@ function AddPetProfile() {
   console.log(breed);
 
   function addPet(e) {
-
     e.preventDefault();
 
     if (nameError) {
@@ -59,49 +58,42 @@ function AddPetProfile() {
       return;
     }
 
-    if( parseInt(weight)>100){
-
+    if (parseInt(weight) > 100) {
       toast.warn("Please set Valid Weight (<= 100Kg)", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(petStatus==""){
-
+    if (petStatus == "") {
       toast.warn("Please set the Pet Status", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(species==""){
-
+    if (species == "") {
       toast.warn("Please set the Pet Species", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(breed==""){
-
+    if (breed == "") {
       toast.warn("Please set the Pet Breed", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    
-    if(gender==""){
-
+    if (gender == "") {
       toast.warn("Please set the Gender", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(parseInt(price)<10000){
-
+    if (parseInt(price) < 10000) {
       toast.warn("Please set the Valid Price (>=Rs.5,000)", {
         autoClose: 5000, // Display for 3 seconds
       });
@@ -178,7 +170,6 @@ function AddPetProfile() {
       setNameError("");
     }
   }
-  
 
   return (
     <>
@@ -300,11 +291,11 @@ function AddPetProfile() {
               <label class="mb-2 font-bold text-lg text-white ml-5" for="color">
                 Colour
               </label>
-             <select>
-              <option value="black">Black</option>
-              <option value="black">Black</option>
-              <option value="black">Black</option>
-             </select>
+              <select>
+                <option value="black">Black</option>
+                <option value="black">Black</option>
+                <option value="black">Black</option>
+              </select>
             </div>
 
             <div class="flex flex-col mb-4 mr-5">

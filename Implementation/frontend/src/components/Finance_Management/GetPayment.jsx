@@ -6,8 +6,6 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import name from "../../assets/logo2.png";
 
-
-
 const GetPayment = () => {
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
@@ -45,8 +43,6 @@ const GetPayment = () => {
     axios
       .delete(`http://localhost:8080/api/payment/${id}`)
       .then((res) => {
-
-
         refreshPage();
       })
 
@@ -100,9 +96,9 @@ const GetPayment = () => {
       });
 
       const today = new Date();
-      const date = `${today.getFullYear()}-${today.getMonth() + 1
-        }-${today.getDate()}`;
-
+      const date = `${today.getFullYear()}-${
+        today.getMonth() + 1
+      }-${today.getDate()}`;
 
       const title = "Customer Payment Report";
 
@@ -148,22 +144,21 @@ const GetPayment = () => {
       const textOffset = (doc.internal.pageSize.width - textWidth) / 2;
       doc.text("CUSTOMER PAYMENTS", textOffset, 120);
 
-
-
       doc.autoTable({
         head: [headers],
         body: rows,
         startY: 140,
-
       });
 
       doc.setFontSize(12);
       doc.setTextColor("#121212");
-      doc.text(`Total Payments: Rs. ${max}`, 470, doc.autoTable.previous.finalY + 28);
-
+      doc.text(
+        `Total Payments: Rs. ${max}`,
+        470,
+        doc.autoTable.previous.finalY + 28
+      );
 
       doc.save("PaymentReports.pdf");
-
     }
   };
 
@@ -189,7 +184,7 @@ const GetPayment = () => {
       theme: "colored",
     });
 
-    const notify2 = () =>
+  const notify2 = () =>
     toast.success("Payment Updated ", {
       position: "top-right",
       autoClose: 3000,
@@ -449,7 +444,6 @@ const GetPayment = () => {
                             type="text"
                             name="title"
                             defaultValue={selectedData.cus_id}
-
                             class="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
                           />{" "}
                         </label>{" "}
@@ -499,7 +493,7 @@ const GetPayment = () => {
                           class=" border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline"
                           onClick={() => {
                             notify2();
-                            
+
                             refreshPage();
                           }}
                         >
@@ -508,7 +502,6 @@ const GetPayment = () => {
                         <button
                           onClick={() => setShowUpdateForm(false)}
                           class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
-                         
                         >
                           {" "}
                           CLOSE

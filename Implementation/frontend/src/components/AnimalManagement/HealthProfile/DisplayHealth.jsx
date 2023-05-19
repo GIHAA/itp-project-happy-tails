@@ -37,15 +37,16 @@ export default function DisplayHealth() {
   const generatePDF = () => {
     const doc = new jsPDF("landscape", "px", "a4", false);
     const today = new Date();
-    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    
+    const date = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+
     const title = "Vaccination Report";
 
     // Set document font and color
     doc.setFont("helvetica");
     doc.setTextColor("#000000");
 
-    
     // Add title and date
     doc.setFontSize(24);
     doc.text(title, 20, 30);

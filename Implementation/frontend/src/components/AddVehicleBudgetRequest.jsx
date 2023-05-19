@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg";
 import axios from "axios";
 import VSideBar from "./VSideBar";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-
-
 
 export default function AddVehicleBudgetRequestForm() {
   const [req_title, setReq_title] = useState("");
@@ -16,8 +14,7 @@ export default function AddVehicleBudgetRequestForm() {
   const [payment, setPayment] = useState(0);
   const [status, setStatus] = useState("Pending");
 
-  const{user} = useSelector ((state) => state.auth);
-
+  const { user } = useSelector((state) => state.auth);
 
   function addRequest(e) {
     e.preventDefault();
@@ -31,19 +28,20 @@ export default function AddVehicleBudgetRequestForm() {
     console.log(newRequest);
 
     axios
-      .post("http://localhost:8080/api/VehReqPayment/", newRequest,{
+      .post("http://localhost:8080/api/VehReqPayment/", newRequest, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       })
       .then(() => {
-        toast.success("Requested Successfully", { position: toast.POSITION.TOP_RIGHT });
-
+        toast.success("Requested Successfully", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       })
       .catch((err) => {
-       
-        toast.error(`Request insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
-
+        toast.error(`Request insert unsuccessful ${err}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   }
 

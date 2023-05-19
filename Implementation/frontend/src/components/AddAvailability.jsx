@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg";
 import axios from "axios";
 import VSideBar from "./VSideBar";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-
-
 
 export default function AddAvailability() {
   const [plateNo, setPlateNo] = useState("");
@@ -15,12 +13,10 @@ export default function AddAvailability() {
   const [since, setSince] = useState("");
   const [to, setTo] = useState("");
   const [status, setStatus] = useState("");
-  const{user} = useSelector ((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
-  
   function addAvailability(e) {
     e.preventDefault();
-
 
     const resetForm = () => {
       setPlateNo("");
@@ -28,57 +24,63 @@ export default function AddAvailability() {
       setSince("");
       setTo("");
       setStatus("");
+    };
 
-    }
+    axios
+      .get("http://localhost:8080/api/availability/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        const availabilities = response.data;
 
-  
+        const existingAvailability = availabilities.find(
+          (availability) => availability.plateNo === plateNo
+        );
+        if (existingAvailability) {
+          toast.error(
+            "Cannot insert! Maintenance record with this plate number already exists.",
+            { position: toast.POSITION.TOP_RIGHT }
+          );
 
-    
-      axios.get("http://localhost:8080/api/availability/",{
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        })
-          .then((response) => {
-              const availabilities = response.data;
+          resetForm();
+          return;
+        }
 
-              const existingAvailability = availabilities.find((availability) => availability.plateNo === plateNo );
-              if (existingAvailability) {
-                  toast.error("Cannot insert! Maintenance record with this plate number already exists.", { position: toast.POSITION.TOP_RIGHT });
+        const newAvailability = {
+          plateNo,
+          reason,
+          since,
+          to,
+          status,
+        };
 
-                  resetForm();
-                  return;
-              }
-  
-              
-              const newAvailability = {
-                plateNo,
-                reason,
-                since,
-                to,
-                status,
-              };
-  
-              axios.post("http://localhost:8080/api/availability/", newAvailability,{
-                  headers: {
-                    Authorization: `Bearer ${user.token}`,
-                  },
-                })
-                  .then(() => {
-                      toast.success("New Maintenance record added successfully  !!", { position: toast.POSITION.TOP_RIGHT });
+        axios
+          .post("http://localhost:8080/api/availability/", newAvailability, {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          })
+          .then(() => {
+            toast.success("New Maintenance record added successfully  !!", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
 
-                      resetForm();
-                  })
-                  .catch((err) => {
-                      toast.error(`Maintenance  record insert unsuccessful ${err}`, { position: toast.POSITION.TOP_RIGHT });
-
-                  });
+            resetForm();
           })
           .catch((err) => {
-              toast.error(`Error fetching existing record: ${err}`, { position: toast.POSITION.TOP_RIGHT });
+            toast.error(`Maintenance  record insert unsuccessful ${err}`, {
+              position: toast.POSITION.TOP_RIGHT,
+            });
           });
-       }
-
+      })
+      .catch((err) => {
+        toast.error(`Error fetching existing record: ${err}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      });
+  }
 
   return (
     //Main container
@@ -169,7 +171,7 @@ export default function AddAvailability() {
 
                   <div className="flex mb-6">
                     <div className=" w-[50%]  ">
-                    <label>Availability : (AVAILABLE or UNAVAILABLE)</label>
+                      <label>Availability : (AVAILABLE or UNAVAILABLE)</label>
                       <input
                         type="text"
                         pattern="(AVAILABLE|UNAVAILABLE)"
@@ -182,7 +184,6 @@ export default function AddAvailability() {
                       />
                     </div>
                   </div>
-
 
                   <div className="flex mt-24 h-10">
                     <button className="text-white bg-[#FF9F00] hover:bg-[#2E4960] focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-3xl text-l sm:w-auto px-20 py-5.5 text-center ml-[100px]">

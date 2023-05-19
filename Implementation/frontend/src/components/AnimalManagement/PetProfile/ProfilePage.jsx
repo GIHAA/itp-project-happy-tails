@@ -10,13 +10,14 @@ export default function ProfilePage() {
   const [qrCode, setQrCode] = useState("");
   const param = useParams();
   const pid = param.id;
-  const{user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     async function getProfile() {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/vet/profile/${pid}`,{
+          `http://localhost:8080/api/vet/profile/${pid}`,
+          {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },

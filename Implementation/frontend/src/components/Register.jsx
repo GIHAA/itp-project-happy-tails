@@ -64,7 +64,7 @@ const Registration = () => {
           fetch(apiURL)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data)
+              console.log(data);
               const address = data.results[0].formatted_address;
               setFormData((prevData) => ({ ...prevData, address }));
             })
@@ -178,7 +178,7 @@ const Registration = () => {
                 type="text"
                 className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
               />
-              
+
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Address
               </label>
@@ -198,7 +198,7 @@ const Registration = () => {
                   <GrMapLocation className="m-[15px]" />
                 </div>
               </div>
-              
+
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 Phone Number
               </label>

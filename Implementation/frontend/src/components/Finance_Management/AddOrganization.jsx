@@ -28,14 +28,12 @@ function AddOrganization({ closeModal }) {
       org_Resources: data.org_Resources,
       org_description: data.org_description,
       org_logo: data.org_logo,
-    })
-    .then((res) => {
+    }).then((res) => {
       console.log(res.data);
       refreshPage();
     });
   }
 
-  
   function convertToBase64(e) {
     var reader = new FileReader();
     reader.onload = () => {
@@ -43,16 +41,13 @@ function AddOrganization({ closeModal }) {
       setData((prevData) => ({
         ...prevData,
         org_logo: base64Image,
-        
       }));
-      
     };
     reader.onerror = (error) => {
       console.log("Error: ", error);
     };
     reader.readAsBinaryString(e.target.files[0]);
   }
-  
 
   function handle(e) {
     const newdata = { ...data };

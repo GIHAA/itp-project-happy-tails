@@ -7,7 +7,6 @@ const FinaGetEvents = () => {
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
 
-
   function refreshPage() {
     setTimeout(function () {
       window.location.reload(false);
@@ -23,11 +22,9 @@ const FinaGetEvents = () => {
         setpayData(data);
 
         setpayData(data.allbudget);
-
       })
       .catch((error) => setIsError(error.message));
   }, []);
-
 
   function calculateprice() {
     const income = payData
@@ -38,9 +35,7 @@ const FinaGetEvents = () => {
     return income;
   }
 
-
   const max = calculateprice();
-
 
   return (
     <>
@@ -49,14 +44,27 @@ const FinaGetEvents = () => {
       <div class="flex ml-48 justify-center flex-cols-1 gap-4 mt-24 ">
         <div class="bg-[#2E4960] shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
           <div class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-            <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <svg
+              width="30"
+              height="30"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
           </div>
           <div class="text-right">
             <p class="text-2xl"> &nbsp; Rs. {max}</p>
             <p>Expenses</p>
           </div>
         </div>
-
 
         {/* <div class="flex ">
                     <form class="flex items-center mt-10">
@@ -70,10 +78,6 @@ const FinaGetEvents = () => {
                         </div>
                     </form>
                 </div> */}
-
-
-
-
       </div>
 
       {isError !== "" && <h2>{isError}</h2>}
@@ -104,22 +108,22 @@ const FinaGetEvents = () => {
                       eid,
                       items,
                     } = data;
-      
+
                     const notify = () =>
-                      toast.success('Payment Accepted ', {
-                        position: 'top-right',
+                      toast.success("Payment Accepted ", {
+                        position: "top-right",
                         autoClose: 3000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: false,
                         draggable: true,
                         progress: undefined,
-                        theme: 'colored',
+                        theme: "colored",
                       });
-      
+
                     function updateTransaction() {
                       const updatedTransaction = {
-                        status: 'Accepted',
+                        status: "Accepted",
                         eventName: eventName,
                         total: total,
                         description: description,
@@ -127,7 +131,7 @@ const FinaGetEvents = () => {
                         items: items,
                         amountStatus: amountStatus,
                       };
-      
+
                       axios
                         .put(
                           `http://localhost:8080/api/eventbudget/editbudget/${_id}`,
@@ -144,7 +148,7 @@ const FinaGetEvents = () => {
                           console.log(error);
                         });
                     }
-      
+
                     return (
                       <tr
                         key={_id}
@@ -157,13 +161,17 @@ const FinaGetEvents = () => {
                             </div>
                           </div>
                         </td>
-      
+
                         <td className="text-center px-10 py-3 text-sm">
                           {description}
                         </td>
-                        <td className="text-center px-10 py-3 text-sm">{total}</td>
-                        <td className="text-center px-10 py-3 text-sm">{status}</td>
-      
+                        <td className="text-center px-10 py-3 text-sm">
+                          {total}
+                        </td>
+                        <td className="text-center px-10 py-3 text-sm">
+                          {status}
+                        </td>
+
                         <td className="px-10 py-4 text-sm">
                           <button
                             className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"

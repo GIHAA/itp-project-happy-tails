@@ -17,12 +17,13 @@ export default function UpdateStockBudgetRequest() {
   const [item_name, setItems] = useState("");
   const [description, setDesc] = useState("");
   const [total, setTotal] = useState(0);
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   async function getRequest() {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/stockBudget/${id}`,{
+        `http://localhost:8080/api/stockBudget/${id}`,
+        {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -60,7 +61,7 @@ export default function UpdateStockBudgetRequest() {
       };
       console.log(newReq);
       await axios
-        .put(`http://localhost:8080/api/stockBudget/${id}`, newReq,{
+        .put(`http://localhost:8080/api/stockBudget/${id}`, newReq, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

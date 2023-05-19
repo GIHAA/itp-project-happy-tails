@@ -15,42 +15,42 @@ const GetBooking = () => {
   function refreshPage() {
     setTimeout(function () {
       // window.location.reload(false);
-      axios.get("http://localhost:8080/api/booking", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      }, 
-  })
-  .then((response) => {
-      const data = response.data;
-      console.log(response);
-      setpayData(data);
-      const petCounts = data.map((item) => item.mini.length);
-      const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
-      setPetCount(totalPetCount);
-      setPetCountsByIndex(petCounts);
-  })
-  .catch((error) => setIsError(error.message));
+      axios
+        .get("http://localhost:8080/api/booking", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((response) => {
+          const data = response.data;
+          console.log(response);
+          setpayData(data);
+          const petCounts = data.map((item) => item.mini.length);
+          const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
+          setPetCount(totalPetCount);
+          setPetCountsByIndex(petCounts);
+        })
+        .catch((error) => setIsError(error.message));
     }, 3000);
   }
 
   useEffect(() => {
- 
-    axios.get("http://localhost:8080/api/booking", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      }
-  })
-  .then((response) => {
-      const data = response.data;
-      console.log(response);
-      setpayData(data);
-      const petCounts = data.map((item) => item.mini.length);
-      const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
-      setPetCount(totalPetCount);
-      setPetCountsByIndex(petCounts);
-  })
-  .catch((error) => setIsError(error.message));
-  
+    axios
+      .get("http://localhost:8080/api/booking", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(response);
+        setpayData(data);
+        const petCounts = data.map((item) => item.mini.length);
+        const totalPetCount = petCounts.reduce((a, b) => a + b, 0);
+        setPetCount(totalPetCount);
+        setPetCountsByIndex(petCounts);
+      })
+      .catch((error) => setIsError(error.message));
   }, []);
 
   function filterContent(book, searchTerm) {
@@ -66,15 +66,17 @@ const GetBooking = () => {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/booking", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      }
-  }).then((res) => {
-      if (res.data) {
-        filterContent(res.data, searchTerm);
-      }
-    });
+    axios
+      .get("http://localhost:8080/api/booking", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data) {
+          filterContent(res.data, searchTerm);
+        }
+      });
   };
 
   return (

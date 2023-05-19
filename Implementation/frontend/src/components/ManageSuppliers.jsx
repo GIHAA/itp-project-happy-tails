@@ -14,11 +14,11 @@ export default function ManageSuppliers() {
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/",{
+      .get("http://localhost:8080/api/suppliers/", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -31,7 +31,7 @@ export default function ManageSuppliers() {
 
   function handleDelete(id) {
     axios
-      .delete(`http://localhost:8080/api/suppliers/${id}`,{
+      .delete(`http://localhost:8080/api/suppliers/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -94,7 +94,7 @@ export default function ManageSuppliers() {
         >
           {/* White box */}
           <div className="bg-white bg-opacity-90 w-[75%] h-[75%] absolute top-5 left-[80px] overflow-scroll">
-          <div className="flex">
+            <div className="flex">
               <div className="relative mt-6 mb-1 ml-[860px]">
                 <img
                   src={filterImg}
@@ -153,7 +153,7 @@ export default function ManageSuppliers() {
                     if (selectedCategory === "") {
                       return val;
                     } else if (
-                      selectedCategory.toLowerCase() ===val.type.toLowerCase()
+                      selectedCategory.toLowerCase() === val.type.toLowerCase()
                     ) {
                       return val;
                     }

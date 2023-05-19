@@ -17,7 +17,7 @@ export default function StockRequestEdit() {
   const [description, setDesc] = useState("");
   const [event, setEvent] = useState("");
   const [eid, setId] = useState("");
-  const [product,setProduct] = useState([]);
+  const [product, setProduct] = useState([]);
   const [total, setTotal] = useState("0");
   async function getstock() {
     try {
@@ -25,7 +25,7 @@ export default function StockRequestEdit() {
         `http://localhost:8080/api/eventstock/getstock/${id}`
       );
       const oneStock = res.data;
-      setProduct(oneStock.stockreq.items)
+      setProduct(oneStock.stockreq.items);
       // console.log(oneBudget.stockreq.items.length);
       if (oneStock.stockreq) {
         //  setLength(oneStock.stockreq.items.length);
@@ -43,7 +43,7 @@ export default function StockRequestEdit() {
   useEffect(() => {
     setEventName(stock.eventName);
     setId(stock.eid);
-   setItems(stock.items);
+    setItems(stock.items);
     setDesc(stock.description);
 
     // console.log(event.startTime);
@@ -59,7 +59,7 @@ export default function StockRequestEdit() {
         items,
         description,
         status,
-        total:total
+        total: total,
       };
 
       await axios.put(

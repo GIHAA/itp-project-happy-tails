@@ -86,9 +86,6 @@ const GetTransaction = () => {
     }
   }
 
-
-  
-
   return (
     <>
       {/* //BALANCE BAR */}
@@ -162,8 +159,6 @@ const GetTransaction = () => {
             <p class="text-2xl">&nbsp;Rs. {income}</p>
             <p>Expenses</p>
           </div>
-
-          
         </div>
       </div>
 
@@ -275,7 +270,7 @@ const GetTransaction = () => {
               <p> Amount : {tran_amount}</p>
               <p> Date : {tran_date}</p>
               <p> Time : {tran_time}</p>
-            
+
               <p> Status : {createdAt}</p>
               <br />
               <div class="float-left ">

@@ -24,12 +24,13 @@ export default function UpdatePetProfile() {
   const [price, setPrice] = useState("");
   const [allbreeds, setAllBreed] = useState([]);
   const [nameError, setNameError] = useState("");
-  const{user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   async function getProfile() {
     try {
       const res = await axios.get(
-        `http://localhost:8080/api/vet/profile/${id}`,{
+        `http://localhost:8080/api/vet/profile/${id}`,
+        {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -74,8 +75,6 @@ export default function UpdatePetProfile() {
   }, [profile]);
 
   async function UpdateData(e) {
-
-
     e.preventDefault();
 
     if (nameError) {
@@ -85,49 +84,42 @@ export default function UpdatePetProfile() {
       return;
     }
 
-    if( parseInt(weight)>100){
-
+    if (parseInt(weight) > 100) {
       toast.warn("Please set Valid Weight (<= 100Kg)", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(petStatus==""){
-
+    if (petStatus == "") {
       toast.warn("Please set the Pet Status", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(species==""){
-
+    if (species == "") {
       toast.warn("Please set the Pet Species", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(breed==""){
-
+    if (breed == "") {
       toast.warn("Please set the Pet Breed", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    
-    if(gender==""){
-
+    if (gender == "") {
       toast.warn("Please set the Gender", {
         autoClose: 5000, // Display for 3 seconds
       });
       return;
     }
 
-    if(parseInt(price)<10000){
-
+    if (parseInt(price) < 10000) {
       toast.warn("Please set the Valid Price (>=Rs.5,000)", {
         autoClose: 5000, // Display for 3 seconds
       });

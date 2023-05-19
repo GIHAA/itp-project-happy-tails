@@ -18,13 +18,11 @@ export default function UpdateSupplier() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [type, setType] = useState("");
-  const {user} = useSelector((state)=>state.auth);
-
-
+  const { user } = useSelector((state) => state.auth);
 
   async function getSupplierProfile() {
     try {
-      const res = await axios.get(`http://localhost:8080/api/suppliers/${id}`,{
+      const res = await axios.get(`http://localhost:8080/api/suppliers/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -62,22 +60,22 @@ export default function UpdateSupplier() {
     };
 
     try {
-     
       console.log(newSupplier);
       await axios
-        .put(`http://localhost:8080/api/suppliers/${id}`, newSupplier,{
+        .put(`http://localhost:8080/api/suppliers/${id}`, newSupplier, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         })
         .then(() => {
-          toast.success("supplier details updated", {position: toast.POSITION.TOP_RIGHT});
+          toast.success("supplier details updated", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
 
           setTimeout(() => {
             window.location.href = "/ManageSuppliers";
           }, 3000);
         });
-
     } catch (err) {
       console.error(err);
     }

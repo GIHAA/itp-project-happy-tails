@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const FinaGetVehicle = () => {
   const [payData, setpayData] = useState([]);
   const [isError, setIsError] = useState("");
-  const{user} = useSelector ((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPayData, setFilteredPayData] = useState([]);
 
@@ -17,7 +17,7 @@ const FinaGetVehicle = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget",{
+      .get("http://localhost:8080/api/stockBudget", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -143,7 +143,14 @@ const FinaGetVehicle = () => {
 
               <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 {filteredPayData.map((data) => {
-                  const { _id, supplier_name, item_name, total, status,description } = data;
+                  const {
+                    _id,
+                    supplier_name,
+                    item_name,
+                    total,
+                    status,
+                    description,
+                  } = data;
 
                   const notify = () =>
                     toast.success("Request Accepted ", {
@@ -163,18 +170,20 @@ const FinaGetVehicle = () => {
                       supplier_name: supplier_name,
                       item_name: item_name,
                       total: total,
-                      description:description,
+                      description: description,
                     };
 
                     axios
                       .put(
                         `http://localhost:8080/api/stockBudget/${_id}`,
-                        updatedTransaction,{
+                        updatedTransaction,
+                        {
                           headers: {
                             Authorization: `Bearer ${user.token}`,
                           },
-                        })
-                      
+                        }
+                      )
+
                       .then((response) => {
                         console.log(response.data);
                         calculateprice();

@@ -38,7 +38,6 @@ const Booking = (props) => {
   };
 
   const handleDelete = (booking) => {
-
     toast.warn(
       <div>
         <p class="text-red-700 ml-8">Do you want to delete ?</p>
@@ -52,7 +51,7 @@ const Booking = (props) => {
               });
               setTimeout(() => {
                 refreshTable();
-              },2000);
+              }, 2000);
             }}
           >
             Yes
@@ -62,9 +61,6 @@ const Booking = (props) => {
       </div>,
       { autoClose: false }
     );
-
-
-
   };
 
   const handleMainInputChange = (event) => {
@@ -92,8 +88,7 @@ const Booking = (props) => {
 
     setTimeout(() => {
       refreshTable();
-    },2000);
-
+    }, 2000);
   };
 
   return (

@@ -28,25 +28,26 @@ function Home() {
   };
 
   const submitFeedback = () => {
-
-    if(!FormData.name){
-      toast.error("Please enter the name")
-      return
+    if (!FormData.name) {
+      toast.error("Please enter the name");
+      return;
     }
-    if(!FormData.email){
-      toast.error("Please enter the email")
-      return
+    if (!FormData.email) {
+      toast.error("Please enter the email");
+      return;
     }
-    if(!FormData.message){
-      toast.error("Please enter the feedback")
-      return
+    if (!FormData.message) {
+      toast.error("Please enter the feedback");
+      return;
     }
     feedbackservices.add(FormData);
-    toast.success("Thank you for the Feedback")
-    setshowFeedbackModal(false)
-    setFormData({    name: user ? user.name : "",
-    email: user ? user.email : "",
-    message: "",})
+    toast.success("Thank you for the Feedback");
+    setshowFeedbackModal(false);
+    setFormData({
+      name: user ? user.name : "",
+      email: user ? user.email : "",
+      message: "",
+    });
   };
 
   return (
@@ -58,25 +59,24 @@ function Home() {
         className="snap-start bg-cover bg-center h-screen w-full"
       >
         <div className="max-w-[1200px] mx-auto px-8 flex flex-col justify-center h-full">
-          {user ? ( <div className="fixed right-0 bottom-0 mr-5 mb-5">
-
-<div className="flex">
-            <button
-                className="rounded-full bg-secondary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
-              >
-                <AiFillHeart className="" />
-       
-              </button>
-              <button
-                onClick={() => setshowFeedbackModal(true)}
-                className="rounded-full ml-2 bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
-              >
-                {/* <AiFillHeart className="mr-2" /> */}
-                Feedback
-              </button>
-</div>
-          </div>):(<> </>)}
-         
+          {user ? (
+            <div className="fixed right-0 bottom-0 mr-5 mb-5">
+              <div className="flex">
+                <button className="rounded-full bg-secondary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]">
+                  <AiFillHeart className="" />
+                </button>
+                <button
+                  onClick={() => setshowFeedbackModal(true)}
+                  className="rounded-full ml-2 bg-primary text-white group border-2 px-3 py-2 flex items-center hover:bg-[#E38E00] hover:border-[#E38E00]"
+                >
+                  {/* <AiFillHeart className="mr-2" /> */}
+                  Feedback
+                </button>
+              </div>
+            </div>
+          ) : (
+            <> </>
+          )}
 
           <p className="text-2xl font-po pl-2 text-secondary">
             HI {user ? user.name : ""}, Welcome to
@@ -184,10 +184,16 @@ function Home() {
             />
 
             <div className="flex">
-              <button className="bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => setshowFeedbackModal(false)}>
+              <button
+                className="bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => setshowFeedbackModal(false)}
+              >
                 Close
               </button>
-              <button className="ml-auto bg-secondary text-white h-[35px] w-[70px] rounded-full" onClick={() => submitFeedback()}>
+              <button
+                className="ml-auto bg-secondary text-white h-[35px] w-[70px] rounded-full"
+                onClick={() => submitFeedback()}
+              >
                 Submit
               </button>
             </div>

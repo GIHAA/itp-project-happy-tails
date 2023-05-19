@@ -26,14 +26,14 @@ const AllEventStock = () => {
     axios
       .delete(`http://localhost:8080/api/eventstock/deleteStock/${id}`)
       .then((res) => {
-        console.log(res); 
+        console.log(res);
         toast.success("Requested Stock Deleted!!");
         setTimeout(() => {
           window.location.reload();
         }, 5000);
       })
       .catch((err) => {
-        console.log(err); 
+        console.log(err);
         toast.error(err);
       });
   };

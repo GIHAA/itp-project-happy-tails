@@ -5,35 +5,34 @@ import "jspdf-autotable";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const moment = require('moment');
+const moment = require("moment");
 const IncomeExpenseReport = () => {
   const [events, setEvents] = useState([]);
   const [register, setRegister] = useState([]);
   const [budget, setBudget] = useState([]);
   const [data, setData] = useState([]);
   const [eventAmount, setEventAmount] = useState([]);
-  const [filterStatus, setSelectedStatus] = useState('All');
+  const [filterStatus, setSelectedStatus] = useState("All");
 
   const handleStatusChange = (event) => {
     setSelectedStatus(event.target.value);
   };
   const filteredEvents = eventAmount.filter((event) => {
-    if (filterStatus === 'All') {
-      return true; 
+    if (filterStatus === "All") {
+      return true;
     }
-    return event.result === filterStatus; 
+    return event.result === filterStatus;
   });
-
 
   const generatePDFamount = () => {
     const now = moment();
-    const month = now.format('MMMM'); //april,july
-    const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
-    const date2 = now.format('YYYY-MM');
-  
-    const doc = new jsPDF('landscape', 'px', 'a4', false);
-    doc.addImage(logo, 'JPG', 20, 20, 50, 50);
-  
+    const month = now.format("MMMM"); //april,july
+    const date = now.format("YYYY-MM-DD"); //for report 2023-02-01
+    const date2 = now.format("YYYY-MM");
+
+    const doc = new jsPDF("landscape", "px", "a4", false);
+    doc.addImage(logo, "JPG", 20, 20, 50, 50);
+
     // Happy Tails, Address, Phone Number, and Generated Date left aligned
     doc.setFontSize(12);
     doc.text(20, 80, "Happy Tails");
@@ -42,18 +41,22 @@ const IncomeExpenseReport = () => {
     doc.text(60, 110, "Malabe");
     doc.text(20, 120, "Tel : 01123457689");
     doc.text(20, 130, `Generated : ${date}`);
-  
+
     // Event Report center aligned
     doc.setFontSize(18);
-    doc.setTextColor('#444444');
-    doc.text('Income-Expense Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
-    doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
-  
+    doc.setTextColor("#444444");
+    doc.text("Income-Expense Report", doc.internal.pageSize.width / 2, 30, {
+      align: "center",
+    });
+    doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, {
+      align: "center",
+    });
+
     // Add horizontal line after the header
     doc.setLineWidth(0.5);
-    doc.setDrawColor('#444444');
+    doc.setDrawColor("#444444");
     doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
-  
+
     const headers = [
       "Event ID",
       "Event Name",
@@ -66,14 +69,13 @@ const IncomeExpenseReport = () => {
     ];
 
     const filter = filteredEvents.filter((event) => {
-      if (filterStatus === 'All') {
-        
+      if (filterStatus === "All") {
         return true; // show all events
       }
-      
+
       return event.result === filterStatus; // only show events with matching status
     });
- 
+
     const data = filter.map((event) => {
       const {
         eid,
@@ -144,10 +146,11 @@ const IncomeExpenseReport = () => {
     // Set table margin to center horizontally and position vertically up from top
     const tableWidth = 500; // Adjust table width as needed
     const tableHeight = 30 + data.length * 10; // Adjust table height as needed
-    const horizontalMargin = (doc.internal.pageSize.getWidth() - tableWidth) / 2;
+    const horizontalMargin =
+      (doc.internal.pageSize.getWidth() - tableWidth) / 2;
     const verticalMargin = 150; // Adjust vertical margin as needed
     const startY = verticalMargin + 20; // Add 20 to offset for space between line and table
-  
+
     // Create table with margin and didDrawPage properties
     doc.autoTable({
       head: [headers],
@@ -189,7 +192,7 @@ const IncomeExpenseReport = () => {
     };
     fetchData();
   }, []);
- 
+
   function filterContent(report, searchTerm) {
     const result = report.filter(
       (r) =>
@@ -253,16 +256,16 @@ const IncomeExpenseReport = () => {
         </button>
         {/* <button style={{ backgroundColor: '#E471D2' }} className="block bg-teal-400 hover:bg-teal-600 text-white font-bold uppercase text mx-auto p-2 rounded-lg" onClick={(e) => addIncomeExpense(e)}>View Bar Chart</button> */}
         <div>
-        <label>
-          Select status:
-          <select value={filterStatus} onChange={handleStatusChange}>
-            <option value="All">All</option>
-            <option value="Profit">Profit</option>
-            <option value="Loss">Loss</option>
-            <option value="Not Started">Not Started</option>
-          </select>
-        </label>
-      </div>
+          <label>
+            Select status:
+            <select value={filterStatus} onChange={handleStatusChange}>
+              <option value="All">All</option>
+              <option value="Profit">Profit</option>
+              <option value="Loss">Loss</option>
+              <option value="Not Started">Not Started</option>
+            </select>
+          </label>
+        </div>
         <div
           class="relative overflow-x-auto shadow-md sm:rounded-lg"
           style={{ marginTop: "10px" }}

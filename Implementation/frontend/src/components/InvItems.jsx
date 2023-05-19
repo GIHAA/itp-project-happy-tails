@@ -16,14 +16,15 @@ export default function InvItems() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
 
-  const {user} = useSelector((state)=>state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/inventory/items/", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
+    axios
+      .get("http://localhost:8080/api/inventory/items/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         setItems(res.data);
       })
@@ -33,7 +34,6 @@ export default function InvItems() {
   console.log(Items);
 
   const onDelete = (id) => {
-
     toast.warn(
       <div>
         <p class="text-red-700 ml-8">Do you want to delete ?</p>
@@ -45,7 +45,7 @@ export default function InvItems() {
                 .delete(`http://localhost:8080/api/inventory/items/${id}`, {
                   headers: {
                     Authorization: `Bearer ${user.token}`,
-                  }
+                  },
                 })
                 .then((res) => {
                   toast.success("Item Deleted successfully", {
@@ -58,7 +58,6 @@ export default function InvItems() {
                 .catch((err) => {
                   toast.warning(err);
                 });
-          
             }}
           >
             Yes

@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function InvEventStocks() {
   const [stockreqs, setStockRequests] = useState([]);
   const [statusFilter, setStatusFilter] = useState("");
-  
 
   useEffect(() => {
     axios
@@ -25,32 +24,34 @@ export default function InvEventStocks() {
       });
   }, []);
 
+  async function handleClick(id, eid, eventName, items, description, response) {
+    try {
+      const newStock = {
+        eid,
+        eventName,
+        items,
+        description,
+        status: response,
+      };
 
-  async function handleClick(id, eid, eventName, items, description, response){
-
-      try {
-        const newStock = {
-          eid,
-          eventName,
-          items,
-          description,
-          status: response,
-        };
-  
-        await axios.put(`http://localhost:8080/api/eventstock/editstock/${id}`,newStock);
-        response === "Rejected" ? toast.success("Request Rejected") : toast.success("Request Accepted");
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      } catch (err) {
-        toast.error(err);
-      }
+      await axios.put(
+        `http://localhost:8080/api/eventstock/editstock/${id}`,
+        newStock
+      );
+      response === "Rejected"
+        ? toast.success("Request Rejected")
+        : toast.success("Request Accepted");
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    } catch (err) {
+      toast.error(err);
+    }
   }
 
   const handleStatusFilter = (event) => {
     setStatusFilter(event.target.value);
   };
-
 
   return (
     //Main container
@@ -83,15 +84,12 @@ export default function InvEventStocks() {
         >
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
-          <div className="relative mt-6 ml-[1100px] mb-1">
-              <img
-                src={filterImg}
-                className="absolute top-2 left-2 w-4 h-4"
-              />
+            <div className="relative mt-6 ml-[1100px] mb-1">
+              <img src={filterImg} className="absolute top-2 left-2 w-4 h-4" />
               <select
                 className="pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-3xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                 value={statusFilter}
-                 onChange={handleStatusFilter}
+                onChange={handleStatusFilter}
               >
                 <option value="">All</option>
                 <option value="pending">Pending</option>
@@ -116,15 +114,17 @@ export default function InvEventStocks() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockreqs.sort((a, b) => {
-                  if (a.status.toLowerCase() === 'pending') {
-                    return -1; 
-                  } else if (b.status.toLowerCase() === 'pending') {
-                    return 1; 
-                  } else {
-                    return 0;
-                  }
-                }).filter((val) => {
+                {stockreqs
+                  .sort((a, b) => {
+                    if (a.status.toLowerCase() === "pending") {
+                      return -1;
+                    } else if (b.status.toLowerCase() === "pending") {
+                      return 1;
+                    } else {
+                      return 0;
+                    }
+                  })
+                  .filter((val) => {
                     if (statusFilter === "") {
                       return val;
                     } else if (
@@ -132,14 +132,15 @@ export default function InvEventStocks() {
                     ) {
                       return val;
                     }
-                  }).map((req) => {
+                  })
+                  .map((req) => {
                     return (
                       <>
                         <tr className="hover:bg-[#efeeee]">
                           <td className="p-3">{req.stockid}</td>
                           <td className="p-3 w-[150px]">{req.eventName}</td>
-                          
-                          {req.items.map((item, itemIndex) => ( 
+
+                          {req.items.map((item, itemIndex) => (
                             <tr key={itemIndex}>
                               <td className="p-3 w-[250px]">
                                 {item.product} - {item.quantity}
@@ -149,7 +150,7 @@ export default function InvEventStocks() {
                           ))}
                           <td className="p-3 w-[250px]">{req.description}</td>
 
-                          <td className="p-3 w-[150px]" >
+                          <td className="p-3 w-[150px]">
                             {new Date(req.submittedAt).toLocaleString()}
                           </td>
 
@@ -170,31 +171,47 @@ export default function InvEventStocks() {
                           </td>
 
                           <td className="p-3">
-                            {req.status.toLowerCase() === "pending" ? 
+                            {req.status.toLowerCase() === "pending" ? (
                               <div className="flex">
+                                <button
+                                  onClick={() =>
+                                    handleClick(
+                                      req._id,
+                                      req.eid,
+                                      req.eventName,
+                                      req.items,
+                                      req.description,
+                                      "Accepted"
+                                    )
+                                  }
+                                  className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
+                                >
+                                  ✔️ Accept
+                                </button>
 
-                              <button
-                                onClick={() => handleClick( req._id, req.eid, req.eventName, req.items, req.description, "Accepted")}
-                                className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
-                              >
-                                ✔️ Accept
-                              </button>
-
-                              
-                              <button
-                                onClick={() => handleClick( req._id, req.eid, req.eventName, req.items, req.description, "Rejected")}
-                                className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
-                              >
-                                ❌Reject
-                              </button>
+                                <button
+                                  onClick={() =>
+                                    handleClick(
+                                      req._id,
+                                      req.eid,
+                                      req.eventName,
+                                      req.items,
+                                      req.description,
+                                      "Rejected"
+                                    )
+                                  }
+                                  className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
+                                >
+                                  ❌Reject
+                                </button>
                               </div>
-
-                              : req.status.toLowerCase() === "rejected" ? 
-                               "You have rejected the request"
-                               : req.status.toLowerCase() === "sent" ? 
-                               "Supplier manager has sent the stocks"
-                              : "You have accepted the request"
-                          }
+                            ) : req.status.toLowerCase() === "rejected" ? (
+                              "You have rejected the request"
+                            ) : req.status.toLowerCase() === "sent" ? (
+                              "Supplier manager has sent the stocks"
+                            ) : (
+                              "You have accepted the request"
+                            )}
                           </td>
                         </tr>
                       </>

@@ -12,7 +12,6 @@ function Adoptpet() {
   const [isLoading, setIsLoading] = useState(true);
   const [petType, setPetType] = useState("");
 
-
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -26,11 +25,11 @@ function Adoptpet() {
     adpotServices.getAll().then((res) => {
       setData(res.profiles);
     });
-  }
+  };
 
   const handleAdopt = (card) => {
     card = {
-      petId:card.petId,
+      petId: card.petId,
       bookedmarked: "yes",
       token: user.token,
       owenerId: user._id,
@@ -39,7 +38,7 @@ function Adoptpet() {
       toast.success("Animal added to watch list");
       setTimeout(() => {
         refreshTable();
-      },4000)
+      }, 4000);
     });
 
     console.log(res);
@@ -49,16 +48,18 @@ function Adoptpet() {
     setSearchTerm(document.getElementById("search").value);
   };
 
- const filteredData = data
-  .filter((card) =>
-    card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    card.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    card.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    card.color.toLowerCase().includes(searchTerm.toLowerCase())
-  )
-  .filter((card) =>
-    petType === "" || card.species.toLowerCase() === petType.toLowerCase()
-  );
+  const filteredData = data
+    .filter(
+      (card) =>
+        card.petName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.species.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.breed.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        card.color.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter(
+      (card) =>
+        petType === "" || card.species.toLowerCase() === petType.toLowerCase()
+    );
 
   return (
     <>
@@ -72,14 +73,14 @@ function Adoptpet() {
             className="border-b-[1px] pl-6 w-[400px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-2 focus:ring-secondary rounded-[50px]"
           />
           <select
-  value={petType}
-  onChange={(e) => setPetType(e.target.value)}
-  className="ml-3 border-b-[1px] pl-6 w-[150px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-1 focus:ring-gray-200 rounded-[50px]"
->
-  <option value="">All</option>
-  <option value="Dog">Dog</option>
-  <option value="Cat">Cat</option>
-</select>
+            value={petType}
+            onChange={(e) => setPetType(e.target.value)}
+            className="ml-3 border-b-[1px] pl-6 w-[150px] h-[40px] font-bold-sm text-text focus:outline-none focus:ring-1 focus:ring-gray-200 rounded-[50px]"
+          >
+            <option value="">All</option>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+          </select>
 
           <button
             onClick={handleSearch}
@@ -94,7 +95,8 @@ function Adoptpet() {
         ) : (
           <div className="pb-[200px]">
             {filteredData.map((card, index) =>
-              card.petStatus === "Available" && !card.bookedmarked || card.bookedmarked === "no" ? (
+              (card.petStatus === "Available" && !card.bookedmarked) ||
+              card.bookedmarked === "no" ? (
                 <div className="grid grid-cols-1 gap-[70px] px-[80px] py-[40px] h-[200px]p-[50px] rounded-[20px]">
                   <div className="grid grid-cols-3 gap-[20px] px-[120px] h-[300px] ">
                     <div className="bg-cover bg-center rounded-[20px] flex justify-center">

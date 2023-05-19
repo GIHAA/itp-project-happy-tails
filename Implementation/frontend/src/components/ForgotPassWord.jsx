@@ -9,35 +9,35 @@ import loginbackground from "../assets/loginbackground.png";
 import { Link } from "react-router-dom";
 import userServices from "../services/api/user";
 
-
-
 const ForgotPassWord = () => {
-
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const onSubmit = () =>{
-    userServices.forgot({email}).then(() => {
-      toast.success("Please check your email to reset your password");
-      navigate("/login")
-    }).catch((err) =>{
-      toast.error(err.response.data.message);
-    })
-  
-  }
-
+  const onSubmit = () => {
+    userServices
+      .forgot({ email })
+      .then(() => {
+        toast.success("Please check your email to reset your password");
+        navigate("/login");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  };
 
   return (
     <>
       <Header />
       <div
-       style={{ backgroundImage: `url(${loginbackground})` }}  
-      className="min-h-screen bg-cover  flex flex-col justify-center sm:py-12">
+        style={{ backgroundImage: `url(${loginbackground})` }}
+        className="min-h-screen bg-cover  flex flex-col justify-center sm:py-12"
+      >
         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-
           <div className="bg-white drop-shadow-2xl shadow w-full rounded-lg divide-y divide-gray-200">
             <div className="px-5 py-7">
-            <h1 className="font-bold text-center text-2xl mb-5">Recover Account</h1>
+              <h1 className="font-bold text-center text-2xl mb-5">
+                Recover Account
+              </h1>
               <label className="font-semibold text-sm text-gray-600 pb-1 block">
                 E-mail
               </label>
@@ -71,18 +71,17 @@ const ForgotPassWord = () => {
                 </svg>
               </button>
 
-                <p className="text-[14px] mt-[15px] text-gray-500">Don't have an account?<Link
-                to="/register"
-                className="ml-1"
-                >
-                   <span className="text-secondary font-[20px]">Register now</span>
-                </Link></p>
-   
-          </div>
+              <p className="text-[14px] mt-[15px] text-gray-500">
+                Don't have an account?
+                <Link to="/register" className="ml-1">
+                  <span className="text-secondary font-[20px]">
+                    Register now
+                  </span>
+                </Link>
+              </p>
+            </div>
             <div className="py-5">
-              <div className="grid grid-cols-2 gap-1">
-
-              </div>
+              <div className="grid grid-cols-2 gap-1"></div>
             </div>
           </div>
         </div>

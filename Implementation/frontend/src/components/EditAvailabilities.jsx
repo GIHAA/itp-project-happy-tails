@@ -4,16 +4,14 @@ import { useParams } from "react-router-dom";
 import bgimg from "../assets/bgimg.jpg";
 import axios from "axios";
 import VSideBar from "./VSideBar";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 
-
 function EditAvailabilities() {
-
   const param = useParams();
-  const id = param.id
-  console.log(id)
+  const id = param.id;
+  console.log(id);
 
   const [availability, setAvailability] = useState({});
   const [plateNo, setPlateNo] = useState("");
@@ -22,75 +20,68 @@ function EditAvailabilities() {
   const [to, setTo] = useState("");
   const [status, setStatus] = useState("");
 
-  const{user} = useSelector ((state) => state.auth);
-
+  const { user } = useSelector((state) => state.auth);
 
   async function getAvailability() {
     try {
-      const res = await axios.get(`http://localhost:8080/api/availability/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const res = await axios.get(
+        `http://localhost:8080/api/availability/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const oneAvailability = res.data.availability;
       console.log(oneAvailability);
-      setAvailability(oneAvailability)
-
+      setAvailability(oneAvailability);
     } catch (err) {
       console.error(err);
     }
   }
 
   useEffect(() => {
-
-    getAvailability()
-
-  }, [])
-
-
+    getAvailability();
+  }, []);
 
   useEffect(() => {
-
     setPlateNo(availability.plateNo);
     setReason(availability.reason);
     setSince(availability.since);
     setTo(availability.to);
     setStatus(availability.status);
-
-  }, [availability])
-
-
+  }, [availability]);
 
   async function UpdateAvailability(e) {
-    console.log("clicked")
+    console.log("clicked");
 
     e.preventDefault();
 
     try {
       const newAvailability = {
-
         plateNo,
         reason,
         since,
         to,
-        status
+        status,
+      };
 
-      }
-
-      await axios.put(`http://localhost:8080/api/availability/${id}`,newAvailability,{
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      })
-      toast.success("Maintenance Record Updated Successfully !!", { position: toast.POSITION.TOP_RIGHT });
-
-
+      await axios.put(
+        `http://localhost:8080/api/availability/${id}`,
+        newAvailability,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      toast.success("Maintenance Record Updated Successfully !!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (err) {
       console.error(err);
     }
   }
-
-
 
   return (
     //Main container
@@ -100,7 +91,9 @@ function EditAvailabilities() {
       <div className="bg-[#d9d9d9] flex-[85%]">
         {/*Header Part*/}
         <div className="bg-[#2E4960] h-100 w-full">
-          <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 h-[70px]">EDIT AVAILABILITY</h1>
+          <h1 className="text-white font-bold text-3xl leading-5 tracking-wide pt-5 pl-5 h-[70px]">
+            EDIT AVAILABILITY
+          </h1>
         </div>
 
         {/*Body Part*/}
@@ -116,7 +109,6 @@ function EditAvailabilities() {
 
               <form className="mx-auto" onSubmit={UpdateAvailability}>
                 <div className=" px-4">
-
                   <div className="flex mb-6">
                     <div className=" w-[50%]  ">
                       <label className="">Plate Number :</label>
@@ -143,7 +135,6 @@ function EditAvailabilities() {
                   </div>
 
                   <div className="flex mb-6">
-
                     <div className=" w-[50%]  ">
                       <label className=""> Since : </label>
                       <input
@@ -157,7 +148,6 @@ function EditAvailabilities() {
                       />
                     </div>
 
-                    
                     <div className=" w-[50%]  ">
                       <label className=""> To until : </label>
                       <input
@@ -170,15 +160,11 @@ function EditAvailabilities() {
                         required
                       />
                     </div>
-                  
-
                   </div>
-
-                  
 
                   <div className="flex mb-6">
                     <div className=" w-[50%]  ">
-                    <label>Availability : (AVAILABLE or UNAVAILABLE)</label>
+                      <label>Availability : (AVAILABLE or UNAVAILABLE)</label>
                       <input
                         type="text"
                         pattern="(AVAILABLE|UNAVAILABLE)"
@@ -207,7 +193,7 @@ function EditAvailabilities() {
       </div>
       {/*Right Side container end*/}
     </div> //Main container end
-  )
+  );
 }
 
 export default EditAvailabilities;

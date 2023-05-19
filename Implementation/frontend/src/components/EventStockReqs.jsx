@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function EventStockReqs() {
-    const [stockreqs, setStockRequests] = useState([]);
+  const [stockreqs, setStockRequests] = useState([]);
   const [total, setTotal] = useState([]);
   const [eventAmount, setEventAmount] = useState([]);
 
@@ -40,11 +40,19 @@ export default function EventStockReqs() {
     geteamount();
   }, []);
 
-  async function handleSend(id, eid, eventName, items, description,totalExpense){
-    if(totalExpense < 1)
-      toast.error(`Please enter valid amount`, {position: toast.POSITION.BOTTOM_RIGHT,})
-    else{
-        
+  async function handleSend(
+    id,
+    eid,
+    eventName,
+    items,
+    description,
+    totalExpense
+  ) {
+    if (totalExpense < 1)
+      toast.error(`Please enter valid amount`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    else {
       try {
         const newStock = {
           eid,
@@ -53,8 +61,11 @@ export default function EventStockReqs() {
           description,
           status: "Sent",
         };
-  
-        await axios.put(`http://localhost:8080/api/eventstock/editstock/${id}`,newStock);
+
+        await axios.put(
+          `http://localhost:8080/api/eventstock/editstock/${id}`,
+          newStock
+        );
         toast.success("Stock Sent Successfully");
       } catch (err) {
         toast.error(err);
@@ -63,8 +74,10 @@ export default function EventStockReqs() {
       const amount = eventAmount.find((amount) => amount.eid === eid);
       const eventAmountId = amount ? amount._id : null;
       console.log(eventAmountId);
-      const res = await axios.get(`http://localhost:8080/api/eventamount/geteamount/${eventAmountId}`);
-      console.log(res.data.eamount)
+      const res = await axios.get(
+        `http://localhost:8080/api/eventamount/geteamount/${eventAmountId}`
+      );
+      console.log(res.data.eamount);
       const singleData = res.data.eamount;
 
       var totalin = singleData.totalIncome;
@@ -90,18 +103,19 @@ export default function EventStockReqs() {
         rate: finalRate,
       };
 
-      axios.put(`http://localhost:8080/api/eventamount/editeamount/${eventAmountId}`,newamount
-      ).catch((error) => console.error("Error updating event amount:", error));
-
+      axios
+        .put(
+          `http://localhost:8080/api/eventamount/editeamount/${eventAmountId}`,
+          newamount
+        )
+        .catch((error) => console.error("Error updating event amount:", error));
     }
   }
-
-
 
   return (
     //Main container
     <div className="flex scroll-smooth">
-        <SupplierSideBar />
+      <SupplierSideBar />
       {/*Right Side container start*/}
       <div className="bg-[#d9d9d9] flex-[85%]">
         {/*Header Part*/}
@@ -129,7 +143,7 @@ export default function EventStockReqs() {
         >
           {/*White box*/}
           <div className=" bg-white bg-opacity-90 w-[85%] h-full top-5 left-[80px] overflow-scroll">
-          <div className="flex">
+            <div className="flex">
               <div className="relative mt-6 ml-[1060px] "></div>
             </div>
 
@@ -148,19 +162,21 @@ export default function EventStockReqs() {
               </thead>
 
               <tbody className="bg-white text-center">
-                {stockreqs.filter((val) => {
-                     if (val.status.toLowerCase() === "accepted") {
-                        return true;
-                      } else{
-                        return false;
-                      }
-                  }).map((req) => {
+                {stockreqs
+                  .filter((val) => {
+                    if (val.status.toLowerCase() === "accepted") {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  })
+                  .map((req) => {
                     return (
                       <>
                         <tr className="hover:bg-[#efeeee]">
                           <td className="p-3">{req.stockid}</td>
                           <td className="p-3 w-[150px]">{req.eventName}</td>
-                          
+
                           {req.items.map((item, itemIndex) => (
                             <tr key={itemIndex}>
                               <td className="p-3 w-[250px]">
@@ -171,7 +187,7 @@ export default function EventStockReqs() {
                           ))}
                           <td className="p-3 w-[250px]">{req.description}</td>
 
-                          <td className="p-3 w-[150px]" >
+                          <td className="p-3 w-[150px]">
                             {new Date(req.submittedAt).toLocaleString()}
                           </td>
 
@@ -184,23 +200,33 @@ export default function EventStockReqs() {
                           </td>
 
                           <td className="p-3">
-                            
-                              <div className="flex">
-                              <input type="number"
-                                placeholder="Enter total.." 
-                                onChange={(e)=> {
-                                    setTotal(e.target.value)
+                            <div className="flex">
+                              <input
+                                type="number"
+                                placeholder="Enter total.."
+                                onChange={(e) => {
+                                  setTotal(e.target.value);
                                 }}
-                                className=" bg-[#E4EBF7]  text-gray-900 border-0 border-b-2 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]" 
-                                required/>
+                                className=" bg-[#E4EBF7]  text-gray-900 border-0 border-b-2 appearance-non focus:outline-none focus:ring-0 focus:border-[#FF9F00]"
+                                required
+                              />
 
                               <button
-                                onClick={() => handleSend( req._id, req.eid, req.eventName, req.items, req.description, total)}
+                                onClick={() =>
+                                  handleSend(
+                                    req._id,
+                                    req.eid,
+                                    req.eventName,
+                                    req.items,
+                                    req.description,
+                                    total
+                                  )
+                                }
                                 className="px-2 py-1 mr-5 w-28 bg-[#2E4960] text-white font-semibold hover:bg-[#ffc05a] rounded-xl "
                               >
                                 ✓ Send
                               </button>
-                              </div>
+                            </div>
                           </td>
                         </tr>
                       </>
@@ -215,6 +241,4 @@ export default function EventStockReqs() {
       {/*Right Side container end*/}
     </div> //Main container end
   );
-
-  
 }

@@ -54,9 +54,6 @@ const GetDoanation = () => {
   //   }
   // }
 
-
-
-
   function handleSearch(e) {
     const selectedOption = e.target.value;
     setSearchTerm(selectedOption);
@@ -64,13 +61,12 @@ const GetDoanation = () => {
     if (selectedOption === "") {
       setFilteredPayData(payData);
     } else {
-      const filteredData = payData.filter(item => {
+      const filteredData = payData.filter((item) => {
         return item.status === selectedOption;
       });
       setFilteredPayData(filteredData);
     }
   }
-
 
   console.log(searchTerm);
 
@@ -103,9 +99,7 @@ const GetDoanation = () => {
           </div>
         </div>
 
-        <div class="flex ">
-         
-        </div>
+        <div class="flex "></div>
       </div>
 
       {isError !== "" && <h2>{isError}</h2>}
@@ -119,17 +113,21 @@ const GetDoanation = () => {
                   <th className="px-10 py-4">Customer Name</th>
                   <th className="px-10 py-4">Payment</th>
                   <th className="px-10 py-4">Date</th>
-                  <th className="px-10 py-4">        <select
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-28 text-center  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  >
-                    <option className="text-center" value="PAID">PAID</option>
-                    <option className="text-center" value="Verified">Verified</option>
-
-
-
-                  </select></th>
+                  <th className="px-10 py-4">
+                    {" "}
+                    <select
+                      value={searchTerm}
+                      onChange={handleSearch}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-28 text-center  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option className="text-center" value="PAID">
+                        PAID
+                      </option>
+                      <option className="text-center" value="Verified">
+                        Verified
+                      </option>
+                    </select>
+                  </th>
                   <th className="px-10 py-4">Action</th>
                 </tr>
               </thead>
