@@ -56,7 +56,7 @@ const EventDashboard = () => {
     const getEventAmount = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         //   console.log(res.data.alleamount);
         setEventAmount(res.data.alleamount);
@@ -67,7 +67,7 @@ const EventDashboard = () => {
     const allEvents = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         //   console.log(res.data.allevents.length);
 
@@ -82,7 +82,7 @@ const EventDashboard = () => {
     const allfeedbacks = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventfeedback/getEFeedbacks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventfeedback/getEFeedbacks`
         );
         const feedbacks = res.data.allfeedbacks;
         const ratingByEvent = {};
@@ -127,16 +127,11 @@ const EventDashboard = () => {
     const getStock = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventstock/getStocks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`
         );
         //   console.log(res.data.alleamount);
         setStock(res.data.getstocks);
 
-        // const total = res.data.getstocks.map((stock) => parseInt(stock.total));
-        // const sum = total.reduce(
-        //   (accumulator, currentValue) => accumulator + currentValue,
-        //   0
-        // );
         setSum(sum);
       } catch (err) {
         toast.error(err);
@@ -207,7 +202,7 @@ const EventDashboard = () => {
     const allbookings = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         setBooking(res.data.allbooking);
         setLength(res.data.allbooking.length);
@@ -230,7 +225,7 @@ const EventDashboard = () => {
     const allbudgets = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventbudget/getBudgets"
+          `${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`
         );
         setBudget(res.data.allbudget);
         console.log(res.data.allbudget);
@@ -258,7 +253,7 @@ const EventDashboard = () => {
     const allstocks = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventstock/getStocks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`
         );
         setStocks(res.data.getstocks);
         console.log(res.data.getstocks);
@@ -419,17 +414,17 @@ const EventDashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         setRegister(response.data.allbooking);
 
         const response2 = await axios.get(
-          "http://localhost:8080/api/eventbudget/getBudgets"
+          `${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`
         );
         setBudgets(response2.data.allbudget);
 
         const response3 = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         setEvent(response3.data.allevents);
       } catch (error) {

@@ -18,7 +18,7 @@ export default function ManageSuppliers() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/suppliers/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 function AddDonation({ closeModal }) {
-  const url = "http://localhost:8080/api/cusDonation";
+  const url = `${process.env.REACT_APP_BACKEND_API}api/cusDonation`;
 
   const [data, setData] = useState({
     cus_id: "",

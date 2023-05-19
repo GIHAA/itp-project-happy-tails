@@ -16,7 +16,7 @@ const GetBooking = () => {
     setTimeout(function () {
       // window.location.reload(false);
       axios
-        .get("http://localhost:8080/api/booking", {
+        .get(`${process.env.REACT_APP_BACKEND_API}api/booking`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
@@ -36,7 +36,7 @@ const GetBooking = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/booking`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -67,7 +67,7 @@ const GetBooking = () => {
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
     axios
-      .get("http://localhost:8080/api/booking", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/booking`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

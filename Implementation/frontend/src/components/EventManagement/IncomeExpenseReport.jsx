@@ -168,22 +168,22 @@ const IncomeExpenseReport = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         setRegister(response.data.allbooking);
 
         const response2 = await axios.get(
-          "http://localhost:8080/api/eventbudget/getBudgets"
+          `${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`
         );
         setBudget(response2.data.allbudget);
 
         const response3 = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         setEvents(response3.data.allevents);
 
         const response4 = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         setEventAmount(response4.data.alleamount);
       } catch (error) {
@@ -203,7 +203,7 @@ const IncomeExpenseReport = () => {
   }
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/event/getEvents").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/event/getEvents`).then((res) => {
       console.log(res.data.allevents);
       if (res.data.allevents) {
         filterContent(res.data.allevents, searchTerm);

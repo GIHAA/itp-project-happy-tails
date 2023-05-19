@@ -30,19 +30,19 @@ import VHome from "./components/VHome";
 import "react-toastify/dist/ReactToastify.css";
 
 import VetPortal from "./components/portals/VetPortal";
-import AllPetProfile from "./components/AnimalManagement/PetProfile/petProfile";
-import AddPetProfile from "./components/AnimalManagement/PetProfile/AddPetProfile";
-import UpdatePetProfile from "./components/AnimalManagement/PetProfile/UpdatePetProfile";
-import ProfilePage from "./components/AnimalManagement/PetProfile/ProfilePage";
-import HealthProfile from "./components/AnimalManagement/HealthProfile/HealthProfile";
-import AddHealth from "./components/AnimalManagement/HealthProfile/AddHealth";
-import DisplayHealth from "./components/AnimalManagement/HealthProfile/DisplayHealth";
-import Addvac from "./components/AnimalManagement/HealthProfile/Addvac";
-import UpdateVac from "./components/AnimalManagement/HealthProfile/UpdateVac";
-import Dashboard from "./components/AnimalManagement/Dashboard/Dashboard";
-import Shelterpets from "./components/AnimalManagement/PetProfile/ShelterPets";
-import Breed from "./components/AnimalManagement/PetProfile/Breed";
-import QrPetProfile from "./components/AnimalManagement/PetProfile/QrPetProfile";
+import AllPetProfile from "./components/AM/PetProfile/petProfile";
+import AddPetProfile from "./components/AM/PetProfile/AddPetProfile";
+import UpdatePetProfile from "./components/AM/PetProfile/UpdatePetProfile";
+import ProfilePage from "./components/AM/PetProfile/ProfilePage";
+import HealthProfile from "./components/AM/HealthProfile/HealthProfile";
+import AddHealth from "./components/AM/HealthProfile/AddHealth";
+import DisplayHealth from "./components/AM/HealthProfile/DisplayHealth";
+import Addvac from "./components/AM/HealthProfile/Addvac";
+import UpdateVac from "./components/AM/HealthProfile/UpdateVac";
+import Dashboard from "./components/AM/Dashboard/Dashboard";
+import Shelterpets from "./components/AM/PetProfile/ShelterPets";
+import Breed from "./components/AM/PetProfile/Breed";
+import QrPetProfile from "./components/AM/PetProfile/QrPetProfile";
 
 import PortalHandler from "./components/PortalHandler";
 

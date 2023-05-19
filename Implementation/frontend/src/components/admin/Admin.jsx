@@ -9,7 +9,7 @@ const Admin = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/users/")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/users/`)
       .then((res) => {
         setData(res.data);
       })

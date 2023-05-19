@@ -12,7 +12,7 @@ export default function HealthProfile() {
     async function getReports() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/health/getallreport"
+          `${process.env.REACT_APP_BACKEND_API}api/health/getallreport`
         );
         setReport(res.data.petReport);
       } catch (err) {
@@ -67,7 +67,7 @@ export default function HealthProfile() {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/health/getallreport").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/health/getallreport`).then((res) => {
       if (res.data.petReport) {
         filterContent(res.data.petReport, searchTerm);
       }

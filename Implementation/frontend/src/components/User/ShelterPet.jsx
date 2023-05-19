@@ -26,12 +26,12 @@ function ShelterPet() {
   const [qrCodeSrc, setQRCodeSrc] = useState("");
 
   const fetchPid = async () => {
-    const result = await axios.post("http://localhost:8080/api/counter");
+    const result = await axios.post(`${process.env.REACT_APP_BACKEND_API}api/counter`);
     setPid(result.data.count);
   };
 
   const fetchBid = async () => {
-    const result = await axios.post("http://localhost:8080/api/counter");
+    const result = await axios.post(`${process.env.REACT_APP_BACKEND_API}api/counter`);
     setBid(result.data.count);
   };
 
@@ -166,7 +166,7 @@ function ShelterPet() {
 
       if (isNumberAndTenDigit(tformData.phone)) {
         axios
-          .post("http://localhost:8080/api/transport/", tformData)
+          .post(`${process.env.REACT_APP_BACKEND_API}api/transport/`, tformData)
           .then((res) => {
             toast.success("Transportation Request sent");
             genarateQRcode();

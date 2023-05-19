@@ -28,7 +28,7 @@ const Report = () => {
     async function getevents() {
       try {
         const res3 = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         setEvent(res3.data.allevents);
         // setFilteredEvents(res3.data.allevents);
@@ -51,33 +51,7 @@ const Report = () => {
   });
 
   const generatePDF = () => {
-    // const now = moment();
-    // const month = now.format('MMMM'); //april,july
-    // const date = now.format('YYYY-MM-DD'); //for report 2023-02-01
-    // const date2 = now.format('YYYY-MM');
-
-    // const doc = new jsPDF('landscape', 'px', 'a4', false);
-    // doc.addImage(logo, 'JPG', 20, 20, 50, 50);
-
-    // // Happy Tails, Address, Phone Number, and Generated Date left aligned
-    // doc.setFontSize(12);
-    // doc.text(20, 80, "Happy Tails");
-    // doc.text(20, 90, "Address : Happy Tails shelter,");
-    // doc.text(60, 100, "New Kandy Road,");
-    // doc.text(60, 110, "Malabe");
-    // doc.text(20, 120, "Tel : 01123457689");
-    // doc.text(20, 130, `Generated : ${date}`);
-
-    // // Event Report center aligned
-    // doc.setFontSize(18);
-    // doc.setTextColor('#444444');
-    // doc.text('Event Report', doc.internal.pageSize.width / 2, 30, { align: 'center' });
-    // doc.text(`(${filterStatus})`, doc.internal.pageSize.width / 2, 50, { align: 'center' });
-
-    // // Add horizontal line after the header
-    // doc.setLineWidth(0.5);
-    // doc.setDrawColor('#444444');
-    // doc.line(20, 135, doc.internal.pageSize.width - 20, 135);
+   
 
     const doc = new jsPDF("landscape", "px", "a4", false);
     const today = new Date();
@@ -177,7 +151,7 @@ const Report = () => {
   }
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/event/getEvents").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/event/getEvents`).then((res) => {
       console.log(res.data.allevents);
       if (res.data.allevents) {
         filterContent(res.data.allevents, searchTerm);

@@ -23,7 +23,7 @@ const Users = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/users/")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/users/`)
       .then((res) => {
         setData(res.data);
       })
@@ -34,7 +34,7 @@ const Users = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const refreshPage = () => {
-    axios.get("http://localhost:8080/api/users/").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/users/`).then((res) => {
       setData(res.data);
     });
   };
@@ -63,7 +63,7 @@ const Users = () => {
 
     if (emailRegex.test(formData.email)) {
       const res = axios
-        .post("http://localhost:8080/api/users/", formData)
+        .post(`${process.env.REACT_APP_BACKEND_API}api/users/`, formData)
         .then((res) => {
           toast.success("Users added successfully");
           emailServices.register(formData).then((res) => {

@@ -17,7 +17,7 @@ const GetDoanation = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/cusDonation")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/cusDonation`)
       .then((response) => {
         console.log(response);
         setpayData(response.data);

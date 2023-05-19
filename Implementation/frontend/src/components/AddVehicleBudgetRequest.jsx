@@ -28,7 +28,7 @@ export default function AddVehicleBudgetRequestForm() {
     console.log(newRequest);
 
     axios
-      .post("http://localhost:8080/api/VehReqPayment/", newRequest, {
+      .post(`${process.env.REACT_APP_BACKEND_API}api/VehReqPayment/`, newRequest, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

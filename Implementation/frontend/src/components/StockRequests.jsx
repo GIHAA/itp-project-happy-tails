@@ -17,7 +17,7 @@ export default function StockRequests() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -30,7 +30,7 @@ export default function StockRequests() {
 
   // const refreshTable = () => {
   //   axios
-  //     .get("http://localhost:8080/api/inventory/stockrequest/")
+  //     .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/")
   //     .then((res) => {
   //       setStockReq(res.data);
   //     })

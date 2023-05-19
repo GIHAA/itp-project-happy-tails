@@ -13,7 +13,7 @@ export default function InvEventStocks() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventstock/getStocks")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`)
       .then((res) => {
         console.log(res.data.getstocks);
         setStockRequests(res.data.getstocks);

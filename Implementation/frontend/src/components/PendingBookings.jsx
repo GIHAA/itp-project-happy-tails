@@ -15,7 +15,7 @@ export default function PendingBookings() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/transport/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/transport/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -32,7 +32,7 @@ export default function PendingBookings() {
       .catch((err) => alert(err));
 
     axios
-      .get("http://localhost:8080/api/vehicle/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/vehicle/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

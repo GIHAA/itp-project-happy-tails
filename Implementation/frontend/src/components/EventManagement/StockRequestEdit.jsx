@@ -101,7 +101,7 @@ export default function StockRequestEdit() {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         //  console.log(res.data)
         setEvent(res.data.allevents);

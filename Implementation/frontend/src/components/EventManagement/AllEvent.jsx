@@ -28,7 +28,7 @@ export default function AllEvent() {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
 
         const formattedEvents = res.data.allevents.map((event) => {
@@ -78,7 +78,7 @@ export default function AllEvent() {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         console.log(res.data.alleamount);
         setEventAmount(res.data.alleamount);
@@ -145,7 +145,7 @@ export default function AllEvent() {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/event/getEvents").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/event/getEvents`).then((res) => {
       console.log(res.data.allevents);
       if (res.data.allevents) {
         filterContent(res.data.allevents, searchTerm);

@@ -13,7 +13,7 @@ export default function InvStockOut() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/readreleasestock/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/readreleasestock/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

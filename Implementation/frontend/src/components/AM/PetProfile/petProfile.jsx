@@ -12,7 +12,7 @@ export default function AllPetProfile() {
     async function getProfiles() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/vet/getallprofile"
+          `${process.env.REACT_APP_BACKEND_API}api/vet/getallprofile`
         );
         setProfile(res.data.profiles);
       } catch (err) {
@@ -72,7 +72,7 @@ export default function AllPetProfile() {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/vet/getallprofile").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/vet/getallprofile`).then((res) => {
       if (res.data.profiles) {
         filterContent(res.data.profiles, searchTerm);
       }

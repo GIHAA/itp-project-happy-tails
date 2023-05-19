@@ -20,7 +20,7 @@ export default function Availabilities() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/availability/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/availability/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

@@ -17,7 +17,7 @@ function InvRequestedStock() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

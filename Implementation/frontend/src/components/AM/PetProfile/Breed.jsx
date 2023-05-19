@@ -33,7 +33,7 @@ export default function Breed() {
       speciesOne,
     };
     axios
-      .post("http://localhost:8080/api/petbreed/addbreed", newBreed)
+      .post(`${process.env.REACT_APP_BACKEND_API}api/petbreed/addbreed`, newBreed)
       .then(() => {
         setBreed("");
 
@@ -134,7 +134,7 @@ export default function Breed() {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
-    axios.get("http://localhost:8080/api/petbreed/getbreed").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/petbreed/getbreed`).then((res) => {
       if (res.data.allbreed) {
         filterContent(res.data.allbreed, searchTerm);
       }

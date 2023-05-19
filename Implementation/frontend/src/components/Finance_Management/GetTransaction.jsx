@@ -23,7 +23,7 @@ const GetTransaction = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/transaction")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/transaction`)
 
       .then((response) => {
         setTransData(response.data);

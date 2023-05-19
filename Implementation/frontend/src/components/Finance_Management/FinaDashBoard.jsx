@@ -24,7 +24,7 @@ const FinaDashBoard = () => {
   // useEffect(() => {
 
   //     axios
-  //         .get("http://localhost:8080/api/cusDonation")
+  //         .get(`${process.env.REACT_APP_BACKEND_API}api/cusDonation")
 
   //         .then((response) => {
   //             console.log(response);
@@ -37,7 +37,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/transaction")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/transaction`)
       .then((response) => {
         settransData(response.data);
         const prices = response.data.map((item) => item.tran_amount);
@@ -79,7 +79,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/cusDonation")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/cusDonation`)
       .then((response) => {
         setpayData(response.data);
         const prices = response.data.map((item) => item.price);
@@ -120,7 +120,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/payment")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/payment`)
       .then((response) => {
         const prices = response.data.map((item) => item.payment);
 
@@ -159,7 +159,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/payment")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/payment`)
 
       .then((response) => {
         console.log(response);
@@ -171,7 +171,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/booking`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -191,7 +191,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/VehReqPayment", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/VehReqPayment`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -207,7 +207,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/stockBudget`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -223,7 +223,7 @@ const FinaDashBoard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventbudget/getBudgets")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`)
       .then((response) => {
         const data = response.data;
         console.log(response);

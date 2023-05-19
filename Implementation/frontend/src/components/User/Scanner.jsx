@@ -20,7 +20,7 @@ function Scanner() {
 
   const display = (text) => {
     console.log(text);
-    if (text.startsWith("http://localhost:8080/qr/")) {
+    if (text.startsWith(`${process.env.REACT_APP_BACKEND_API}qr/`)) {
       let parts = text.split("/");
       let endpoint = parts[parts.length - 2];
       let someid = parts[parts.length - 1];

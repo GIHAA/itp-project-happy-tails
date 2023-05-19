@@ -24,7 +24,7 @@ const AllEventBudget = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventbudget/getBudgets")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`)
       .then((res) => {
         console.log(res);
         setBudgetRequests(res.data.allbudget);
@@ -84,7 +84,7 @@ const AllEventBudget = () => {
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
     axios
-      .get("http://localhost:8080/api/eventbudget/getBudgets")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`)
       .then((res) => {
         console.log(res.data.allbudget);
         if (res.data.allbudget) {

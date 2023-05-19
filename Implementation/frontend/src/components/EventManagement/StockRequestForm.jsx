@@ -19,7 +19,7 @@ const StockRequestForm = () => {
     async function getstocks() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventstock/getStocks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`
         );
         const eids = res.data.getstocks.map((event) => event.stockid);
         if (!eids.length) {
@@ -74,7 +74,7 @@ const StockRequestForm = () => {
       total: total,
     };
     axios
-      .post("http://localhost:8080/api/eventstock/reqStock", request)
+      .post(`${process.env.REACT_APP_BACKEND_API}api/eventstock/reqStock`, request)
       .then((res) => {
         console.log(res.data);
         toast.success("Stock request sent successfully");
@@ -97,7 +97,7 @@ const StockRequestForm = () => {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         //  console.log(res.data)
         setEvent(res.data.allevents);

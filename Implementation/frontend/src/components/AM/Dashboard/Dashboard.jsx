@@ -37,7 +37,7 @@ function Dashboard() {
     async function healthCounts() {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/petstatus/statuscount"
+          `${process.env.REACT_APP_BACKEND_API}api/petstatus/statuscount`
         );
         setNormalCount(response.data.normalCount);
         setCriticalCount(response.data.criticalCount);
@@ -52,7 +52,7 @@ function Dashboard() {
     async function lastbreed() {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/petstatus/lastbreed"
+          `${process.env.REACT_APP_BACKEND_API}api/petstatus/lastbreed`
         );
         setLastBreed(response.data);
       } catch (err) {
@@ -66,7 +66,7 @@ function Dashboard() {
     async function lastPetProfile() {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/petstatus/lastpets"
+          `${process.env.REACT_APP_BACKEND_API}api/petstatus/lastpets`
         );
         setLastPet(response.data);
       } catch (err) {
@@ -80,7 +80,7 @@ function Dashboard() {
     async function petStatusCounts() {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/petstatus/petcount"
+          `${process.env.REACT_APP_BACKEND_API}api/petstatus/petcount`
         );
         setAvaCount(response.data.avaCount);
         setAdoCount(response.data.adpCount);
@@ -93,7 +93,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/booking", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/booking`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

@@ -44,7 +44,7 @@ export default function EditBooking() {
         setRegister(res.data.book);
 
         const amountRes = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         const allEventAmounts = amountRes.data.alleamount;
         const amount = allEventAmounts.filter(

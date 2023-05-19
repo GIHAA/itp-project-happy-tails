@@ -45,7 +45,7 @@ function AddEventFeedback() {
     async function getfeedbacks() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventfeedback/getEFeedbacks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventfeedback/getEFeedbacks`
         );
         const eids = res.data.allfeedbacks.map((event) => event.feedbackid);
         if (!eids.length) {
@@ -81,7 +81,7 @@ function AddEventFeedback() {
     };
 
     axios
-      .post("http://localhost:8080/api/eventfeedback/addFeedback", newfeedback)
+      .post(`${process.env.REACT_APP_BACKEND_API}api/eventfeedback/addFeedback`, newfeedback)
       .then(() => {
         toast.success("Your feedback sent successfully");
         setEventId("");

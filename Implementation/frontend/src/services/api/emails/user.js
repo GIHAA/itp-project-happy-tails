@@ -1,7 +1,7 @@
 import asynchandler from "express-async-handler";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/sendEmail/";
+const API_URL = `${process.env.REACT_APP_BACKEND_API}api/sendEmail/`;
 
 const register = asynchandler(async (userData) => {
   userData = {

@@ -11,7 +11,7 @@ const AllEventStock = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventstock/getStocks")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`)
       .then((res) => {
         console.log(res.data.getstocks);
         setStockRequests(res.data.getstocks);
@@ -69,7 +69,7 @@ const AllEventStock = () => {
 
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value.toLowerCase();
-    axios.get("http://localhost:8080/api/eventstock/getStocks").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/eventstock/getStocks`).then((res) => {
       console.log(res.data.getstocks);
       if (res.data.getstocks) {
         filterContent(res.data.getstocks, searchTerm);

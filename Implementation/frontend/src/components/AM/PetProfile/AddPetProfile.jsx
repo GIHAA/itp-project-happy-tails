@@ -24,7 +24,7 @@ function AddPetProfile() {
     console.log("Pet id called");
     async function fetchCount() {
       try {
-        const response = await axios.post("http://localhost:8080/api/counter");
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}api/counter`);
         setId(response.data.count.toString());
         console.log(response.data.count.toString());
       } catch (err) {
@@ -116,7 +116,7 @@ function AddPetProfile() {
     };
 
     axios
-      .post("http://localhost:8080/api/vet/addpet", newPet, {
+      .post(`${process.env.REACT_APP_BACKEND_API}api/vet/addpet`, newPet, {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",

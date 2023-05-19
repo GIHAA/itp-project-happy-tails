@@ -4,7 +4,7 @@ import { useState } from "react";
 import org from "../../assets/logo2.png";
 
 function AddOrganization({ closeModal }) {
-  const url = "http://localhost:8080/api/organization";
+  const url = `${process.env.REACT_APP_BACKEND_API}api/organization`;
 
   const [data, setData] = useState({
     org_name: "",

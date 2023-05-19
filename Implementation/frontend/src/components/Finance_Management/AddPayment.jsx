@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 function AddPayment({ closeModal }) {
-  const url = "http://localhost:8080/api/payment";
+  const url = `${process.env.REACT_APP_BACKEND_API}api/payment`;
 
   const [data, setData] = useState({
     cus_id: "",

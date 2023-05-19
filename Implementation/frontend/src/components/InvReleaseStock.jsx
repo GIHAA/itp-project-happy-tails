@@ -18,7 +18,7 @@ export default function InvReleaseStock() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/items/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/items/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -60,7 +60,7 @@ export default function InvReleaseStock() {
 
       //sending the item object to the releasestock backend
       await axios
-        .post("http://localhost:8080/api/inventory/releasestock", item, {
+        .post(`${process.env.REACT_APP_BACKEND_API}api/inventory/releasestock`, item, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

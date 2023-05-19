@@ -20,7 +20,7 @@ export default function InvItems() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/items/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/items/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

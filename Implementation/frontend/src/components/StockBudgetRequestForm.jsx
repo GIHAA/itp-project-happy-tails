@@ -22,7 +22,7 @@ export default function StockBudgetRequestForm() {
 
   function fetchSupplierNames() {
     axios
-      .get("http://localhost:8080/api/suppliers/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/suppliers/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -48,7 +48,7 @@ export default function StockBudgetRequestForm() {
     console.log(newRequest);
 
     axios
-      .post("http://localhost:8080/api/stockBudget/", newRequest, {
+      .post(`${process.env.REACT_APP_BACKEND_API}api/stockBudget/`, newRequest, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

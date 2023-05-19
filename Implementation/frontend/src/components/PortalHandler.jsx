@@ -6,7 +6,7 @@ import bg2 from "../assets/back2.png";
 import { Link } from "react-router-dom";
 import Home from "./Home";
 import FinaDashBoard from "./Finance_Management/FinaDashBoard";
-import Dashboard from "./AnimalManagement/Dashboard/Dashboard";
+import Dashboard from "./AM/Dashboard/Dashboard";
 import InvDashboard from "./InvDashboard";
 import EventDashboard from "./EventManagement/EventDashboard";
 import SupplierList from "./SupplierList";

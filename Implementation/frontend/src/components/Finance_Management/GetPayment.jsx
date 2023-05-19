@@ -26,7 +26,7 @@ const GetPayment = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/payment")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/payment`)
 
       .then((response) => {
         console.log(response);

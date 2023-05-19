@@ -19,7 +19,7 @@ const EventChart = () => {
     const getEvents = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         console.log(res);
         setEventAmount(res.data.alleamount);
@@ -30,7 +30,7 @@ const EventChart = () => {
     const allEvents = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         console.log(res.data.allevents);
         setEvent(res.data.allevents);

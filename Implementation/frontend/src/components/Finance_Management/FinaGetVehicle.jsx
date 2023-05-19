@@ -19,7 +19,7 @@ const FinaGetVehicle = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/VehReqPayment", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/VehReqPayment`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

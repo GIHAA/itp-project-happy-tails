@@ -57,7 +57,7 @@ function RegisterEvent() {
         // setTotal(dbprice * noOfTicket);
 
         const amountRes = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         const allEventAmounts = amountRes.data.alleamount;
         const amount = allEventAmounts.filter(
@@ -80,7 +80,7 @@ function RegisterEvent() {
     async function getbookings() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         const eids = res.data.allbooking.map((event) => event.bookid);
         if (!eids.length) {
@@ -163,7 +163,7 @@ function RegisterEvent() {
 
     Promise.all([
       axios.post(
-        "http://localhost:8080/api/eventregister/addbooking",
+        `${process.env.REACT_APP_BACKEND_API}api/eventregister/addbooking`,
         newregister
       ),
       axios.put(
@@ -259,7 +259,7 @@ function RegisterEvent() {
 
   async function checkavailable(event, selectedValue) {
     const response = await axios.get(
-      "http://localhost:8080/api/eventregister/getbooking"
+      `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
     );
     const allBookings = response.data.allbooking;
     const filteredBookings = allBookings.filter(

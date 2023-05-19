@@ -75,7 +75,7 @@ export default function InvAddItem() {
     console.log(newItem);
 
     axios
-      .post("http://localhost:8080/api/inventory/items", newItem, {
+      .post(`${process.env.REACT_APP_BACKEND_API}api/inventory/items`, newItem, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

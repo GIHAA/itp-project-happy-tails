@@ -27,7 +27,7 @@ export default function AddAvailability() {
     };
 
     axios
-      .get("http://localhost:8080/api/availability/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/availability/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -57,7 +57,7 @@ export default function AddAvailability() {
         };
 
         axios
-          .post("http://localhost:8080/api/availability/", newAvailability, {
+          .post(`${process.env.REACT_APP_BACKEND_API}api/availability/`, newAvailability, {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },

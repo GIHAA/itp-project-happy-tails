@@ -19,7 +19,7 @@ const GetOrganization = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/organization")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/organization`)
 
       .then((response) => {
         setorgnzData(response.data);

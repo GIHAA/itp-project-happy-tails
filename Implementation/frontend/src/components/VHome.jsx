@@ -31,7 +31,7 @@ export default function VHome() {
     async function transportBookingCounts() {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/transport/count",
+          `${process.env.REACT_APP_BACKEND_API}api/transport/count`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,

@@ -25,7 +25,7 @@ export default function AddNewVehicle() {
     e.preventDefault();
 
     axios
-      .get("http://localhost:8080/api/vehicle", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/vehicle`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -54,7 +54,7 @@ export default function AddNewVehicle() {
         };
 
         axios
-          .post("http://localhost:8080/api/vehicle", newVehicle, {
+          .post(`${process.env.REACT_APP_BACKEND_API}api/vehicle`, newVehicle, {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },

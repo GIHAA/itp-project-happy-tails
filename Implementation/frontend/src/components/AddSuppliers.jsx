@@ -28,7 +28,7 @@ export default function AddSuppliers() {
     try {
       console.log(newSupplier);
       axios
-        .post("http://localhost:8080/api/suppliers/", newSupplier, {
+        .post(`${process.env.REACT_APP_BACKEND_API}api/suppliers/`, newSupplier, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

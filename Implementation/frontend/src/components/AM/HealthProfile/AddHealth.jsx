@@ -21,7 +21,7 @@ function AddHealth() {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/health/addreport", newreport);
+      await axios.post(`${process.env.REACT_APP_BACKEND_API}api/health/addreport`, newreport);
       toast.success("Report saved successfully", {
         autoClose: 1000,
       });

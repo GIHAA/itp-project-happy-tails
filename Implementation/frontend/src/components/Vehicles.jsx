@@ -19,7 +19,7 @@ export default function Vehicle() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/vehicle/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/vehicle/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

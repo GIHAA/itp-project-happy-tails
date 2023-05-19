@@ -1,7 +1,7 @@
 import asynchandler from "express-async-handler";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/vet/";
+const API_URL = `${process.env.REACT_APP_BACKEND_API}api/vet/`;
 
 const getAll = asynchandler(async (userData) => {
   const response = await axios.get(API_URL + "getallprofile", userData);

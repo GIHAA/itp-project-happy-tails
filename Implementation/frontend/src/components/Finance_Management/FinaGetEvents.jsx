@@ -15,7 +15,7 @@ const FinaGetEvents = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventbudget/getBudgets")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`)
       .then((response) => {
         const data = response.data;
 

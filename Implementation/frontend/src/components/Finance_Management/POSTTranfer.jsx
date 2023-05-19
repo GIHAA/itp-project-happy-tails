@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 function PostTransaction({ closeModal }) {
-  const url = "http://localhost:8080/api/transaction";
+  const url = `${process.env.REACT_APP_BACKEND_API}api/transaction`;
 
   const [data, setData] = useState({
     tran_title: "",

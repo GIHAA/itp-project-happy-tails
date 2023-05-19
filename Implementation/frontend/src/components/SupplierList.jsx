@@ -16,7 +16,7 @@ export default function SupplierList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/suppliers/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/suppliers/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -31,7 +31,7 @@ export default function SupplierList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -44,7 +44,7 @@ export default function SupplierList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/stockBudget/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/stockBudget/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

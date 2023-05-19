@@ -14,7 +14,7 @@ export default function AllRegisterEvent() {
     async function getbooking() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         console.log(res.data.allbooking);
         setRegister(res.data.allbooking);
@@ -41,7 +41,7 @@ export default function AllRegisterEvent() {
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
     axios
-      .get("http://localhost:8080/api/eventregister/getbooking")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`)
       .then((res) => {
         if (res.data.allbooking) {
           filterContent(res.data.allbooking, searchTerm);
@@ -53,7 +53,7 @@ export default function AllRegisterEvent() {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventamount/geteamounts"
+          `${process.env.REACT_APP_BACKEND_API}api/eventamount/geteamounts`
         );
         console.log(res.data.alleamount);
         setEventAmount(res.data.alleamount);

@@ -25,7 +25,7 @@ const Users = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/feedback/")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/feedback/`)
       .then((res) => {
         setData(res.data);
       })
@@ -36,7 +36,7 @@ const Users = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const refreshPage = () => {
-    axios.get("http://localhost:8080/api/feedback/").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/feedback/`).then((res) => {
       setData(res.data);
     });
   };
@@ -52,7 +52,7 @@ const Users = () => {
 
   const emailUser = () => {
     const userData = { ...formData, email: emailData.email };
-    axios.post("http://localhost:8080/api/sendEmail", userData).then((res) => {
+    axios.post(`${process.env.REACT_APP_BACKEND_API}api/sendEmail`, userData).then((res) => {
       toast.success("Email sent successfully");
     });
   };

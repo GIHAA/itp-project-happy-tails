@@ -1,7 +1,7 @@
 import asynchandler from "express-async-handler";
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/booking/";
+const API_URL = `${process.env.REACT_APP_BACKEND_API}api/booking/`;
 
 const getAllBookings = asynchandler(async (userData) => {
   const response = await axios.get(API_URL + userData._id, userData, {

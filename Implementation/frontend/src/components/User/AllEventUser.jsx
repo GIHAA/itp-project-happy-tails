@@ -18,7 +18,7 @@ export default function AllEvent() {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         console.log(res.data);
         setEvent(res.data.allevents);
@@ -36,7 +36,7 @@ export default function AllEvent() {
     async function getbookings() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventregister/getbooking"
+          `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
         );
         const allBookings = res.data.allbooking;
         const totalNoOfTickets = allBookings.reduce(
@@ -77,7 +77,7 @@ export default function AllEvent() {
 
   const handleTextSearch = (e) => {
     const searchTerm = document.getElementById("search").value;
-    axios.get("http://localhost:8080/api/event/getEvents").then((res) => {
+    axios.get(`${process.env.REACT_APP_BACKEND_API}api/event/getEvents`).then((res) => {
       if (res.data.allevents) {
         filterContent(res.data.allevents, searchTerm);
       }
@@ -86,7 +86,7 @@ export default function AllEvent() {
 
   const handleEdit = async (eventId, eid) => {
     const res = await axios.get(
-      "http://localhost:8080/api/eventregister/getbooking"
+      `${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`
     );
     const allBookings = res.data.allbooking;
     console.log(allBookings);
@@ -99,7 +99,7 @@ export default function AllEvent() {
     );
 
     const response = await axios.get(
-      "http://localhost:8080/api/event/getEvents"
+      `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
     );
     const allevents = response.data.allevents;
 

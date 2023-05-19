@@ -29,7 +29,7 @@ export default function AddTBooking() {
     };
 
     axios
-      .post("http://localhost:8080/api/transport", newTBooking)
+      .post(`${process.env.REACT_APP_BACKEND_API}api/transport`, newTBooking)
       .then(() => {
         toast.success("Requested successfully", {
           position: toast.POSITION.TOP_RIGHT,

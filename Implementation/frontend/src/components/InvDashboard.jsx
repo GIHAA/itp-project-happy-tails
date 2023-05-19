@@ -25,7 +25,7 @@ export default function InvDashboard() {
     const fetchStockOut = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/releasestockprocessed",
+          `${process.env.REACT_APP_BACKEND_API}api/inventory/releasestockprocessed`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -67,7 +67,7 @@ export default function InvDashboard() {
     const fetchStockIn = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/receivedstockprocessed",
+          `${process.env.REACT_APP_BACKEND_API}api/inventory/receivedstockprocessed`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -109,7 +109,7 @@ export default function InvDashboard() {
     const fetchInStock = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8080/api/inventory/items/qtyprocessed",
+          `${process.env.REACT_APP_BACKEND_API}api/inventory/items/qtyprocessed`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -268,7 +268,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -292,7 +292,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/stockrequest/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/stockrequest/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -313,7 +313,7 @@ export default function InvDashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/inventory/readreleasestock/", {
+      .get(`${process.env.REACT_APP_BACKEND_API}api/inventory/readreleasestock/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

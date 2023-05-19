@@ -19,7 +19,7 @@ const BudgetRequestForm = () => {
     async function getbudgets() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventbudget/getBudgets"
+          `${process.env.REACT_APP_BACKEND_API}api/eventbudget/getBudgets`
         );
         const eids = res.data.allbudget.map((event) => event.budgetid);
         if (!eids.length) {
@@ -88,7 +88,7 @@ const BudgetRequestForm = () => {
     };
 
     axios
-      .post("http://localhost:8080/api/eventbudget/reqBudget", request)
+      .post(`${process.env.REACT_APP_BACKEND_API}api/eventbudget/reqBudget`, request)
       .then((res) => {
         console.log(res.data);
         toast.success("Budget request sent successfully");
@@ -113,7 +113,7 @@ const BudgetRequestForm = () => {
     async function getevents() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/event/getEvents"
+          `${process.env.REACT_APP_BACKEND_API}api/event/getEvents`
         );
         //  console.log(res.data)
         setEvent(res.data.allevents);

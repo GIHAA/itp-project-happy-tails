@@ -15,7 +15,7 @@ export default function AllEventFeedback() {
     async function getEFeedbacks() {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/eventfeedback/getEFeedbacks"
+          `${process.env.REACT_APP_BACKEND_API}api/eventfeedback/getEFeedbacks`
         );
 
         setFeedback(res.data.allfeedbacks);
@@ -41,7 +41,7 @@ export default function AllEventFeedback() {
   const handleTextSearch = (e) => {
     const searchTerm = e.currentTarget.value;
     axios
-      .get("http://localhost:8080/api/eventfeedback/getEFeedbacks")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventfeedback/getEFeedbacks`)
       .then((res) => {
         console.log(res.data.allfeedbacks);
         if (res.data.allfeedbacks) {

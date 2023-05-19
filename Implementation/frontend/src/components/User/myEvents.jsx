@@ -16,7 +16,7 @@ const Booking = (props) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/eventregister/getbooking")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`)
       .then((res) => {
         setData(res.data.allbooking);
       });
@@ -36,7 +36,7 @@ const Booking = (props) => {
   const refreshTable = () => {
     setData([]);
     axios
-      .get("http://localhost:8080/api/eventregister/getbooking")
+      .get(`${process.env.REACT_APP_BACKEND_API}api/eventregister/getbooking`)
       .then((res) => {
         setData(res.data.allbooking);
       });
