@@ -35,7 +35,6 @@ const budgetRequestSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  
 });
 
 module.exports = mongoose.model("budget", budgetRequestSchema);

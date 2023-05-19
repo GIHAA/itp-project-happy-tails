@@ -71,7 +71,6 @@ const getEvent = async (req, res) => {
   let even = null;
   //validate event id
   if (!mongoose.Types.ObjectId.isValid(eventId)) {
-
     return res.status(400).json({
       error: "Invalid EVENT ID",
     });

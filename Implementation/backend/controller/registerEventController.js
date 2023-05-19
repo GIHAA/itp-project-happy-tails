@@ -16,10 +16,10 @@ const registerevent = (req, res) => {
     email,
     phoneNumber,
   } = req.body;
-  
+
   console.log(req.body);
   // Create a new booking
-  
+
   const regEvent = new registerEvent({
     eid,
     bookid,

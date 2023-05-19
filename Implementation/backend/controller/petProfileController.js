@@ -59,8 +59,10 @@ const registerPet = (req, res) => {
     systime,
   });
 
-    // Generate QR code
-    QRCode.toDataURL(`http://localhost:3000/petprofile/profilepage/${petId}`, function (err, url) {
+  // Generate QR code
+  QRCode.toDataURL(
+    `http://localhost:3000/petprofile/profilepage/${petId}`,
+    function (err, url) {
       if (err) {
         console.error(err);
 
@@ -85,11 +87,11 @@ const registerPet = (req, res) => {
 };
 
 // ------update pet profile-----
-const bookedmarkStatusUpdate  = async (req, res) => {
-  const { id } = req.params
-  const { bookedmarked } = req.body
-  
-  console.log(bookedmarked)
+const bookedmarkStatusUpdate = async (req, res) => {
+  const { id } = req.params;
+  const { bookedmarked } = req.body;
+
+  console.log(bookedmarked);
   try {
     const petProfile = await pet.findOne({ petId: id });
 
@@ -98,7 +100,7 @@ const bookedmarkStatusUpdate  = async (req, res) => {
     }
 
     petProfile.bookedmarked = bookedmarked;
-    console.log(petProfile)
+    console.log(petProfile);
 
     const updatedPetProfile = await petProfile.save();
 
@@ -107,9 +109,7 @@ const bookedmarkStatusUpdate  = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
-}
-
-
+};
 
 const profileUpdate = async (req, res) => {
   const { id } = req.params;
@@ -282,5 +282,5 @@ module.exports = {
   getallprofile,
   Qr,
   shelterpets,
-  bookedmarkStatusUpdate
+  bookedmarkStatusUpdate,
 };

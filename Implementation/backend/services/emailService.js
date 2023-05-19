@@ -1,8 +1,8 @@
 const nodemailer = require("nodemailer");
-require('dotenv').config();
+require("dotenv").config();
 
 const sendEmail = async (req, res) => {
-  const { sub , email, message } = req.body;
+  const { sub, email, message } = req.body;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -19,13 +19,13 @@ const sendEmail = async (req, res) => {
     html: message,
   };
 
-  transporter.sendMail(mailOptions, function(error, info) {
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
-      res.status(500).send('Error sending email');
+      res.status(500).send("Error sending email");
     } else {
-      console.log('Email sent: ' + info.response);
-      res.send('Email sent successfully');
+      console.log("Email sent: " + info.response);
+      res.send("Email sent successfully");
     }
   });
 };

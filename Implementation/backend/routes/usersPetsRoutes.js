@@ -2,10 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 const {
-    get,
-    add,
-    update,
-    remove,
+  get,
+  add,
+  update,
+  remove,
 } = require("../controller/usersPetsController");
 const {
   protect,
@@ -13,9 +13,9 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.get('/:id', protect , get);
-router.post("/", protect , add);
-router.put("/", protect , update);
-router.delete("/", protect , remove);
+router.get("/:id", protect, get);
+router.post("/", protect, add);
+router.put("/", protect, update);
+router.delete("/", protect, remove);
 
 module.exports = router;

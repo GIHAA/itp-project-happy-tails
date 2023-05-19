@@ -4,25 +4,25 @@ const Vehicle = require("../models/vehicleModel");
 
 //post
 const addVehicle = asyncHandler(async (req, res) => {
-  const { plateNo, vModel, fuelType, insuranceExpirationDate } =
-    req.body;
+  const { plateNo, vModel, fuelType, insuranceExpirationDate } = req.body;
 
   const vehicle = await Vehicle.create({
     plateNo,
     vModel,
     fuelType,
-    insuranceExpirationDate
-    
-  })
+    insuranceExpirationDate,
+  });
 
-  vehicle? res.status(201).json(vehicle): res.status(400).json({ message: "Vehicle not created" });
-})
+  vehicle
+    ? res.status(201).json(vehicle)
+    : res.status(400).json({ message: "Vehicle not created" });
+});
 
 //get
 const readVehicle = asyncHandler(async (req, res) => {
   const vehicle = await Vehicle.find({});
   res.json(vehicle);
-})
+});
 
 //get one vehicle
 const getOneVehicle = async (req, res) => {
@@ -53,14 +53,19 @@ const updateVehicle = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const { vModel, fuelType, insuranceExpirationDate } = req.body;
 
-  const vehicle = await Vehicle.findByIdAndUpdate(id, {
-    
-    vModel,
-    fuelType,
-    insuranceExpirationDate,
-  }, { new: true });
+  const vehicle = await Vehicle.findByIdAndUpdate(
+    id,
+    {
+      vModel,
+      fuelType,
+      insuranceExpirationDate,
+    },
+    { new: true }
+  );
 
-  vehicle? res.status(201).json(vehicle) : res.status(400).json({ message: "Vehicle not updated" });
+  vehicle
+    ? res.status(201).json(vehicle)
+    : res.status(400).json({ message: "Vehicle not updated" });
 });
 
 //delete
@@ -88,10 +93,11 @@ const searchVehicleByPlateNo = asyncHandler(async (req, res) => {
 
 const getVCount = asyncHandler(async (req, res) => {
   const availableCount = await Vehicle.countDocuments({ status: "AVAILABLE" });
-  const unavailableCount = await Vehicle.countDocuments({ status: "UNAVAILABLE" });
+  const unavailableCount = await Vehicle.countDocuments({
+    status: "UNAVAILABLE",
+  });
   res.json({ availableCount, unavailableCount });
 });
-
 
 module.exports = {
   addVehicle,

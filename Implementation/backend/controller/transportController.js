@@ -10,31 +10,9 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const addTransport = asyncHandler(async (req, res) =>{    
-    const { userName, plocation, date, time, count, email, phone  } = req.body
-    const transport = await Transport.create({
-        userName,
-        plocation,
-        date,
-        time,
-        count,
-        email,
-        phone,
-        status : 'PENDING'
-        
-    })
-    transport ? res.status(201).json(transport) : res.status(400).json({message: 'Booking not created'})
-})
-
-const readTransport = asyncHandler(async (req, res) =>{
-  const transport = await Transport.find({})
-  res.json(transport)
-})
-
-const updateTransport = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  const { userName, plocation, date, time, count, email, phone, status } = req.body;
-  const transport = await Transport.findByIdAndUpdate(id, {
+const addTransport = asyncHandler(async (req, res) => {
+  const { userName, plocation, date, time, count, email, phone } = req.body;
+  const transport = await Transport.create({
     userName,
     plocation,
     date,
@@ -42,10 +20,38 @@ const updateTransport = asyncHandler(async (req, res) => {
     count,
     email,
     phone,
-    status
-  }, { new: true });
+    status: "PENDING",
+  });
+  transport
+    ? res.status(201).json(transport)
+    : res.status(400).json({ message: "Booking not created" });
+});
 
-  if (status === 'ACCEPTED' || status === 'REJECTED') {
+const readTransport = asyncHandler(async (req, res) => {
+  const transport = await Transport.find({});
+  res.json(transport);
+});
+
+const updateTransport = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const { userName, plocation, date, time, count, email, phone, status } =
+    req.body;
+  const transport = await Transport.findByIdAndUpdate(
+    id,
+    {
+      userName,
+      plocation,
+      date,
+      time,
+      count,
+      email,
+      phone,
+      status,
+    },
+    { new: true }
+  );
+
+  if (status === "ACCEPTED" || status === "REJECTED") {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -75,30 +81,37 @@ const updateTransport = asyncHandler(async (req, res) => {
       html: message,
     };
 
-    transporter.sendMail(mailOptions, function(error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
-        res.status(500).send('Error sending email');
+        res.status(500).send("Error sending email");
       } else {
-        console.log('Email sent: ' + info.response);
-        res.send('Email sent successfully');
+        console.log("Email sent: " + info.response);
+        res.send("Email sent successfully");
       }
     });
   }
 
-  transport ? res.status(200).json(transport) : res.status(400).json({ message: 'Booking not updated' });
+  transport
+    ? res.status(200).json(transport)
+    : res.status(400).json({ message: "Booking not updated" });
 });
 
-
-const deleteTransport = asyncHandler(async (req, res) =>{
-    const id = req.params.id
-    const transport = await Transport.findByIdAndDelete(id)
-    transport ? res.status(200).json(transport) : res.status(400).json({message: 'Booking not deleted'})
-})
+const deleteTransport = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const transport = await Transport.findByIdAndDelete(id);
+  transport
+    ? res.status(200).json(transport)
+    : res.status(400).json({ message: "Booking not deleted" });
+});
 
 const assignVehicle = asyncHandler(async (req, res) => {
   const selectedPlateNo = req.body.selectedPlateNo;
-  const transport = await Transport.findOneAndUpdate({ plateNo: selectedPlateNo }, { status: 'assigned' }, { new: true });
+  const transport = await Transport.findOneAndUpdate(
+    { plateNo: selectedPlateNo },
+    { status: "assigned" },
+    { new: true }
+  );
   res.json(transport);
 });
 
@@ -106,7 +119,7 @@ const getCount = asyncHandler(async (req, res) => {
   const pendingCount = await Transport.countDocuments({ status: "PENDING" });
   const acceptedCount = await Transport.countDocuments({ status: "ACCEPTED" });
   const rejectedCount = await Transport.countDocuments({ status: "REJECTED" });
-  
+
   res.json({ pendingCount, acceptedCount, rejectedCount });
 });
 

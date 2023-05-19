@@ -11,7 +11,7 @@ const VehaddPayment = asyncHandler(async (req, res) => {
     plateNo,
     date,
     payment,
-    status : "Requested"
+    status: "Requested",
   });
   pay
     ? res.status(201).json(pay)
@@ -24,7 +24,6 @@ const VehreadAllPayment = asyncHandler(async (req, res) => {
   const payment = await VehReqPayment.find({});
 
   res.json(payment);
-  
 });
 
 //get vehicle payment by id
@@ -34,7 +33,6 @@ const VehreadPayment = asyncHandler(async (req, res) => {
   const payment = await VehReqPayment.findByIdAndUpdate(id, {});
 
   res.json(payment);
-  
 });
 
 //put vehicle payment
@@ -67,14 +65,10 @@ const VehdeletePayment = asyncHandler(async (req, res) => {
     : res.status(400).json({ message: "payment not deleted" });
 });
 
-
-
-
 module.exports = {
   VehaddPayment,
   VehreadPayment,
   VehupdatePayment,
   VehdeletePayment,
   VehreadAllPayment,
-  
 };

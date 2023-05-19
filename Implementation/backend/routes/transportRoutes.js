@@ -14,11 +14,11 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post('/',addTransport);
-router.get('/',protect, readTransport);
-router.put('/:id',protect, updateTransport);
-router.delete('/:id', deleteTransport);
-router.post('/assign-vehicle/:id', assignVehicle);
-router.get('/count',protect, getCount);
+router.post("/", addTransport);
+router.get("/", protect, readTransport);
+router.put("/:id", protect, updateTransport);
+router.delete("/:id", deleteTransport);
+router.post("/assign-vehicle/:id", assignVehicle);
+router.get("/count", protect, getCount);
 
 module.exports = router;

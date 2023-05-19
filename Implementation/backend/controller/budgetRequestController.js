@@ -6,15 +6,8 @@ const mongoose = require("mongoose");
 //add budget request
 const reqBudget = (req, res) => {
   // Destructure the request body
-  const {
-    eid,
-    budgetid,
-    eventName,
-    items,
-    description,
-    total,
-    status,
-  } = req.body;
+  const { eid, budgetid, eventName, items, description, total, status } =
+    req.body;
 
   // Create a new event
   const newBudget = new budget({
@@ -113,8 +106,7 @@ const getbudget = async (req, res) => {
 // update budget request
 const editbudget = async (req, res) => {
   const { id } = req.params;
-  const { eid, eventName, items, description, total, status } =
-    req.body;
+  const { eid, eventName, items, description, total, status } = req.body;
   const updatedBudgetData = {
     eid,
     eventName,
@@ -130,14 +122,7 @@ const editbudget = async (req, res) => {
   }
 
   // Validate the request body
-  if (
-    !eid ||
-    !eventName ||
-    !items ||
-    !description ||
-    !total ||
-    !status 
-  ) {
+  if (!eid || !eventName || !items || !description || !total || !status) {
     return res.status(400).send({ error: "Missing required fields" });
   }
 

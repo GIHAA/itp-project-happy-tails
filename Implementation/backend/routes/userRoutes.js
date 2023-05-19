@@ -11,7 +11,7 @@ const {
   viewUsers,
   deleteAdmin,
   updateAdmin,
-  forgotUser
+  forgotUser,
 } = require("../controller/userController");
 const {
   protect,
@@ -19,7 +19,7 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.get('/', viewUsers)
+router.get("/", viewUsers);
 router.post("/", registerUser);
 router.post("/login", loginUser);
 router.post("/update", protect, userProtect, updateUser);

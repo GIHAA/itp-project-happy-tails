@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 
 const transportSchema = mongoose.Schema(
   {
-
     userName: {
-        type: String,
-        required: [false, 'Please add a customerId'],
-        default: 'temp userName',
+      type: String,
+      required: [false, "Please add a customerId"],
+      default: "temp userName",
     },
 
     plocation: {
@@ -25,15 +24,15 @@ const transportSchema = mongoose.Schema(
     },
 
     count: {
-        type: Number,
-        required: [false, 'Please add no of pets'],
+      type: Number,
+      required: [false, "Please add no of pets"],
     },
 
     email: {
       type: String,
-      required: [true, 'Please add a gmail'],
+      required: [true, "Please add a gmail"],
     },
-    
+
     phone: {
       type: String,
       required: [false, "Please add a phone number"],
@@ -44,8 +43,6 @@ const transportSchema = mongoose.Schema(
       enum: ["PENDING", "ACCEPTED", "REJECTED"],
       default: "PENDING",
     },
-
-
   },
   {
     timestamps: false,

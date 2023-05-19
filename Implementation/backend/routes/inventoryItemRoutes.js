@@ -18,13 +18,13 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post("/items",protect, addItem);
-router.get("/items",protect, readAllItems);
-router.get("/items/qtyprocessed",protect, groupByCategory);
-router.get("/items/:id",protect , getOneItem);
-router.put("/items/subtractqty",protect, subtractQuantity);
-router.put("/items/:id",protect, updateItem);
+router.post("/items", protect, addItem);
+router.get("/items", protect, readAllItems);
+router.get("/items/qtyprocessed", protect, groupByCategory);
+router.get("/items/:id", protect, getOneItem);
+router.put("/items/subtractqty", protect, subtractQuantity);
+router.put("/items/:id", protect, updateItem);
 router.delete("/items/:id", protect, deleteItem);
-router.put("/items/:itemcode/:qty",protect, addQuantity);
+router.put("/items/:itemcode/:qty", protect, addQuantity);
 
 module.exports = router;

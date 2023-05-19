@@ -107,6 +107,14 @@ const supplierProtect = asyncHandler(async (req, res, next) => {
   }
 });
 
-
-
-module.exports = { protect, userProtect, adminProtect ,eventProtect,iventoryProtect ,vehicleProtect ,animalProtect , finacialProtect , supplierProtect};
+module.exports = {
+  protect,
+  userProtect,
+  adminProtect,
+  eventProtect,
+  iventoryProtect,
+  vehicleProtect,
+  animalProtect,
+  finacialProtect,
+  supplierProtect,
+};

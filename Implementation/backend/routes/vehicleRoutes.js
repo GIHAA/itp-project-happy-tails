@@ -15,13 +15,12 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post("/",protect, addVehicle);
-router.get("/",protect, readVehicle);
-router.get("/:id",protect, getOneVehicle);
-router.put("/:id",protect, updateVehicle);
+router.post("/", protect, addVehicle);
+router.get("/", protect, readVehicle);
+router.get("/:id", protect, getOneVehicle);
+router.put("/:id", protect, updateVehicle);
 router.delete("/:id", deleteVehicle);
-router.get("/search/:plateNo",protect, searchVehicleByPlateNo);
-router.get("/vcount",protect, getVCount);
-
+router.get("/search/:plateNo", protect, searchVehicleByPlateNo);
+router.get("/vcount", protect, getVCount);
 
 module.exports = router;

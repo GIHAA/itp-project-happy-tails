@@ -12,10 +12,10 @@ const addBooking = asyncHandler(async (req, res) => {
     mini,
     bid,
     cus_name,
-    price
+    price,
   } = req.body;
 
-  console.log()
+  console.log();
 
   const booking = await Booking.create({
     bid,
@@ -27,7 +27,7 @@ const addBooking = asyncHandler(async (req, res) => {
     startDate,
     endDate,
     mini,
-    price
+    price,
   });
 
   booking
@@ -36,18 +36,15 @@ const addBooking = asyncHandler(async (req, res) => {
 });
 
 const readBookingOpen = asyncHandler(async (req, res) => {
-
   const booking = await Booking.find({});
   res.json(booking);
 });
 
 const readBooking = asyncHandler(async (req, res) => {
-
   const id = req.params.id;
-  const booking = await Booking.find({ cus_id: id});
+  const booking = await Booking.find({ cus_id: id });
   res.json(booking);
 });
-
 
 const updateBooking = asyncHandler(async (req, res) => {
   const { id, description, startDate, endDate, status } = req.body;
@@ -63,7 +60,6 @@ const updateBooking = asyncHandler(async (req, res) => {
     : res.status(400).json({ message: "Booking not updated" });
 });
 
-
 const deleteBooking = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const booking = await Booking.findByIdAndDelete(id);
@@ -78,6 +74,5 @@ module.exports = {
   readBooking,
   updateBooking,
   deleteBooking,
-  readBookingOpen
+  readBookingOpen,
 };
-

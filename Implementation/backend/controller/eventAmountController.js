@@ -77,12 +77,10 @@ const deleteeamount = async (req, res) => {
     // Delete the income expenses of event
     await inExEvent.findByIdAndRemove(req.params.id);
 
-    return res
-      .status(200)
-      .json({
-        message: "income expenses of event deleted successfully",
-        deleteeamount,
-      });
+    return res.status(200).json({
+      message: "income expenses of event deleted successfully",
+      deleteeamount,
+    });
   } catch (err) {
     return res.status(500).json({ error: "Internal server error" });
   }

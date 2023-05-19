@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 //add stock request
 const reqstock = (req, res) => {
   // Destructure the request body
-  const { eid, stockid, eventName, items, description, status,total } = req.body;
+  const { eid, stockid, eventName, items, description, status, total } =
+    req.body;
 
   // Create a new stock request
   const newStock = new stockr({
@@ -104,8 +105,15 @@ const getstock = async (req, res) => {
 // update stock request
 const editstock = async (req, res) => {
   const { id } = req.params;
-  const { eid, eventName, items, description, status,total } = req.body;
-  const updatedStockData = { eid, eventName, items, description, status,total };
+  const { eid, eventName, items, description, status, total } = req.body;
+  const updatedStockData = {
+    eid,
+    eventName,
+    items,
+    description,
+    status,
+    total,
+  };
 
   // Validate the id
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -113,7 +121,7 @@ const editstock = async (req, res) => {
   }
 
   // Validate the request body
-  if (!eid || !eventName || !items || !description || !status || !eid ) {
+  if (!eid || !eventName || !items || !description || !status || !eid) {
     return res.status(400).send({ error: "Missing required fields" });
   }
 

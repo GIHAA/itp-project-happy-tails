@@ -14,10 +14,10 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-router.post("/", protect,createStockBudget);
-router.get("/", protect,getStockBudgets);
-router.delete("/:id", protect,deleteStockBudget);
-router.get("/:id", protect,getStockBudget);
-router.put("/:id",protect, editStockBudget);
+router.post("/", protect, createStockBudget);
+router.get("/", protect, getStockBudgets);
+router.delete("/:id", protect, deleteStockBudget);
+router.get("/:id", protect, getStockBudget);
+router.put("/:id", protect, editStockBudget);
 
 module.exports = router;

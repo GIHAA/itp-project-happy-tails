@@ -5,14 +5,16 @@ const User = require("../models/userModel");
 const nodemailer = require("nodemailer");
 
 const viewUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({})
+  const users = await User.find({});
 
-  users? res.status(201).json(users) : res.status(400).json({message : "Error"})
-})
+  users
+    ? res.status(201).json(users)
+    : res.status(400).json({ message: "Error" });
+});
 
 //register user
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, address, phone, password, image , role } = req.body;
+  const { name, email, address, phone, password, image, role } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
@@ -31,20 +33,20 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  let user
+  let user;
   // Create user
-  if(role){
-     user = await User.create({
+  if (role) {
+    user = await User.create({
       name,
       email,
       address,
       phone,
       password: hashedPassword,
       image: image,
-      role: role
+      role: role,
     });
-  }else{
-     user = await User.create({
+  } else {
+    user = await User.create({
       name,
       email,
       address,
@@ -117,8 +119,8 @@ const updateUser = asyncHandler(async (req, res) => {
     user.password
   );
 
-  if(req.body.email){
-    const userExists = await User.findOne({ email :req.body.email });
+  if (req.body.email) {
+    const userExists = await User.findOne({ email: req.body.email });
 
     if (userExists) {
       res.status(400);
@@ -188,7 +190,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const updateAdmin = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const { name , email, role } = req.body;
+  const { name, email, role } = req.body;
 
   // Wait for the Feedback model to find the document by ID
   const user = await User.findOne({ _id: id });
@@ -206,14 +208,16 @@ const updateAdmin = asyncHandler(async (req, res) => {
   } else {
     res.status(400).json({ message: "Error" });
   }
-})
+});
 
 const deleteAdmin = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
-  const user = await User.findByIdAndDelete(id)
+  const user = await User.findByIdAndDelete(id);
 
-  user ? res.status(201).json(user) : res.status(400).json({message : "Error"})
+  user
+    ? res.status(201).json(user)
+    : res.status(400).json({ message: "Error" });
 });
 
 const generateToken = (id) => {
@@ -223,9 +227,9 @@ const generateToken = (id) => {
 };
 
 const forgotUser = asyncHandler(async (req, res) => {
-
   function generatePassword(length) {
-    var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+    var charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
     var password = "";
     for (var i = 0; i < length; i++) {
       var randomIndex = Math.floor(Math.random() * charset.length);
@@ -233,24 +237,22 @@ const forgotUser = asyncHandler(async (req, res) => {
     }
     return password;
   }
-  
+
   const password = generatePassword(8);
   const email = req.body.email;
 
   const salt = await bcrypt.genSalt(10);
 
-  let hashedPassword =  await bcrypt.hash(password, salt);
+  let hashedPassword = await bcrypt.hash(password, salt);
 
   let user = await User.findOne({ email });
 
-  if(user){
-
+  if (user) {
     user.password = hashedPassword;
 
     const updatedUser = await user.save();
 
-    if(updatedUser){
-
+    if (updatedUser) {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -275,14 +277,14 @@ const forgotUser = asyncHandler(async (req, res) => {
         subject: "Password Reset",
         html: message,
       };
-    
-      transporter.sendMail(mailOptions, function(error, info) {
+
+      transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
-          res.status(500).send('Error sending email');
+          res.status(500).send("Error sending email");
         } else {
-          console.log('Email sent: ' + info.response);
-          res.send('Email sent successfully');
+          console.log("Email sent: " + info.response);
+          res.send("Email sent successfully");
         }
       });
 
@@ -296,21 +298,15 @@ const forgotUser = asyncHandler(async (req, res) => {
         role: updatedUser.role,
         image: updatedUser.image,
       });
-
-    }else{
+    } else {
       res.status(400);
-      throw new Error("User failed to save")
+      throw new Error("User failed to save");
     }
-
-  }else{
+  } else {
     res.status(400);
-    throw new Error("User doesn't exist")
+    throw new Error("User doesn't exist");
   }
-
 });
-
-
-
 
 module.exports = {
   registerUser,
@@ -320,5 +316,5 @@ module.exports = {
   deleteUser,
   deleteAdmin,
   updateAdmin,
-  forgotUser
+  forgotUser,
 };

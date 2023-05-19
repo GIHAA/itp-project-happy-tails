@@ -35,7 +35,6 @@ const readorganization = asyncHandler(async (req, res) => {
   const organization = await Organization.find({});
 
   res.json(organization);
-  
 });
 
 //put org donation

@@ -13,9 +13,8 @@ const {
   adminProtect,
 } = require("../middleware/authMiddleware");
 
-
-router.post("/releasestock",protect, addRelease);
-router.get("/readreleasestock",protect, readAllReleases);
-router.get("/releasestockprocessed",protect, groupByCategory);
+router.post("/releasestock", protect, addRelease);
+router.get("/readreleasestock", protect, readAllReleases);
+router.get("/releasestockprocessed", protect, groupByCategory);
 
 module.exports = router;

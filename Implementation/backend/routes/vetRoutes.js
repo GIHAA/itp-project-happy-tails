@@ -8,14 +8,14 @@ const {
   getallprofile,
   Qr,
   shelterpets,
-  bookedmarkStatusUpdate
+  bookedmarkStatusUpdate,
 } = require("../controller/petProfileController");
 const { protect } = require("../middleware/authMiddleware");
 
 router.post("/addpet", registerPet);
 router.put("/updateprofile/:id", profileUpdate);
 router.put("/bookedmarkStatusUpdate/:id", bookedmarkStatusUpdate);
-router.get("/profile/:profileId",protect, getProfile);
+router.get("/profile/:profileId", protect, getProfile);
 router.delete("/deleteprofile/:id", deleteProfile);
 router.get("/getallprofile", getallprofile);
 
