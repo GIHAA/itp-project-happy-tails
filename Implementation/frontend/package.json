@@ -2,8 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://GIHAA.github.io/itp-project-happy-tails",
-  "proxy": "http://localhost:8080",
+  "homepage": "https://gihaa.dev/itp-project-happy-tails",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
