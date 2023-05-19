@@ -84,7 +84,7 @@ const [Data , setData] = useState([])
          className="bg-cover bg-center h-screen w-full fixed" >
 
            <div className=" bg-[#2E4960] flex place-content-around w-[85%]">
-                 <h1 className=" text-center text-4xl text-slate-50 p-8">Data MANAGEMENT DASHBOARD</h1>
+                 <h1 className=" text-center text-4xl text-slate-50 p-8">EMPLOYEE MANAGEMENT DASHBOARD</h1>
            </div >
 
              {/*White box*/}
