@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/itp-project-happy-tails/static/css/main.ec9371cb.css",
-    "main.js": "/itp-project-happy-tails/static/js/main.710b1c04.js",
+    "main.js": "/itp-project-happy-tails/static/js/main.72313e21.js",
     "static/js/703.aebb34cd.chunk.js": "/itp-project-happy-tails/static/js/703.aebb34cd.chunk.js",
     "static/js/513.46384500.chunk.js": "/itp-project-happy-tails/static/js/513.46384500.chunk.js",
     "static/media/stockBgt.jpg": "/itp-project-happy-tails/static/media/stockBgt.97894b5dff745d113382.jpg",
@@ -22,12 +22,12 @@
     "static/media/logopanel.png": "/itp-project-happy-tails/static/media/logopanel.6f386c7cf880d76629ad.png",
     "index.html": "/itp-project-happy-tails/index.html",
     "main.ec9371cb.css.map": "/itp-project-happy-tails/static/css/main.ec9371cb.css.map",
-    "main.710b1c04.js.map": "/itp-project-happy-tails/static/js/main.710b1c04.js.map",
+    "main.72313e21.js.map": "/itp-project-happy-tails/static/js/main.72313e21.js.map",
     "703.aebb34cd.chunk.js.map": "/itp-project-happy-tails/static/js/703.aebb34cd.chunk.js.map",
     "513.46384500.chunk.js.map": "/itp-project-happy-tails/static/js/513.46384500.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ec9371cb.css",
-    "static/js/main.710b1c04.js"
+    "static/js/main.72313e21.js"
   ]
 }
