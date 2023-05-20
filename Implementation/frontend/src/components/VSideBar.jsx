@@ -14,7 +14,7 @@ function VSideBar() {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate("/itp-project-happy-tails");
+    navigate("/");
   };
 
   return (

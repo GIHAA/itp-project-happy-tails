@@ -135,7 +135,7 @@ const Registration = () => {
     }
 
     if (isSuccess || user) {
-      navigate("/itp-project-happy-tails");
+      navigate("/");
     }
 
     dispatch(reset());
