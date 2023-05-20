@@ -110,7 +110,7 @@ import Scanner from "./components/User/Scanner";
 function App() {
   return (
     <>
-      <Router basename="/itp" >
+      <Router >
         <div className="App">
           {/* <Header /> */}
           <Routes>
