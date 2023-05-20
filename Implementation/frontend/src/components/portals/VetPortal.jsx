@@ -12,7 +12,7 @@ export default function VetPortal() {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate("/");
+    navigate("/itp-project-happy-tails");
   };
 
   return (

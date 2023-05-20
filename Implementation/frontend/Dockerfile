@@ -1,20 +1,36 @@
-# Use the official Node.js base image
-FROM node:14
+FROM debian:bullseye as builder
 
-# Set the working directory
-WORKDIR /usr/src/app
+ARG NODE_VERSION=18.13.0
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+RUN apt-get update; apt install -y curl python-is-python3 pkg-config build-essential
+RUN curl https://get.volta.sh | bash
+ENV VOLTA_HOME /root/.volta
+ENV PATH /root/.volta/bin:$PATH
+RUN volta install node@${NODE_VERSION}
 
-# Install dependencies
-RUN npm install
+#######################################################################
 
-# Copy project files
+RUN mkdir /app
+WORKDIR /app
+
+# NPM will not install any package listed in "devDependencies" when NODE_ENV is set to "production",
+# to install all modules: "npm install --production=false".
+# Ref: https://docs.npmjs.com/cli/v9/commands/npm-install#description
+
+ENV NODE_ENV production
+
 COPY . .
 
-# Build the frontend
-RUN npm run build
+RUN npm install --force && npm run build
+FROM debian:bullseye
 
-# Specify the command to start the frontend
-CMD ["npm", "start"]
+LABEL fly_launch_runtime="nodejs"
+
+COPY --from=builder /root/.volta /root/.volta
+COPY --from=builder /app /app
+
+WORKDIR /app
+ENV NODE_ENV production
+ENV PATH /root/.volta/bin:$PATH
+
+CMD [ "npm", "run", "start" ]

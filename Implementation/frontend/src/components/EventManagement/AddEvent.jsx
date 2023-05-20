@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function AddEvent() {
   const [eventName, setEName] = useState("");
@@ -17,7 +17,6 @@ function AddEvent() {
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("Pending");
   const [eid, setId] = useState("");
-  const [nextId, setNextId] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const [firstId, setFirstId] = useState("");

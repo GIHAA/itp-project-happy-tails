@@ -114,7 +114,7 @@ function App() {
         <div className="App">
           {/* <Header /> */}
           <Routes>
-            <Route path="/" element={<PortalHandler />} />
+            <Route path="/itp-project-happy-tails" element={<PortalHandler />} />
             <Route path="login" element={<Login />} />
             <Route path="forgot" element={<ForgotPassWord />} />
             <Route path="register" element={<Register />} />

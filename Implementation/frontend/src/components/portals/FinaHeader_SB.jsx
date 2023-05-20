@@ -16,7 +16,7 @@ function FinaLeftBar() {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate("/");
+    navigate("/itp-project-happy-tails");
   };
   return (
     <>

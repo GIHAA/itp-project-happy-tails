@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     if (isSuccess || user) {
-      navigate("/");
+      navigate("/itp-project-happy-tails");
     }
 
     dispatch(reset());
