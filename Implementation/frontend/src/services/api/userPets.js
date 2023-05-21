@@ -42,7 +42,7 @@ const deleteup = async (userData) => {
   return response.data;
 };
 
-userpetservices = {
+const userpetservices = {
   view,
   add,
   update,
