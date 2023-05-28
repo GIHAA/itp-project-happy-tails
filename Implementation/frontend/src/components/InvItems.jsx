@@ -52,7 +52,7 @@ export default function InvItems() {
                     autoClose: 1000,
                   });
                   setTimeout(() => {
-                    window.location.href = `/items`;
+                    window.location.href = "/items";
                   }, 1500);
                 })
                 .catch((err) => {

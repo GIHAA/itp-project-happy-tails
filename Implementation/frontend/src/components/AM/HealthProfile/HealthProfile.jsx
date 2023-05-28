@@ -41,7 +41,7 @@ export default function HealthProfile() {
                 autoClose: 1000,
               });
               setTimeout(() => {
-                window.location.href = `/petprofile/healthprofile`;
+                window.location.href = "/petprofile/healthprofile";
               }, 1500);
             }}
           >

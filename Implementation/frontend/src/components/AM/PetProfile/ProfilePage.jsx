@@ -58,7 +58,7 @@ export default function ProfilePage() {
                 autoClose: 1000,
               });
               setTimeout(() => {
-                window.location.href = `/petprofile/allpetprofile`;
+                window.location.href = "/petprofile/allpetprofile";
               }, 1500);
             }}
           >

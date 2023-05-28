@@ -50,7 +50,7 @@ export default function UpdatePetProfile() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/petbreed/getbreed`)
+      .get("http://localhost:8080/api/petbreed/getbreed")
       .then((response) => {
         console.log(response.data.allbreed);
         setAllBreed(response.data.allbreed);

@@ -195,7 +195,7 @@ function RegisterEvent() {
         // }, 5000);
       })
       .catch((err) => {
-        toast.error(`Please fill all fields`);
+        toast.error("Please fill all fields");
       });
   }
 
@@ -503,7 +503,7 @@ function RegisterEvent() {
                 </div>
                 <div class="flex justify-center mt-4">
                   <button className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#ff5900] hover:bg-[#ff3c00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                    <a href={`/events`}>Close</a>
+                    <a href={"/events"}>Close</a>
                   </button>
                   <button
                     className="flex ml-[20px] text-[15px] w] rounded-[30px] text-white bg-[#FF9F00] hover:bg-[#E38E00] font-bold text-sm w-full sm:w-auto px-5 py-2.5 text-center"

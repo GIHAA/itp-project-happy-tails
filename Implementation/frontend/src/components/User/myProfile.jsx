@@ -173,7 +173,7 @@ const Profile = (props) => {
     doc.setTextColor("#5A5A5A");
     doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.text(`Booking History`, 83, 190);
+    doc.text("Booking History", 83, 190);
 
     // Add table with data
     doc.setTextColor("#999999");

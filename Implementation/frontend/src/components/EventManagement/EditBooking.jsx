@@ -85,7 +85,7 @@ export default function EditBooking() {
     async function getEvent() {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/event/getEvents`
+          "http://localhost:8080/api/event/getEvents"
         );
         console.log(res.data.allevents);
         setEvent(res.data.allevents);

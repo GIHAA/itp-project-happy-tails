@@ -36,15 +36,15 @@ export default function InvReleaseStock() {
   ) {
     console.log(newQty);
     if (qty < 1) {
-      toast.error(`Cannot release, item is out of stock`, {
+      toast.error("Cannot release, item is out of stock", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else if (newQty < 1) {
-      toast.error(`please enter valid qty`, {
+      toast.error("please enter valid qty", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else if (qty < newQty) {
-      toast.error(`Cannot release, insufficient qty`, {
+      toast.error("Cannot release, insufficient qty", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     } else {
@@ -85,7 +85,7 @@ export default function InvReleaseStock() {
 
       //sending the object to the item backend to update the qty
       await axios
-        .put(`http://localhost:8080/api/inventory/items/subtractqty`, obj, {
+        .put("http://localhost:8080/api/inventory/items/subtractqty", obj, {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

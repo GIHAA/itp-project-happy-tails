@@ -122,7 +122,7 @@ export default function InvDashboard() {
           labels: data.map((item) => item._id),
           datasets: [
             {
-              label: `All in stock items by category`,
+              label: "All in stock items by category",
               data: data.map((item) => item.total_qty_in),
               backgroundColor: [
                 "#B9EDDD",
