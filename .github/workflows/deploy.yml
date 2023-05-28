@@ -8,13 +8,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: "console\.log\(([^)]+)\)"
+          find: "console\\.log\\(([^)]+)\\)"
           replace: ""
-          regex: true
+          regex: "true"
 
-      # deployment steps
+      # Add your deployment steps here
