@@ -49,7 +49,7 @@ export default function EventStockReqs() {
     totalExpense
   ) {
     if (totalExpense < 1)
-      toast.error(`Please enter valid amount`, {
+      toast.error("Please enter valid amount", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     else {
@@ -193,7 +193,7 @@ export default function EventStockReqs() {
 
                           <td className="p-3">
                             <span
-                              className={`inline-block px-2 rounded-xl text-sm bg-green-200 text-green-800"`}
+                              className={'inline-block px-2 rounded-xl text-sm bg-green-200 text-green-800"'}
                             >
                               {req.status}
                             </span>

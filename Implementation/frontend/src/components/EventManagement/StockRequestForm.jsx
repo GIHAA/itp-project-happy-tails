@@ -90,7 +90,7 @@ const StockRequestForm = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(`Not inserted`);
+        toast.error("Not inserted");
       });
   };
   useEffect(() => {

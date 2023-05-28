@@ -183,7 +183,7 @@ const GetBooking = () => {
 
                   axios
                     .put(
-                      `http://localhost:8080/api/booking`,
+                      "http://localhost:8080/api/booking",
                       updatedTransaction
                     )
                     .then((response) => {})

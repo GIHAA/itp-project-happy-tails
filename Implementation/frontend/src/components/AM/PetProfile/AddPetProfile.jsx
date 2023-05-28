@@ -36,7 +36,7 @@ function AddPetProfile() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/petbreed/getbreed`)
+      .get("http://localhost:8080/api/petbreed/getbreed")
       .then((response) => {
         setAllBreed(response.data.allbreed);
       })
@@ -140,7 +140,7 @@ function AddPetProfile() {
           autoClose: 1000, // Display for 3 seconds
         });
         setTimeout(
-          () => (window.location.href = `/petprofile/allpetprofile`),
+          () => (window.location.href = "/petprofile/allpetprofile"),
           2000
         );
       })

@@ -26,7 +26,7 @@ function AddHealth() {
         autoClose: 1000,
       });
       setTimeout(
-        () => (window.location.href = `/petprofile/healthprofile`),
+        () => (window.location.href = "/petprofile/healthprofile"),
         2000
       );
     } catch (error) {

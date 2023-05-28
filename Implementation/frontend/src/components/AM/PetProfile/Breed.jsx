@@ -16,7 +16,7 @@ export default function Breed() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/petbreed/getbreed`)
+      .get("http://localhost:8080/api/petbreed/getbreed")
       .then((response) => {
         console.log(response.data.allbreed);
         setAllBreed(response.data.allbreed);
@@ -40,7 +40,7 @@ export default function Breed() {
         toast.success("Breed Added successfully", {
           autoClose: 500,
         });
-        setTimeout(() => (window.location.href = `/petprofile/breed`), 1000);
+        setTimeout(() => (window.location.href = "/petprofile/breed"), 1000);
       })
       .catch((err) => {
         alert(`Failed to add pet: ${err}`);
@@ -88,7 +88,7 @@ export default function Breed() {
       toast.success("Breed Updated successfully", {
         autoClose: 500,
       });
-      setTimeout(() => (window.location.href = `/petprofile/breed`), 1000);
+      setTimeout(() => (window.location.href = "/petprofile/breed"), 1000);
     } catch (err) {
       console.error(err);
     }
@@ -112,7 +112,7 @@ export default function Breed() {
                 autoClose: 1000,
               });
               setTimeout(() => {
-                window.location.href = `/petprofile/breed`;
+                window.location.href = "/petprofile/breed";
               }, 1500);
             }}
           >
