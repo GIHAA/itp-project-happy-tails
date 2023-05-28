@@ -18,5 +18,6 @@ Happy Tails is a project developed using the MERN (MongoDB, Express.js, React.js
 ### [View User Interfaces](https://www.figma.com/file/54bJvr9pkumTVjJoskb4X7/final-screenshots?type=design&node-id=0%3A1&t=HAFOEmaXemeII2tJ-1)
 ---
 
+
 ![Group 5](https://github.com/GIHAA/itp-project-happy-tails/assets/86099252/c4199803-482d-481d-b8b2-d60ffbd77392)
 
